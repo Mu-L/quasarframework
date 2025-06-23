@@ -11,10 +11,10 @@ const { writeFileSync } = require('fs')
 const { resolve, join } = require('path')
 
 const skipped = []
-const distFolder = resolve(__dirname, `../${distName}`)
+const distFolder = resolve(__dirname, `../${ distName }`)
 const { defaultNameMapper, extract, writeExports } = require('./utils')
 
-const svgFolder = resolve(__dirname, `../node_modules/${packageName}/dist/svg/`)
+const svgFolder = resolve(__dirname, `../node_modules/${ packageName }/dist/svg/`)
 const svgFiles = globSync(svgFolder + '/*.svg')
 let iconNames = new Set()
 
@@ -32,13 +32,14 @@ svgFiles.forEach((file) => {
     typeExports.push(typeDef)
 
     iconNames.add(name)
-  } catch (err) {
+  }
+  catch (err) {
     console.error(err)
     skipped.push(name)
   }
 })
 
-iconNames = [...iconNames]
+iconNames = [ ...iconNames ]
 svgExports.sort((a, b) => {
   return ('' + a).localeCompare(b)
 })
@@ -51,10 +52,10 @@ iconNames.sort((a, b) => {
 
 writeExports(iconSetName, packageName, distFolder, svgExports, typeExports, skipped)
 
-copySync(resolve(__dirname, `../node_modules/${packageName}/LICENSE`), resolve(__dirname, `../${distName}/LICENSE`))
+copySync(resolve(__dirname, `../node_modules/${ packageName }/LICENSE`), resolve(__dirname, `../${ distName }/LICENSE`))
 
 // write the JSON file
 const file = resolve(__dirname, join('..', distName, 'icons.json'))
-writeFileSync(file, JSON.stringify([...iconNames].sort(), null, 2), 'utf-8')
+writeFileSync(file, JSON.stringify([ ...iconNames ].sort(), null, 2), 'utf-8')
 
-console.log(`${distName} done with ${iconNames.length} icons`)
+console.log(`${ distName } done with ${ iconNames.length } icons`)

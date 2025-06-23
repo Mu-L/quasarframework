@@ -12,7 +12,7 @@ export default [
   {
     ignores: [
       'dist/',
-      'node_modules/'
+      'playground/dist'
     ]
   },
 
