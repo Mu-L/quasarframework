@@ -159,6 +159,15 @@ if (scope.skipDepsInstall !== true) {
         utils.logger.warn('Could not auto lint fix the project folder.')
       }
     }
+
+    if (scope.prettier) {
+      try {
+        await utils.formatFolder(scope)
+      }
+      catch {
+        utils.logger.warn('Could not auto format the project folder.')
+      }
+    }
   }
 }
 

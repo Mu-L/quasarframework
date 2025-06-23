@@ -234,6 +234,14 @@ function lintFolder (scope) {
   )
 }
 
+function formatFolder (scope) {
+  return runCommand(
+    scope.packageManager,
+    [ 'run', 'format' ],
+    { cwd: scope.projectFolder }
+  )
+}
+
 function hasGit () {
   try {
     exec('git --version')
@@ -369,6 +377,7 @@ export default {
   printFinalMessage,
   installDeps,
   lintFolder,
+  formatFolder,
   ensureOutsideProject,
   initializeGit,
 
