@@ -10,7 +10,7 @@ If you are a more advanced Vue developer, we invite you to start off by [decidin
 :::
 
 ## Prerequisites
-Make sure that you have Node >=20 (or any newer **LTS Node.js version**) and NPM v6+ or Yarn v1 (classic) or PNPM v8+ installed on your machine. Please do not use any odd versions of Node, as these are [considered experimental](https://nodejs.org/en/about/previous-releases).
+Make sure that you have Node.js >=20 (or any newer **LTS Node.js version**) and NPM v6+ or Yarn v1 (classic) or PNPM v8+ or Bun installed on your machine. Please do not use any odd versions of Node, as these are [considered experimental](https://nodejs.org/en/about/previous-releases).
 
 ## Step 1: Create a Project
 Navigate to the folder above where you want your project to be. Quasar will later prompt you for the name of the project folder and create that folder within this.
@@ -54,26 +54,42 @@ For the second and last step, navigate into the newly created project folder and
 <<| bash Yarn |>>
 # if you have the global CLI:
 $ quasar dev
+
 # otherwise:
+
+$ yarn run dev
+# to run a local Quasar CLI command:
 $ yarn quasar dev
 <<| bash NPM |>>
 # if you have the global CLI:
 $ quasar dev
+
 # otherwise:
+
 $ npm run dev
+# to run a local Quasar CLI command:
+$ npx quasar dev
 <<| bash PNPM |>>
 # if you have the global CLI:
 $ quasar dev
+
 # otherwise:
+
 $ pnpm run dev
+# to run a local Quasar CLI command:
+$ pnpm quasar dev
 <<| bash Bun |>>
 # if you have the global CLI:
 $ quasar dev
+
 # otherwise:
+
 $ bun run dev
+# to run a local Quasar CLI command:
+$ bun quasar dev
 ```
 
-You'll see the dev server compiling your new application and once it is finished, your new app should open up in your browser. That's it! You can now develop your app with your favorite IDE/ Code Editor.
+You'll see the dev server compiling your new application and once it is finished, your new app should open up in your browser. That's it! You can now develop your app with your favorite IDE / Code Editor.
 
 ## Now What?
 
