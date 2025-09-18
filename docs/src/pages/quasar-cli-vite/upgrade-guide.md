@@ -701,7 +701,7 @@ The other changes refer to editing your `/src-ssr/server.js` file. Since you can
 + import { defineSsrListen } from '#q-app/wrappers'
 
 - export const listen = ssrListen(async ({ app, port, isReady }) => {
-+ // notice: devHttpsApp param which will be a Node httpsServer (on DEV only) and if https is enabled
++ // notice: devHttpsApp param which will be a Node.js httpsServer (on DEV only) and if https is enabled
 + // notice: no "isReady" param (starting with 2.0.0-beta.16+)
 + // notice: defineSsrListen() param can still be async (below it isn't)
 + export const listen = defineSsrListen(({ app, devHttpsApp, port }) => {

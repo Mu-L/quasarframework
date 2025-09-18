@@ -122,9 +122,9 @@ Quasar UI v2 is not just a port to Vue 3 and Composition API. __There are lots o
 
 ::: warning IMPORTANT!
 * No IE11 support - Vue 3 does not support IE11 either. If IE11 support is mandatory for your project(s), then continue using Quasar UI v1.
-* In order to support Node 13+ (and for many other benefits) we have **upgraded Webpack from v4 to v5**. You may need to upgrade your webpack plugins accordingly.
+* In order to support Node.js v13+ (and for many other benefits) we have **upgraded Webpack from v4 to v5**. You may need to upgrade your webpack plugins accordingly.
 * Quasar Stylus variables are no longer available (only Sass/SCSS). This does NOT mean that you can't use Stylus anymore though.
-* Node v10 reached its End Of Life and so support for it has been dropped. Be sure to update Node (to at least v12.22.1) and npm/yarn on your system accordingly to the new constraints, which include fixes for latest know security issues. This Node version also include native ESM module support, which will help us further modernize Quasar codebase under the hood during Quasar v2 lifecycle without breaking changes.
+* Be sure to update Node.js (to at least v20) and npm/yarn on your system accordingly to the new constraints, which include fixes for latest know security issues. This Node.js version also include native ESM module support, which will help us further modernize Quasar codebase under the hood during Quasar v2 lifecycle without breaking changes.
 :::
 
 Before you start with this journey of upgrading your project from v1 to v2, you should know a few additional things:
@@ -165,7 +165,6 @@ Before starting, it is highly suggested to make a copy of your current working p
   <<| bash PNPM |>>
   $ pnpm add -g @quasar/cli@latest
   <<| bash Bun |>>
-  # experimental support
   $ bun install -g @quasar/cli@latest
   ```
 
@@ -184,7 +183,7 @@ Before starting, it is highly suggested to make a copy of your current working p
   # only if you still want to use Stylus (but without Quasar Stylus variables)
   $ bun add stylus stylus-loader
   ```
-3) **Upgrade** Node to at least v12.22.1, npm to at least v6.14.12 and yarn to at least v1.17.3.
+3) **Upgrade** Node.js to at least v20, npm to at least v6.14.12 and yarn to at least v1.17.3.
   ```bash
   # if you are already using a lts/erbium version (eg. 12.14.0), take note of its version, it should be listed at "lts/erbium" row
   $ nvm list
@@ -319,7 +318,6 @@ $ pnpm create quasar@latest
 # then pick "App with Quasar CLI"
 # decide if you want "Quasar CLI with Vite" or "Quasar CLI with Webpack"
 <<| bash Bun |>>
-# experimental support
 $ bun create quasar@latest
 # then pick "App with Quasar CLI"
 # decide if you want "Quasar CLI with Vite" or "Quasar CLI with Webpack"
@@ -327,7 +325,7 @@ $ bun create quasar@latest
 
 ### Webpack v5
 
-In order to support Node 13+ (and for many other benefits) we have **upgraded Webpack from v4 to v5**. You may need to upgrade your webpack plugins accordingly.
+In order to support Node.js v13+ (and for many other benefits) we have **upgraded Webpack from v4 to v5**. You may need to upgrade your webpack plugins accordingly.
 
 #### Nodejs polyfills
 Webpack v5 removed the Nodejs polyfills for the web client builds. If you are using packages for the web client that rely on Nodejs API (they shouldn't!), you will get errors saying that some packages are missing. Examples: `Buffer`, `crypto`, `os`, `path`.

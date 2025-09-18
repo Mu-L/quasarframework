@@ -51,7 +51,7 @@ scope:
       - l: App.vue
         e: Root Vue component of your App
     - l: src-ssr/
-      e: SSR specific code (like production Node webserver)
+      e: SSR specific code (like production Node.js webserver)
       url: "/quasar-cli-webpack/developing-ssr/introduction"
     - l: src-pwa/
       e: PWA specific code (like Service Worker)

@@ -956,7 +956,7 @@ The support for `/src-ssr/production-export.js` has been dropped (delete it). Th
  * More info about this file:
  * https://v2.quasar.dev/quasar-cli-webpack/developing-ssr/ssr-webserver
  *
- * Runs in Node context.
+ * Runs in Node.js context.
  */
 
 /**

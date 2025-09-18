@@ -23,7 +23,7 @@ You'll notice that changing any of these settings does not require you to manual
 :::
 
 ::: warning
-The `/quasar.config` file is run by the Quasar CLI build system, so this code runs under Node directly, not in the context of your app. This means you can require modules like 'node:fs', 'node:path', 'webpack', and so on.
+The `/quasar.config` file is run by the Quasar CLI build system, so this code runs under Node.js directly, not in the context of your app. This means you can require modules like 'node:fs', 'node:path', 'webpack', and so on.
 :::
 
 ## Structure

@@ -405,7 +405,7 @@ These modes will add a "src-*" folder into your project with very specific code 
 
 | Folder | Mode | Description |
 | --- | --- | --- |
-| src-ssr | ssr | Contains the production Node server files. |
+| src-ssr | ssr | Contains the production Node.js server files. |
 | src-pwa | pwa | Contains the Service Worker file that you can tweak. |
 | src-cordova | cordova | Is a Cordova project folder that will be using your 'src' as content. Tweak Cordova config, add/remove platforms, splash screens, Cordova plugins and so on from this folder. Do NOT touch "src-cordova/www" folder though as it will get overwritten at every build. |
 | src-electron | electron | Has code for the main Electron thread. The renderer thread will be your app in 'src'. |

@@ -406,7 +406,7 @@ These modes will add a "src-*" folder into your project with very specific code 
 
 | Folder | Mode | Description |
 | --- | --- | --- |
-| src-ssr | ssr | Contains the production Node server files. |
+| src-ssr | ssr | Contains the production Node.js server files. |
 | src-pwa | pwa | Contains the Service Worker file that you can tweak. |
 | src-cordova | cordova | Is a Cordova project folder that will be using your 'src' as content. Tweak Cordova config, add/remove platforms, splash screens, Cordova plugins and so on from this folder. Do NOT touch "src-cordova/www" folder though as it will get overwritten at every build. |
 | src-electron | electron | Has code for the main Electron thread. The renderer thread will be your app in 'src'. |
@@ -655,7 +655,7 @@ $ quasar serve -h
     --> will be transformed into app.use(path, httpProxyMiddleware(rule))
 ```
 
-### Custom Node server
+### Custom Node.js server
 When building a SPA or PWA, the distributable folder can be served by any static webserver. To test it out (assuming you don't have a specific publicPath or not using Vue Router "history" mode), you can use the "http-server" npm package.
 
 Or you can build your own server. Here are some examples:

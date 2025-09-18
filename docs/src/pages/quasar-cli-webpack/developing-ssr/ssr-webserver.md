@@ -15,7 +15,7 @@ The `/src-ssr/server.js` file is used for both DEV and PROD, so please be carefu
 
 ```js
 /**
- * Runs in Node context.
+ * Runs in Node.js context.
  */
 
 /**
@@ -97,7 +97,7 @@ export const injectDevMiddleware = defineSsrInjectDevMiddleware(({ app }) => {
  *
  * Param: ({
  *   app, // Express app or whatever is returned from create()
- *   devHttpsApp, // DEV only, if using HTTPS; Node HTTPS server instance
+ *   devHttpsApp, // DEV only, if using HTTPS; Node.js HTTPS server instance
  *   devHttpsOptions, // DEV only, if using HTTPS; if you are using a custom server, you can use this to handle HTTPS on your own
  *   port, // on dev: devServer port; on prod: process.env.PORT or quasar.config > ssr > prodPort
  *   resolve: {

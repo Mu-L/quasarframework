@@ -202,7 +202,7 @@ One of the main reasons when you develop a SSR instead of a SPA is for taking ca
 
 ## Boot Files
 
-When running on SSR mode, your application code needs to be isomorphic or "universal", which means that it must run both on a Node context and in the browser. This applies to your [Boot Files](/quasar-cli-webpack/boot-files) too.
+When running on SSR mode, your application code needs to be isomorphic or "universal", which means that it must run both on a Node.js context and in the browser. This applies to your [Boot Files](/quasar-cli-webpack/boot-files) too.
 
 However, there are cases where you only want some boot files to run only on the server or only on the client-side. You can achieve that by specifying:
 

@@ -24,8 +24,8 @@ You will also be able to use the command line, so it will be almost identical to
 ## TL;DR
 
 ::: tip Requirements:
-* Node 14+
-* Yarn v1 (strongly recommended), PNPM, NPM or Bun
+* Node.js v20+
+* Yarn v1 (classic), PNPM, NPM or Bun
 :::
 
 ```tabs
@@ -54,8 +54,8 @@ Pick `Quasar CLI with Vite` if you want:
 ## Installation / Project Scaffolding
 
 ::: tip Requirements:
-* Node 12+ for Quasar CLI with Webpack, Node 14+ for Quasar CLI with Vite.
-* Yarn v1 (strongly recommended), PNPM, or NPM.
+* Node.js v12+ for Quasar CLI with Webpack, Node.js v20+ for Quasar CLI with Vite.
+* Yarn v1 (classic), PNPM, or NPM.
 :::
 
 1. Let's create a Quasar app:

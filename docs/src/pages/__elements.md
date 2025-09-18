@@ -62,7 +62,7 @@ scope:
     - l: index.html
       e: Template for index.html
     - l: src-ssr/
-      e: SSR specific code (like production Node webserver)
+      e: SSR specific code (like production Node.js webserver)
       url: "/quasar-cli-vite/developing-ssr/introduction"
     - l: src-electron/
       e: Electron specific code (like "main" thread)
