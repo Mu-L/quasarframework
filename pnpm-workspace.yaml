@@ -10,17 +10,20 @@ packages:
   - create-quasar
   - cli
   - docs
-
   - utils/render-ssr-error
   - utils/ssl-certificate
   - utils/eslint-config
-
   - playground/app-vite-ts
 
-  # The packages below are not included. Use their individual folders.
-  # - icongenie
-  # - utils/babel-preset-app
-  # - utils/ssr-helpers
+# The packages below are not included. Use their individual folders.
+# - icongenie
+# - utils/babel-preset-app
+# - utils/ssr-helpers
 
 catalog:
   eslint: ^9.29.0
+
+onlyBuiltDependencies:
+  - core-js
+  - esbuild
+  - unrs-resolver
