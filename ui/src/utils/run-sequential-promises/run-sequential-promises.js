@@ -109,6 +109,9 @@ export default function runSequentialPromises (
     runNextPromise()
   })
 
-  const threads = Array(threadsNumber).fill(getPromiseThread())
+  const threads = Array(threadsNumber)
+    .fill(null)
+    .map(getPromiseThread)
+
   return Promise.all(threads).then(() => resultAggregator)
 }
