@@ -150,7 +150,7 @@
     "webpack-node-externals": "^3.0.0"
   },
   "devDependencies": {
-    "@electron/packager": "^18.3.5",
+    "@electron/packager": "^19.0.0",
     "electron-builder": "^26.8.1",
     "eslint": "catalog:",
     "eslint-config-quasar": "workspace:*",

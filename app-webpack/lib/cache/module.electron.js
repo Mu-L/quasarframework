@@ -4,7 +4,7 @@ const { fatal } = require('../utils/logger.js')
 const bundlerMap = {
   packager: {
     pkg: '@electron/packager',
-    version: '18.3.2'
+    version: '19.0.0'
   },
 
   builder: {
@@ -71,7 +71,10 @@ module.exports.createInstance = function createInstance ({
     const { appDir } = appPaths
     const bundler = bundlerMap[ bundlerName ]
 
-    return getPackage(bundler.pkg, appDir)
+    const fn = getPackage(bundler.pkg, appDir)
+    return bundlerName === 'packager'
+      ? /* @electron/packager v19+ */ fn.packager || /* @electron/packager v18 */ fn
+      : fn
   }
 
   return {
