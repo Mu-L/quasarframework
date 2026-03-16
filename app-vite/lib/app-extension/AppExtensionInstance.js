@@ -23,7 +23,7 @@ async function promptOverwrite ({ targetPath, options, ctx }) {
 
   return await inquirer.prompt([ {
     name: 'action',
-    type: 'list',
+    type: 'select',
     message: `Overwrite "${ relative(ctx.appPaths.appDir, targetPath) }"?`,
     choices: options !== void 0
       ? choices.filter(choice => options.includes(choice.value))

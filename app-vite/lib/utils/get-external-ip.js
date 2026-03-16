@@ -17,7 +17,7 @@ export async function getExternalIP () {
   }
 
   const answer = await inquirer.prompt([ {
-    type: 'list',
+    type: 'select',
     name: 'address',
     message: 'What external IP should Quasar use?',
     choices: interfaces.map(intf => intf.address)
