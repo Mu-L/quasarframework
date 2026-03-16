@@ -36,10 +36,10 @@ api.compatibleWith(
 
 Some of the work below has already been backported to the old @quasar/app-vite v1, but posting here for reader's awareness.
 
-* feat(app-vite): upgrade to Vite 7
+* feat(app-vite): upgrade to Vite 8
 * feat(app-vite): ability to run multiple quasar dev/build commands simultaneously (example: can run "quasar dev -m capacitor" and "quasar dev -m ssr" and "quasar dev -m capacitor -T ios" simultaneously)
 * feat(app-vite): Better TS typings overall
-* refactor(app-vite): port CLI to ESM format (major effort! especially to support Vite 7 and SSR)
+* refactor(app-vite): port CLI to ESM format (major effort! especially to support Vite 8 and SSR)
 * feat(app-vite): support for quasar.config file in multiple formats (.js, .mjs, .ts, .cjs)
 * feat(app-vite): Improve quasarConfOptions, generate types for it, improve docs (fix: #14069) (#15945)
 * feat(app-vite): reload app if one of the imports from quasar.config file changes
