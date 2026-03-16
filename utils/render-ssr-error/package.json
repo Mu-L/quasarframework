@@ -1,6 +1,6 @@
 {
   "name": "@quasar/render-ssr-error",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Renders SSR errors for Quasar CLI",
   "type": "module",
   "main": "src/index.js",
@@ -40,11 +40,9 @@
   "devDependencies": {
     "@quasar/extras": "workspace:*",
     "@quasar/vite-plugin": "workspace:^",
-    "autoprefixer": "^10.4.20",
     "eslint": "catalog:",
     "eslint-config-quasar": "workspace:*",
     "fs-extra": "^11.2.0",
-    "postcss": "^8.4.45",
     "prismjs": "^1.29.0",
     "quasar": "workspace:*",
     "vite": "^8.0.0",

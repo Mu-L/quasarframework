@@ -18,7 +18,7 @@ function replaceCss (html, scriptFilename, scriptCode) {
 }
 
 function updateOutput (out) {
-  out.inlineDynamicImports = true
+  out.codeSplitting = false
 }
 
 export default function viteSingleFile () {
@@ -32,18 +32,18 @@ export default function viteSingleFile () {
         assetsInlineLimit: Number.MAX_SAFE_INTEGER,
         chunkSizeWarningLimit: Number.MAX_SAFE_INTEGER,
         cssCodeSplit: false,
-        rollupOptions: Object.assign(cfg.build.rollupOptions || {}, {
+        rolldownOptions: Object.assign(cfg.build.rolldownOptions || {}, {
           output: {}
         })
       })
 
-      if (Array.isArray(cfg.build.rollupOptions.output)) {
-        for (const entry in cfg.build.rollupOptions.output) {
+      if (Array.isArray(cfg.build.rolldownOptions.output)) {
+        for (const entry in cfg.build.rolldownOptions.output) {
           updateOutput(entry)
         }
       }
       else {
-        updateOutput(cfg.build.rollupOptions.output)
+        updateOutput(cfg.build.rolldownOptions.output)
       }
     },
 
