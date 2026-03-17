@@ -231,10 +231,6 @@ export default ({ app, ..., ssrContext }) => {
 
 When you add such references into your `/index.html`, make sure you tell Quasar it's only valid for SSR builds:
 
-::: tip
-Such variables in `/index.html` must be scoped under the `ssrContext` object. Use `{{ ssrContext.someProp }}` instead of the old form `{{ someProp }}`.
-:::
-
 ```html /index.html
 <% if (ctx.mode.ssr) { %>{{ ssrContext.someProp }} <% } %>
 ```

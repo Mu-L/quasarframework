@@ -242,10 +242,6 @@ export default ({ app, ..., ssrContext }) => {
 
 When you add such references into your `/index.html`, make sure you tell Quasar it's only valid for SSR builds:
 
-::: tip
-As of `@quasar/app-vite` v2, template variables in `/index.html` must be scoped under the `ssrContext` object. Use `{{ ssrContext.someProp }}` instead of the v1 form `{{ someProp }}`.
-:::
-
 ```html /index.html
 <% if (ctx.mode.ssr) { %>{{ ssrContext.someProp }} <% } %>
 ```
