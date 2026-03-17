@@ -636,7 +636,7 @@ interface QuasarBuildConfiguration {
    *
    * Useful especially for (but not restricted to) PWA. If set to false then updating the
    * PWA will force to re-download all assets again, regardless if they were changed or
-   * not (due to how Rollup works through Vite).
+   * not (due to how Rolldown works through Vite).
    *
    * @default true
    */
