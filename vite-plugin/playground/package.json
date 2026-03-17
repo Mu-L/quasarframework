@@ -12,7 +12,7 @@
   "dependencies": {
     "@quasar/extras": "workspace:*",
     "quasar": "workspace:^",
-    "vue": "3.5.20"
+    "vue": "^3.5.30"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^6.0.5",
