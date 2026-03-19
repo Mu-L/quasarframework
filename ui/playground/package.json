@@ -23,7 +23,7 @@
     "autoprefixer": "^10.4.20",
     "eslint": "catalog:",
     "eslint-config-quasar": "workspace:*",
-    "postcss": "^8.4.45",
+    "postcss": "^8.5.8",
     "vite-plugin-checker": "^0.10.3"
   },
   "engines": {

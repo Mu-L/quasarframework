@@ -88,7 +88,7 @@
     "kolorist": "^1.8.0",
     "open": "^10.1.0",
     "postcss-rtlcss": "^5.4.0",
-    "prettier": "^3.3.3",
+    "prettier": "^3.8.1",
     "rolldown": "1.0.0-rc.9",
     "sass-embedded": "^1.93.2",
     "table": "^6.8.2",

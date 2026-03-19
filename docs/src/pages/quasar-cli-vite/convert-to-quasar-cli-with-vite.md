@@ -18,7 +18,7 @@ devDependencies: {
 - "@quasar/app-webpack": "^4.0.0"
 + "@quasar/app-vite": "^2.0.0"
 
-+ "postcss": "^8.4.14"
++ "postcss": "^8.5.8"
 + "postcss-rtlcss": "^5.4.0" // if using RTL support
 
 - eslint-webpack-plugin
