@@ -38,14 +38,14 @@
     "@vue/eslint-config-prettier": "^10.1.0",
     "prettier": "^3.3.3",
     <% } %>
-    "@types/node": "^20.5.9",
+    "@types/node": "^22.19.11",
     <% if (preset.i18n) { %>"@intlify/unplugin-vue-i18n": "^4.0.0",<% } %>
-    "@quasar/app-vite": "^2.1.0",
+    "@quasar/app-vite": "^2.5.1",
     "autoprefixer": "^10.4.2",
     "typescript": "^5.9.2"
   },
   "engines": {
-    "node": "^28 || ^26 || ^24 || ^22 || ^20",
+    "node": "^28 || ^26 || ^24 || ^22.12",
     "npm": ">= 6.13.4",
     "yarn": ">= 1.21.1",
     "pnpm": ">= 10.0.0"
