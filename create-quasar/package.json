@@ -31,6 +31,7 @@
     "create-test-project": "tsx scripts/create-test-project.ts"
   },
   "dependencies": {
+    "cross-spawn": "^7.0.6",
     "fs-extra": "^11.2.0",
     "kolorist": "^1.8.0",
     "lodash": "^4.17.21",

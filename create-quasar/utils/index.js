@@ -1,7 +1,8 @@
 import { readFileSync, writeFileSync, existsSync } from 'node:fs'
 import { fileURLToPath } from 'node:url'
 import { sep, dirname, normalize, join, resolve, extname } from 'node:path'
-import { spawn, execSync as exec } from 'node:child_process'
+import { execSync as exec } from 'node:child_process'
+import { sync as spawnSync } from 'cross-spawn'
 
 import { emptyDirSync, ensureDirSync, ensureFileSync, copySync } from 'fs-extra/esm'
 import promptUser from 'prompts'
@@ -183,30 +184,20 @@ function printFinalMessage (scope) {
 
 function runCommand (cmd, args, options) {
   console.log()
-  return new Promise((resolve, reject) => {
-    const runner = spawn(
-      cmd,
-      args,
-      Object.assign({
-        cwd: process.cwd(),
-        stdio: 'inherit',
-        shell: true
-      }, options)
-    )
 
-    runner.on('exit', code => {
-      console.log()
+  const runner = spawnSync(
+    cmd,
+    args,
+    { cwd: process.cwd(), stdio: 'inherit', ...options }
+  )
 
-      if (code) {
-        console.log(` ${ cmd } FAILED...`)
-        console.log()
-        reject()
-      }
-      else {
-        resolve()
-      }
-    })
-  })
+  console.log()
+
+  if (runner.status) {
+    console.log(` ${ cmd } FAILED...`)
+    console.log()
+    throw new Error(`${ cmd } FAILED`)
+  }
 }
 
 function installDeps (scope) {
