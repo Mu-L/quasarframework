@@ -45,7 +45,6 @@ jobs:
 
     permissions:
       contents: read # to fetch code (actions/checkout)
-      actions: write # to upload artifacts (actions/upload-artifact)
 
     defaults:
       run:
