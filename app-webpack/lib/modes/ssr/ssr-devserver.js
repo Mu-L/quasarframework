@@ -20,11 +20,6 @@ const { quasarSsrConfig } = require('./ssr-config.js')
 
 const doubleSlashRE = /\/\//g
 
-// backward compat (Express v5 vs v4)
-function convertStarPath (url) {
-  return url === '*' ? '{*path}' : url
-}
-
 function logServerMessage (title, msg, additional) {
   log()
   info(`${ msg }${ additional !== void 0 ? ` ${ green(dot) } ${ additional }` : '' }`, title)
@@ -213,8 +208,8 @@ module.exports.QuasarModeDevserver = class QuasarModeDevserver extends AppDevser
 
     const publicPath = this.#appOptions.publicPath = quasarConf.build.publicPath
     this.#appOptions.resolveUrlPath = publicPath === '/'
-      ? url => convertStarPath(url) || '/'
-      : url => (url ? (publicPath + convertStarPath(url)).replace(doubleSlashRE, '/') : publicPath)
+      ? url => url || '/'
+      : url => (url ? (publicPath + url).replace(doubleSlashRE, '/') : publicPath)
 
     const renderer = createDevRenderer({
       vueRenderToString,

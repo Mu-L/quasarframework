@@ -109,7 +109,7 @@
     "elementtree": "0.1.7",
     "error-stack-parser": "^2.1.4",
     "esbuild": "^0.27.4",
-    "express": "^5.0.0",
+    "express": "^4.22.1",
     "file-loader": "^6.2.0",
     "fs-extra": "^11.3.4",
     "hash-sum": "^2.0.0",
