@@ -243,6 +243,7 @@ export class QuasarConfigFile {
 
     this.#cssVariables = await cacheProxy.getModule('cssVariables')
     this.#storeProvider = await cacheProxy.getModule('storeProvider')
+    this.#versions.vueRouter = await cacheProxy.getModule('vueRouterVersion')
 
     await appExt.registerAppExtensions()
 
