@@ -95,11 +95,6 @@ export function addPreFetchHooks ({ router<%= ctx.mode.ssr && ctx.mode.pwa ? ', 
     <% } %>
 
     for (let i = 0; i < preFetchList.length; i++) {
-      if (typeof preFetchList[i] !== 'function') {
-        console.error('[Quasar] non-function preFetch detected:', preFetchList[i])
-        continue
-      }
-
       try {
         await preFetchList[i]({
           <% if (metaConf.hasStore) { %>store,<% } %>

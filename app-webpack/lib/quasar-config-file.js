@@ -219,6 +219,7 @@ module.exports.QuasarConfigFile = class QuasarConfigFile {
 
     this.#cssVariables = cacheProxy.getModule('cssVariables')
     this.#storeProvider = cacheProxy.getModule('storeProvider')
+    this.#versions.vueRouter = cacheProxy.getModule('vueRouterVersion')
 
     const { transformAssetUrls } = cacheProxy.getModule('quasarMeta')
     this.#transformAssetUrls = transformAssetUrls
