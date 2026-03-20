@@ -241,9 +241,11 @@ export class QuasarConfigFile {
   async init () {
     const { appPaths, cacheProxy, appExt } = this.#ctx
 
-    this.#cssVariables = await cacheProxy.getModule('cssVariables')
-    this.#storeProvider = await cacheProxy.getModule('storeProvider')
-    this.#versions.vueRouter = await cacheProxy.getModule('vueRouterVersion')
+    await Promise.all([
+      cacheProxy.getModule('cssVariables').then(cssVariables => { this.#cssVariables = cssVariables }),
+      cacheProxy.getModule('storeProvider').then(storeProvider => { this.#storeProvider = storeProvider }),
+      cacheProxy.getModule('vueRouterVersion').then(vueRouterVersion => { this.#versions.vueRouter = vueRouterVersion })
+    ])
 
     await appExt.registerAppExtensions()
 
