@@ -1,10 +1,11 @@
+import pluginLodashTemplate from '@yusufkandemir/eslint-plugin-lodash-template'
+import { defineConfig } from 'eslint/config'
 import globals from 'globals'
 import tseslint from 'typescript-eslint'
-import pluginLodashTemplate from '@yusufkandemir/eslint-plugin-lodash-template'
 import baseConfig from '../eslint.config.base.js'
 
 // file paths are relative to templates/*/
-export default tseslint.config(
+export default defineConfig(
   ...baseConfig,
 
   {

@@ -1,8 +1,8 @@
+import { defineConfig } from 'eslint/config'
 import globals from 'globals'
-import tseslint from 'typescript-eslint'
 import baseConfig from '../eslint.config.base.js'
 
-export default tseslint.config(
+export default defineConfig(
   ...baseConfig,
 
   {
