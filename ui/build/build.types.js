@@ -21,6 +21,7 @@ async function formatWithOxfmt(filePath, rawCode) {
     return code
   } catch (error) {
     console.error(`Failed to format ${filePath}:`, error)
+    process.exit(1)
   }
 }
 
