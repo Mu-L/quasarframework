@@ -149,7 +149,7 @@
         </q-item>
       </q-list>
 
-      <p class="caption"> Links </p>
+      <p class="caption">Links</p>
       <q-list bordered class="q-my-md" :dark="dark">
         <q-item to="/" exact>
           <q-item-section avatar>
@@ -218,7 +218,7 @@
         </q-item>
       </q-list>
 
-      <p class="caption"> Active </p>
+      <p class="caption">Active</p>
       <q-list padding bordered :dark="dark">
         <q-item clickable v-ripple>
           <q-item-section avatar>
@@ -243,7 +243,7 @@
         </q-item>
       </q-list>
 
-      <p class="caption"> Dense </p>
+      <p class="caption">Dense</p>
       <q-list dense padding bordered class="q-my-md" :dark="dark">
         <q-item clickable class="text-primary">
           <q-item-section>Single line item</q-item-section>

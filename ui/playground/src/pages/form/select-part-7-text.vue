@@ -10,9 +10,7 @@
         :label="behavior || 'auto'"
       />
 
-      <div class="q-pa-md bg-grey-2 rounded-borders">
-        Model: [{{ model }}]
-      </div>
+      <div class="q-pa-md bg-grey-2 rounded-borders">Model: [{{ model }}]</div>
 
       <q-select
         :model-value="model"

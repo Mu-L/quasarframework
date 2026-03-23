@@ -1,6 +1,6 @@
 <template>
   <div class="q-layout-padding">
-    <p class="caption text-left"> Standard shadows </p>
+    <p class="caption text-left">Standard shadows</p>
     <div
       class="flex inline shadow-box flex-center"
       v-for="n in 24"
@@ -9,7 +9,7 @@
     >
       .shadow-{{ n }}
     </div>
-    <p class="caption text-left"> Shadows pointing up </p>
+    <p class="caption text-left">Shadows pointing up</p>
     <div
       class="flex inline shadow-box flex-center"
       v-for="n in 24"
@@ -18,14 +18,14 @@
     >
       .shadow-up-{{ n }}
     </div>
-    <p class="caption text-left"> Inset Shadow on top </p>
-    <div class="flex inline shadow-box flex-center inset-shadow">
-      .inset-shadow
-    </div>
-    <p class="caption text-left"> Inset Shadow on bottom </p>
-    <div class="flex inline shadow-box flex-center inset-shadow-down">
-      .inset-shadow-down
-    </div>
+    <p class="caption text-left">Inset Shadow on top</p>
+    <div class="flex inline shadow-box flex-center inset-shadow"
+      >.inset-shadow</div
+    >
+    <p class="caption text-left">Inset Shadow on bottom</p>
+    <div class="flex inline shadow-box flex-center inset-shadow-down"
+      >.inset-shadow-down</div
+    >
   </div>
 </template>
 

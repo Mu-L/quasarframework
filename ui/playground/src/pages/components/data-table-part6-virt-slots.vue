@@ -28,9 +28,9 @@
         >
           <template v-slot:top-row="{ cols }">
             <tr class="bg-red text-white">
-              <td :colspan="cols.length" class="text-center q-pa-md">
-                Top row content no-vscroll
-              </td>
+              <td :colspan="cols.length" class="text-center q-pa-md"
+                >Top row content no-vscroll</td
+              >
             </tr>
           </template>
 
@@ -78,17 +78,17 @@
         >
           <template v-slot:top-row="{ cols }">
             <tr class="bg-red text-white">
-              <td :colspan="cols.length" class="text-center q-pa-md">
-                Top row content vscroll
-              </td>
+              <td :colspan="cols.length" class="text-center q-pa-md"
+                >Top row content vscroll</td
+              >
             </tr>
           </template>
 
           <template v-slot:bottom-row="{ cols }">
             <tr class="bg-red text-white">
-              <td :colspan="cols.length" class="text-center q-pa-md">
-                Bottom row content vscroll
-              </td>
+              <td :colspan="cols.length" class="text-center q-pa-md"
+                >Bottom row content vscroll</td
+              >
             </tr>
           </template>
         </q-table>

@@ -352,14 +352,12 @@
             <q-btn :type="type" v-bind="prop" color="deep-orange">
               <div class="row items-center no-wrap">
                 <q-icon left name="map" />
-                <div class="text-center">
-                  Custom<br />Content<br />With Menu
-                </div>
+                <div class="text-center"
+                  >Custom<br />Content<br />With Menu</div
+                >
               </div>
               <q-menu fit>
-                <div class="bg-white text-black q-pa-lg text-center">
-                  Menu
-                </div>
+                <div class="bg-white text-black q-pa-lg text-center">Menu</div>
               </q-menu>
             </q-btn>
 
@@ -385,7 +383,7 @@
             >
               <div class="row items-center no-wrap">
                 <q-icon left name="map" />
-                <div class="text-center"> Custom<br />Content </div>
+                <div class="text-center">Custom<br />Content</div>
               </div>
             </q-btn>
 

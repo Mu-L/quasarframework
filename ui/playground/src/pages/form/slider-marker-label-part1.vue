@@ -50,8 +50,9 @@
           ]"
           :style="marker.style"
           @click="model = marker.value"
-          >{{ marker.value }}</div
         >
+          {{ marker.value }}
+        </div>
       </template>
     </q-slider>
 
@@ -71,8 +72,9 @@
           ]"
           :style="marker.style"
           @click="model = marker.value"
-          >{{ marker.value }}</div
         >
+          {{ marker.value }}
+        </div>
       </template>
     </q-slider>
 
@@ -114,8 +116,9 @@
           ]"
           :style="markerList[val].style"
           @click="model = val"
-          >{{ val }}</div
         >
+          {{ val }}
+        </div>
 
         <q-icon
           v-for="val in [0, 10]"

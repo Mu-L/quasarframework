@@ -19,7 +19,7 @@
       style="width: 300px; border-bottom-left-radius: 2em"
     >
       <q-card-section>
-        <div class="text-h6"> New user </div>
+        <div class="text-h6">New user</div>
       </q-card-section>
 
       <q-card-section> Please fill the details for a new user. </q-card-section>
@@ -35,11 +35,11 @@
       style="width: 300px; border-bottom-left-radius: 2em"
     >
       <q-card-section>
-        <div class="text-h6"> Finalize registration </div>
+        <div class="text-h6">Finalize registration</div>
       </q-card-section>
 
       <q-card-section class="q-py-xl text-center">
-        <div class="text-h6"> Thank you for registering. </div>
+        <div class="text-h6">Thank you for registering.</div>
       </q-card-section>
 
       <q-card-actions align="right">

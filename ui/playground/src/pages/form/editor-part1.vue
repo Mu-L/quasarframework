@@ -91,7 +91,7 @@
       ]"
     />
 
-    <div class="caption bg-yellow"> Model </div>
+    <div class="caption bg-yellow">Model</div>
     <div>{{ model }}</div>
 
     <br /><br /><br />
@@ -242,7 +242,7 @@
       </template>
     </q-editor>
 
-    <div class="caption bg-yellow"> Model </div>
+    <div class="caption bg-yellow">Model</div>
     <div>{{ modelScroll }}</div>
   </div>
 </template>

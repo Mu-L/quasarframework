@@ -1,7 +1,7 @@
 <template>
   <div class="q-layout-padding">
     <div class="q-pa-md" style="max-width: 400px">
-      <h5> Form with async validation rules </h5>
+      <h5>Form with async validation rules</h5>
       <q-form
         @submit="onSubmit"
         @reset="onReset"
@@ -50,7 +50,7 @@
     </div>
 
     <div class="q-pa-md" style="max-width: 400px">
-      <h5> Form that clears after submit </h5>
+      <h5>Form that clears after submit</h5>
 
       <q-toggle v-model="autofocus" label="Autofocus form" />
 

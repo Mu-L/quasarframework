@@ -30,11 +30,11 @@
           </div>
         </q-card-section>
 
-        <p class="caption text-center">
-          Try out some combinations for Ajax Bar.
-        </p>
+        <p class="caption text-center"
+          >Try out some combinations for Ajax Bar.</p
+        >
         <q-card-section>
-          <div class="text-h6"> Position </div>
+          <div class="text-h6">Position</div>
           <div class="flex" style="margin: -5px">
             <div class="column">
               <q-radio v-model="position" val="top" label="Top" />
@@ -47,16 +47,16 @@
             </div>
           </div>
 
-          <div class="text-h6 q-mt-md"> Reverse? </div>
+          <div class="text-h6 q-mt-md">Reverse?</div>
           <q-checkbox v-model="reverse" label="Reverse Direction" />
 
-          <div class="text-h6 q-mt-md"> watchEffect </div>
+          <div class="text-h6 q-mt-md">watchEffect</div>
           <div class="row items-center">
             <q-checkbox v-model="watchUrl" label="active" />
             <q-input class="q-ml-md col" v-model="url" prefix="URL:" dense />
           </div>
 
-          <div class="text-h6 q-mt-md"> Size </div>
+          <div class="text-h6 q-mt-md">Size</div>
           <q-slider
             v-model="size"
             :min="2"

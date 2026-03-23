@@ -31,7 +31,7 @@
         <q-toggle :dark="dark" v-model="optionsDark" label="(Options) Dark" />
       </div>
 
-      <div class="text-h6"> String options </div>
+      <div class="text-h6">String options</div>
 
       <div>{{ stringSingle }}</div>
       <q-select
@@ -64,7 +64,7 @@
         multiple
       />
 
-      <div class="text-h6"> Object options </div>
+      <div class="text-h6">Object options</div>
 
       <div>{{ objectSingle }}</div>
       <q-select
@@ -159,7 +159,7 @@
         options-selected-class="text-orange"
       />
 
-      <div class="text-h6"> Emit value </div>
+      <div class="text-h6">Emit value</div>
 
       <div>{{ stringEmitSingle }}</div>
       <q-select
@@ -199,7 +199,7 @@
         multiple
       />
 
-      <div class="text-h6"> Scoped Slot: option (with menu on icon) </div>
+      <div class="text-h6">Scoped Slot: option (with menu on icon)</div>
       <q-select
         v-bind="props"
         v-model="objectSingle"
@@ -212,7 +212,7 @@
             <q-item-section avatar @click.stop>
               <q-icon tabindex="0" :name="scope.opt.icon" />
               <q-menu v-if="scope.opt.disable !== true">
-                <div class="bg-yellow text-black q-pa-md"> Test menu </div>
+                <div class="bg-yellow text-black q-pa-md">Test menu</div>
               </q-menu>
             </q-item-section>
             <q-item-section>
@@ -257,7 +257,7 @@
         </template>
       </q-select>
 
-      <div class="text-h6"> Scoped slot: selected </div>
+      <div class="text-h6">Scoped slot: selected</div>
       <q-select
         v-bind="props"
         v-model="objectMultiple"
@@ -287,7 +287,7 @@
         </template>
       </q-select>
 
-      <div class="text-h6"> Max values (in this case 2) </div>
+      <div class="text-h6">Max values (in this case 2)</div>
       <q-select
         v-bind="props"
         v-model="objectMultiple"
@@ -298,7 +298,7 @@
         color="teal"
       />
 
-      <div class="text-h6"> Heavy test (100k options) </div>
+      <div class="text-h6">Heavy test (100k options)</div>
       <q-select
         v-bind="props"
         v-model="heavyModel"
@@ -332,7 +332,7 @@
         </template>
       </q-select>
 
-      <div class="text-h6"> No options </div>
+      <div class="text-h6">No options</div>
       <q-select v-bind="props" v-model="stringSingle" label="String - single" />
       <q-select
         v-bind="props"
@@ -348,7 +348,7 @@
         multiple
       />
 
-      <div class="text-h6"> No options, slot: no-options </div>
+      <div class="text-h6">No options, slot: no-options</div>
       <q-select
         v-bind="props"
         v-model="stringSingle"
@@ -503,7 +503,7 @@
         />
       </div>
 
-      <div class="text-h6"> Display value and floating label test </div>
+      <div class="text-h6">Display value and floating label test</div>
       <div>
         <q-select
           label="Options"

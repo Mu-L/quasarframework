@@ -16,9 +16,7 @@
       />
     </div>
 
-    <div v-if="isFarAway" class="q-ma-md">
-      Far Far Away, outside of Q-Tabs
-    </div>
+    <div v-if="isFarAway" class="q-ma-md">Far Far Away, outside of Q-Tabs</div>
     <div v-else class="q-gutter-y-md" style="max-width: 600px">
       <q-tabs v-model="tab" mobile-arrows>
         <q-tab name="first" icon="mail" label="First" />

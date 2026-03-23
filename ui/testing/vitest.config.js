@@ -3,6 +3,7 @@ import { join } from 'node:path'
 
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
+// import { playwright } from '@vitest/browser-playwright'
 
 import { quasar, transformAssetUrls } from '@quasar/vite-plugin'
 
@@ -48,14 +49,11 @@ export default defineConfig(() => ({
       pretendToBeVisual: true
     },
     // browser: {
+    //   provider: playwright(),
     //   enabled: true,
-    //   provider: 'playwright',
     //   headless: true,
-    //   instances: [
-    //     {
-    //       browser: 'chromium',
-    //     },
-    //   ],
+    //   // at least one instance is required
+    //   instances: [{ browser: 'chromium' }]
     // },
     css: {
       include: [/.+/]

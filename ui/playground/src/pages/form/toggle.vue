@@ -22,7 +22,7 @@
       />
       <q-toggle v-model="dense" :dark="dark" :dense="dense" label="Dense" />
 
-      <p class="caption"> Standalone </p>
+      <p class="caption">Standalone</p>
       <q-toggle
         @change="onChange"
         @update:model-value="onInput"
@@ -55,7 +55,7 @@
         :keep-color="keepColor"
       />
 
-      <p class="caption"> Sizes </p>
+      <p class="caption">Sizes</p>
       <div>
         <q-toggle
           v-for="size in ['xs', 'sm', 'md', 'lg', 'xl', '150px']"
@@ -85,7 +85,7 @@
         />
       </div>
 
-      <p class="caption"> Indeterminate </p>
+      <p class="caption">Indeterminate</p>
       <q-toggle
         v-model="indModel"
         toggle-indeterminate
@@ -128,7 +128,7 @@
         size="100px"
       />
 
-      <p class="caption"> Indeterminate + icon-color </p>
+      <p class="caption">Indeterminate + icon-color</p>
       <q-toggle
         v-model="indModel"
         toggle-indeterminate
@@ -168,7 +168,7 @@
         icon-color="black"
       />
 
-      <p class="caption"> Label on the left side </p>
+      <p class="caption">Label on the left side</p>
       <q-toggle
         v-model="checked"
         color="orange"
@@ -197,7 +197,7 @@
         :keep-color="keepColor"
       />
 
-      <p class="caption"> Array Model </p>
+      <p class="caption">Array Model</p>
       <div class="label bg-secondary text-white">
         Model
         <span class="right-detail"
@@ -235,7 +235,7 @@
         :keep-color="keepColor"
       />
 
-      <p class="caption"> With Icon </p>
+      <p class="caption">With Icon</p>
       <q-toggle
         v-model="checked"
         icon="alarm"
@@ -274,7 +274,7 @@
         <q-toggle icon="las la-phone-volume" v-model="checked" />
       </div>
 
-      <p class="caption"> Disabled State </p>
+      <p class="caption">Disabled State</p>
       <q-toggle
         v-model="checked"
         disable
@@ -303,7 +303,7 @@
         :keep-color="keepColor"
       />
 
-      <p class="caption"> Option Group </p>
+      <p class="caption">Option Group</p>
       <q-option-group
         inline
         type="toggle"
@@ -324,7 +324,7 @@
         ]"
       />
 
-      <p class="caption"> Another Option Group </p>
+      <p class="caption">Another Option Group</p>
       <q-option-group
         type="toggle"
         v-model="group"
@@ -345,7 +345,7 @@
         ]"
       />
 
-      <p class="caption"> Inside a Label </p>
+      <p class="caption">Inside a Label</p>
       <div class="column q-gutter-y-sm">
         <label>
           <q-toggle
@@ -411,7 +411,7 @@
         </q-field>
       </div>
 
-      <p class="caption"> Inside a List </p>
+      <p class="caption">Inside a List</p>
       <q-list :dark="dark" :dense="dense">
         <q-item tag="label">
           <q-item-section>

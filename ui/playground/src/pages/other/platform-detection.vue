@@ -14,8 +14,8 @@
       <q-markup-table bordered flat>
         <thead>
           <tr>
-            <th class="text-left"> Property </th>
-            <th class="text-left"> Value </th>
+            <th class="text-left">Property</th>
+            <th class="text-left">Value</th>
           </tr>
         </thead>
 
@@ -31,7 +31,7 @@
         Your device <strong>{{ touch }}</strong> touch capability.
       </p>
 
-      <p class="caption"> Body classes: "{{ bodyClasses }}" </p>
+      <p class="caption">Body classes: "{{ bodyClasses }}"</p>
     </div>
   </div>
 </template>

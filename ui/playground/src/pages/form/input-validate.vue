@@ -194,7 +194,7 @@
         :rules="[asyncCallRule1, asyncCallRule2]"
       />
 
-      <div class="text-h6 q-mt-xl"> Async rules </div>
+      <div class="text-h6 q-mt-xl">Async rules</div>
       <q-input
         ref="input7"
         v-bind="{ [type]: true }"
@@ -265,7 +265,7 @@
         :rules="[asyncRule]"
       />
 
-      <div class="text-h6 q-mt-xl"> External validation </div>
+      <div class="text-h6 q-mt-xl">External validation</div>
       <div class="q-gutter-sm">
         <q-toggle v-model="error" label="Error state" />
         <q-radio v-model="errorMessage" val="First error" label="First error" />
@@ -293,7 +293,7 @@
         style="margin-bottom: 30px"
       >
         <template v-slot:error>
-          <div> Slotted error message </div>
+          <div>Slotted error message</div>
         </template>
       </q-input>
     </div>

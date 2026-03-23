@@ -13,7 +13,7 @@
       </div>
 
       <q-toggle v-model="toggle" class="z-max fixed-top-left" />
-      <p class="caption"> With custom offset (18px) </p>
+      <p class="caption">With custom offset (18px)</p>
       <div class="q-gutter-sm">
         <q-btn color="indigo" label="Hover">
           <q-tooltip
@@ -103,7 +103,7 @@
             <q-btn push color="orange" label="Mouse Hover">
               <q-tooltip :anchor="anchor" :self="self">
                 <div>Quasar is <strong>great</strong>!</div>
-                <div class="text-center"> Try it. </div>
+                <div class="text-center">Try it.</div>
               </q-tooltip>
             </q-btn>
           </q-card-section>
@@ -124,7 +124,7 @@
 
           <q-card-section class="row">
             <div class="column items-center col-6">
-              <p class="text-weight-bold"> Anchor Origin </p>
+              <p class="text-weight-bold">Anchor Origin</p>
               <div class="flex q-gutter-sm">
                 <div class="column">
                   <div>Vertical</div>
@@ -176,7 +176,7 @@
             </div>
 
             <div class="column items-center col-6">
-              <p class="text-weight-bold"> Self Origin </p>
+              <p class="text-weight-bold">Self Origin</p>
               <div class="flex q-gutter-sm">
                 <div class="column">
                   <div>Vertical</div>
@@ -297,20 +297,20 @@
             id="target-img-1"
             style="height: 100px"
           >
-            <div class="absolute-bottom-right"> #target-img-1 </div>
+            <div class="absolute-bottom-right">#target-img-1</div>
           </q-img>
           <q-img
             src="https://cdn.quasar.dev/img/parallax2.jpg"
             id="target-img-2"
             style="height: 100px"
           >
-            <div class="absolute-bottom-right"> #target-img-2 </div>
+            <div class="absolute-bottom-right">#target-img-2</div>
           </q-img>
           <q-img
             src="https://cdn.quasar.dev/img/blueish.jpg"
             style="height: 100px"
           >
-            <div class="absolute-bottom-right"> Original parent </div>
+            <div class="absolute-bottom-right">Original parent</div>
             <q-tooltip
               :target="targetEl"
               anchor="center middle"
@@ -330,7 +330,7 @@
             style="height: 100px"
             v-if="vIfTest"
           >
-            <div class="absolute-bottom-right"> attached to q-img </div>
+            <div class="absolute-bottom-right">attached to q-img</div>
             <q-tooltip anchor="center middle" self="center middle">
               Quasar Rulz!
             </q-tooltip>
@@ -339,7 +339,7 @@
             src="https://cdn.quasar.dev/img/parallax2.jpg"
             style="height: 100px"
           >
-            <div class="absolute-bottom-right"> attached to q-tooltip </div>
+            <div class="absolute-bottom-right">attached to q-tooltip</div>
             <q-tooltip
               v-if="vIfTest"
               anchor="center middle"

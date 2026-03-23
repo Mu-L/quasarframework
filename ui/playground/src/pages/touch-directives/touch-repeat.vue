@@ -66,7 +66,7 @@
         </div>
       </div>
 
-      <p class="caption"> Repeat test (preventing it from inner square) </p>
+      <p class="caption">Repeat test (preventing it from inner square)</p>
       <div
         v-touch-repeat:1000:300.mouse.enter.72.104="handleRepeatTest"
         @click="onClick"
@@ -126,7 +126,7 @@
         </div>
       </div>
 
-      <p class="caption"> Btn test </p>
+      <p class="caption">Btn test</p>
       <div class="row flex-center q-my-md">
         <q-btn
           round
@@ -177,7 +177,7 @@
         />
       </div>
 
-      <div style="height: 500px"> Scroll on purpose </div>
+      <div style="height: 500px">Scroll on purpose</div>
     </div>
   </div>
 </template>

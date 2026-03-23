@@ -1,9 +1,9 @@
 <template>
   <div class="q-layout-padding">
     <div class="q-gutter-y-md" style="max-width: 300px">
-      <div>
-        Search in console for $$('[data-test-attr]') and $$('[aria-owns]')
-      </div>
+      <div
+        >Search in console for $$('[data-test-attr]') and $$('[aria-owns]')</div
+      >
 
       <q-field
         for="test1"

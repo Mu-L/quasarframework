@@ -48,7 +48,7 @@
       </div>
     </div>
 
-    <div class="q-my-md"> QField with/without label (items-start) </div>
+    <div class="q-my-md">QField with/without label (items-start)</div>
     <div class="row q-col-gutter-xs items-start">
       <q-field
         class="col-6"
@@ -66,7 +66,7 @@
         </template>
 
         <template #control>
-          <div> $$TSP </div>
+          <div>$$TSP</div>
         </template>
 
         <template #hint> Hint </template>
@@ -90,7 +90,7 @@
         </template>
 
         <template #control>
-          <div> $$TSP </div>
+          <div>$$TSP</div>
         </template>
 
         <template #hint> Hint </template>
@@ -105,9 +105,9 @@
       </q-field>
     </div>
 
-    <div class="q-my-md">
-      QField with/without label and bottom slot (items-start)
-    </div>
+    <div class="q-my-md"
+      >QField with/without label and bottom slot (items-start)</div
+    >
     <div class="row q-col-gutter-xs items-start">
       <q-field
         class="col-6"
@@ -125,7 +125,7 @@
         </template>
 
         <template #control>
-          <div> $$TSP </div>
+          <div>$$TSP</div>
         </template>
 
         <template #hint> Hint </template>
@@ -149,7 +149,7 @@
         </template>
 
         <template #control>
-          <div> $$TSP </div>
+          <div>$$TSP</div>
         </template>
 
         <template #append>
@@ -162,9 +162,9 @@
       </q-field>
     </div>
 
-    <div class="q-my-md">
-      QField with/without label and without bottom slot (items-start)
-    </div>
+    <div class="q-my-md"
+      >QField with/without label and without bottom slot (items-start)</div
+    >
     <div class="row q-col-gutter-xs items-start">
       <q-field class="col-6" v-bind="props" label="Field label" stack-label>
         <template #before>
@@ -176,7 +176,7 @@
         </template>
 
         <template #control>
-          <div> $$TSP </div>
+          <div>$$TSP</div>
         </template>
 
         <template #append>
@@ -198,7 +198,7 @@
         </template>
 
         <template #control>
-          <div> $$TSP </div>
+          <div>$$TSP</div>
         </template>
 
         <template #append>
@@ -232,7 +232,7 @@
         </template>
 
         <template #control>
-          <div> $$TSP </div>
+          <div>$$TSP</div>
         </template>
 
         <template #hint> Hint </template>
@@ -344,7 +344,7 @@
         bottom-slots
       >
         <template #control>
-          <div> $$TSP </div>
+          <div>$$TSP</div>
         </template>
 
         <template #hint> Hint </template>
@@ -396,7 +396,7 @@
     <div class="row q-col-gutter-xs items-start">
       <q-field class="col-3" v-bind="props" bottom-slots>
         <template #control>
-          <div> $$TSP </div>
+          <div>$$TSP</div>
         </template>
 
         <template #hint> Hint </template>
@@ -430,7 +430,7 @@
       </q-select>
     </div>
 
-    <div class="q-my-md"> Label size </div>
+    <div class="q-my-md">Label size</div>
     <div class="row q-col-gutter-y-sm">
       <q-input
         style="width: 300px"

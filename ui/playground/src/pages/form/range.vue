@@ -508,7 +508,7 @@
         />
       </div>
 
-      <p class="caption"> Readonly State </p>
+      <p class="caption">Readonly State</p>
       <q-range
         :vertical="vertical"
         :dark="dark"
@@ -520,7 +520,7 @@
         label
       />
 
-      <p class="caption"> Disabled State </p>
+      <p class="caption">Disabled State</p>
       <q-range
         :vertical="vertical"
         :dark="dark"
@@ -592,7 +592,7 @@
         :max="50"
       />
 
-      <p class="caption"> Coloring </p>
+      <p class="caption">Coloring</p>
 
       <div class="row justify-around">
         <q-range
@@ -648,7 +648,7 @@
         />
       </div>
 
-      <p class="caption"> Inside of a List </p>
+      <p class="caption">Inside of a List</p>
       <q-list>
         <q-item>
           <q-item-section avatar>

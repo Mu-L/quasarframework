@@ -11,13 +11,13 @@
 
     <div class="container">
       <div class="row">
-        <div class="col"> 1 of 2 </div>
-        <div class="col"> 1 of 2 </div>
+        <div class="col">1 of 2</div>
+        <div class="col">1 of 2</div>
       </div>
       <div class="row">
-        <div class="col"> 1 of 3 </div>
-        <div class="col"> 1 of 3 </div>
-        <div class="col"> 1 of 3 </div>
+        <div class="col">1 of 3</div>
+        <div class="col">1 of 3</div>
+        <div class="col">1 of 3</div>
       </div>
     </div>
 
@@ -30,14 +30,14 @@
 
     <div class="container">
       <div class="row">
-        <div class="col"> 1 of 3 </div>
-        <div class="col-6"> 2 of 3 (wider) </div>
-        <div class="col"> 3 of 3 </div>
+        <div class="col">1 of 3</div>
+        <div class="col-6">2 of 3 (wider)</div>
+        <div class="col">3 of 3</div>
       </div>
       <div class="row">
-        <div class="col"> 1 of 3 </div>
-        <div class="col-5"> 2 of 3 (wider) </div>
-        <div class="col"> 3 of 3 </div>
+        <div class="col">1 of 3</div>
+        <div class="col-5">2 of 3 (wider)</div>
+        <div class="col">3 of 3</div>
       </div>
     </div>
 
@@ -50,14 +50,14 @@
 
     <div class="container">
       <div class="row justify-md-center">
-        <div class="col col-lg-2"> 1 of 3 </div>
-        <div class="col-12 col-md-auto"> Variable width content </div>
-        <div class="col col-lg-2"> 3 of 3 </div>
+        <div class="col col-lg-2">1 of 3</div>
+        <div class="col-12 col-md-auto">Variable width content</div>
+        <div class="col col-lg-2">3 of 3</div>
       </div>
       <div class="row">
-        <div class="col"> 1 of 3 </div>
-        <div class="col-12 col-md-auto"> Variable width content </div>
-        <div class="col col-lg-2"> 3 of 3 </div>
+        <div class="col">1 of 3</div>
+        <div class="col-12 col-md-auto">Variable width content</div>
+        <div class="col col-lg-2">3 of 3</div>
       </div>
     </div>
 
@@ -73,14 +73,14 @@
 
     <div class="container">
       <div class="row">
-        <div class="col"> col </div>
-        <div class="col"> col </div>
-        <div class="col"> col </div>
-        <div class="col"> col </div>
+        <div class="col">col</div>
+        <div class="col">col</div>
+        <div class="col">col</div>
+        <div class="col">col</div>
       </div>
       <div class="row">
-        <div class="col-8"> col-8 </div>
-        <div class="col-4"> col-4 </div>
+        <div class="col-8">col-8</div>
+        <div class="col-4">col-4</div>
       </div>
     </div>
 
@@ -91,13 +91,13 @@
 
     <div class="container">
       <div class="row">
-        <div class="col-xs-12 col-sm-8"> col-sm-8 </div>
-        <div class="col-xs-12 col-sm-4"> col-sm-4 </div>
+        <div class="col-xs-12 col-sm-8">col-sm-8</div>
+        <div class="col-xs-12 col-sm-4">col-sm-4</div>
       </div>
       <div class="row">
-        <div class="col-xs-12 col-sm"> col-sm </div>
-        <div class="col-xs-12 col-sm"> col-sm </div>
-        <div class="col-xs-12 col-sm"> col-sm </div>
+        <div class="col-xs-12 col-sm">col-sm</div>
+        <div class="col-xs-12 col-sm">col-sm</div>
+        <div class="col-xs-12 col-sm">col-sm</div>
       </div>
     </div>
 
@@ -108,30 +108,28 @@
     <div class="container">
       <!-- Stack the columns on mobile by making one full-width and the other half-width -->
       <div class="row">
-        <div class="col col-md-8"> .col .col-md-8 </div>
-        <div class="col-6 col-md-4"> .col-6 .col-md-4 </div>
+        <div class="col col-md-8">.col .col-md-8</div>
+        <div class="col-6 col-md-4">.col-6 .col-md-4</div>
       </div>
 
       <!-- Columns start at 50% wide on mobile and bump up to 33.3% wide on desktop -->
       <div class="row">
-        <div class="col-6 col-md-4"> .col-6 .col-md-4 </div>
-        <div class="col-6 col-md-4"> .col-6 .col-md-4 </div>
-        <div class="col-6 col-md-4"> .col-6 .col-md-4 </div>
+        <div class="col-6 col-md-4">.col-6 .col-md-4</div>
+        <div class="col-6 col-md-4">.col-6 .col-md-4</div>
+        <div class="col-6 col-md-4">.col-6 .col-md-4</div>
       </div>
 
       <!-- Columns are always 50% wide, on mobile and desktop -->
       <div class="row">
-        <div class="col-6"> .col-6 </div>
-        <div class="col-6"> .col-6 </div>
+        <div class="col-6">.col-6</div>
+        <div class="col-6">.col-6</div>
       </div>
 
       <div class="row">
-        <div class="col-xs-8 col-md-auto col-lg-6">
-          .col-xs-8 .col-md-auto .col-lg-6
-        </div>
-        <div class="col-xs-4 col-md col-lg-6">
-          .col-xs-4 .col-md .col-lg-6
-        </div>
+        <div class="col-xs-8 col-md-auto col-lg-6"
+          >.col-xs-8 .col-md-auto .col-lg-6</div
+        >
+        <div class="col-xs-4 col-md col-lg-6">.col-xs-4 .col-md .col-lg-6</div>
       </div>
     </div>
 
@@ -142,51 +140,51 @@
     <h3>Vertical alignment</h3>
     <div class="container example-minheight">
       <div class="row items-start">
-        <div class="col"> One of three columns </div>
-        <div class="col"> One of three columns </div>
-        <div class="col"> One of three columns </div>
+        <div class="col">One of three columns</div>
+        <div class="col">One of three columns</div>
+        <div class="col">One of three columns</div>
       </div>
       <div class="row items-center">
-        <div class="col"> One of three columns </div>
-        <div class="col"> One of three columns </div>
-        <div class="col"> One of three columns </div>
+        <div class="col">One of three columns</div>
+        <div class="col">One of three columns</div>
+        <div class="col">One of three columns</div>
       </div>
       <div class="row items-end">
-        <div class="col"> One of three columns </div>
-        <div class="col"> One of three columns </div>
-        <div class="col"> One of three columns </div>
+        <div class="col">One of three columns</div>
+        <div class="col">One of three columns</div>
+        <div class="col">One of three columns</div>
       </div>
     </div>
 
     <div class="container example-minheight">
       <div class="row">
-        <div class="col self-start"> One of three columns </div>
-        <div class="col self-center"> One of three columns </div>
-        <div class="col self-end"> One of three columns </div>
+        <div class="col self-start">One of three columns</div>
+        <div class="col self-center">One of three columns</div>
+        <div class="col self-end">One of three columns</div>
       </div>
     </div>
 
     <h3>Horizontal alignment</h3>
     <div class="container">
       <div class="row justify-start">
-        <div class="col-4"> One of two columns </div>
-        <div class="col-4"> One of two columns </div>
+        <div class="col-4">One of two columns</div>
+        <div class="col-4">One of two columns</div>
       </div>
       <div class="row justify-center">
-        <div class="col-4"> One of two columns </div>
-        <div class="col-4"> One of two columns </div>
+        <div class="col-4">One of two columns</div>
+        <div class="col-4">One of two columns</div>
       </div>
       <div class="row justify-end">
-        <div class="col-4"> One of two columns </div>
-        <div class="col-4"> One of two columns </div>
+        <div class="col-4">One of two columns</div>
+        <div class="col-4">One of two columns</div>
       </div>
       <div class="row justify-around">
-        <div class="col-4"> One of two columns </div>
-        <div class="col-4"> One of two columns </div>
+        <div class="col-4">One of two columns</div>
+        <div class="col-4">One of two columns</div>
       </div>
       <div class="row justify-between">
-        <div class="col-4"> One of two columns </div>
-        <div class="col-4"> One of two columns </div>
+        <div class="col-4">One of two columns</div>
+        <div class="col-4">One of two columns</div>
       </div>
     </div>
 
@@ -196,24 +194,24 @@
 
     <div class="container">
       <div class="row">
-        <div class="col-9"> .col-9 </div>
+        <div class="col-9">.col-9</div>
         <div class="col-4">
           .col-4<br />Since 9 + 4 = 13 &gt; 12, this 4-column-wide div gets
           wrapped onto a new line as one contiguous unit.
         </div>
-        <div class="col-6">
-          .col-6<br />Subsequent columns continue along the new line.
-        </div>
+        <div class="col-6"
+          >.col-6<br />Subsequent columns continue along the new line.</div
+        >
       </div>
     </div>
 
     <div class="container">
       <div class="row">
-        <div class="col-6 col-sm-3"> .col-6 .col-sm-3 </div>
-        <div class="col-6 col-sm-3"> .col-6 .col-sm-3 </div>
+        <div class="col-6 col-sm-3">.col-6 .col-sm-3</div>
+        <div class="col-6 col-sm-3">.col-6 .col-sm-3</div>
 
-        <div class="col-6 col-sm-3"> .col-6 .col-sm-3 </div>
-        <div class="col-6 col-sm-3"> .col-6 .col-sm-3 </div>
+        <div class="col-6 col-sm-3">.col-6 .col-sm-3</div>
+        <div class="col-6 col-sm-3">.col-6 .col-sm-3</div>
       </div>
     </div>
 
@@ -223,9 +221,9 @@
 
     <div class="container">
       <div class="row reverse">
-        <div class="col"> First, but last </div>
-        <div class="col"> Second, unchanged </div>
-        <div class="col"> Third, but first </div>
+        <div class="col">First, but last</div>
+        <div class="col">Second, unchanged</div>
+        <div class="col">Third, but first</div>
       </div>
     </div>
 
@@ -234,9 +232,9 @@
 
     <div class="container">
       <div class="row">
-        <div class="col order-none"> First, but unordered </div>
-        <div class="col order-last"> Second, but last </div>
-        <div class="col order-first"> Third, but first </div>
+        <div class="col order-none">First, but unordered</div>
+        <div class="col order-last">Second, but last</div>
+        <div class="col order-first">Third, but first</div>
       </div>
     </div>
 
@@ -247,15 +245,15 @@
 
     <div class="container">
       <div class="row">
-        <div class="col-md-4"> .col-md-4 </div>
-        <div class="col-md-4 offset-md-4"> .col-md-4 .offset-md-4 </div>
+        <div class="col-md-4">.col-md-4</div>
+        <div class="col-md-4 offset-md-4">.col-md-4 .offset-md-4</div>
       </div>
       <div class="row">
-        <div class="col-md-3 offset-md-3"> .col-md-3 .offset-md-3 </div>
-        <div class="col-md-3 offset-md-3"> .col-md-3 .offset-md-3 </div>
+        <div class="col-md-3 offset-md-3">.col-md-3 .offset-md-3</div>
+        <div class="col-md-3 offset-md-3">.col-md-3 .offset-md-3</div>
       </div>
       <div class="row">
-        <div class="col-md-6 offset-md-3"> .col-md-6 .offset-md-3 </div>
+        <div class="col-md-6 offset-md-3">.col-md-6 .offset-md-3</div>
       </div>
     </div>
 
@@ -270,8 +268,8 @@
         <div class="col-sm-9">
           Level 1: .col-sm-9
           <div class="row">
-            <div class="col-8 col-sm-6"> Level 2: .col-8 .col-sm-6 </div>
-            <div class="col-4 col-sm-6"> Level 2: .col-4 .col-sm-6 </div>
+            <div class="col-8 col-sm-6">Level 2: .col-8 .col-sm-6</div>
+            <div class="col-4 col-sm-6">Level 2: .col-4 .col-sm-6</div>
           </div>
         </div>
       </div>

@@ -33,6 +33,8 @@ describe('[QBreadcrumbsEl API]', () => {
 
         expect(routerFn).toHaveBeenCalledTimes(1)
         expect(routerFn).toHaveBeenCalledWith(testRoute)
+
+        vi.restoreAllMocks()
       })
 
       test('type Object has effect', async () => {
@@ -62,6 +64,8 @@ describe('[QBreadcrumbsEl API]', () => {
 
         expect(routerFn).toHaveBeenCalledTimes(1)
         expect(routerFn).toHaveBeenCalledWith(propVal)
+
+        vi.restoreAllMocks()
       })
     })
 
@@ -140,6 +144,8 @@ describe('[QBreadcrumbsEl API]', () => {
 
         expect(routerFn).toHaveBeenCalledTimes(1)
         expect(routerFn).toHaveBeenCalledWith(testRoute)
+
+        routerFn.mockRestore()
       })
     })
 

@@ -8,8 +8,9 @@
       >
       <div
         class="col-md-5 q-px-sm q-py-xs bg-grey-10 text-grey-1 font-weight-bold"
-        >buildDate UTC</div
       >
+        buildDate UTC
+      </div>
     </div>
     <div
       v-for="(entry, index) in buildDateSeed"
@@ -18,8 +19,9 @@
     >
       <div
         class="col-md-2 q-px-sm q-py-xs bg-grey-10 text-grey-1 font-weight-bold"
-        >{{ entry.source }}</div
       >
+        {{ entry.source }}
+      </div>
       <div class="col-md-5 q-px-sm q-py-xs" v-html="entry.build" />
       <div class="col-md-5 q-px-sm q-py-xs" v-html="entry.buildUTC" />
     </div>
@@ -32,8 +34,9 @@
       >
       <div
         class="col-md-5 q-px-sm q-py-xs bg-grey-10 text-grey-1 font-weight-bold"
-        >source, change, build, result</div
       >
+        source, change, build, result
+      </div>
     </div>
     <div
       v-for="(entry, index) in adjustDateSeed"
@@ -42,8 +45,9 @@
     >
       <div
         class="col-md-2 q-px-sm q-py-xs bg-grey-10 text-grey-1 font-weight-bold"
-        >{{ entry.source }}</div
       >
+        {{ entry.source }}
+      </div>
       <div class="col-md-5 q-px-sm q-py-xs" v-html="entry.change" />
       <div class="col-md-5 q-px-sm q-py-xs" v-html="entry.build" />
       <div class="col-md-5 q-px-sm q-py-xs" v-html="entry.result" />
@@ -63,12 +67,14 @@
       <div class="col-md-2 q-px-sm q-py-xs" />
       <div
         class="col-md-5 q-px-sm q-py-xs bg-grey-10 text-grey-1 font-weight-bold"
-        >startOfDate</div
       >
+        startOfDate
+      </div>
       <div
         class="col-md-5 q-px-sm q-py-xs bg-grey-10 text-grey-1 font-weight-bold"
-        >startOfDate UTC</div
       >
+        startOfDate UTC
+      </div>
     </div>
     <div
       v-for="type in ['year', 'month', 'day', 'hour', 'minute', 'second']"
@@ -97,8 +103,9 @@
       >
       <div
         class="col-md-5 q-px-sm q-py-xs bg-grey-10 text-grey-1 font-weight-bold"
-        >endOfDate UTC</div
       >
+        endOfDate UTC
+      </div>
     </div>
     <div
       v-for="type in ['year', 'month', 'day', 'hour', 'minute', 'second']"

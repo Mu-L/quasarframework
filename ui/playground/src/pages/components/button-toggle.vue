@@ -75,21 +75,21 @@
       <template v-slot:one>
         <div class="row items-center no-wrap">
           <q-icon left name="map" />
-          <div class="text-center"> Option<br />One </div>
+          <div class="text-center">Option<br />One</div>
         </div>
       </template>
 
       <template v-slot:two>
         <div class="row items-center no-wrap">
           <q-icon left name="map" />
-          <div class="text-center"> Option<br />Two </div>
+          <div class="text-center">Option<br />Two</div>
         </div>
       </template>
 
       <template v-slot:three>
         <div class="row items-center no-wrap">
           <q-icon left name="map" />
-          <div class="text-center"> Option<br />Three </div>
+          <div class="text-center">Option<br />Three</div>
         </div>
       </template>
     </q-btn-toggle>

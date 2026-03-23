@@ -8,7 +8,7 @@
     >
       <div class="row" :class="`q-col-gutter-${n}`">
         <div class="col-4" v-for="x in 5" :key="x">
-          <div class="my-content"> &nbsp; </div>
+          <div class="my-content">&nbsp;</div>
         </div>
       </div>
     </div>
@@ -21,7 +21,7 @@
     >
       <div class="row" :class="`q-col-gutter-x-${n} q-col-gutter-y-sm`">
         <div class="col-4" v-for="x in 5" :key="x">
-          <div class="my-content"> &nbsp; </div>
+          <div class="my-content">&nbsp;</div>
         </div>
       </div>
     </div>
@@ -34,7 +34,7 @@
     >
       <div class="row" :class="`q-col-gutter-x-sm q-col-gutter-y-${n}`">
         <div class="col-4" v-for="x in 5" :key="x">
-          <div class="my-content"> &nbsp; </div>
+          <div class="my-content">&nbsp;</div>
         </div>
       </div>
     </div>
@@ -43,7 +43,7 @@
     <div class="bg-yellow" style="border: 1px solid transparent">
       <div class="row q-col-gutter-lg" style="border: 1px solid red">
         <div class="col-4" v-for="x in 12" :key="x">
-          <div class="bg-grey-4"> Col 4 </div>
+          <div class="bg-grey-4">Col 4</div>
         </div>
       </div>
     </div>

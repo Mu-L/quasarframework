@@ -214,7 +214,7 @@
       </q-carousel-slide>
     </q-carousel>
 
-    <div class="caption"> Scroll. Padding. Video on second slide. </div>
+    <div class="caption">Scroll. Padding. Video on second slide.</div>
     <q-carousel
       v-bind="props"
       transition-prev="rotate"
@@ -243,9 +243,7 @@
       </q-carousel-slide>
     </q-carousel>
 
-    <div class="caption">
-      Example creating custom captions for each slide.
-    </div>
+    <div class="caption">Example creating custom captions for each slide.</div>
     <q-carousel
       v-bind="props"
       :vertical="vertical"
@@ -258,8 +256,8 @@
         img-src="https://cdn.quasar.dev/img/mountains.jpg"
       >
         <div class="absolute-bottom custom-caption">
-          <div class="text-h2"> First stop </div>
-          <div class="text-subtitle1"> Mountains </div>
+          <div class="text-h2">First stop</div>
+          <div class="text-subtitle1">Mountains</div>
         </div>
       </q-carousel-slide>
       <q-carousel-slide
@@ -267,8 +265,8 @@
         img-src="https://cdn.quasar.dev/img/parallax1.jpg"
       >
         <div class="absolute-bottom custom-caption">
-          <div class="text-h2"> Second stop </div>
-          <div class="text-subtitle1"> Famous City </div>
+          <div class="text-h2">Second stop</div>
+          <div class="text-subtitle1">Famous City</div>
         </div>
       </q-carousel-slide>
       <q-carousel-slide
@@ -276,15 +274,15 @@
         img-src="https://cdn.quasar.dev/img/parallax2.jpg"
       >
         <div class="absolute-bottom custom-caption">
-          <div class="text-h2"> Third stop </div>
-          <div class="text-subtitle1"> Famous Bridge </div>
+          <div class="text-h2">Third stop</div>
+          <div class="text-subtitle1">Famous Bridge</div>
         </div>
       </q-carousel-slide>
     </q-carousel>
 
-    <div class="caption">
-      Carousel with Arrows, Navigation, and Slides with images.
-    </div>
+    <div class="caption"
+      >Carousel with Arrows, Navigation, and Slides with images.</div
+    >
     <q-carousel
       v-bind="props"
       swipeable
@@ -327,9 +325,9 @@
       </template>
     </q-carousel>
 
-    <div class="caption">
-      Carousel with Arrows, Navigation, and Slides with images.
-    </div>
+    <div class="caption"
+      >Carousel with Arrows, Navigation, and Slides with images.</div
+    >
     <q-carousel
       v-bind="props"
       swipeable
@@ -372,7 +370,7 @@
       </template>
     </q-carousel>
 
-    <div class="caption"> Carousel with control slots. </div>
+    <div class="caption">Carousel with control slots.</div>
     <q-carousel
       v-bind="props"
       swipeable

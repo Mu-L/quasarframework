@@ -22,7 +22,7 @@
       />
       <q-toggle v-model="dense" :dark="dark" :dense="dense" label="Dense" />
 
-      <p class="caption"> Standalone </p>
+      <p class="caption">Standalone</p>
       <div>
         <q-checkbox
           v-model="checked"
@@ -77,7 +77,7 @@
         />
       </div>
 
-      <p class="caption"> Sizes </p>
+      <p class="caption">Sizes</p>
       <q-checkbox
         v-for="size in ['xs', 'sm', 'md', 'lg', 'xl', '150px']"
         :key="size"
@@ -104,7 +104,7 @@
         :keep-color="keepColor"
       />
 
-      <p class="caption"> Indeterminate </p>
+      <p class="caption">Indeterminate</p>
       <q-checkbox
         v-model="indModel"
         toggle-indeterminate
@@ -188,7 +188,7 @@
         size="100px"
       />
 
-      <p class="caption"> Order ({{ JSON.stringify(orderModel) }}) </p>
+      <p class="caption">Order ({{ JSON.stringify(orderModel) }})</p>
       <div class="q-gutter-sm row items-center q-mb-sm">
         <q-btn size="sm" label="Set true" @click="orderModel = true" />
         <q-btn size="sm" label="Set false" @click="orderModel = false" />
@@ -225,7 +225,7 @@
           :dark="dark"
         />
       </div>
-      <p class="caption"> Tests </p>
+      <p class="caption">Tests</p>
       <q-checkbox
         @change="onChange"
         @update:model-value="onInput"
@@ -258,7 +258,7 @@
         :keep-color="keepColor"
       />
 
-      <p class="caption"> Label on the left side </p>
+      <p class="caption">Label on the left side</p>
       <q-checkbox
         v-model="checked"
         color="teal"
@@ -287,7 +287,7 @@
         :keep-color="keepColor"
       />
 
-      <p class="caption"> Array Model </p>
+      <p class="caption">Array Model</p>
       <div class="label bg-secondary text-white">
         Model
         <span class="right-detail"
@@ -339,7 +339,7 @@
         label="Tap me"
       />
 
-      <p class="caption"> Disabled State </p>
+      <p class="caption">Disabled State</p>
       <q-checkbox
         v-model="checked"
         disable
@@ -368,7 +368,7 @@
         :keep-color="keepColor"
       />
 
-      <p class="caption"> Array true/false val </p>
+      <p class="caption">Array true/false val</p>
       <q-checkbox
         v-model="modelArr"
         :true-value="trueVal"
@@ -379,9 +379,7 @@
         :dense="dense"
         :keep-color="keepColor"
       />
-      <div class="label bg-secondary text-white">
-        Model is: {{ modelArr }}
-      </div>
+      <div class="label bg-secondary text-white">Model is: {{ modelArr }}</div>
       <q-checkbox
         v-model="modelArrComplex"
         :val="trueVal"
@@ -400,11 +398,11 @@
         :dense="dense"
         :keep-color="keepColor"
       />
-      <div class="label bg-secondary text-white">
-        Model is: {{ modelArrComplex }}
-      </div>
+      <div class="label bg-secondary text-white"
+        >Model is: {{ modelArrComplex }}</div
+      >
 
-      <p class="caption"> Option Group </p>
+      <p class="caption">Option Group</p>
       <q-option-group
         inline
         type="checkbox"
@@ -425,7 +423,7 @@
         ]"
       />
 
-      <p class="caption"> Another Option Group </p>
+      <p class="caption">Another Option Group</p>
       <q-option-group
         type="checkbox"
         v-model="group"
@@ -447,7 +445,7 @@
         ]"
       />
 
-      <p class="caption"> Inside a Label </p>
+      <p class="caption">Inside a Label</p>
       <div class="column q-gutter-y-sm">
         <label>
           <q-checkbox
@@ -513,7 +511,7 @@
         </q-field>
       </div>
 
-      <p class="caption"> Inside a List </p>
+      <p class="caption">Inside a List</p>
       <q-list :dark="dark" :dense="dense">
         <q-item tag="label">
           <q-item-section avatar>

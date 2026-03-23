@@ -63,7 +63,12 @@ export default createComponent({
     const nameProp = useFormInputNameAttr(props)
 
     const { pickFiles, onDragover, onDragleave, processFiles, getDndNode } =
-      useFile({ editable: state.editable, dnd, getFileInput, addFilesToQueue })
+      useFile({
+        editable: state.editable,
+        dnd,
+        getFileInput,
+        addFilesToQueue
+      })
 
     const formDomProps = useFileFormDomProps(props)
 

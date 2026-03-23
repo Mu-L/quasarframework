@@ -333,7 +333,7 @@
         label-always
       />
 
-      <p class="caption"> Readonly State </p>
+      <p class="caption">Readonly State</p>
       <q-slider
         :vertical="vertical"
         :dark="dark"
@@ -344,7 +344,7 @@
         readonly
       />
 
-      <p class="caption"> Disabled State </p>
+      <p class="caption">Disabled State</p>
       <q-slider
         :vertical="vertical"
         :dark="dark"
@@ -393,7 +393,7 @@
         :max="50"
       />
 
-      <p class="caption"> Coloring </p>
+      <p class="caption">Coloring</p>
 
       <div class="row justify-around">
         <q-slider
@@ -445,7 +445,7 @@
         />
       </div>
 
-      <p class="caption"> Inside of a List </p>
+      <p class="caption">Inside of a List</p>
       <q-list>
         <q-item>
           <q-item-section avatar>

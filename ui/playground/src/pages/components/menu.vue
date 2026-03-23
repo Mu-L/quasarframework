@@ -64,7 +64,7 @@
             transition-hide="flip-left"
           >
             <q-list style="min-width: 100px">
-              <div style="height: 50px" class="bg-grey-3"> Weee </div>
+              <div style="height: 50px" class="bg-grey-3">Weee</div>
 
               <q-item
                 v-for="n in 20"
@@ -304,7 +304,7 @@
           </div>
           <q-card-section class="row" :class="cover ? 'justify-center' : ''">
             <div class="column items-center col-6">
-              <div class="text-weight-bold"> Anchor Origin </div>
+              <div class="text-weight-bold">Anchor Origin</div>
               <div class="flex q-gutter-sm">
                 <div class="column">
                   <div>Vertical</div>
@@ -356,7 +356,7 @@
             </div>
 
             <div class="column items-center col-6" v-if="!cover">
-              <div class="text-weight-bold"> Self Origin </div>
+              <div class="text-weight-bold">Self Origin</div>
               <div class="flex q-gutter-sm">
                 <div class="column">
                   <div>Vertical</div>
@@ -491,7 +491,7 @@
             style="height: 100px"
             v-if="vIfTest"
           >
-            <div class="absolute-bottom-right"> attached to q-img </div>
+            <div class="absolute-bottom-right">attached to q-img</div>
             <q-menu touch-position>
               <q-list>
                 <q-item
@@ -510,7 +510,7 @@
             src="https://cdn.quasar.dev/img/parallax2.jpg"
             style="height: 100px"
           >
-            <div class="absolute-bottom-right"> attached to q-menu </div>
+            <div class="absolute-bottom-right">attached to q-menu</div>
             <q-menu touch-position v-if="vIfTest">
               <q-list>
                 <q-item
@@ -561,20 +561,20 @@
             id="target-img-1"
             style="height: 100px"
           >
-            <div class="absolute-bottom-right"> #target-img-1 </div>
+            <div class="absolute-bottom-right">#target-img-1</div>
           </q-img>
           <q-img
             src="https://cdn.quasar.dev/img/parallax2.jpg"
             id="target-img-2"
             style="height: 100px"
           >
-            <div class="absolute-bottom-right"> #target-img-2 </div>
+            <div class="absolute-bottom-right">#target-img-2</div>
           </q-img>
           <q-img
             src="https://cdn.quasar.dev/img/blueish.jpg"
             style="height: 100px"
           >
-            <div class="absolute-bottom-right"> Original parent </div>
+            <div class="absolute-bottom-right">Original parent</div>
             <q-menu touch-position :target="targetEl">
               <q-list>
                 <q-item

@@ -40,7 +40,7 @@
         you'll see below.
       </p>
 
-      <p class="caption"> Example on capturing only swipe to right: </p>
+      <p class="caption">Example on capturing only swipe to right:</p>
       <div
         v-touch-swipe.right.mouse="swipeToRight"
         @click="onClick"
@@ -55,7 +55,7 @@
         </div>
       </div>
 
-      <p class="caption"> Example on capturing only swipe up and right: </p>
+      <p class="caption">Example on capturing only swipe up and right:</p>
       <div
         v-touch-swipe.up.right.mouse="swipeToCustom"
         @click="onClick"
@@ -73,7 +73,7 @@
         </div>
       </div>
 
-      <p class="caption"> Swipe test (preventing it from inner square) </p>
+      <p class="caption">Swipe test (preventing it from inner square)</p>
       <div
         v-touch-swipe.mouse="handleSwipeTest"
         @click="onClick"
@@ -151,68 +151,68 @@
       >
         <q-tab-panel name="mails">
           <div class="text-h4 q-mb-md">Mails</div>
-          <p
-            >Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quis
+          <p>
+            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quis
             praesentium cumque magnam odio iure quidem, quod illum numquam
             possimus obcaecati commodi minima assumenda consectetur culpa fuga
-            nulla ullam. In, libero.</p
-          >
+            nulla ullam. In, libero.
+          </p>
           <textarea>
 Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quis praesentium cumque magnam odio iure quidem, quod illum numquam possimus obcaecati commodi minima assumenda consectetur culpa fuga nulla ullam. In, libero.</textarea
           >
           <input v-model="text" />
-          <p
-            >Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quis
+          <p>
+            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quis
             praesentium cumque magnam odio iure quidem, quod illum numquam
             possimus obcaecati commodi minima assumenda consectetur culpa fuga
-            nulla ullam. In, libero.</p
-          >
+            nulla ullam. In, libero.
+          </p>
         </q-tab-panel>
 
         <q-tab-panel name="alarms">
           <div class="text-h4 q-mb-md">Alarms</div>
-          <p
-            >Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quis
+          <p>
+            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quis
             praesentium cumque magnam odio iure quidem, quod illum numquam
             possimus obcaecati commodi minima assumenda consectetur culpa fuga
-            nulla ullam. In, libero.</p
-          >
+            nulla ullam. In, libero.
+          </p>
           <textarea>
 Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quis praesentium cumque magnam odio iure quidem, quod illum numquam possimus obcaecati commodi minima assumenda consectetur culpa fuga nulla ullam. In, libero.</textarea
           >
           <input v-model="text" />
-          <p
-            >Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quis
+          <p>
+            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quis
             praesentium cumque magnam odio iure quidem, quod illum numquam
             possimus obcaecati commodi minima assumenda consectetur culpa fuga
-            nulla ullam. In, libero.</p
-          >
+            nulla ullam. In, libero.
+          </p>
         </q-tab-panel>
 
         <q-tab-panel name="movies">
           <div class="text-h4 q-mb-md">Movies</div>
-          <p
-            >Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quis
+          <p>
+            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quis
             praesentium cumque magnam odio iure quidem, quod illum numquam
             possimus obcaecati commodi minima assumenda consectetur culpa fuga
-            nulla ullam. In, libero.</p
-          >
+            nulla ullam. In, libero.
+          </p>
           <textarea>
 Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quis praesentium cumque magnam odio iure quidem, quod illum numquam possimus obcaecati commodi minima assumenda consectetur culpa fuga nulla ullam. In, libero.</textarea
           >
           <input v-model="text" />
-          <p
-            >Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quis
+          <p>
+            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quis
             praesentium cumque magnam odio iure quidem, quod illum numquam
             possimus obcaecati commodi minima assumenda consectetur culpa fuga
-            nulla ullam. In, libero.</p
-          >
-          <p
-            >Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quis
+            nulla ullam. In, libero.
+          </p>
+          <p>
+            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quis
             praesentium cumque magnam odio iure quidem, quod illum numquam
             possimus obcaecati commodi minima assumenda consectetur culpa fuga
-            nulla ullam. In, libero.</p
-          >
+            nulla ullam. In, libero.
+          </p>
         </q-tab-panel>
       </q-tab-panels>
     </div>

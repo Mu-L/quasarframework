@@ -6,11 +6,11 @@
         Please scroll down to see the image have a short bounce effect when
         being visible for first time.
       </p>
-      <p v-for="n in 15" :key="'a_' + n"> {{ n }} {{ loremipsum }} </p>
+      <p v-for="n in 15" :key="'a_' + n">{{ n }} {{ loremipsum }}</p>
 
-      <p class="caption">
-        Scroll Fire below. Reload page to see the bounce effect again.
-      </p>
+      <p class="caption"
+        >Scroll Fire below. Reload page to see the bounce effect again.</p
+      >
       <p class="text-center">
         <img
           v-scroll-fire="computedBounceImage"
@@ -19,7 +19,7 @@
         />
       </p>
 
-      <p v-for="n in 15" :key="'b_' + n"> {{ n }} {{ loremipsum }} </p>
+      <p v-for="n in 15" :key="'b_' + n">{{ n }} {{ loremipsum }}</p>
     </div>
   </div>
 </template>

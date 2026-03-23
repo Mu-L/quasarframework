@@ -1,3 +1,3 @@
-import { QMenu, QDialog } from 'quasar'
+import { QMenu, QDialog } from "quasar";
 
-export type QPopupProxyInnerComponent = QMenu | QDialog
+export type QPopupProxyInnerComponent = QMenu | QDialog;

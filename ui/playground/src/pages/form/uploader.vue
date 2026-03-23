@@ -23,7 +23,7 @@
         <q-toggle v-model="disable" :dark="dark" label="Disable" />
       </div>
 
-      <div class="text-h6 q-my-md"> Run "pnpm dev:quploader" </div>
+      <div class="text-h6 q-my-md">Run "pnpm dev:quploader"</div>
 
       <div class="q-gutter-sm">
         <q-uploader
@@ -137,7 +137,7 @@
           @rejected="onRejected"
         />
 
-        <div> Header slot </div>
+        <div>Header slot</div>
         <q-uploader
           v-bind="props"
           multiple
@@ -170,7 +170,7 @@
               />
               <q-spinner v-if="scope.isUploading" class="q-uploader__spinner" />
               <div class="col">
-                <div class="q-uploader__title"> Upload your files </div>
+                <div class="q-uploader__title">Upload your files</div>
                 <div class="q-uploader__subtitle">
                   {{ scope.uploadSizeLabel }} / {{ scope.uploadProgressLabel }}
                 </div>

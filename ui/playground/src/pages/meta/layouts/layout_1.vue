@@ -3,7 +3,7 @@
     <q-header>
       <q-toolbar color="primary" glossy>
         <q-toolbar-title> First Layout </q-toolbar-title>
-        <div class="text-caption"> Quasar v{{ $q.version }} </div>
+        <div class="text-caption">Quasar v{{ $q.version }}</div>
       </q-toolbar>
     </q-header>
 

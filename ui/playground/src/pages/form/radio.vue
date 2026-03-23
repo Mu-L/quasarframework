@@ -22,7 +22,7 @@
       />
       <q-toggle v-model="dense" :dark="dark" :dense="dense" label="Dense" />
 
-      <p class="caption"> Standalone </p>
+      <p class="caption">Standalone</p>
       <div class="q-gutter-md">
         <q-radio
           @change="onChange"
@@ -118,7 +118,7 @@
         />
       </div>
 
-      <p class="caption"> Sizes </p>
+      <p class="caption">Sizes</p>
       <q-radio
         v-for="size in ['xs', 'sm', 'md', 'lg', 'xl', '150px']"
         :key="size"
@@ -145,7 +145,7 @@
         :keep-color="keepColor"
       />
 
-      <p class="caption"> Label on the left side </p>
+      <p class="caption">Label on the left side</p>
       <div class="q-gutter-md">
         <q-radio
           v-model="option"
@@ -178,7 +178,7 @@
         />
       </div>
 
-      <p class="caption"> Disabled State </p>
+      <p class="caption">Disabled State</p>
       <q-radio
         v-model="option"
         val="opt1"
@@ -210,7 +210,7 @@
         :keep-color="keepColor"
       />
 
-      <p class="caption"> Option Group </p>
+      <p class="caption">Option Group</p>
       <q-option-group
         type="radio"
         v-model="group"
@@ -230,7 +230,7 @@
         ]"
       />
 
-      <p class="caption"> Another Option Group </p>
+      <p class="caption">Another Option Group</p>
       <q-option-group
         inline
         v-model="group"
@@ -256,7 +256,7 @@
         ]"
       />
 
-      <p class="caption"> Inside a Label </p>
+      <p class="caption">Inside a Label</p>
       <div class="column q-gutter-y-sm">
         <div class="row q-col-gutter-x-sm">
           <label class="col">
@@ -411,7 +411,7 @@
         </div>
       </div>
 
-      <p class="caption"> Inside a List </p>
+      <p class="caption">Inside a List</p>
       <q-list :dark="dark" :dense="dense">
         <q-item tag="label">
           <q-item-section avatar>

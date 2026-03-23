@@ -35,7 +35,7 @@
         </template>
 
         <template v-slot:control>
-          <div> Field content </div>
+          <div>Field content</div>
         </template>
 
         <template v-slot:hint> Field message </template>
@@ -58,7 +58,7 @@
         </template>
 
         <template v-slot:control>
-          <div> Field content </div>
+          <div>Field content</div>
         </template>
 
         <template v-slot:hint> Field message </template>
@@ -83,7 +83,7 @@
         </template>
 
         <template v-slot:control>
-          <div> Field content </div>
+          <div>Field content</div>
         </template>
 
         <template v-slot:after>
@@ -105,7 +105,7 @@
         </template>
 
         <template v-slot:control>
-          <div> Field content </div>
+          <div>Field content</div>
         </template>
 
         <template v-slot:hint> Field message </template>
@@ -126,7 +126,7 @@
         tabindex="0"
       >
         <template v-slot:control>
-          <div> Field content </div>
+          <div>Field content</div>
         </template>
 
         <template v-slot:hint> Field message </template>
@@ -142,7 +142,7 @@
         tabindex="0"
       >
         <template v-slot:control>
-          <div> Field content </div>
+          <div>Field content</div>
         </template>
 
         <template v-slot:counter> 3/12 </template>
@@ -156,7 +156,7 @@
         tabindex="0"
       >
         <template v-slot:control>
-          <div> Field content </div>
+          <div>Field content</div>
         </template>
       </q-field>
 
@@ -173,7 +173,7 @@
         </template>
 
         <template v-slot:control>
-          <div> Field content </div>
+          <div>Field content</div>
         </template>
 
         <template v-slot:hint> Field message </template>
@@ -185,7 +185,7 @@
         </template>
       </q-field>
 
-      <p class="caption"> Item aligned test </p>
+      <p class="caption">Item aligned test</p>
 
       <q-field
         :dark="dark"
@@ -199,7 +199,7 @@
         <template v-slot:before><q-icon name="event" /></template>
 
         <template v-slot:control>
-          <div> Field content </div>
+          <div>Field content</div>
         </template>
 
         <template v-slot:hint> Field message </template>
@@ -217,7 +217,7 @@
         <q-item-section>List item</q-item-section>
       </q-item>
 
-      <p class="caption"> Control slot: {{ testValue }} </p>
+      <p class="caption">Control slot: {{ testValue }}</p>
       <q-field
         filled
         v-model="testValue"
@@ -254,7 +254,7 @@
         </template>
       </q-field>
 
-      <p class="caption"> Tree select </p>
+      <p class="caption">Tree select</p>
 
       <q-field
         filled

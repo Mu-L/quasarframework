@@ -37,10 +37,10 @@
 
       <q-slide-item @left="onLeft" @right="onRight">
         <template v-slot:top>
-          <div> Left </div>
+          <div>Left</div>
         </template>
         <template v-slot:bottom>
-          <div> Right content.. long </div>
+          <div>Right content.. long</div>
         </template>
 
         <q-item>
@@ -53,12 +53,12 @@
 
       <q-slide-item @left="onLeft" @right="onRight">
         <template v-slot:left>
-          <div class="row items-center"> <q-icon left name="done" /> Left </div>
+          <div class="row items-center"><q-icon left name="done" /> Left</div>
         </template>
         <template v-slot:right>
-          <div class="row items-center">
-            Right content.. long <q-icon right name="alarm" />
-          </div>
+          <div class="row items-center"
+            >Right content.. long <q-icon right name="alarm"
+          /></div>
         </template>
 
         <q-item>
@@ -76,12 +76,12 @@
         right-color="purple"
       >
         <template v-slot:left>
-          <div class="row items-center"> <q-icon left name="done" /> Left </div>
+          <div class="row items-center"><q-icon left name="done" /> Left</div>
         </template>
         <template v-slot:right>
-          <div class="row items-center">
-            Right content.. long <q-icon right name="alarm" />
-          </div>
+          <div class="row items-center"
+            >Right content.. long <q-icon right name="alarm"
+          /></div>
         </template>
 
         <q-item>
@@ -99,14 +99,14 @@
         right-color="primary"
       >
         <template v-slot:left>
-          <div class="row items-center text-black">
-            <q-icon left name="done" /> Left
-          </div>
+          <div class="row items-center text-black"
+            ><q-icon left name="done" /> Left</div
+          >
         </template>
         <template v-slot:right>
-          <div class="row items-center">
-            Right content.. long <q-icon right name="alarm" />
-          </div>
+          <div class="row items-center"
+            >Right content.. long <q-icon right name="alarm"
+          /></div>
         </template>
 
         <q-item class="bg-black text-white">
@@ -304,10 +304,10 @@
 
     <q-slide-item @left="onLeft" @right="onRight">
       <template v-slot:left v-if="slot1Active">
-        <div> Left </div>
+        <div>Left</div>
       </template>
       <template v-slot:right v-if="slot2Active">
-        <div> Right content.. long </div>
+        <div>Right content.. long</div>
       </template>
 
       <q-item>
@@ -320,11 +320,11 @@
 
     <q-slide-item @left="onLeft" @right="onRight">
       <template v-if="slot1Active" v-slot:left>
-        <div> Left </div>
+        <div>Left</div>
       </template>
 
       <template v-if="slot2Active" v-slot:right>
-        <div> Right content.. long </div>
+        <div>Right content.. long</div>
       </template>
 
       <q-item>

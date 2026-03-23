@@ -445,7 +445,7 @@
               <div class="q-anchor--skip" @click.prevent>
                 Click for menu
                 <q-menu fit no-focus>
-                  <div class="q-pa-md text-center"> Menu </div>
+                  <div class="q-pa-md text-center">Menu</div>
                 </q-menu>
               </div>
             </template>
@@ -469,7 +469,7 @@
             style="width: 250px"
           />
 
-          <div class="text-h6"> Heavy test (100k options) </div>
+          <div class="text-h6">Heavy test (100k options)</div>
           <q-select
             v-bind="props"
             v-model="heavyModel"
@@ -483,9 +483,9 @@
             @blur="onBlur"
           />
 
-          <div class="text-h6">
-            Heavy test with dynamic loading (100k options)
-          </div>
+          <div class="text-h6"
+            >Heavy test with dynamic loading (100k options)</div
+          >
           <q-select
             v-bind="props"
             v-model="heavyModel"
@@ -498,7 +498,7 @@
             @virtual-scroll="onScroll"
           />
 
-          <div class="text-h6"> Heavy test - Variable size (100k options) </div>
+          <div class="text-h6">Heavy test - Variable size (100k options)</div>
           <q-select
             v-bind="props"
             v-model="heavyModel"
@@ -546,9 +546,9 @@
             </template>
           </q-select>
 
-          <div class="text-h6">
-            Heavy test with dynamic loading - Variable size (100k options)
-          </div>
+          <div class="text-h6"
+            >Heavy test with dynamic loading - Variable size (100k options)</div
+          >
           <q-select
             v-bind="props"
             v-model="heavyModel"
@@ -728,7 +728,7 @@
             @click="() => prefilter('prefilter2')"
           />
 
-          <div style="height: 400px"> Scroll on purpose </div>
+          <div style="height: 400px">Scroll on purpose</div>
         </form>
         <q-page-sticky
           expand

@@ -250,7 +250,7 @@
       />
 
       <br /><br />
-      <div class="caption"> Ripple management </div>
+      <div class="caption">Ripple management</div>
       <q-btn
         :ripple="false"
         color="secondary"
@@ -275,7 +275,7 @@
         class="q-ml-sm"
       />
 
-      <div class="caption"> Regular (rectangle) and Circular </div>
+      <div class="caption">Regular (rectangle) and Circular</div>
       <q-btn
         :type="tag"
         color="primary"
@@ -800,7 +800,7 @@
         />
       </div>
 
-      <div class="caption"> Small, Medium (default) and Big </div>
+      <div class="caption">Small, Medium (default) and Big</div>
       <div class="q-gutter-sm">
         <q-btn :type="tag" size="sm" color="primary" label="Button" />
         <q-btn :type="tag" color="primary" label="Button" />
@@ -892,7 +892,7 @@
         />
       </div>
 
-      <div class="caption"> dense - Small, Medium (default) and Big </div>
+      <div class="caption">dense - Small, Medium (default) and Big</div>
       <div class="q-gutter-sm">
         <q-btn :type="tag" dense size="sm" color="primary" label="Button" />
         <q-btn :type="tag" dense color="primary" label="Button" />
@@ -923,7 +923,7 @@
         <q-btn :type="tag" dense round size="lg" icon="alarm" color="primary" />
       </div>
 
-      <div class="caption"> Regular with Icons </div>
+      <div class="caption">Regular with Icons</div>
       <div class="q-gutter-sm">
         <q-btn :type="tag" color="primary" icon="mail" label="On Left" />
         <q-btn
@@ -934,7 +934,7 @@
         />
       </div>
 
-      <div class="caption"> Color Examples </div>
+      <div class="caption">Color Examples</div>
       <div class="q-gutter-sm">
         <q-btn :type="tag" color="secondary" label="Secondary" />
         <q-btn :type="tag" color="primary" label="Dark" />
@@ -944,7 +944,7 @@
         <q-btn :type="tag" color="red" label="Red" />
         <q-btn :type="tag" round color="teal" icon="alarm" />
       </div>
-      <div class="caption"> Custom Color Examples </div>
+      <div class="caption">Custom Color Examples</div>
       <div class="q-gutter-sm">
         <q-btn :type="tag" flat style="color: #ff0080" label="Fuchsia Flat" />
         <q-btn
@@ -960,7 +960,7 @@
         <q-btn :type="tag" outline style="color: goldenrod" label="Goldenrod" />
       </div>
 
-      <div class="caption"> Disabled Buttons </div>
+      <div class="caption">Disabled Buttons</div>
       <div class="q-gutter-sm">
         <q-btn :type="tag" color="primary" disable label="Disabled" />
         <q-btn :type="tag" round color="primary" disable icon="card_giftcard" />
@@ -992,13 +992,13 @@
         />
       </div>
 
-      <div class="caption"> Flat Buttons </div>
+      <div class="caption">Flat Buttons</div>
       <div class="q-gutter-sm">
         <q-btn :type="tag" flat color="primary" label="Flat" />
         <q-btn :type="tag" flat round color="primary" icon="card_giftcard" />
       </div>
 
-      <div class="caption"> Unelevated Buttons </div>
+      <div class="caption">Unelevated Buttons</div>
       <div class="q-gutter-sm">
         <q-btn :type="tag" unelevated color="primary" label="Flat" />
         <q-btn
@@ -1010,13 +1010,13 @@
         />
       </div>
 
-      <div class="caption"> Outline Buttons </div>
+      <div class="caption">Outline Buttons</div>
       <div class="q-gutter-sm">
         <q-btn :type="tag" outline color="primary" label="Outline" />
         <q-btn :type="tag" round outline color="primary" icon="card_giftcard" />
       </div>
 
-      <div class="caption"> Push Buttons </div>
+      <div class="caption">Push Buttons</div>
       <div class="q-gutter-sm">
         <q-btn :type="tag" push color="primary" label="Push" />
         <q-btn :type="tag" push color="primary" round icon="card_giftcard" />
@@ -1037,22 +1037,22 @@
         />
       </div>
 
-      <div class="caption"> Round Buttons </div>
+      <div class="caption">Round Buttons</div>
       <div class="q-gutter-sm">
         <q-btn :type="tag" round color="secondary" icon="alarm" />
       </div>
 
-      <div class="caption"> Rounded Buttons </div>
+      <div class="caption">Rounded Buttons</div>
       <div class="q-gutter-sm">
         <q-btn :type="tag" rounded color="secondary" icon="alarm" />
       </div>
 
-      <div class="caption"> Square Buttons </div>
+      <div class="caption">Square Buttons</div>
       <div class="q-gutter-sm">
         <q-btn :type="tag" square color="secondary" icon="alarm" />
       </div>
 
-      <div class="caption"> Glossy Buttons </div>
+      <div class="caption">Glossy Buttons</div>
       <div class="q-gutter-sm">
         <q-btn :type="tag" color="primary" glossy label="Glossy" />
         <q-btn :type="tag" color="secondary" glossy label="Glossy" />
@@ -1074,7 +1074,7 @@
         />
       </div>
 
-      <div class="caption"> Block Buttons </div>
+      <div class="caption">Block Buttons</div>
       <div class="q-gutter-sm">
         <q-btn
           :type="tag"
@@ -1086,7 +1086,7 @@
         <q-btn :type="tag" color="secondary" class="block" label="Block" />
       </div>
 
-      <div class="caption"> Full Width Buttons </div>
+      <div class="caption">Full Width Buttons</div>
       <div class="q-gutter-sm">
         <q-btn
           :type="tag"
@@ -1137,7 +1137,7 @@
         />
       </div>
 
-      <div class="caption"> Multiline Buttons </div>
+      <div class="caption">Multiline Buttons</div>
       <div class="q-gutter-sm">
         <q-btn :type="tag" color="primary" size="sm">
           Small<br />Multiline<br />Button
@@ -1315,7 +1315,7 @@
         </q-btn>
       </div>
 
-      <div class="caption"> Wrap test </div>
+      <div class="caption">Wrap test</div>
       <div class="q-gutter-sm" style="width: 610px">
         <q-btn
           :type="tag"
@@ -1399,7 +1399,7 @@
       </div>
       <br /><br />
       <h2>Types</h2>
-      <h3 class="capitalize"> Rectangular </h3>
+      <h3 class="capitalize">Rectangular</h3>
       <div v-for="color in colors" :key="'j' + color">
         <h4 class="capitalize">
           {{ color }}
@@ -1425,7 +1425,7 @@
         />
       </div>
 
-      <h3 class="capitalize"> Circular </h3>
+      <h3 class="capitalize">Circular</h3>
       <div v-for="color in colors" :key="'l' + color">
         <h4 class="capitalize">
           {{ color }}

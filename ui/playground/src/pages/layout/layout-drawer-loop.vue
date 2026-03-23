@@ -18,16 +18,17 @@
     </q-footer>
 
     <q-drawer side="right" v-model="drawer" bordered>
-      <div v-for="n in contentSize" :key="n">
-        Drawer {{ n }} / {{ contentSize }}
-      </div>
+      <div v-for="n in contentSize" :key="n"
+        >Drawer {{ n }} / {{ contentSize }}</div
+      >
     </q-drawer>
 
     <q-page-container>
       <q-page padding>
         <div v-for="n in contentSize" :key="n">
           My page My page My page My page My page My page My page My page My
-          page My page My page Pa {{ n }} / {{ contentSize }}
+          page My page My page Pa
+          {{ n }} / {{ contentSize }}
         </div>
       </q-page>
 

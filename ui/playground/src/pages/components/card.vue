@@ -207,17 +207,17 @@
           />
 
           <div class="row no-wrap items-center">
-            <div class="col text-h6 ellipsis"> Cafe Basilico </div>
-            <div class="col-auto text-grey q-pt-md">
-              <q-icon name="place" /> 250 ft
-            </div>
+            <div class="col text-h6 ellipsis">Cafe Basilico</div>
+            <div class="col-auto text-grey q-pt-md"
+              ><q-icon name="place" /> 250 ft</div
+            >
           </div>
 
           <q-rating v-model="stars" :max="5" size="32px" />
         </q-card-section>
 
         <q-card-section>
-          <div class="text-subtitle1"> $・Italian, Cafe </div>
+          <div class="text-subtitle1">$・Italian, Cafe</div>
           <div class="text-subtitle2 text-grey">
             Small plates, salads & sandwiches in an intimate setting.
           </div>
@@ -247,17 +247,17 @@
           />
 
           <div class="row no-wrap items-center">
-            <div class="col text-h6 ellipsis"> Cafe Basilico </div>
-            <div class="col-auto text-grey q-pt-md">
-              <q-icon name="place" /> 250 ft
-            </div>
+            <div class="col text-h6 ellipsis">Cafe Basilico</div>
+            <div class="col-auto text-grey q-pt-md"
+              ><q-icon name="place" /> 250 ft</div
+            >
           </div>
 
           <q-rating v-model="stars" :max="5" size="32px" />
         </q-card-section>
 
         <q-card-section>
-          <div class="text-subtitle1"> $・Italian, Cafe </div>
+          <div class="text-subtitle1">$・Italian, Cafe</div>
           <div class="text-subtitle2 text-grey">
             Small plates, salads & sandwiches in an intimate setting.
           </div>
@@ -282,8 +282,8 @@
 
       <q-card>
         <q-card-section>
-          <div class="text-h6"> Our Changing Planet </div>
-          <div class="text-subtitle2"> by John Doe </div>
+          <div class="text-h6">Our Changing Planet</div>
+          <div class="text-subtitle2">by John Doe</div>
         </q-card-section>
 
         <q-card-section>
@@ -302,8 +302,8 @@
         "
       >
         <q-card-section>
-          <div class="text-h6"> Our Changing Planet </div>
-          <div class="text-subtitle2"> by John Doe </div>
+          <div class="text-h6">Our Changing Planet</div>
+          <div class="text-subtitle2">by John Doe</div>
         </q-card-section>
 
         <q-card-section>
@@ -313,8 +313,8 @@
 
       <q-card flat>
         <q-card-section>
-          <div class="text-h6"> Our Changing Planet </div>
-          <div class="text-subtitle2"> by John Doe </div>
+          <div class="text-h6">Our Changing Planet</div>
+          <div class="text-subtitle2">by John Doe</div>
         </q-card-section>
 
         <q-card-section>
@@ -324,8 +324,8 @@
 
       <q-card dark bordered class="bg-grey-9 text-whiteq">
         <q-card-section>
-          <div class="text-h6"> Our Changing Planet </div>
-          <div class="text-subtitle2"> by John Doe </div>
+          <div class="text-h6">Our Changing Planet</div>
+          <div class="text-subtitle2">by John Doe</div>
         </q-card-section>
 
         <q-separator dark inset />
@@ -337,8 +337,8 @@
 
       <q-card class="bg-secondary text-white">
         <q-card-section>
-          <div class="text-h6"> Our Changing Planet </div>
-          <div class="text-subtitle2"> by John Doe </div>
+          <div class="text-h6">Our Changing Planet</div>
+          <div class="text-subtitle2">by John Doe</div>
         </q-card-section>
 
         <q-card-section>
@@ -357,8 +357,8 @@
         <q-card-section>
           <div class="row items-center no-wrap">
             <div class="col">
-              <div class="text-h6"> Our Changing Planet </div>
-              <div class="text-subtitle2"> by John Doe </div>
+              <div class="text-h6">Our Changing Planet</div>
+              <div class="text-subtitle2">by John Doe</div>
             </div>
 
             <div class="col-auto">
@@ -395,8 +395,8 @@
 
       <q-card>
         <q-card-section>
-          <div class="text-h6"> Our Changing Planet </div>
-          <div class="text-subtitle2"> by John Doe </div>
+          <div class="text-h6">Our Changing Planet</div>
+          <div class="text-subtitle2">by John Doe</div>
         </q-card-section>
 
         <q-separator />
@@ -409,8 +409,8 @@
 
       <q-card>
         <q-card-section>
-          <div class="text-h6"> Our Changing Planet </div>
-          <div class="text-subtitle2"> by John Doe </div>
+          <div class="text-h6">Our Changing Planet</div>
+          <div class="text-subtitle2">by John Doe</div>
         </q-card-section>
 
         <q-separator />
@@ -423,8 +423,8 @@
 
       <q-card>
         <q-card-section>
-          <div class="text-h6"> Our Changing Planet </div>
-          <div class="text-subtitle2"> by John Doe </div>
+          <div class="text-h6">Our Changing Planet</div>
+          <div class="text-subtitle2">by John Doe</div>
         </q-card-section>
 
         <q-card-actions align="right">
@@ -459,8 +459,8 @@
         <img src="~assets/mountains.jpg" />
 
         <q-card-section>
-          <div class="text-h6"> Our Changing Planet </div>
-          <div class="text-subtitle2"> by John Doe </div>
+          <div class="text-h6">Our Changing Planet</div>
+          <div class="text-subtitle2">by John Doe</div>
         </q-card-section>
 
         <q-card-section>
@@ -470,13 +470,13 @@
 
       <q-card>
         <q-img src="~assets/parallax2.jpg" basic>
-          <div class="absolute-bottom text-subtitle2 text-center"> Title </div>
+          <div class="absolute-bottom text-subtitle2 text-center">Title</div>
         </q-img>
       </q-card>
 
       <q-card>
         <q-img src="https://cdn.quasar.dev/img/parallax2.jpg" basic>
-          <div class="absolute-bottom text-h6"> Title </div>
+          <div class="absolute-bottom text-h6">Title</div>
         </q-img>
 
         <q-card-section>
@@ -486,27 +486,27 @@
 
       <q-card>
         <q-img src="https://cdn.quasar.dev/img/parallax2.jpg">
-          <div class="text-subtitle2 absolute-top text-center"> Title </div>
+          <div class="text-subtitle2 absolute-top text-center">Title</div>
         </q-img>
       </q-card>
 
       <q-card>
         <q-img src="https://cdn.quasar.dev/img/parallax2.jpg">
-          <div class="text-h5 absolute-bottom text-right"> Title </div>
+          <div class="text-h5 absolute-bottom text-right">Title</div>
         </q-img>
       </q-card>
 
       <q-card>
         <q-img src="https://cdn.quasar.dev/img/parallax2.jpg">
-          <div class="text-subtitle2 absolute-full text-center"> Title </div>
+          <div class="text-subtitle2 absolute-full text-center">Title</div>
         </q-img>
       </q-card>
 
       <q-card>
         <q-img src="https://cdn.quasar.dev/img/parallax2.jpg">
           <div class="absolute-bottom">
-            <div class="text-h6"> Our Changing Planet </div>
-            <div class="text-subtitle2"> by John Doe </div>
+            <div class="text-h6">Our Changing Planet</div>
+            <div class="text-subtitle2">by John Doe</div>
           </div>
         </q-img>
 
@@ -523,8 +523,8 @@
         />
 
         <q-card-section>
-          <div class="text-h6"> Our Changing Planet </div>
-          <div class="text-subtitle2"> by John Doe </div>
+          <div class="text-h6">Our Changing Planet</div>
+          <div class="text-subtitle2">by John Doe</div>
         </q-card-section>
 
         <q-separator />
@@ -552,8 +552,8 @@
         <img src="~assets/parallax2.jpg" />
 
         <q-card-section>
-          <div class="text-h6"> Our Changing Planet </div>
-          <div class="text-subtitle2"> by John Doe </div>
+          <div class="text-h6">Our Changing Planet</div>
+          <div class="text-subtitle2">by John Doe</div>
         </q-card-section>
 
         <q-card-actions>
@@ -603,13 +603,13 @@
 
       <q-card>
         <q-card-section>
-          <div class="text-h6"> Our Changing Planet </div>
-          <div class="text-subtitle2"> by John Doe </div>
+          <div class="text-h6">Our Changing Planet</div>
+          <div class="text-subtitle2">by John Doe</div>
         </q-card-section>
 
         <q-list>
           <q-expansion-item expand-separator icon="explore" label="First">
-            <div class="q-pa-md"> Lorem ipsum dolor sit amet... </div>
+            <div class="q-pa-md">Lorem ipsum dolor sit amet...</div>
           </q-expansion-item>
 
           <q-expansion-item
@@ -617,11 +617,11 @@
             icon="perm_identity"
             label="Second"
           >
-            <div class="q-pa-md"> Lorem ipsum dolor sit amet... </div>
+            <div class="q-pa-md">Lorem ipsum dolor sit amet...</div>
           </q-expansion-item>
 
           <q-expansion-item expand-separator icon="shopping_cart" label="Third">
-            <div class="q-pa-md"> Lorem ipsum dolor sit amet... </div>
+            <div class="q-pa-md">Lorem ipsum dolor sit amet...</div>
           </q-expansion-item>
         </q-list>
       </q-card>
@@ -630,8 +630,8 @@
         <q-video src="https://www.youtube.com/embed/k3_tw44QsZQ?rel=0" />
 
         <q-card-section>
-          <div class="text-h6"> Our Changing Planet </div>
-          <div class="text-subtitle2"> by John Doe </div>
+          <div class="text-h6">Our Changing Planet</div>
+          <div class="text-subtitle2">by John Doe</div>
         </q-card-section>
 
         <q-card-section>
@@ -641,8 +641,8 @@
 
       <q-card>
         <q-card-section>
-          <div class="text-h6"> Our Changing Planet </div>
-          <div class="text-subtitle2"> by John Doe </div>
+          <div class="text-h6">Our Changing Planet</div>
+          <div class="text-subtitle2">by John Doe</div>
         </q-card-section>
 
         <q-card-section>
@@ -670,68 +670,68 @@
         <img src="~assets/mountains.jpg" />
 
         <q-card-section>
-          <div class="text-h6"> Our Changing Planet </div>
+          <div class="text-h6">Our Changing Planet</div>
           <q-rating size="24px" color="primary" v-model="stars" :max="5" />
         </q-card-section>
       </q-card>
 
       <q-card>
         <q-card-section>
-          <div class="text-h6"> Our Changing Planet </div>
-          <div class="text-subtitle2"> by John Doe </div>
+          <div class="text-h6">Our Changing Planet</div>
+          <div class="text-subtitle2">by John Doe</div>
         </q-card-section>
 
         <q-markup-table>
           <thead>
             <tr>
-              <th class="text-left"> Dessert (100g serving) </th>
-              <th class="text-right"> Calories </th>
-              <th class="text-right"> Fat (g) </th>
-              <th class="text-right"> Carbs (g) </th>
-              <th class="text-right"> Protein (g) </th>
-              <th class="text-right"> Sodium (mg) </th>
+              <th class="text-left">Dessert (100g serving)</th>
+              <th class="text-right">Calories</th>
+              <th class="text-right">Fat (g)</th>
+              <th class="text-right">Carbs (g)</th>
+              <th class="text-right">Protein (g)</th>
+              <th class="text-right">Sodium (mg)</th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td class="text-left"> Frozen Yogurt </td>
-              <td class="text-right"> 159 </td>
-              <td class="text-right"> 6 </td>
-              <td class="text-right"> 24 </td>
-              <td class="text-right"> 4 </td>
-              <td class="text-right"> 87 </td>
+              <td class="text-left">Frozen Yogurt</td>
+              <td class="text-right">159</td>
+              <td class="text-right">6</td>
+              <td class="text-right">24</td>
+              <td class="text-right">4</td>
+              <td class="text-right">87</td>
             </tr>
             <tr>
-              <td class="text-left"> Ice cream sandwich </td>
-              <td class="text-right"> 237 </td>
-              <td class="text-right"> 9 </td>
-              <td class="text-right"> 37 </td>
-              <td class="text-right"> 4.3 </td>
-              <td class="text-right"> 129 </td>
+              <td class="text-left">Ice cream sandwich</td>
+              <td class="text-right">237</td>
+              <td class="text-right">9</td>
+              <td class="text-right">37</td>
+              <td class="text-right">4.3</td>
+              <td class="text-right">129</td>
             </tr>
             <tr>
-              <td class="text-left"> Eclair </td>
-              <td class="text-right"> 262 </td>
-              <td class="text-right"> 16 </td>
-              <td class="text-right"> 23 </td>
-              <td class="text-right"> 6 </td>
-              <td class="text-right"> 337 </td>
+              <td class="text-left">Eclair</td>
+              <td class="text-right">262</td>
+              <td class="text-right">16</td>
+              <td class="text-right">23</td>
+              <td class="text-right">6</td>
+              <td class="text-right">337</td>
             </tr>
             <tr>
-              <td class="text-left"> Cupcake </td>
-              <td class="text-right"> 305 </td>
-              <td class="text-right"> 3.7 </td>
-              <td class="text-right"> 67 </td>
-              <td class="text-right"> 4.3 </td>
-              <td class="text-right"> 413 </td>
+              <td class="text-left">Cupcake</td>
+              <td class="text-right">305</td>
+              <td class="text-right">3.7</td>
+              <td class="text-right">67</td>
+              <td class="text-right">4.3</td>
+              <td class="text-right">413</td>
             </tr>
             <tr>
-              <td class="text-left"> Gingerbread </td>
-              <td class="text-right"> 356 </td>
-              <td class="text-right"> 16 </td>
-              <td class="text-right"> 49 </td>
-              <td class="text-right"> 3.9 </td>
-              <td class="text-right"> 327 </td>
+              <td class="text-left">Gingerbread</td>
+              <td class="text-right">356</td>
+              <td class="text-right">16</td>
+              <td class="text-right">49</td>
+              <td class="text-right">3.9</td>
+              <td class="text-right">327</td>
             </tr>
           </tbody>
         </q-markup-table>
@@ -739,8 +739,8 @@
 
       <q-card>
         <q-card-section>
-          <div class="text-h6"> Our Changing Planet </div>
-          <div class="text-subtitle2"> by John Doe </div>
+          <div class="text-h6">Our Changing Planet</div>
+          <div class="text-subtitle2">by John Doe</div>
         </q-card-section>
 
         <q-tabs v-model="tab" class="text-teal">
@@ -759,7 +759,7 @@
 
       <q-card class="bg-warning" style="width: 800px">
         <q-card-section>
-          <div class="text-h6"> QBtnGroup </div>
+          <div class="text-h6">QBtnGroup</div>
         </q-card-section>
 
         <q-separator />

@@ -1,3 +1,3 @@
-import { QAjaxBarProps } from 'quasar'
+import { QAjaxBarProps } from "quasar";
 
-export type QLoadingBarOptions = QAjaxBarProps
+export type QLoadingBarOptions = QAjaxBarProps;

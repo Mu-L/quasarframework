@@ -3,7 +3,7 @@
     <div class="q-layout-padding" :class="{ 'test-height': testHeight }">
       <q-card class="q-my-md">
         <q-card-section class="row items-center">
-          <div class="text-h6"> Headings </div>
+          <div class="text-h6">Headings</div>
           <q-space />
           <q-select
             dense
@@ -43,7 +43,7 @@
 
       <q-card class="q-my-md">
         <q-card-section>
-          <div class="text-h6"> Weights </div>
+          <div class="text-h6">Weights</div>
         </q-card-section>
         <q-separator />
         <q-card-section>

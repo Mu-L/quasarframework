@@ -1,11 +1,11 @@
-import { QInputProps } from 'quasar'
+import { QInputProps } from "quasar";
 
-type QInputType = NonNullable<QInputProps['type']>
+type QInputType = NonNullable<QInputProps["type"]>;
 
 type WithKnownType<
   TElement extends HTMLInputElement | HTMLTextAreaElement,
   TType extends QInputType
-> = Omit<TElement, 'type'> & { type: TType }
+> = Omit<TElement, "type"> & { type: TType };
 
 /**
  * @example
@@ -18,8 +18,8 @@ type WithKnownType<
  * ```
  */
 export type QInputNativeElement<T extends QInputType = QInputType> =
-  T extends 'textarea'
-    ? WithKnownType<HTMLTextAreaElement, 'textarea'>
-    : Omit<WithKnownType<HTMLInputElement, T>, 'files'> & {
-        files: T extends 'file' ? FileList : null
-      }
+  T extends "textarea"
+    ? WithKnownType<HTMLTextAreaElement, "textarea">
+    : Omit<WithKnownType<HTMLInputElement, T>, "files"> & {
+        files: T extends "file" ? FileList : null;
+      };

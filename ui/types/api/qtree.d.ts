@@ -93,33 +93,33 @@
  */
 export type QTreeNode<TExtra = unknown> = Omit<
   {
-    label?: string
-    icon?: string
-    iconColor?: string
-    img?: string
-    avatar?: string
-    children?: QTreeNode<TExtra>[]
-    disabled?: boolean
-    expandable?: boolean
-    selectable?: boolean
-    handler?: (node: QTreeNode<TExtra>) => void
-    tickable?: boolean
-    noTick?: boolean
-    tickStrategy?: 'leaf' | 'leaf-filtered' | 'strict' | 'none'
-    lazy?: boolean
-    header?: string
-    body?: string
+    label?: string;
+    icon?: string;
+    iconColor?: string;
+    img?: string;
+    avatar?: string;
+    children?: QTreeNode<TExtra>[];
+    disabled?: boolean;
+    expandable?: boolean;
+    selectable?: boolean;
+    handler?: (node: QTreeNode<TExtra>) => void;
+    tickable?: boolean;
+    noTick?: boolean;
+    tickStrategy?: "leaf" | "leaf-filtered" | "strict" | "none";
+    lazy?: boolean;
+    header?: string;
+    body?: string;
   },
-  unknown extends TExtra ? '' : keyof TExtra
+  unknown extends TExtra ? "" : keyof TExtra
 > &
-  (unknown extends TExtra ? Record<string, any> : TExtra)
+  (unknown extends TExtra ? Record<string, any> : TExtra);
 
 export interface QTreeLazyLoadParams<
   Node extends QTreeNode = QTreeNode,
   UpdatedNodes extends QTreeNode = Node
 > {
-  node: Node
-  key: string
-  done: (nodes: UpdatedNodes[]) => void
-  fail: () => void
+  node: Node;
+  key: string;
+  done: (nodes: UpdatedNodes[]) => void;
+  fail: () => void;
 }

@@ -1,8 +1,6 @@
 <template>
   <div class="q-layout-padding test-flex-demo">
-    <h6 class="text-red">
-      You need to enable flex-addons from /ui/dev/app.js
-    </h6>
+    <h6 class="text-red">You need to enable flex-addons from /ui/dev/app.js</h6>
     <h1>
       Columns - container height auto
       <small class="pull-right q-px-xs text-red">XS</small>
@@ -855,16 +853,16 @@
         style="height: 500px"
       >
         <div class="col-4 col-lg-2 row">
-          <div class="fit"> .col-4.col-lg-2 </div>
+          <div class="fit">.col-4.col-lg-2</div>
         </div>
         <div class="col col-lg-3 row">
-          <div class="fit"> .col.col-lg-3 </div>
+          <div class="fit">.col.col-lg-3</div>
         </div>
         <div class="col col-md-4 row">
-          <div class="fit"> .col.col-md-4 </div>
+          <div class="fit">.col.col-md-4</div>
         </div>
         <div class="col-xs-2 col-md-3 col-lg-6 row">
-          <div class="fit"> .col-xs-2.col-md-3.col-lg-6 </div>
+          <div class="fit">.col-xs-2.col-md-3.col-lg-6</div>
         </div>
       </div>
     </div>

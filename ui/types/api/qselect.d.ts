@@ -1,4 +1,4 @@
 export type QSelectOption<T = string> = {
-  label: string
-  value: T
-}
+  label: string;
+  value: T;
+};

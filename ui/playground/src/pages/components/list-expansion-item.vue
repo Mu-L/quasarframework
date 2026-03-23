@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="q-layout-padding q-mx-auto" style="max-width: 600px">
-      <h6> Explore the possibilities </h6>
+      <h6>Explore the possibilities</h6>
       <pre>Model: {{ open }}</pre>
       <q-list bordered>
         <q-expansion-item
@@ -248,7 +248,7 @@
         </q-expansion-item>
       </q-list>
 
-      <h6> Links </h6>
+      <h6>Links</h6>
       <q-list bordered>
         <q-expansion-item
           expand-separator
@@ -344,7 +344,7 @@
         </q-expansion-item>
       </q-list>
 
-      <h6> Testing icon toggle attached events </h6>
+      <h6>Testing icon toggle attached events</h6>
       <q-expansion-item
         expand-separator
         icon="shopping_cart"
@@ -415,7 +415,7 @@
         </q-card>
       </q-expansion-item>
 
-      <h6> Make use of events </h6>
+      <h6>Make use of events</h6>
       <q-expansion-item
         class="shadow-1 overflow-hidden"
         style="border-radius: 30px"
@@ -436,7 +436,7 @@
         </q-card>
       </q-expansion-item>
 
-      <h6> On dark Background </h6>
+      <h6>On dark Background</h6>
       <q-expansion-item
         dark
         class="bg-black"
@@ -450,7 +450,7 @@
         </q-card>
       </q-expansion-item>
 
-      <h6> Multiline </h6>
+      <h6>Multiline</h6>
       <q-list bordered inset-separator>
         <q-expansion-item icon="mail" label="Inbox" caption="5 unread emails">
           <q-card>
@@ -468,7 +468,7 @@
         </q-expansion-item>
       </q-list>
 
-      <h6> Switch toggle side </h6>
+      <h6>Switch toggle side</h6>
       <q-list bordered padding inset-separator>
         <q-expansion-item
           expand-icon-toggle
@@ -527,7 +527,7 @@
         </q-expansion-item>
       </q-list>
 
-      <h6> Popups </h6>
+      <h6>Popups</h6>
       <div>
         <q-expansion-item
           popup
@@ -562,7 +562,7 @@
         </q-expansion-item>
       </div>
 
-      <h6> Menu </h6>
+      <h6>Menu</h6>
       <q-list bordered>
         <q-expansion-item
           expand-separator
@@ -752,9 +752,9 @@
         </q-expansion-item>
       </q-list>
 
-      <h6 class="q-mb-md">
-        Group a.k.a Accordion (opening one closes the other)
-      </h6>
+      <h6 class="q-mb-md"
+        >Group a.k.a Accordion (opening one closes the other)</h6
+      >
       <div class="q-mb-sm">
         <q-toggle
           v-model="somegroup"
@@ -819,7 +819,7 @@
         </q-expansion-item>
       </q-list>
 
-      <h6> Preselected/Opened Collapsible (or use a model) </h6>
+      <h6>Preselected/Opened Collapsible (or use a model)</h6>
       <q-list bordered separator>
         <q-expansion-item icon="explore" label="First">
           <q-card>
@@ -838,7 +838,7 @@
         </q-expansion-item>
       </q-list>
 
-      <h6> Ubiquity. Using Cards as content. </h6>
+      <h6>Ubiquity. Using Cards as content.</h6>
       <q-list bordered class="q-pa-none">
         <q-expansion-item icon="explore" label="First Card">
           <q-card class="bg-grey-3">
@@ -919,8 +919,8 @@
             </q-list>
 
             <q-card-actions class="items-center">
-              <div class="text-body2 text-primary"> 13 minutes </div>
-              <div class="text-body2 q-pl-sm"> (1 mile) </div>
+              <div class="text-body2 text-primary">13 minutes</div>
+              <div class="text-body2 q-pl-sm">(1 mile)</div>
               <q-space />
               <q-btn flat color="primary" icon="directions" label="Start" />
             </q-card-actions>
@@ -928,7 +928,7 @@
         </q-expansion-item>
       </q-list>
 
-      <h6> Events test </h6>
+      <h6>Events test</h6>
       <q-expansion-item
         @click="onClick(1)"
         @keyup="onKeyup(1)"

@@ -3,12 +3,12 @@
     <q-markup-table separator="cell" flat bordered dense>
       <thead>
         <tr>
-          <th class="text-left"> Type </th>
-          <th class="text-left"> Propose </th>
-          <th class="text-left"> abortOnFail </th>
-          <th class="text-left"> Threads </th>
-          <th class="text-left"> Outcome </th>
-          <th class="text-left"> Return value </th>
+          <th class="text-left">Type</th>
+          <th class="text-left">Propose</th>
+          <th class="text-left">abortOnFail</th>
+          <th class="text-left">Threads</th>
+          <th class="text-left">Outcome</th>
+          <th class="text-left">Return value</th>
         </tr>
       </thead>
       <tbody>

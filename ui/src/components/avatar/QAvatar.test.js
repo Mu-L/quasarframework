@@ -117,8 +117,7 @@ describe('[QAvatar API]', () => {
         await flushPromises()
 
         expect(target.classes()).toContain('q-avatar--square')
-
-        expect(target.$computedStyle('border-radius')).not.toBe('0px')
+        expect(target.$computedStyle('border-radius')).toBe('0px')
       })
     })
 

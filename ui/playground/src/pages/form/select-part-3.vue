@@ -1,7 +1,7 @@
 <template>
   <div class="q-layout-padding">
     <div class="q-gutter-md">
-      <div> Model: {{ model }} </div>
+      <div>Model: {{ model }}</div>
 
       <q-btn
         label="Focus 1"

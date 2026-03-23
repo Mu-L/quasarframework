@@ -48,10 +48,10 @@
         </div>
       </div>
 
-      <p class="caption">
-        Page scrolling is prevented, but you can opt out if you wish.
-      </p>
-      <div> Click status: {{ clickStatus }} </div>
+      <p class="caption"
+        >Page scrolling is prevented, but you can opt out if you wish.</p
+      >
+      <div>Click status: {{ clickStatus }}</div>
       <div
         v-touch-pan.prevent.right.mouse="handlePanRight"
         @click="e => onEvt('click', e)"
@@ -76,10 +76,10 @@
         </div>
       </div>
 
-      <p class="caption">
-        Page scrolling is prevented, but you can opt out if you wish.
-      </p>
-      <div> Click status: {{ clickStatus }} </div>
+      <p class="caption"
+        >Page scrolling is prevented, but you can opt out if you wish.</p
+      >
+      <div>Click status: {{ clickStatus }}</div>
       <div
         v-touch-pan.prevent.up.right.mouse="handlePanUpRight"
         @click="e => onEvt('click', e)"
@@ -118,7 +118,7 @@
         Notice that on touch capable devices the scrolling is automatically not
         blocked, since we are only capturing horizontally.
       </p>
-      <div> Click status: {{ clickStatus }} </div>
+      <div>Click status: {{ clickStatus }}</div>
       <div
         v-touch-pan.horizontal.prevent.mouse.mouseStop="panHorizontally"
         @click="e => onEvt('click', e)"
@@ -145,7 +145,7 @@
         Example on capturing only vertically panning. Page scrolling is
         prevented, but you can opt out if you wish.
       </p>
-      <div> Click status: {{ clickStatus }} </div>
+      <div>Click status: {{ clickStatus }}</div>
       <div
         v-touch-pan.vertical.prevent.mouse="panVertically"
         @click="e => onEvt('click', e)"
@@ -159,7 +159,7 @@
         </div>
         <div v-else class="text-center q-pa-xl custom-area-placeholder">
           <q-icon size="md" name="arrow_upward" />
-          <div> Pan to up or down only </div>
+          <div>Pan to up or down only</div>
           <q-icon size="md" name="arrow_downward" />
         </div>
 
@@ -173,7 +173,7 @@
         wish.
       </p>
 
-      <p class="caption"> Pan test (preventing it from inner square) </p>
+      <p class="caption">Pan test (preventing it from inner square)</p>
       <div
         v-touch-pan.prevent.mouse="handlePanTest"
         @click="e => onEvt('click', e)"

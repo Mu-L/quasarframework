@@ -112,7 +112,7 @@
         />
       </div>
 
-      <div class="text-h6"> Colored </div>
+      <div class="text-h6">Colored</div>
       <div class="q-gutter-md">
         <q-date v-model="date" v-bind="props" color="orange" :style="style" />
 
@@ -125,7 +125,7 @@
         />
       </div>
 
-      <div class="text-h6"> Events </div>
+      <div class="text-h6">Events</div>
       <div class="q-gutter-md">
         <q-date
           v-model="date"
@@ -144,7 +144,7 @@
         />
       </div>
 
-      <div class="text-h6"> Limited options </div>
+      <div class="text-h6">Limited options</div>
       <div class="q-gutter-md">
         <q-date
           v-model="date"
@@ -168,7 +168,7 @@
         />
       </div>
 
-      <div class="text-h6"> Default view </div>
+      <div class="text-h6">Default view</div>
       <div class="q-gutter-md">
         <q-date
           v-model="date"
@@ -185,7 +185,7 @@
         />
       </div>
 
-      <div class="text-h6"> Negative years: {{ dateNeg }} </div>
+      <div class="text-h6">Negative years: {{ dateNeg }}</div>
       <div class="q-gutter-md">
         <q-date v-model="dateNeg" v-bind="props" :style="style" />
 
@@ -200,9 +200,7 @@
         </q-input>
       </div>
 
-      <div class="text-h6 q-mt-xl q-mb-none">
-        ParseFormat: {{ dateParse }}
-      </div>
+      <div class="text-h6 q-mt-xl q-mb-none">ParseFormat: {{ dateParse }}</div>
       <div class="q-gutter-md">
         <q-input :dark="dark" filled v-model="mask" label="Mask" />
         <q-select
@@ -228,7 +226,7 @@
         <q-input :dark="dark" filled v-model="dateParse" />
       </div>
 
-      <div class="text-h6"> Input: {{ input }} </div>
+      <div class="text-h6">Input: {{ input }}</div>
       <div class="q-gutter-md">
         <q-input
           :dark="dark"
@@ -251,7 +249,7 @@
         </q-input>
       </div>
 
-      <div class="text-h6"> Input with close on selection: {{ input }} </div>
+      <div class="text-h6">Input with close on selection: {{ input }}</div>
       <div class="q-gutter-md">
         <q-input :dark="dark" filled v-model="inputFull">
           <template v-slot:append>
@@ -366,7 +364,7 @@
         </q-input>
       </div>
 
-      <div class="text-h6"> Input that keeps focus: {{ input }} </div>
+      <div class="text-h6">Input that keeps focus: {{ input }}</div>
       <div class="q-gutter-md">
         <q-input
           :dark="dark"

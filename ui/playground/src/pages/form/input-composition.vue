@@ -16,9 +16,9 @@
         v-for="(row, index) in log"
         :key="index"
       >
-        <div class="col-2"> {{ index }}. {{ row[0] }} * {{ row[1] }} </div>
+        <div class="col-2">{{ index }}. {{ row[0] }} * {{ row[1] }}</div>
         <div class="col-8 row q-gutter-x-sm">
-          <div v-for="(v, k) in row[2]" :key="k"> {{ k }}: {{ v }} </div>
+          <div v-for="(v, k) in row[2]" :key="k">{{ k }}: {{ v }}</div>
         </div>
       </div>
     </div>

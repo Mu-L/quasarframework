@@ -1,7 +1,7 @@
 <template>
   <div class="q-layout-padding row justify-center">
     <div style="width: 500px; max-width: 90vw">
-      <h6> Width {{ $q.screen.width }} --> {{ type }} </h6>
+      <h6>Width {{ $q.screen.width }} --> {{ type }}</h6>
 
       <div class="popup-surface-test" tabindex="0">
         <div>Handles click</div>

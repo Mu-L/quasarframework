@@ -75,7 +75,7 @@
             label="Multiple"
             url="http://localhost:4444/upload"
           />
-          <div v-for="n in 10" :key="'1.' + n"> {{ n }} Step 1 </div>
+          <div v-for="n in 10" :key="'1.' + n">{{ n }} Step 1</div>
           <q-stepper-navigation v-if="!globalNav">
             <q-btn :color="color" @click="$refs.stepper.next()">
               Continue
@@ -96,7 +96,7 @@
           :caption="caption ? 'Alert message' : null"
           icon="map"
         >
-          <div v-for="n in 10" :key="'2.' + n"> {{ n }} Step 2 </div>
+          <div v-for="n in 10" :key="'2.' + n">{{ n }} Step 2</div>
           <keep-alive-test name="two" />
           <q-stepper-navigation v-if="!globalNav">
             <q-btn :color="color" @click="$refs.stepper.next()">
@@ -122,7 +122,7 @@
           title="Get code"
           icon="map"
         >
-          <div v-for="n in 3" :key="'3.' + n"> {{ n }} Step 3 </div>
+          <div v-for="n in 3" :key="'3.' + n">{{ n }} Step 3</div>
           <keep-alive-test name="three" />
           <q-stepper-navigation v-if="!globalNav">
             <q-btn :color="color" @click="$refs.stepper.next()">
@@ -148,7 +148,7 @@
           title="Disabled"
           icon="map"
         >
-          <div v-for="n in 3" :key="'4.' + n"> {{ n }} Step 4 </div>
+          <div v-for="n in 3" :key="'4.' + n">{{ n }} Step 4</div>
           <keep-alive-test name="four" />
           <q-stepper-navigation v-if="!globalNav">
             <q-btn :color="color" @click="$refs.stepper.next()">
@@ -172,7 +172,7 @@
           :header-nav="headerNavStep ? step > 5 : true"
           icon="map"
         >
-          <div v-for="n in 3" :key="'5.' + n"> {{ n }} Step 5 </div>
+          <div v-for="n in 3" :key="'5.' + n">{{ n }} Step 5</div>
           <keep-alive-test name="five" />
           <q-stepper-navigation v-if="!globalNav">
             <q-btn :color="color" @click="step = 1"> Restart </q-btn>
@@ -188,7 +188,7 @@
         </q-step>
 
         <template v-slot:message>
-          <div class="q-pa-lg"> Message slot </div>
+          <div class="q-pa-lg">Message slot</div>
         </template>
 
         <template v-if="globalNav" v-slot:navigation>

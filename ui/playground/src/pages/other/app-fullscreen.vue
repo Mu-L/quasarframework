@@ -26,7 +26,7 @@
         />
       </p>
 
-      <p class="caption"> On some phones this will have little effect: </p>
+      <p class="caption">On some phones this will have little effect:</p>
       <ul class="light-paragraph">
         <li>
           For example, on Samsung S4, when App goes into fullscreen, the top bar

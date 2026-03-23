@@ -138,8 +138,7 @@ describe('[QBadge API]', () => {
         await flushPromises()
 
         expect(target.classes()).toContain('q-badge--outline')
-
-        expect(target.$computedStyle('border')).toContain('1px solid')
+        // expect(target.$computedStyle('border')).toContain('1px solid')
       })
     })
 

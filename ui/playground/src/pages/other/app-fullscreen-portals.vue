@@ -195,9 +195,9 @@
             </q-card-section>
 
             <q-card-section ref="fullscreenInside2" class="bg-blue-2 q-pa-md">
-              <div class="x-my-md">
-                Fullscreen inside seamless dialog (in fullscreen el)
-              </div>
+              <div class="x-my-md"
+                >Fullscreen inside seamless dialog (in fullscreen el)</div
+              >
 
               <q-btn
                 label="Toggle seamless dialog inside local fullscreen"

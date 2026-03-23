@@ -35,20 +35,17 @@ describe('[QBreadcrumbs API]', () => {
 
         expect(
           wrapper
-            .get(
-              '.q-breadcrumbs > div > .flex.items-center:not(.q-breadcrumbs--last)'
-            )
+            .get('div > .flex.items-center:not(.q-breadcrumbs--last)')
             .classes()
         ).not.toContain('text-red')
 
         await wrapper.setProps({ activeColor: propVal })
         await flushPromises()
 
+        console.log('gigi')
         expect(
           wrapper
-            .get(
-              '.q-breadcrumbs > div > .flex.items-center:not(.q-breadcrumbs--last)'
-            )
+            .get('div > .flex.items-center:not(.q-breadcrumbs--last)')
             .classes()
         ).toContain('text-red')
       })

@@ -90,7 +90,7 @@
         />
       </div>
 
-      <p class="caption"> Slots </p>
+      <p class="caption">Slots</p>
       <q-rating size="2rem" color="primary" v-model="ratingModel" max="3">
         <template #tip-1>
           <q-tooltip>Bad</q-tooltip>
@@ -182,7 +182,7 @@
         />
       </div>
 
-      <p class="caption q-mt-lg"> Readonly State </p>
+      <p class="caption q-mt-lg">Readonly State</p>
       <q-rating
         size="2rem"
         color="primary"
@@ -192,7 +192,7 @@
         readonly
       />
 
-      <p class="caption"> Disabled State </p>
+      <p class="caption">Disabled State</p>
       <q-rating
         size="2rem"
         color="primary"

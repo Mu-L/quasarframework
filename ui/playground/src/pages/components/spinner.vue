@@ -33,7 +33,7 @@
         />
       </div>
 
-      <h6> Hover over them to see their names </h6>
+      <h6>Hover over them to see their names</h6>
 
       <div style="margin-top: 20px">
         <div

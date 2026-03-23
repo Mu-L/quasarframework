@@ -2,9 +2,9 @@ export interface RunSequentialPromisesFulfilledResult<
   TKey extends number | string,
   TValue
 > {
-  key: TKey
-  status: 'fulfilled'
-  value: TValue
+  key: TKey;
+  status: "fulfilled";
+  value: TValue;
 }
 
 /**
@@ -28,17 +28,17 @@ export interface RunSequentialPromisesRejectedResult<
   TKey extends number | string,
   TValue
 > {
-  key: TKey
-  status: 'rejected'
-  reason: any
+  key: TKey;
+  status: "rejected";
+  reason: any;
   resultAggregator: TKey extends number
     ? RunSequentialPromisesResult<TKey, TValue>[]
-    : { [key in TKey]?: RunSequentialPromisesResult<TKey, TValue> }
+    : { [key in TKey]?: RunSequentialPromisesResult<TKey, TValue> };
 }
 
 export type RunSequentialPromisesResult<TKey extends number | string, TValue> =
   | RunSequentialPromisesFulfilledResult<TKey, TValue>
-  | RunSequentialPromisesRejectedResult<TKey, TValue>
+  | RunSequentialPromisesRejectedResult<TKey, TValue>;
 
 export interface RunSequentialPromisesOptions {
   /**
@@ -48,7 +48,7 @@ export interface RunSequentialPromisesOptions {
    *
    * @default 1
    */
-  threadsNumber?: number
+  threadsNumber?: number;
 
   /**
    * When set to `false`, the result Promise will never get rejected (no catch() needed)
@@ -57,7 +57,7 @@ export interface RunSequentialPromisesOptions {
    *
    * @default true
    */
-  abortOnFail?: boolean
+  abortOnFail?: boolean;
 }
 
 /**
@@ -75,10 +75,10 @@ export function runSequentialPromises<
   promises: ((
     resultAggregator: RunSequentialPromisesResult<TKey, TValue>[]
   ) => Promise<TValue>)[],
-  options: Omit<RunSequentialPromisesOptions, 'abortOnFail'> & {
-    abortOnFail: false
+  options: Omit<RunSequentialPromisesOptions, "abortOnFail"> & {
+    abortOnFail: false;
   }
-): Promise<RunSequentialPromisesResult<TKey, TValue>[]>
+): Promise<RunSequentialPromisesResult<TKey, TValue>[]>;
 export function runSequentialPromises<
   TValue = any,
   TKey extends number = number
@@ -87,7 +87,7 @@ export function runSequentialPromises<
     resultAggregator: RunSequentialPromisesFulfilledResult<TKey, TValue>[]
   ) => Promise<TValue>)[],
   options?: RunSequentialPromisesOptions
-): Promise<RunSequentialPromisesFulfilledResult<TKey, TValue>[]>
+): Promise<RunSequentialPromisesFulfilledResult<TKey, TValue>[]>;
 // Object-style overrides
 export function runSequentialPromises<
   TValue = any,
@@ -95,25 +95,25 @@ export function runSequentialPromises<
 >(
   promisesMap: {
     [key in TKey]: (resultAggregator: {
-      [key in TKey]?: RunSequentialPromisesResult<TKey, TValue>
-    }) => Promise<TValue>
+      [key in TKey]?: RunSequentialPromisesResult<TKey, TValue>;
+    }) => Promise<TValue>;
   },
-  options?: Omit<RunSequentialPromisesOptions, 'abortOnFail'> & {
-    abortOnFail: false
+  options?: Omit<RunSequentialPromisesOptions, "abortOnFail"> & {
+    abortOnFail: false;
   }
 ): Promise<{
-  [key in TKey]: RunSequentialPromisesResult<TKey, TValue>
-}>
+  [key in TKey]: RunSequentialPromisesResult<TKey, TValue>;
+}>;
 export function runSequentialPromises<
   TValue = any,
   TKey extends string = string
 >(
   promisesMap: {
     [key in TKey]: (resultAggregator: {
-      [key in TKey]?: RunSequentialPromisesFulfilledResult<TKey, TValue>
-    }) => Promise<TValue>
+      [key in TKey]?: RunSequentialPromisesFulfilledResult<TKey, TValue>;
+    }) => Promise<TValue>;
   },
   options?: RunSequentialPromisesOptions
 ): Promise<{
-  [key in TKey]: RunSequentialPromisesFulfilledResult<TKey, TValue>
-}>
+  [key in TKey]: RunSequentialPromisesFulfilledResult<TKey, TValue>;
+}>;

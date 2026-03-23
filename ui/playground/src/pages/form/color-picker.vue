@@ -21,7 +21,7 @@
         <q-chip>{{ rgb }}</q-chip>
         <q-chip>{{ rgba }}</q-chip>
       </div>
-      <div class="text-h6"> v-model + @change </div>
+      <div class="text-h6">v-model + @change</div>
       <div class="row items-start q-gutter-md">
         <q-color v-bind="props" v-model="hex" @change="onChange" />
         <q-color v-bind="props" v-model="hexa" @change="onChange" />
@@ -35,7 +35,7 @@
         <q-chip>{{ rgb }}</q-chip>
         <q-chip>{{ rgba }}</q-chip>
       </div>
-      <div class="text-h6"> :model-value + @change </div>
+      <div class="text-h6">:model-value + @change</div>
       <div class="row items-start q-gutter-md">
         <q-color
           v-bind="props"
@@ -115,7 +115,7 @@
         <q-color v-bind="props" format-model="rgba" v-model="nullRgba" />
       </div>
 
-      <div class="text-h6"> Lazy </div>
+      <div class="text-h6">Lazy</div>
       <div>
         <q-chip>{{ hex }}</q-chip>
         <q-chip>{{ hexa }}</q-chip>
@@ -145,7 +145,7 @@
         />
       </div>
 
-      <div class="text-h6"> Custom palette </div>
+      <div class="text-h6">Custom palette</div>
       <div>
         <q-chip>{{ hex }}</q-chip>
         <q-chip>{{ hexa }}</q-chip>
@@ -187,7 +187,7 @@
         />
       </div>
 
-      <div class="text-h6"> Input: {{ inputModelHex }} </div>
+      <div class="text-h6">Input: {{ inputModelHex }}</div>
       <div class="q-gutter-md">
         <q-input
           :dark="dark"

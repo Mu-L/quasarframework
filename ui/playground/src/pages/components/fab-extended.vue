@@ -52,7 +52,7 @@
 
     <q-page-container>
       <q-page padding>
-        <div v-for="i in 300" :key="i" class="q-pa-sm"> Row {{ i }} </div>
+        <div v-for="i in 300" :key="i" class="q-pa-sm">Row {{ i }}</div>
 
         <q-page-sticky
           :position="stickyConfig.position"

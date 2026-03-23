@@ -63,7 +63,7 @@
         text-color="white"
         bg-color="primary"
       >
-        <div> Hey there! </div>
+        <div>Hey there!</div>
 
         <div>
           Have you seen Quasar?

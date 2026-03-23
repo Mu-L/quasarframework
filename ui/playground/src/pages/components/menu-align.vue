@@ -23,7 +23,7 @@
 
     <div>
       <div class="row items-center q-mb-sm">
-        <div> Anchor Origin</div>
+        <div>Anchor Origin</div>
         <q-option-group
           v-model="anchorOrigin"
           :options="options"
@@ -33,7 +33,7 @@
       </div>
 
       <div class="row items-center q-mb-sm">
-        <div> Self Origin</div>
+        <div>Self Origin</div>
         <q-option-group
           v-model="selfOrigin"
           :options="options"

@@ -6,9 +6,9 @@
       </q-card-section>
 
       <q-card-section>
-        <div class="caption text-center text-italic q-mb-sm">
-          (only 4 anims showcased here)
-        </div>
+        <div class="caption text-center text-italic q-mb-sm"
+          >(only 4 anims showcased here)</div
+        >
 
         <div class="row q-col-gutter-sm">
           <q-select

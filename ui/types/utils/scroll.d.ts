@@ -1,4 +1,4 @@
-import { Ref, ComponentPublicInstance } from 'vue'
+import { Ref, ComponentPublicInstance } from "vue";
 
 export namespace scroll {
   function getScrollTarget(
@@ -8,36 +8,36 @@ export namespace scroll {
       | Element
       | Window
       | Ref<ComponentPublicInstance | undefined>
-  ): Element | Window
+  ): Element | Window;
 
-  function getScrollHeight(el: Element | Window): number
-  function getScrollWidth(el: Element | Window): number
+  function getScrollHeight(el: Element | Window): number;
+  function getScrollWidth(el: Element | Window): number;
 
-  function getVerticalScrollPosition(scrollTarget: Element | Window): number
-  function getHorizontalScrollPosition(scrollTarget: Element | Window): number
+  function getVerticalScrollPosition(scrollTarget: Element | Window): number;
+  function getHorizontalScrollPosition(scrollTarget: Element | Window): number;
 
   function animVerticalScrollTo(
     el: Element | Window,
     to: number,
     duration: number
-  ): void
+  ): void;
   function animHorizontalScrollTo(
     el: Element | Window,
     to: number,
     duration: number
-  ): void
+  ): void;
 
   function setVerticalScrollPosition(
     scrollTarget: Element | Window,
     offset: number,
     duration?: number
-  ): void
+  ): void;
   function setHorizontalScrollPosition(
     scrollTarget: Element | Window,
     offset: number,
     duration?: number
-  ): void
+  ): void;
 
-  function getScrollbarWidth(): number
-  function hasScrollbar(el: Element | Window, onY?: boolean): boolean
+  function getScrollbarWidth(): number;
+  function hasScrollbar(el: Element | Window, onY?: boolean): boolean;
 }

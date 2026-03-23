@@ -1,8 +1,8 @@
 <template>
   <div class="q-layout-padding">
-    <div tabindex="0" class="q-pa-lg text-center" style="height: 20vh">
-      Focus placeholder
-    </div>
+    <div tabindex="0" class="q-pa-lg text-center" style="height: 20vh"
+      >Focus placeholder</div
+    >
     <q-field label="Field 1 (using q-popup-proxy)">
       <template v-slot:control>
         <div class="self-center full-width no-outline" tabindex="0" />
@@ -11,9 +11,9 @@
         <q-card>
           <q-card-section>
             Hi from q-popup-proxy
-            <div tabindex="0" class="q-pa-lg text-center">
-              Focus placeholder
-            </div>
+            <div tabindex="0" class="q-pa-lg text-center"
+              >Focus placeholder</div
+            >
           </q-card-section>
           <q-card-actions>
             <q-btn :type="btnType" v-close-popup autofocus> Close Popup </q-btn>
@@ -30,9 +30,9 @@
         <q-card>
           <q-card-section>
             Hi from q-menu
-            <div tabindex="0" class="q-pa-lg text-center">
-              Focus placeholder
-            </div>
+            <div tabindex="0" class="q-pa-lg text-center"
+              >Focus placeholder</div
+            >
           </q-card-section>
           <q-card-actions>
             <q-btn :type="btnType" v-close-popup autofocus> Close Menu </q-btn>
@@ -41,9 +41,9 @@
         </q-card>
       </q-menu>
     </q-field>
-    <div tabindex="0" class="q-pa-lg text-center" style="height: 20vh">
-      Focus placeholder
-    </div>
+    <div tabindex="0" class="q-pa-lg text-center" style="height: 20vh"
+      >Focus placeholder</div
+    >
     <div>
       <q-btn :type="btnType" @click="show = true"> Open dialog </q-btn>
 
@@ -53,9 +53,9 @@
       <q-toggle v-model="toggle" label="Toggle nothing" />
       <q-checkbox v-model="forceA" :label="forceALabel" />
     </div>
-    <div tabindex="0" class="q-pa-lg text-center" style="height: 20vh">
-      Focus placeholder
-    </div>
+    <div tabindex="0" class="q-pa-lg text-center" style="height: 20vh"
+      >Focus placeholder</div
+    >
     <div class="row q-gutter-sm">
       <q-input v-model="text" label="QInput" />
       <q-btn
@@ -91,18 +91,16 @@
       <q-card>
         <q-card-section>
           Hi from q-dialog
-          <div tabindex="0" class="q-pa-lg text-center">
-            Focus placeholder
-          </div>
+          <div tabindex="0" class="q-pa-lg text-center">Focus placeholder</div>
           <div tabindex="0" class="q-pa-lg text-center">
             Open popup proxy
             <q-popup-proxy>
               <q-card>
                 <q-card-section>
                   Hi from q-popup-proxy
-                  <div tabindex="0" class="q-pa-lg text-center">
-                    Focus placeholder
-                  </div>
+                  <div tabindex="0" class="q-pa-lg text-center"
+                    >Focus placeholder</div
+                  >
                 </q-card-section>
                 <q-card-actions>
                   <q-btn :type="btnType" v-close-popup autofocus>
@@ -118,9 +116,9 @@
               <q-card>
                 <q-card-section>
                   Hi from q-menu
-                  <div tabindex="0" class="q-pa-lg text-center">
-                    Focus placeholder
-                  </div>
+                  <div tabindex="0" class="q-pa-lg text-center"
+                    >Focus placeholder</div
+                  >
                 </q-card-section>
                 <q-card-actions>
                   <q-btn :type="btnType" v-close-popup autofocus>

@@ -2,7 +2,7 @@
   <q-layout view="lHh LpR fFf">
     <q-page-container>
       <q-page padding class="bg-white q-pr-xl">
-        <div class="bg-grey-2" style="height: 60vh"> Spacer </div>
+        <div class="bg-grey-2" style="height: 60vh">Spacer</div>
 
         <div>List index: {{ virtualListIndex1 }}</div>
         <div

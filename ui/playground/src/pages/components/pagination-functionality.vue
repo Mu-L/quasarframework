@@ -60,7 +60,7 @@
         active-color="primary"
       />
 
-      <p class="caption"> Inline </p>
+      <p class="caption">Inline</p>
       <q-pagination
         class="inline"
         @change="onChange"
@@ -88,7 +88,7 @@
         :to-fn="toFn"
       />
 
-      <p class="caption"> Disabled State </p>
+      <p class="caption">Disabled State</p>
       <q-pagination
         @change="onChange"
         @update:model-value="onInput"
@@ -103,7 +103,7 @@
         :to-fn="toFn"
       />
 
-      <p class="caption"> Page buttons </p>
+      <p class="caption">Page buttons</p>
       <q-pagination
         @change="onChange"
         @update:model-value="onInput"
@@ -122,7 +122,7 @@
         :to-fn="toFn"
       />
 
-      <p class="caption"> Page buttons - disabled </p>
+      <p class="caption">Page buttons - disabled</p>
       <q-pagination
         @change="onChange"
         @update:model-value="onInput"
@@ -142,7 +142,7 @@
         :to-fn="toFn"
       />
 
-      <p class="caption"> Configuration </p>
+      <p class="caption">Configuration</p>
       <div class="row q-gutter-sm items-center">
         <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
           <q-input

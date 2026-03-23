@@ -42,9 +42,7 @@ function $any(received, expectedList) {
     message: () =>
       `expected ${this.utils.printReceived(
         received
-      )} to${this.isNot ? ' not' : ''} be any of: ${this.utils.printExpected(
-        expectedList
-      )}`
+      )} to${this.isNot ? ' not' : ''} be any of: ${this.utils.printExpected(expectedList)}`
   }
 }
 
@@ -63,9 +61,7 @@ export function $arrayValues(received, expected) {
     message: () =>
       `expected ${this.utils.printReceived(
         received
-      )} to${this.isNot ? ' not' : ''} be: ${this.utils.printExpected(
-        expected
-      )}`
+      )} to${this.isNot ? ' not' : ''} be: ${this.utils.printExpected(expected)}`
   }
 }
 
@@ -130,9 +126,7 @@ export function $reactive(received, expected) {
   return {
     pass,
     message: () =>
-      `expected ${this.utils.printReceived(
-        received
-      )} to${this.isNot ? ' not' : ''} be reactive${
+      `expected ${this.utils.printReceived(received)} to${this.isNot ? ' not' : ''} be reactive${
         expected !== void 0
           ? ` and be equal to ${this.utils.printExpected(expected)}`
           : ''

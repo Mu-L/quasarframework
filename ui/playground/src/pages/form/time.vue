@@ -62,7 +62,7 @@
       </div>
       <q-time v-model="nullTime" v-bind="props" :style="style" />
 
-      <div class="text-h6"> Colored </div>
+      <div class="text-h6">Colored</div>
       <div class="q-gutter-md">
         <q-time v-model="time" v-bind="props" color="orange" :style="style" />
 
@@ -96,7 +96,7 @@
       </div>
       -->
 
-      <div class="text-h6"> Limited options </div>
+      <div class="text-h6">Limited options</div>
       <div class="q-gutter-md">
         <q-time
           v-model="timeLimit"
@@ -115,7 +115,7 @@
         />
       </div>
 
-      <div class="text-h6"> Input: {{ input }} </div>
+      <div class="text-h6">Input: {{ input }}</div>
       <div class="q-gutter-md">
         <q-input
           :dark="dark"
@@ -134,7 +134,7 @@
         </q-input>
       </div>
 
-      <div class="text-h6"> Input AM/PM: {{ input2 }} </div>
+      <div class="text-h6">Input AM/PM: {{ input2 }}</div>
       <div class="q-gutter-md">
         <q-input :dark="dark" filled v-model="input2">
           <template v-slot:append>

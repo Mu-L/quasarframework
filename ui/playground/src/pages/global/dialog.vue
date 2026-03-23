@@ -1,7 +1,7 @@
 <template>
   <div class="q-layout-padding q-mx-auto">
     <div class="column flex-center" style="height: 200vh; width: 200vw">
-      <div v-for="n in 10" :key="n"> Page has scroll on purpose </div>
+      <div v-for="n in 10" :key="n">Page has scroll on purpose</div>
       <div class="row justify-center">
         <div class="q-gutter-md" style="max-width: 700px">
           <q-btn label="Alert" flat color="primary" @click="alert = true" />
@@ -128,7 +128,7 @@
     >
       <q-card>
         <q-card-section>
-          <div class="text-h6"> Alert </div>
+          <div class="text-h6">Alert</div>
         </q-card-section>
 
         <q-card-section>
@@ -174,7 +174,7 @@
     >
       <q-card>
         <q-card-section>
-          <div class="text-h6"> Alert - decoupled from model </div>
+          <div class="text-h6">Alert - decoupled from model</div>
         </q-card-section>
 
         <q-card-section>
@@ -211,7 +211,7 @@
     >
       <q-card class="bg-teal text-white" style="width: 300px">
         <q-card-section>
-          <div class="text-h6"> Persistent </div>
+          <div class="text-h6">Persistent</div>
         </q-card-section>
 
         <q-card-section> Click/Tap on the backdrop. </q-card-section>
@@ -225,7 +225,7 @@
     <q-dialog v-model="icon">
       <q-card>
         <q-card-section class="row items-center">
-          <div class="text-h6"> Close icon </div>
+          <div class="text-h6">Close icon</div>
           <q-space />
           <q-btn icon="close" flat round dense v-close-popup />
         </q-card-section>
@@ -292,7 +292,7 @@
         </q-bar>
 
         <q-card-section>
-          <div class="text-h6"> Alert, Auto-closing on click </div>
+          <div class="text-h6">Alert, Auto-closing on click</div>
         </q-card-section>
 
         <q-card-section>
@@ -352,7 +352,7 @@
     <q-dialog v-model="prompt" persistent>
       <q-card style="min-width: 350px">
         <q-card-section>
-          <div class="text-h6"> Your address </div>
+          <div class="text-h6">Your address</div>
         </q-card-section>
 
         <q-card-section>
@@ -373,7 +373,7 @@
     >
       <q-card>
         <q-card-section>
-          <div class="text-h6"> Terms of Agreement </div>
+          <div class="text-h6">Terms of Agreement</div>
         </q-card-section>
 
         <q-card-section>
@@ -395,7 +395,7 @@
     <q-dialog v-model="scroll2">
       <q-card>
         <q-card-section>
-          <div class="text-h6"> Terms of Agreement </div>
+          <div class="text-h6">Terms of Agreement</div>
         </q-card-section>
 
         <q-separator />
@@ -421,7 +421,7 @@
     <q-dialog v-model="scroll3" position="bottom" maximized>
       <q-card>
         <q-card-section>
-          <div class="text-h6"> Terms of Agreement </div>
+          <div class="text-h6">Terms of Agreement</div>
         </q-card-section>
 
         <q-separator />
@@ -483,7 +483,7 @@
         </q-bar>
 
         <q-card-section>
-          <div class="text-h6"> Alert </div>
+          <div class="text-h6">Alert</div>
         </q-card-section>
 
         <q-card-section>
@@ -501,8 +501,8 @@
 
         <q-card-section class="row items-center no-wrap">
           <div>
-            <div class="text-weight-bold"> The Walker </div>
-            <div class="text-grey"> Fitz & The Tantrums </div>
+            <div class="text-weight-bold">The Walker</div>
+            <div class="text-grey">Fitz & The Tantrums</div>
           </div>
 
           <q-space />
@@ -517,7 +517,7 @@
     <q-dialog v-model="maxiPositioned" position="bottom" maximized>
       <q-card>
         <q-card-section>
-          <div class="text-h6"> Alert </div>
+          <div class="text-h6">Alert</div>
         </q-card-section>
 
         <q-card-section>
@@ -552,8 +552,8 @@
 
         <q-card-section class="row items-center no-wrap">
           <div>
-            <div class="text-weight-bold"> The Walker </div>
-            <div class="text-grey"> Fitz & The Tantrums </div>
+            <div class="text-weight-bold">The Walker</div>
+            <div class="text-grey">Fitz & The Tantrums</div>
           </div>
 
           <q-space />
@@ -585,16 +585,17 @@
         </q-footer>
 
         <q-drawer v-model="drawer" :width="200" :breakpoint="600">
-          <div v-for="n in 50" :key="n"> Drawer {{ n }} / 50 </div>
+          <div v-for="n in 50" :key="n">Drawer {{ n }} / 50</div>
         </q-drawer>
         <q-drawer side="right" v-model="drawerR" :width="200" :breakpoint="300">
-          <div v-for="n in 50" :key="n"> Drawer {{ n }} / 50 </div>
+          <div v-for="n in 50" :key="n">Drawer {{ n }} / 50</div>
         </q-drawer>
         <q-page-container>
           <q-page style="padding-top: 50px" class="bg-yellow">
             <div v-for="n in contentSize" :key="n">
               My page My page My page My page My page My page My page My page My
-              page {{ n }} / {{ contentSize }}
+              page {{ n }} /
+              {{ contentSize }}
             </div>
 
             <q-page-sticky position="top-left" :offset="[18, 58]">
@@ -650,7 +651,7 @@
     <q-dialog v-model="inception">
       <q-card>
         <q-card-section>
-          <div class="text-h6"> Inception </div>
+          <div class="text-h6">Inception</div>
         </q-card-section>
 
         <q-card-section>
@@ -721,17 +722,17 @@
           />
 
           <div class="row no-wrap items-center">
-            <div class="col text-h6 ellipsis"> Cafe Basilico </div>
-            <div class="col-auto text-grey q-pt-md">
-              <q-icon name="place" /> 250 ft
-            </div>
+            <div class="col text-h6 ellipsis">Cafe Basilico</div>
+            <div class="col-auto text-grey q-pt-md"
+              ><q-icon name="place" /> 250 ft</div
+            >
           </div>
 
           <q-rating v-model="stars" :max="5" size="32px" />
         </q-card-section>
 
         <q-card-section>
-          <div class="text-subtitle1"> $・Italian, Cafe </div>
+          <div class="text-subtitle1">$・Italian, Cafe</div>
           <div class="text-subtitle2 text-grey">
             Small plates, salads & sandwiches in an intimate setting.
           </div>
@@ -752,7 +753,7 @@
     <q-dialog v-model="sliders">
       <q-card style="width: 300px" class="q-px-sm q-pb-md">
         <q-card-section>
-          <div class="text-h6"> Volumes </div>
+          <div class="text-h6">Volumes</div>
         </q-card-section>
 
         <q-item-label header> Media volume </q-item-label>
@@ -933,8 +934,8 @@
     <q-dialog v-model="iOSTestTop" position="top">
       <q-card>
         <q-card-section>
-          <div class="text-h6"> Title </div>
-          <div class="text-subtitle2"> Subtitle </div>
+          <div class="text-h6">Title</div>
+          <div class="text-subtitle2">Subtitle</div>
         </q-card-section>
         <q-card-section>
           <q-input v-model="iOStext" />
@@ -948,8 +949,8 @@
     <q-dialog v-model="iOSTestBottom" position="bottom">
       <q-card>
         <q-card-section>
-          <div class="text-h6"> Title </div>
-          <div class="text-subtitle2"> Subtitle </div>
+          <div class="text-h6">Title</div>
+          <div class="text-subtitle2">Subtitle</div>
         </q-card-section>
         <q-card-section>
           <q-input v-model="iOStext" autofocus />
@@ -963,8 +964,8 @@
     <q-dialog v-model="iOSTestNormal">
       <q-card>
         <q-card-section>
-          <div class="text-h6"> Title </div>
-          <div class="text-subtitle2"> Subtitle </div>
+          <div class="text-h6">Title</div>
+          <div class="text-subtitle2">Subtitle</div>
         </q-card-section>
         <q-card-section>
           <q-input v-model="iOStext" autofocus />
@@ -975,8 +976,8 @@
     <q-dialog v-model="iOSTest2">
       <q-card>
         <q-card-section>
-          <div class="text-h6"> Title </div>
-          <div class="text-subtitle2"> Subtitle </div>
+          <div class="text-h6">Title</div>
+          <div class="text-subtitle2">Subtitle</div>
         </q-card-section>
         <q-card-section>
           <q-input

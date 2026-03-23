@@ -61,7 +61,7 @@
       <template v-slot:label>
         <div class="row items-center no-wrap">
           <q-icon left name="map" />
-          <div class="text-center"> Custom<br />Content </div>
+          <div class="text-center">Custom<br />Content</div>
         </div>
       </template>
       <q-list>
@@ -115,7 +115,7 @@
       <template v-slot:label>
         <div class="row items-center no-wrap">
           <q-icon left name="map" />
-          <div class="text-center"> Custom<br />Content </div>
+          <div class="text-center">Custom<br />Content</div>
         </div>
       </template>
       <q-list>
@@ -385,9 +385,9 @@
     <q-toggle v-model="disableMainBtn" label="Disable main btn" />
     <q-toggle v-model="disableDropdown" label="Disable dropdown" />
 
-    <p class="caption">
-      Empty label reactivity problem. Label should be {{ labelA }}
-    </p>
+    <p class="caption"
+      >Empty label reactivity problem. Label should be {{ labelA }}</p
+    >
     <div class="q-ma-md">
       <q-btn-dropdown @click="labelA += '+'" :label="labelA" />
     </div>
@@ -534,7 +534,7 @@
         <template v-slot:label>
           <div class="row items-center col-grow justify-center no-wrap">
             <q-icon left name="map" />
-            <div class="text-center"> Custom<br />Content </div>
+            <div class="text-center">Custom<br />Content</div>
           </div>
         </template>
         <q-list>
@@ -591,7 +591,7 @@
         <template v-slot:label>
           <div class="col row items-center no-wrap">
             <q-icon left name="map" />
-            <div class="text-center"> Custom<br />Content </div>
+            <div class="text-center">Custom<br />Content</div>
           </div>
         </template>
         <q-list>
@@ -749,7 +749,7 @@
         <template v-slot:label>
           <div class="row items-center col-grow justify-center no-wrap">
             <q-icon left name="map" />
-            <div class="text-center"> Custom<br />Content </div>
+            <div class="text-center">Custom<br />Content</div>
           </div>
         </template>
         <q-list>
@@ -806,7 +806,7 @@
         <template v-slot:label>
           <div class="col row items-center no-wrap">
             <q-icon left name="map" />
-            <div class="text-center"> Custom<br />Content </div>
+            <div class="text-center">Custom<br />Content</div>
           </div>
         </template>
         <q-list>

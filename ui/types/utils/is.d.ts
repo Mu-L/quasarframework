@@ -10,7 +10,7 @@ interface is {
    * is.deepEqual(objA, objB) // true
    */
   // Can't do it both ways, see: https://github.com/microsoft/TypeScript/issues/26916#issuecomment-555691585
-  deepEqual<T>(obj1: T, obj2: unknown): obj2 is T
+  deepEqual<T>(obj1: T, obj2: unknown): obj2 is T;
 
   /**
    * Checks if a value is an object.
@@ -25,7 +25,7 @@ interface is {
    * is.object(new Map()) // true
    * is.object(new Set()) // true
    */
-  object<T>(val: T): val is Record<any, any>
+  object<T>(val: T): val is Record<any, any>;
 
   /**
    * Checks if a value is a Date object.
@@ -38,7 +38,7 @@ interface is {
    * is.date(new Date('2022-09-24T11:00:00.000Z')) // true
    * is.date('2022-09-24') // false
    */
-  date(val: unknown): val is Date
+  date(val: unknown): val is Date;
 
   /**
    * Checks if a value is a RegExp.
@@ -48,7 +48,7 @@ interface is {
    * @example <caption>Constructor</caption>
    * is.regexp(new RegExp('bar', 'g')); // true
    */
-  regexp(val: unknown): val is RegExp
+  regexp(val: unknown): val is RegExp;
 
   /**
    * Checks if a value is a finite number.
@@ -61,7 +61,7 @@ interface is {
    * is.number(NaN); // false
    * is.number(Infinity); // false
    */
-  number(val: unknown): val is number
+  number(val: unknown): val is number;
 }
 
-export declare const is: is
+export declare const is: is;

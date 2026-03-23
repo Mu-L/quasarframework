@@ -139,10 +139,10 @@
         <q-card>
           <q-card-section>
             <div class="text-h6">Ratio 1:1</div>
-            <div class="text-caption"
-              >max-height: 100px; leave last -- should not generate padding
-              below it</div
-            >
+            <div class="text-caption">
+              max-height: 100px; leave last -- should not generate padding below
+              it
+            </div>
           </q-card-section>
         </q-card>
       </q-responsive>

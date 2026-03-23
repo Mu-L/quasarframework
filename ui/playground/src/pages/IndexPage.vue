@@ -11,8 +11,8 @@
           src="https://cdn.quasar.dev/logo-v2/128/logo.png"
         />
       </router-link>
-      <div class="text-caption text-center"> Quasar v{{ $q.version }} </div>
-      <div class="text-caption text-center"> Vue v{{ vueVersion }} </div>
+      <div class="text-caption text-center">Quasar v{{ $q.version }}</div>
+      <div class="text-caption text-center">Vue v{{ vueVersion }}</div>
 
       <div class="q-pt-md">
         <q-input ref="filterRef" clearable outlined v-model="filter">

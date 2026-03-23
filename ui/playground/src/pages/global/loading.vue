@@ -1,10 +1,10 @@
 <template>
   <div>
     <div class="q-layout-padding">
-      <div class="q-my-md">
-        Notify the user something is going on behind the scenes.
-      </div>
-      <div> {{ stateInner }} | {{ stateOuter }} </div>
+      <div class="q-my-md"
+        >Notify the user something is going on behind the scenes.</div
+      >
+      <div>{{ stateInner }} | {{ stateOuter }}</div>
       <div class="q-gutter-sm">
         <q-btn push color="secondary" @click="noMessage"> Show </q-btn>
         <q-btn push color="primary" @click="withHtmlMessage">
@@ -15,11 +15,11 @@
         </q-btn>
         <q-btn push color="secondary" @click="withBox"> With box </q-btn>
       </div>
-      <div class="q-my-md"> ...with a custom spinner, colors and size. </div>
+      <div class="q-my-md">...with a custom spinner, colors and size.</div>
       <q-btn push color="secondary" @click="customLoading">
         Show custom Loading
       </q-btn>
-      <div class="q-my-md"> Change Message while Being Displayed </div>
+      <div class="q-my-md">Change Message while Being Displayed</div>
       <div class="q-gutter-sm">
         <q-btn push color="secondary" @click="changeMessage">
           Show & Change
@@ -28,7 +28,7 @@
           Show & Change 2
         </q-btn>
       </div>
-      <div class="q-my-md"> Show multiple times in a row </div>
+      <div class="q-my-md">Show multiple times in a row</div>
       <div>
         <q-input
           v-model.number="showCount"
@@ -43,9 +43,9 @@
         </q-btn>
       </div>
 
-      <div class="q-my-md">
-        Show for a short time - check .q-body--loading class on body
-      </div>
+      <div class="q-my-md"
+        >Show for a short time - check .q-body--loading class on body</div
+      >
       <div class="row q-gutter-sm">
         <q-btn push color="black" @click="shortLoading()">
           Show and hide
@@ -61,7 +61,7 @@
         </q-btn>
       </div>
 
-      <div class="q-my-md"> Show with groups </div>
+      <div class="q-my-md">Show with groups</div>
       <div class="row q-gutter-sm">
         <q-btn push color="black" @click="showGroup1">
           One.1 > Two.1 > One.2

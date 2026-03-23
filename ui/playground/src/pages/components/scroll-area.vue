@@ -66,12 +66,13 @@
             background: #0008;
             z-index: 1;
           "
-          >User-Defined Header</div
         >
+          User-Defined Header
+        </div>
 
         <div :class="{ 'flex no-wrap': horizontal }">
-          <div> testComputed: {{ testComputed }} </div>
-          <div> testFx: {{ testFx() }} </div>
+          <div>testComputed: {{ testComputed }}</div>
+          <div>testFx: {{ testFx() }}</div>
           <div
             style="margin-block: 12px"
             :style="horizontal ? 'width: 160px' : ''"
@@ -100,8 +101,9 @@
             background: #0008;
             z-index: 1;
           "
-          >User-Defined Footer</div
         >
+          User-Defined Footer
+        </div>
       </q-scroll-area>
 
       <q-scroll-area
@@ -167,8 +169,9 @@
           :style="`width: ${topOffset}px`"
           class="flex flex-center text-center text-white fixed-left"
           style="backdrop-filter: blur(8px); background: #0008; z-index: 1"
-          >User-Defined Panel</div
         >
+          User-Defined Panel
+        </div>
 
         <div
           class="flex no-wrap"
@@ -194,8 +197,9 @@
           :style="`width: ${bottomOffset}px`"
           class="flex flex-center text-center text-white fixed-right"
           style="backdrop-filter: blur(8px); background: #0008; z-index: 1"
-          >User-Defined Panel</div
         >
+          User-Defined Panel
+        </div>
       </q-scroll-area>
     </div>
 

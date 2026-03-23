@@ -113,7 +113,7 @@
         </q-tree>
       </div>
 
-      <div class="invisible" style="height: 500px"> Scroll (on purpose) </div>
+      <div class="invisible" style="height: 500px">Scroll (on purpose)</div>
     </div>
   </div>
 </template>

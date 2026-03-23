@@ -37,9 +37,9 @@
             class="q-virtual-scroll--with-prev"
           >
             <q-td colspan="100%">
-              <div class="q-pl-xl">
-                Row: {{ props.row.index }} - Fat: {{ props.row.fat }}
-              </div>
+              <div class="q-pl-xl"
+                >Row: {{ props.row.index }} - Fat: {{ props.row.fat }}</div
+              >
             </q-td>
           </q-tr>
         </template>

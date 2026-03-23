@@ -1,10 +1,10 @@
-import { EmbeddedValidationRule } from '../api/validation'
+import { EmbeddedValidationRule } from "../api/validation";
 
 interface Patterns {
   /**
    * Test against particular patterns.
    */
-  testPattern: Record<EmbeddedValidationRule, (value: any) => boolean>
+  testPattern: Record<EmbeddedValidationRule, (value: any) => boolean>;
 }
 
-export declare const patterns: Patterns
+export declare const patterns: Patterns;

@@ -522,7 +522,7 @@ describe('[QDialog API]', () => {
             .findComponent({ name: 'QCard' })
             .get('.q-card')
             .$computedStyle('border-radius')
-        ).toBe('0')
+        ).toBe('0px')
 
         await wrapper.setProps({ square: false })
         await flushPromises()
@@ -532,7 +532,7 @@ describe('[QDialog API]', () => {
             .findComponent({ name: 'QCard' })
             .get('.q-card')
             .$computedStyle('border-radius')
-        ).not.toBe('0')
+        ).not.toBe('0px')
       })
     })
 

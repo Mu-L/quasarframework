@@ -14,9 +14,9 @@
     </div>
     <div>{{ conf }}</div>
     <div class="row ex">
-      <div :class="conf"> First </div>
-      <div :class="conf"> Second </div>
-      <div :class="conf"> Last </div>
+      <div :class="conf">First</div>
+      <div :class="conf">Second</div>
+      <div :class="conf">Last</div>
     </div>
   </div>
 </template>

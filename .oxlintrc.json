@@ -1,4 +1,12 @@
 {
+  "ignorePatterns": [
+    "**/quasar.config.*.temporary.compiled*",
+    "**/.quasar/",
+
+    "extras/",
+    "create-quasar/"
+  ],
+
   "plugins": ["vue", "import", "eslint"],
 
   // Enable all rules in the `correctness` and `suspicious` categories
@@ -145,5 +153,14 @@
     "oxc/branches-sharing-code": "error",
     "promise/no-return-in-finally": "error",
     "no-unassigned-import": ["error", { "allow": ["**/*.{sass,scss,css}"] }]
-  }
+  },
+
+  "overrides": [
+    {
+      "files": ["**/*.ts"],
+      "rules": {
+        "no-unassigned-import": "off"
+      }
+    }
+  ]
 }

@@ -44,7 +44,7 @@
         />
       </div>
 
-      <div class="text-h6"> Lazy (@change) </div>
+      <div class="text-h6">Lazy (@change)</div>
       <q-input
         class="gigi"
         v-bind="props"
@@ -59,7 +59,7 @@
         label-color="green"
       />
 
-      <div class="text-h6"> Standard </div>
+      <div class="text-h6">Standard</div>
 
       <q-input
         v-bind="props"
@@ -217,7 +217,7 @@
         </template>
 
         <q-menu fit no-focus>
-          <div class="q-pa-md text-center"> Menu </div>
+          <div class="q-pa-md text-center">Menu</div>
         </q-menu>
       </q-input>
 
@@ -267,7 +267,7 @@
         <template v-slot:after><q-icon name="delete" /></template>
       </q-input>
 
-      <div class="text-h6"> Filled </div>
+      <div class="text-h6">Filled</div>
 
       <q-input v-bind="props" filled v-model="text" />
 
@@ -373,7 +373,7 @@
         <template v-slot:after><q-icon name="delete" /></template>
       </q-input>
 
-      <div class="text-h6"> Outlined </div>
+      <div class="text-h6">Outlined</div>
 
       <q-input v-bind="props" outlined v-model="text" />
 
@@ -461,7 +461,7 @@
         <template v-slot:after><q-icon name="delete" /></template>
       </q-input>
 
-      <div class="text-h6"> Standout </div>
+      <div class="text-h6">Standout</div>
 
       <q-input v-bind="props" standout v-model="text" />
 
@@ -574,7 +574,7 @@
         </q-input>
       </div>
 
-      <div class="text-h6"> Borderless </div>
+      <div class="text-h6">Borderless</div>
 
       <q-input v-bind="props" borderless v-model="text" />
 
@@ -662,7 +662,7 @@
         <template v-slot:after><q-icon name="delete" /></template>
       </q-input>
 
-      <div class="text-h6"> Rounded </div>
+      <div class="text-h6">Rounded</div>
 
       <q-input v-bind="props" rounded filled v-model="text" label="Label">
         <template v-slot:prepend><q-icon name="event" /></template>
@@ -693,7 +693,7 @@
         </template>
       </q-input>
 
-      <div class="text-h6"> Debounced </div>
+      <div class="text-h6">Debounced</div>
       <div>Model: {{ debounced }}</div>
       <q-input filled v-model="debounced" debounce="400" label="Debounced">
         <template v-slot:prepend>
@@ -705,7 +705,7 @@
         </template>
       </q-input>
 
-      <div class="text-h6"> Various tests </div>
+      <div class="text-h6">Various tests</div>
 
       <q-input v-bind="props" v-model="undef" label="Model undefined" />
 
@@ -827,7 +827,7 @@
         </template>
 
         <template v-slot:hint>
-          <div @click="log('hint')"> Field hint </div>
+          <div @click="log('hint')">Field hint</div>
         </template>
 
         <template v-slot:after>

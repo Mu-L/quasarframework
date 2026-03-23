@@ -16,14 +16,14 @@
           <template v-slot:before>
             <thead class="thead-sticky">
               <tr>
-                <th v-for="column in columns" :key="column">
-                  {{ column }} - thead 1
-                </th>
+                <th v-for="column in columns" :key="column"
+                  >{{ column }} - thead 1</th
+                >
               </tr>
               <tr>
-                <th v-for="column in columns" :key="column">
-                  {{ column }} - thead 2 - sticky
-                </th>
+                <th v-for="column in columns" :key="column"
+                  >{{ column }} - thead 2 - sticky</th
+                >
               </tr>
             </thead>
           </template>
@@ -31,14 +31,14 @@
           <template v-slot:after>
             <tfoot class="tfoot-sticky">
               <tr>
-                <th v-for="column in columns" :key="column">
-                  {{ column }} - tfoot 1 - sticky
-                </th>
+                <th v-for="column in columns" :key="column"
+                  >{{ column }} - tfoot 1 - sticky</th
+                >
               </tr>
               <tr>
-                <th v-for="column in columns" :key="column">
-                  {{ column }} - tfoot 2
-                </th>
+                <th v-for="column in columns" :key="column"
+                  >{{ column }} - tfoot 2</th
+                >
               </tr>
             </tfoot>
           </template>
@@ -47,10 +47,8 @@
             <tr :key="rowNr" :class="rowNr === listIndex ? 'text-primary' : ''">
               <td v-for="column in columns" :key="column">
                 <div>{{ row[column] }}</div>
-                <div v-if="rowNr % 3 === 0"> {{ row[column] }} again </div>
-                <div v-if="rowNr % 5 === 0">
-                  {{ row[column] }} again again
-                </div>
+                <div v-if="rowNr % 3 === 0">{{ row[column] }} again</div>
+                <div v-if="rowNr % 5 === 0">{{ row[column] }} again again</div>
               </td>
             </tr>
           </template>

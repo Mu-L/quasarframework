@@ -57,7 +57,7 @@
       style="width: 300px"
     >
       <q-card-section>
-        <div class="text-h6"> Test </div>
+        <div class="text-h6">Test</div>
       </q-card-section>
 
       <q-card-section> Click/Tap on the backdrop. </q-card-section>

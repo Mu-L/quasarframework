@@ -19,9 +19,9 @@
 
       <q-badge color="red" rounded />
 
-      <div class="text-h6">
-        Badge <q-badge color="primary"> v1.0.0+ </q-badge>
-      </div>
+      <div class="text-h6"
+        >Badge <q-badge color="primary"> v1.0.0+ </q-badge></div
+      >
 
       <div class="text-h6">
         Badge
@@ -30,7 +30,7 @@
         </q-badge>
       </div>
 
-      <div> Feature <q-badge color="primary"> v1.0.0+ </q-badge> </div>
+      <div>Feature <q-badge color="primary"> v1.0.0+ </q-badge></div>
 
       <q-item clickable v-ripple>
         <q-item-section avatar>
@@ -109,10 +109,11 @@
       </div>
 
       <div>Some text <q-badge>100</q-badge></div>
-      <div> Some text <q-badge color="orange"> 100 </q-badge> </div>
-      <div>
-        Some text <q-badge color="yellow" text-color="black"> 100 </q-badge>
-      </div>
+      <div>Some text <q-badge color="orange"> 100 </q-badge></div>
+      <div
+        >Some text
+        <q-badge color="yellow" text-color="black"> 100 </q-badge></div
+      >
 
       <q-btn color="primary" label="Button">
         <q-badge color="orange" floating> 100+ </q-badge>
@@ -151,9 +152,9 @@
         <q-badge outline align="middle" color="primary"> v1.0.0 </q-badge>
       </div>
 
-      <div> Some text <q-badge color="red" label="1" rounded /> </div>
-      <div> Some text <q-badge color="green" label="999+" rounded /> </div>
-      <div> <q-badge color="blue" rounded class="q-mr-sm" />Some text </div>
+      <div>Some text <q-badge color="red" label="1" rounded /></div>
+      <div>Some text <q-badge color="green" label="999+" rounded /></div>
+      <div><q-badge color="blue" rounded class="q-mr-sm" />Some text</div>
     </div>
   </div>
 </template>

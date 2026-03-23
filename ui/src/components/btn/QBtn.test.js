@@ -109,6 +109,8 @@ describe('[QBtn API]', () => {
 
         expect(routerFn).toHaveBeenCalledTimes(1)
         expect(routerFn).toHaveBeenCalledWith(testRoute)
+
+        vi.restoreAllMocks()
       })
 
       test('type Object has effect', async () => {
@@ -138,6 +140,8 @@ describe('[QBtn API]', () => {
 
         expect(routerFn).toHaveBeenCalledTimes(1)
         expect(routerFn).toHaveBeenCalledWith(propVal)
+
+        vi.restoreAllMocks()
       })
     })
 
@@ -167,6 +171,8 @@ describe('[QBtn API]', () => {
 
         expect(routerFn).toHaveBeenCalledTimes(1)
         expect(routerFn).toHaveBeenCalledWith(testRoute)
+
+        vi.restoreAllMocks()
       })
     })
 
@@ -347,7 +353,7 @@ describe('[QBtn API]', () => {
 
         expect(target.classes()).toContain('q-btn--square')
 
-        expect(target.$computedStyle('border-radius')).toBe('0')
+        expect(target.$computedStyle('border-radius')).toBe('0px')
       })
     })
 
@@ -448,9 +454,8 @@ describe('[QBtn API]', () => {
         await wrapper.setProps({ padding: 'xs xl' })
         await flushPromises()
 
-        expect(target.$style('min-width')).toBe('0')
-
-        expect(target.$style('min-height')).toBe('0')
+        expect(target.$style('min-width')).toBe('0px')
+        expect(target.$style('min-height')).toBe('0px')
       })
     })
 

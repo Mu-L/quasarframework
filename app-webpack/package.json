@@ -2,6 +2,34 @@
   "name": "@quasar/app-webpack",
   "version": "4.4.2",
   "description": "Quasar Framework App CLI with Webpack",
+  "keywords": [
+    "cli",
+    "cordova",
+    "electron",
+    "pwa",
+    "quasar",
+    "spa",
+    "vue",
+    "vuejs",
+    "web",
+    "webpack"
+  ],
+  "homepage": "https://quasar.dev",
+  "bugs": "https://github.com/quasarframework/quasar/issues",
+  "license": "MIT",
+  "author": {
+    "name": "Razvan Stoenescu",
+    "email": "razvan.stoenescu@gmail.com",
+    "url": "https://github.com/quasarframework"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/quasarframework/quasar"
+  },
+  "funding": {
+    "type": "github",
+    "url": "https://donate.quasar.dev"
+  },
   "bin": {
     "quasar": "./bin/quasar"
   },
@@ -50,36 +78,12 @@
       "node": "./exports/testing/testing.js"
     }
   },
-  "keywords": [
-    "quasar",
-    "vue",
-    "vuejs",
-    "webpack",
-    "cli",
-    "web",
-    "spa",
-    "pwa",
-    "electron",
-    "cordova"
-  ],
-  "author": {
-    "name": "Razvan Stoenescu",
-    "email": "razvan.stoenescu@gmail.com",
-    "url": "https://github.com/quasarframework"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/quasarframework/quasar"
-  },
-  "license": "MIT",
-  "bugs": "https://github.com/quasarframework/quasar/issues",
-  "homepage": "https://quasar.dev",
-  "funding": {
-    "type": "github",
-    "url": "https://donate.quasar.dev"
+  "publishConfig": {
+    "access": "public"
   },
   "scripts": {
-    "lint": "eslint --cache --fix"
+    "lint": "oxfmt && oxlint --fix",
+    "lint:check": "oxfmt --check && oxlint"
   },
   "dependencies": {
     "@quasar/babel-preset-app": "^2.0.3",
@@ -87,7 +91,7 @@
     "@quasar/ssl-certificate": "workspace:^",
     "@quasar/ssr-helpers": "3.0.3",
     "@rollup/pluginutils": "^5.1.0",
-    "@types/chrome": "^0.1.37",
+    "@types/chrome": "^0.1.38",
     "@types/compression": "^1.7.5",
     "@types/cordova": "^11.0.3",
     "@types/express": "^5.0.6",
@@ -152,14 +156,14 @@
   "devDependencies": {
     "@electron/packager": "^19.0.0",
     "electron-builder": "^26.8.1",
-    "eslint": "catalog:",
-    "eslint-config-quasar": "workspace:*",
+    "oxfmt": "catalog:",
+    "oxlint": "catalog:",
     "pinia": "^3.0.4",
     "quasar": "workspace:^",
     "ts-loader": "^9.5.1",
     "typescript": "^5.6.2",
     "vue": "3.5.30",
-    "vue-router": "^5.0.3"
+    "vue-router": "^5.0.4"
   },
   "peerDependencies": {
     "@electron/packager": ">= 18",
@@ -202,8 +206,5 @@
   },
   "volta": {
     "node": "lts"
-  },
-  "publishConfig": {
-    "access": "public"
   }
 }

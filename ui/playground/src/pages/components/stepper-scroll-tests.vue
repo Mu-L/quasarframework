@@ -238,9 +238,9 @@
       <div class="col-12 col-md-6 col-xl-3">
         <q-card>
           <q-card-section class="bg-primary text-white">
-            <div class="text-h6">
-              Animation, autofocus for select and <strong>field</strong>
-            </div>
+            <div class="text-h6"
+              >Animation, autofocus for select and <strong>field</strong></div
+            >
           </q-card-section>
 
           <q-separator />
@@ -255,7 +255,7 @@
             <q-step :name="1" title="Step 1" icon="settings" :done="step4 > 1">
               <q-field :autofocus="autofocus" tabindex="0">
                 <template v-slot:control>
-                  <div> Field content </div>
+                  <div>Field content</div>
                 </template>
               </q-field>
             </q-step>
@@ -277,7 +277,7 @@
             <q-step :name="3" title="Step 3" icon="assignment">
               <q-field :autofocus="autofocus" tabindex="0">
                 <template v-slot:control>
-                  <div> Field content </div>
+                  <div>Field content</div>
                 </template>
               </q-field>
             </q-step>
@@ -291,7 +291,7 @@
             >
               <q-field :autofocus="autofocus" tabindex="0">
                 <template v-slot:control>
-                  <div> Field content </div>
+                  <div>Field content</div>
                 </template>
               </q-field>
             </q-step>

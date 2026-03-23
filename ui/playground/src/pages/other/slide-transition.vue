@@ -88,7 +88,7 @@
         </div>
       </q-slide-transition>
 
-      <div style="height: 500px"> Scroll on purpose </div>
+      <div style="height: 500px">Scroll on purpose</div>
     </div>
   </div>
 </template>

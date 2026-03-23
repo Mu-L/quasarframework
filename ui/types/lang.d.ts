@@ -1,4 +1,4 @@
-import { StringDictionary } from './ts-helpers'
+import { StringDictionary } from "./ts-helpers";
 
 /*
   `QuasarLanguageCodes` is a discriminated union of available languages iso codes.
@@ -12,75 +12,75 @@ import { StringDictionary } from './ts-helpers'
 */
 export interface QuasarLanguageCodesHolder {}
 
-export type QuasarLanguageCodes = keyof QuasarLanguageCodesHolder
+export type QuasarLanguageCodes = keyof QuasarLanguageCodesHolder;
 
 type QuasarLanguageGeneralLabel =
-  | 'clear'
-  | 'ok'
-  | 'cancel'
-  | 'close'
-  | 'set'
-  | 'select'
-  | 'reset'
-  | 'remove'
-  | 'update'
-  | 'create'
-  | 'search'
-  | 'filter'
-  | 'refresh'
+  | "clear"
+  | "ok"
+  | "cancel"
+  | "close"
+  | "set"
+  | "select"
+  | "reset"
+  | "remove"
+  | "update"
+  | "create"
+  | "search"
+  | "filter"
+  | "refresh";
 type QuasarLanguageTableLabel =
-  | 'noData'
-  | 'noResults'
-  | 'loading'
-  | 'recordsPerPage'
-  | 'allRows'
-  | 'columns'
+  | "noData"
+  | "noResults"
+  | "loading"
+  | "recordsPerPage"
+  | "allRows"
+  | "columns";
 type QuasarLanguageEditorLabel =
-  | 'url'
-  | 'bold'
-  | 'italic'
-  | 'strikethrough'
-  | 'underline'
-  | 'unorderedList'
-  | 'orderedList'
-  | 'subscript'
-  | 'superscript'
-  | 'hyperlink'
-  | 'toggleFullscreen'
-  | 'quote'
-  | 'left'
-  | 'center'
-  | 'right'
-  | 'justify'
-  | 'print'
-  | 'outdent'
-  | 'indent'
-  | 'removeFormat'
-  | 'formatting'
-  | 'fontSize'
-  | 'align'
-  | 'hr'
-  | 'undo'
-  | 'redo'
-  | 'heading1'
-  | 'heading2'
-  | 'heading3'
-  | 'heading4'
-  | 'heading5'
-  | 'heading6'
-  | 'paragraph'
-  | 'code'
-  | 'size1'
-  | 'size2'
-  | 'size3'
-  | 'size4'
-  | 'size5'
-  | 'size6'
-  | 'size7'
-  | 'defaultFont'
-  | 'viewSource'
+  | "url"
+  | "bold"
+  | "italic"
+  | "strikethrough"
+  | "underline"
+  | "unorderedList"
+  | "orderedList"
+  | "subscript"
+  | "superscript"
+  | "hyperlink"
+  | "toggleFullscreen"
+  | "quote"
+  | "left"
+  | "center"
+  | "right"
+  | "justify"
+  | "print"
+  | "outdent"
+  | "indent"
+  | "removeFormat"
+  | "formatting"
+  | "fontSize"
+  | "align"
+  | "hr"
+  | "undo"
+  | "redo"
+  | "heading1"
+  | "heading2"
+  | "heading3"
+  | "heading4"
+  | "heading5"
+  | "heading6"
+  | "paragraph"
+  | "code"
+  | "size1"
+  | "size2"
+  | "size3"
+  | "size4"
+  | "size5"
+  | "size6"
+  | "size7"
+  | "defaultFont"
+  | "viewSource";
 
-type QuasarLanguageTreeLabel = 'noNodes' | 'noResults'
+type QuasarLanguageTreeLabel = "noNodes" | "noResults";
 type QuasarLanguageDayTuple = [
   string,
   string,
@@ -89,7 +89,7 @@ type QuasarLanguageDayTuple = [
   string,
   string,
   string
-]
+];
 type QuasarLanguageMonthTuple = [
   string,
   string,
@@ -103,33 +103,33 @@ type QuasarLanguageMonthTuple = [
   string,
   string,
   string
-]
+];
 
 export interface QuasarLanguage {
-  isoName: string
-  nativeName: string
-  rtl?: boolean
+  isoName: string;
+  nativeName: string;
+  rtl?: boolean;
   label: StringDictionary<QuasarLanguageGeneralLabel> & {
-    expand: (label?: string | undefined) => string
-    collapse: (label?: string | undefined) => string
-  }
+    expand: (label?: string | undefined) => string;
+    collapse: (label?: string | undefined) => string;
+  };
   date: {
-    days: QuasarLanguageDayTuple
-    daysShort: QuasarLanguageDayTuple
-    months: QuasarLanguageMonthTuple
-    monthsShort: QuasarLanguageMonthTuple
-    firstDayOfWeek: number
-    format24h: boolean
-    pluralDay: string
+    days: QuasarLanguageDayTuple;
+    daysShort: QuasarLanguageDayTuple;
+    months: QuasarLanguageMonthTuple;
+    monthsShort: QuasarLanguageMonthTuple;
+    firstDayOfWeek: number;
+    format24h: boolean;
+    pluralDay: string;
     headerTitle?: (
       date: Date,
       model: { year: number; month: number; day: number }
-    ) => string
-  }
+    ) => string;
+  };
   table: StringDictionary<QuasarLanguageTableLabel> & {
-    selectedRecords: (rows: number) => string
-    pagination: (start: number, end: number, total: number) => string
-  }
-  editor: StringDictionary<QuasarLanguageEditorLabel>
-  tree: StringDictionary<QuasarLanguageTreeLabel>
+    selectedRecords: (rows: number) => string;
+    pagination: (start: number, end: number, total: number) => string;
+  };
+  editor: StringDictionary<QuasarLanguageEditorLabel>;
+  tree: StringDictionary<QuasarLanguageTreeLabel>;
 }

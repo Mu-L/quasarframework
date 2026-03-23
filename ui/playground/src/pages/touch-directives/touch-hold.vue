@@ -29,9 +29,9 @@
         </div>
       </div>
 
-      <p class="caption">
-        Configuring to trigger after custom time (in this case 3s):
-      </p>
+      <p class="caption"
+        >Configuring to trigger after custom time (in this case 3s):</p
+      >
       <div
         v-touch-hold:3000.mouse="holdExtended"
         @click="onEvt('click')"
@@ -46,14 +46,14 @@
         <div v-if="infoExtended" class="custom-info">
           <pre>{{ infoExtended }}</pre>
         </div>
-        <div v-else class="q-pa-xl custom-area-placeholder">
-          Click/touch and hold for 3 seconds
-        </div>
+        <div v-else class="q-pa-xl custom-area-placeholder"
+          >Click/touch and hold for 3 seconds</div
+        >
       </div>
 
-      <p class="caption">
-        Custom duration (1500 ms) and sensitivities (100px/100px):
-      </p>
+      <p class="caption"
+        >Custom duration (1500 ms) and sensitivities (100px/100px):</p
+      >
       <div
         v-touch-hold:1500:100:100.mouse="holdCustom"
         @click="onEvt('click')"
@@ -73,7 +73,7 @@
         </div>
       </div>
 
-      <p class="caption"> test (preventing it from inner square) </p>
+      <p class="caption">test (preventing it from inner square)</p>
       <div
         v-touch-hold.mouse="holdTest"
         @click="onEvt('click')"
@@ -102,15 +102,16 @@
           <div v-if="infoTest" class="custom-info">
             <pre>{{ infoTest }}</pre>
           </div>
-          <div v-else class="text-center q-pa-xl custom-area-placeholder">
-            Touch/click and hold
-          </div>
+          <div v-else class="text-center q-pa-xl custom-area-placeholder"
+            >Touch/click and hold</div
+          >
         </div>
       </div>
 
-      <p class="caption">
-        test (capture + preventing it from inner square) -- should still work
-      </p>
+      <p class="caption"
+        >test (capture + preventing it from inner square) -- should still
+        work</p
+      >
       <div
         v-touch-hold.capture.mouse.mouseCapture="holdTestCapture"
         @click="onEvt('click')"
@@ -131,9 +132,9 @@
           <div v-if="infoTestCapture" class="custom-info">
             <pre>{{ infoTestCapture }}</pre>
           </div>
-          <div v-else class="text-center q-pa-xl custom-area-placeholder">
-            Touch/click and hold
-          </div>
+          <div v-else class="text-center q-pa-xl custom-area-placeholder"
+            >Touch/click and hold</div
+          >
         </div>
       </div>
     </div>

@@ -16,7 +16,7 @@
       />
       <q-toggle v-model="dense" :dark="dark" :dense="dense" label="Dense" />
 
-      <p class="text-h6 text-weight-bold"> Radio </p>
+      <p class="text-h6 text-weight-bold">Radio</p>
       <div class="label bg-secondary text-white">
         Model
         <span class="right-detail"
@@ -64,7 +64,7 @@
         ]"
       />
 
-      <p class="text-h6 text-weight-bold"> Checkbox </p>
+      <p class="text-h6 text-weight-bold">Checkbox</p>
       <div class="label bg-secondary text-white">
         Model
         <span class="right-detail"
@@ -112,7 +112,7 @@
         ]"
       />
 
-      <p class="text-h6 text-weight-bold"> Toggle </p>
+      <p class="text-h6 text-weight-bold">Toggle</p>
       <div class="label bg-secondary text-white">
         Model
         <span class="right-detail"
@@ -161,7 +161,7 @@
       />
     </div>
 
-    <p class="text-h6 text-weight-bold"> Slots </p>
+    <p class="text-h6 text-weight-bold">Slots</p>
     <q-option-group
       type="toggle"
       color="secondary"

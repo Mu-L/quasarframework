@@ -1,6 +1,6 @@
 <template>
   <div>
-    <p class="q-pl-lg"> Fires on entry and leaving </p>
+    <p class="q-pl-lg">Fires on entry and leaving</p>
     <div
       class="q-layout-padding q-ma-lg scroll relative-position"
       style="width: 300px; height: 400px; border: #ccc solid 1px"
@@ -13,13 +13,11 @@
       </div>
       <div style="width: 100%; height: 2400px">
         <div style="width: 100%; padding-top: 1600px" />
-        <div v-intersection="onVisible1" class="observed">
-          Observed Element
-        </div>
+        <div v-intersection="onVisible1" class="observed">Observed Element</div>
       </div>
     </div>
 
-    <p class="q-pl-lg"> Fires once on entry </p>
+    <p class="q-pl-lg">Fires once on entry</p>
     <div
       class="q-layout-padding q-ma-lg scroll relative-position"
       style="width: 300px; height: 400px; border: #ccc solid 1px"
@@ -32,9 +30,9 @@
       </div>
       <div style="width: 100%; height: 2400px">
         <div style="width: 100%; padding-top: 1600px" />
-        <div v-intersection.once="onVisible2" class="observed">
-          Observed Element
-        </div>
+        <div v-intersection.once="onVisible2" class="observed"
+          >Observed Element</div
+        >
       </div>
     </div>
 
@@ -42,12 +40,12 @@
       class="q-layout-padding q-ma-lg scroll relative-position"
       style="width: 300px; height: 400px; border: #ccc solid 1px"
     >
-      <div class="header row justify-around items-center">
-        Percent: {{ percent }}%
-      </div>
+      <div class="header row justify-around items-center"
+        >Percent: {{ percent }}%</div
+      >
       <div style="width: 100%; height: 2400px">
         <div style="width: 100%; padding-top: 1600px" />
-        <div v-intersection="options" class="observed"> Observed Element </div>
+        <div v-intersection="options" class="observed">Observed Element</div>
       </div>
     </div>
   </div>

@@ -34,7 +34,9 @@ describe('[extend API]', () => {
       test('extend array (deep)', () => {
         expect(
           extend(true, { a: [1, 2, [3, 4]] }, { a: [[5, 6]] })
-        ).toStrictEqual({ a: [[5, 6], 2, [3, 4]] })
+        ).toStrictEqual({
+          a: [[5, 6], 2, [3, 4]]
+        })
       })
 
       test('extend array (not deep)', () => {

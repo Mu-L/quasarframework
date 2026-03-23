@@ -11,7 +11,7 @@
         @click="onClick"
         gigi
       >
-        <div class="absolute-bottom text-body1 text-center"> With srcset </div>
+        <div class="absolute-bottom text-body1 text-center">With srcset</div>
       </q-img>
 
       <q-img
@@ -26,9 +26,9 @@
         style="max-width: 300px"
         :no-native-menu="noNativeMenu"
       >
-        <div class="absolute-bottom text-body1 text-center">
-          With srcset & sizes
-        </div>
+        <div class="absolute-bottom text-body1 text-center"
+          >With srcset & sizes</div
+        >
       </q-img>
 
       <q-img
@@ -36,9 +36,9 @@
         height="220px"
         width="220px"
       >
-        <div class="absolute-bottom text-body1 text-center">
-          With forced width & height
-        </div>
+        <div class="absolute-bottom text-body1 text-center"
+          >With forced width & height</div
+        >
       </q-img>
     </div>
 
@@ -55,7 +55,7 @@
         loading-show-delay="500"
       >
         <template v-slot:loading>
-          <div class="text-h2 text-white"> Loading... </div>
+          <div class="text-h2 text-white">Loading...</div>
         </template>
       </q-img>
 
@@ -66,9 +66,9 @@
         :no-native-menu="noNativeMenu"
         :loading-show-delay="500"
       >
-        <div class="absolute-bottom text-subtitle1 text-center q-pa-xs">
-          Radius 50%
-        </div>
+        <div class="absolute-bottom text-subtitle1 text-center q-pa-xs"
+          >Radius 50%</div
+        >
       </q-img>
 
       <q-img
@@ -77,9 +77,9 @@
         style="max-width: 400px; border-radius: 15px"
         :no-native-menu="noNativeMenu"
       >
-        <div class="absolute-bottom text-subtitle1 text-center q-pa-xs">
-          Radius 15px
-        </div>
+        <div class="absolute-bottom text-subtitle1 text-center q-pa-xs"
+          >Radius 15px</div
+        >
       </q-img>
 
       <q-img
@@ -90,12 +90,12 @@
         :no-native-menu="noNativeMenu"
       >
         <template v-slot:loading>
-          <div class="text-h2 text-white"> Loading... </div>
+          <div class="text-h2 text-white">Loading...</div>
         </template>
 
-        <div class="absolute-bottom text-subtitle1 text-center q-pa-xs">
-          Caption
-        </div>
+        <div class="absolute-bottom text-subtitle1 text-center q-pa-xs"
+          >Caption</div
+        >
       </q-img>
 
       <q-img
@@ -106,9 +106,9 @@
         style="max-width: 400px"
         :no-native-menu="noNativeMenu"
       >
-        <div class="absolute-bottom text-subtitle1 text-center q-pa-xs">
-          Caption 16/9
-        </div>
+        <div class="absolute-bottom text-subtitle1 text-center q-pa-xs"
+          >Caption 16/9</div
+        >
       </q-img>
 
       <q-img
@@ -151,7 +151,7 @@
         style="max-width: 400px; height: 200px"
         :no-native-menu="noNativeMenu"
       >
-        <div class="absolute-bottom text-body1 text-center"> Contain </div>
+        <div class="absolute-bottom text-body1 text-center">Contain</div>
       </q-img>
     </div>
 
@@ -181,7 +181,7 @@
         :no-native-menu="noNativeMenu"
       >
         <template v-slot:error>
-          <div class="absolute-full flex flex-center"> Error... </div>
+          <div class="absolute-full flex flex-center">Error...</div>
         </template>
       </q-img>
 
@@ -194,7 +194,7 @@
         :no-native-menu="noNativeMenu"
       >
         <template v-slot:error>
-          <div class="absolute-full flex flex-center"> Error... </div>
+          <div class="absolute-full flex flex-center">Error...</div>
         </template>
       </q-img>
 
@@ -215,9 +215,9 @@
         :no-native-menu="noNativeMenu"
       >
         <template v-slot:error>
-          <div class="absolute-full bg-negative text-white flex flex-center">
-            Error...
-          </div>
+          <div class="absolute-full bg-negative text-white flex flex-center"
+            >Error...</div
+          >
         </template>
       </q-img>
 
@@ -230,9 +230,9 @@
         :no-native-menu="noNativeMenu"
       >
         <template v-slot:error>
-          <div class="absolute-full bg-negative text-white flex flex-center">
-            Error...
-          </div>
+          <div class="absolute-full bg-negative text-white flex flex-center"
+            >Error...</div
+          >
         </template>
       </q-img>
 
@@ -246,7 +246,7 @@
         :no-native-menu="noNativeMenu"
       >
         <template v-slot:error>
-          <div class="absolute-full flex flex-center"> Error... </div>
+          <div class="absolute-full flex flex-center">Error...</div>
         </template>
       </q-img>
     </div>

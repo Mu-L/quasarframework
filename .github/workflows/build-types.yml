@@ -65,7 +65,7 @@ jobs:
         run: pnpm i
 
       - name: Ensure types are formatted correctly
-        run: pnpm format:types --write=false --check
+        run: pnpm lint:check
 
       - name: Build the types
         run: pnpm build js types

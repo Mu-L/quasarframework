@@ -161,7 +161,7 @@
               >
                 {{ item.label }}
               </div>
-              <div class="bg-grey-10 text-white q-pa-sm"> #{{ index }} </div>
+              <div class="bg-grey-10 text-white q-pa-sm">#{{ index }}</div>
               <q-separator
                 v-if="index < heavyList.length - 1"
                 vertical

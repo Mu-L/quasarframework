@@ -1,13 +1,15 @@
 {
   "name": "quasar-monorepo",
   "private": true,
-  "packageManager": "pnpm@10.32.1",
   "scripts": {
     "preinstall": "npx only-allow@1.2.1 pnpm",
     "prepare:types": "pnpm --recursive --parallel prepare:types",
-    "lint:root": "eslint --cache --fix ./*.js ./*.mjs",
+    "lint:root": "oxfmt && oxlint --fix",
     "lint:non-workspace": "cd icongenie && pnpm lint && cd ..",
     "lint": "pnpm lint:root && pnpm lint:non-workspace && pnpm --recursive --parallel --workspace-concurrency=6 run lint",
+    "lint:root:check": "oxfmt --check && oxlint",
+    "lint:non-workspace:check": "cd icongenie && pnpm lint:check && cd ..",
+    "lint:check": "pnpm lint:root:check && pnpm lint:non-workspace:check && pnpm --recursive --parallel --workspace-concurrency=6 run lint:check",
     "test": "pnpm build && pnpm --filter quasar test:specs:ci && pnpm --filter quasar test && pnpm --filter @quasar/vite-plugin test",
     "build": "pnpm --filter @quasar/vite-plugin build && pnpm --filter quasar build",
     "vite-ecosystem-ci:build": "pnpm build",
@@ -16,7 +18,8 @@
     "vue-ecosystem-ci:test": "pnpm --filter quasar test && pnpm --filter @quasar/vite-plugin test:runtime"
   },
   "devDependencies": {
-    "eslint": "catalog:",
-    "eslint-config-quasar": "workspace:*"
-  }
+    "oxfmt": "catalog:",
+    "oxlint": "catalog:"
+  },
+  "packageManager": "pnpm@10.32.1"
 }

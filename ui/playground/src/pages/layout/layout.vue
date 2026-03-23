@@ -142,7 +142,7 @@
             <q-btn to="/layout-quick/a" replace> Replace Go to A </q-btn>
             <q-btn to="/layout-quick/b" replace> Replace Go to B </q-btn>
             <q-btn to="/layout-quick/c" replace> Replace Go to C </q-btn>
-            <div v-for="n in 30" :key="n"> {{ n }} Left drawer </div>
+            <div v-for="n in 30" :key="n">{{ n }} Left drawer</div>
           </div>
         </q-scroll-area>
 
@@ -155,7 +155,7 @@
             <q-avatar size="56px" class="q-mb-sm">
               <img src="https://cdn.quasar.dev/img/boy-avatar.png" />
             </q-avatar>
-            <div class="text-weight-bold"> Razvan Stoenescu </div>
+            <div class="text-weight-bold">Razvan Stoenescu</div>
             <div>@rstoenescu</div>
           </div>
         </q-img>
@@ -215,8 +215,8 @@
             icon="keyboard_arrow_left"
             @click="leftMini = true"
           />
-          <div class="q-mini-drawer-hide"> Maxi only </div>
-          <div class="q-mini-drawer-only"> Mini only </div>
+          <div class="q-mini-drawer-hide">Maxi only</div>
+          <div class="q-mini-drawer-only">Mini only</div>
           <q-list>
             <q-expansion-item
               clickable
@@ -441,9 +441,9 @@
       <div class="flex justify-center">
         <div style="min-width: 400px; max-width: 90vw">
           <div class="doc-layout-grid row justify-center">
-            <div class="doc-row-definition row flex-center no-border">
-              Header
-            </div>
+            <div class="doc-row-definition row flex-center no-border"
+              >Header</div
+            >
             <div class="col column flex-center">
               <q-radio
                 dense
@@ -484,9 +484,9 @@
           <q-separator />
 
           <div class="doc-layout-grid row justify-center">
-            <div class="doc-row-definition row flex-center no-border">
-              Middle
-            </div>
+            <div class="doc-row-definition row flex-center no-border"
+              >Middle</div
+            >
             <div class="col column flex-center">
               <q-radio
                 dense
@@ -526,9 +526,9 @@
           <q-separator />
 
           <div class="doc-layout-grid row justify-center">
-            <div class="doc-row-definition row flex-center no-border">
-              Footer
-            </div>
+            <div class="doc-row-definition row flex-center no-border"
+              >Footer</div
+            >
             <div class="col column flex-center">
               <q-radio
                 dense
@@ -578,7 +578,7 @@
     <q-dialog v-model="toggle">
       <q-card>
         <q-card-section>
-          <div class="text-h6"> Dialog </div>
+          <div class="text-h6">Dialog</div>
         </q-card-section>
 
         <q-card-section>

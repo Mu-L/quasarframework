@@ -114,7 +114,7 @@
         hint="Mask: AA-CC-XX-CC"
       />
 
-      <div class="text-h6"> Live mask test: {{ textMask }} </div>
+      <div class="text-h6">Live mask test: {{ textMask }}</div>
       <div class="row q-gutter-sm">
         <q-input class="col" v-model="mask" outlined dense label="Mask" />
         <q-input
