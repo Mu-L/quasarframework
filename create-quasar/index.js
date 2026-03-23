@@ -99,8 +99,10 @@ await utils.prompts(scope, [
   }
 ])
 
-const { script } = await import(`./templates/${scope.projectType}/index.js`)
-await script({ scope, utils })
+const { createQuasarScript } = await import(
+  `./templates/${scope.projectType}/create-quasar-script.js`
+)
+await createQuasarScript({ scope, utils })
 
 console.log()
 utils.logger.success('The project has been scaffolded')

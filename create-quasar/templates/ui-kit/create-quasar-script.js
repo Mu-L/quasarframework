@@ -97,8 +97,10 @@ export async function createQuasarScript ({ scope, utils }) {
     }
   ])
 
-  const { script } = await import(`./quasar-v2/create-quasar-script.js`)
-  await script({ scope, utils })
+  const { createQuasarScript: create } = await import(
+    `./quasar-v2/create-quasar-script.js`
+  )
+  create({ scope, utils })
 
   // we don't want to install
   scope.skipDepsInstall = true

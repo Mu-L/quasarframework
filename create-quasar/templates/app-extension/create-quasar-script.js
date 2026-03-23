@@ -7,9 +7,10 @@ export async function createQuasarScript ({ scope, utils }) {
   //   utils.commonPrompts.scriptType
   // ])
 
-  // const { script } = await import(`./ae-${ scope.scriptType }/create-quasar-script.js`)
-  // await script({ scope, utils })
+  // const { createQuasarScript: create } = await import(`./ae-${ scope.scriptType }/create-quasar-script.js`)
+  // await create({ scope, utils })
 
-  const { script } = await import('./ae-js/create-quasar-script.js')
-  await script({ scope, utils })
+  const { createQuasarScript: create } =
+    await import('./ae-js/create-quasar-script.js')
+  await create({ scope, utils })
 }

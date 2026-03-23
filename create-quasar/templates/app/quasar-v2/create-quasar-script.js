@@ -51,6 +51,8 @@ export async function createQuasarScript ({ scope, utils }) {
     }
   ])
 
-  const { script } = await import(`./${ scope.scriptType }-${ scope.engine }/create-quasar-script.js`)
-  await script({ scope, utils })
+  const { createQuasarScript: create } = await import(
+    `./${scope.scriptType}-${scope.engine}/create-quasar-script.js`
+  )
+  await create({ scope, utils })
 }
