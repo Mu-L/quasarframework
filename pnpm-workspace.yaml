@@ -1,5 +1,7 @@
 packages:
   - app-vite
+  - app-vite/playground-js
+  - app-vite/playground-ts
   - app-webpack
   - vite-plugin
   - vite-plugin/playground

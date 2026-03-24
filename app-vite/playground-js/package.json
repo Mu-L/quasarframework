@@ -1,0 +1,29 @@
+{
+  "name": "app-vite-playground-js",
+  "version": "0.0.1",
+  "private": true,
+  "description": "A Quasar Project",
+  "author": "Razvan Stoenescu <razvan.stoenescu@gmail.com>",
+  "type": "module",
+  "scripts": {
+    "dev": "quasar dev",
+    "build": "quasar build",
+    "postinstall": "quasar prepare"
+  },
+  "dependencies": {
+    "@quasar/extras": "workspace:^",
+    "quasar": "workspace:^",
+    "vue": "catalog:",
+    "vue-router": "catalog:"
+  },
+  "devDependencies": {
+    "@quasar/app-vite": "workspace:^"
+  },
+  "engines": {
+    "node": "^28 || ^26 || ^24 || ^22.12",
+    "npm": ">= 6.13.4",
+    "pnpm": ">= 10.0.0",
+    "yarn": ">= 1.21.1"
+  },
+  "productName": "Quasar App"
+}
