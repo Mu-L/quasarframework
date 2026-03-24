@@ -83,7 +83,11 @@
   },
   "scripts": {
     "lint": "oxfmt && oxlint --fix",
-    "lint:check": "oxfmt --check && oxlint"
+    "lint:check": "oxfmt --check && oxlint",
+    "dev": "pnpm --filter app-webpack-playground-js dev",
+    "dev:ts": "pnpm --filter app-webpack-playground-ts dev",
+    "build": "pnpm --filter app-webpack-playground-js build",
+    "build:ts": "pnpm --filter app-webpack-playground-ts build"
   },
   "dependencies": {
     "@quasar/babel-preset-app": "^2.0.4",

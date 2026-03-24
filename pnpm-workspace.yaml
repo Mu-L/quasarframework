@@ -3,6 +3,8 @@ packages:
   - app-vite/playground-js
   - app-vite/playground-ts
   - app-webpack
+  - app-webpack/playground-js
+  - app-webpack/playground-ts
   - vite-plugin
   - vite-plugin/playground
   - extras

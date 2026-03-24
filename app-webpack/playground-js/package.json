@@ -1,0 +1,41 @@
+{
+  "name": "app-webpack-playground-js",
+  "version": "0.0.1",
+  "private": true,
+  "description": "A Quasar Project",
+  "author": "Razvan Stoenescu <razvan.stoenescu@gmail.com>",
+  "type": "module",
+  "scripts": {
+    "dev": "quasar dev",
+    "build": "quasar build",
+    "postinstall": "quasar prepare"
+  },
+  "dependencies": {
+    "@quasar/extras": "workspace:^",
+    "core-js": "^3.31.1",
+    "quasar": "workspace:^",
+    "vue": "catalog:",
+    "vue-router": "catalog:"
+  },
+  "devDependencies": {
+    "@quasar/app-webpack": "workspace:^"
+  },
+  "browserslist": [
+    "last 10 Chrome versions",
+    "last 10 Firefox versions",
+    "last 4 Edge versions",
+    "last 7 Safari versions",
+    "last 8 Android versions",
+    "last 8 ChromeAndroid versions",
+    "last 8 FirefoxAndroid versions",
+    "last 10 iOS versions",
+    "last 5 Opera versions"
+  ],
+  "engines": {
+    "node": "^28 || ^26 || ^24 || ^22 || ^20 || ^18",
+    "npm": ">= 6.13.4",
+    "pnpm": ">= 10.0.0",
+    "yarn": ">= 1.21.1"
+  },
+  "productName": "Quasar App"
+}
