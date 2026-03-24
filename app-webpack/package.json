@@ -86,7 +86,7 @@
     "lint:check": "oxfmt --check && oxlint"
   },
   "dependencies": {
-    "@quasar/babel-preset-app": "^2.0.3",
+    "@quasar/babel-preset-app": "^2.0.4",
     "@quasar/render-ssr-error": "workspace:^",
     "@quasar/ssl-certificate": "workspace:^",
     "@quasar/ssr-helpers": "3.0.3",
