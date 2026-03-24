@@ -159,7 +159,7 @@ if (ssrDetected === false) {
   }
 
   if (!argv.silent) {
-    app.get('*', (req, _, next) => {
+    app.get('{*path}', (req, _, next) => {
       console.log(
         `GET ${green(req.url)} ${gray('[' + req.ip + ']')} ${new Date()}`
       )
@@ -204,10 +204,10 @@ if (ssrDetected === false) {
 
   if (microCacheSeconds) {
     const { default: microcache } = await import('route-cache')
-    app.use(microcache.cacheSeconds(microCacheSeconds, req => req.originalUrl))
+    app.use(microcache.cacheSeconds(microCacheSeconds))
   }
 
-  app.get('*', (req, res) => {
+  app.get('{*path}', (req, res) => {
     res.setHeader('Content-Type', 'text/html')
     res.status(404).send('404 | Page Not Found')
     if (!argv.silent) {
