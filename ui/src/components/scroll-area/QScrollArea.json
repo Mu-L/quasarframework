@@ -11,7 +11,7 @@
     "vertical-offset": {
       "type": "Array",
       "desc": "Adds [top, bottom] offset to vertical thumb",
-      "default": "# [ 0, 0]",
+      "default": "# [0, 0]",
       "category": "style",
       "addedIn": "v2.17"
     },
@@ -19,7 +19,7 @@
     "horizontal-offset": {
       "type": "Array",
       "desc": "Adds [left, right] offset to horizontal thumb",
-      "default": "# [ 0, 0]",
+      "default": "# [0, 0]",
       "category": "style",
       "addedIn": "v2.17"
     },
