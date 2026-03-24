@@ -591,9 +591,6 @@ importers:
       '@quasar/extras':
         specifier: workspace:*
         version: link:../extras
-      autoprefixer:
-        specifier: ^10.4.27
-        version: 10.4.27(postcss@8.5.8)
       cli-highlight:
         specifier: ^2.1.11
         version: 2.1.11
@@ -655,9 +652,6 @@ importers:
       '@quasar/app-vite':
         specifier: workspace:*
         version: link:../../app-vite
-      autoprefixer:
-        specifier: ^10.4.27
-        version: 10.4.27(postcss@8.5.8)
       postcss:
         specifier: ^8.5.8
         version: 8.5.8
