@@ -10,20 +10,38 @@ FILE="roboto-font.css"
 FONT_FOLDER="web-font"
 AGENT_WOFF="Mozilla/5.0 (Windows NT 6.1; Trident/7.0; rv:11.0) like Gecko"
 AGENT_WOFF2="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/66.0.3359.139 Safari/537.36"
+VERSION=""
+
+get_local_font_name() {
+  local url="$1"
+
+  if [[ "$url" == *"/font?kit="* ]]; then
+    local font_file="${url#*kit=}"
+    font_file="${font_file%%&*}"
+    printf '%s.woff' "$font_file"
+  else
+    basename "$url"
+  fi
+}
 
 # download css as IE11 for .woff
 wget https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900 -O - --header="User-Agent: ${AGENT_WOFF}" | \
   sed "s/local('.*'), //" > $FILE
 
-# get links dirname
 URL=$(cat $FILE | tr '()' \\n | grep https\*:// | head -n 1)
-DIRNAME=$(dirname $URL)
+[ -n "$URL" ] && VERSION=$(printf '%s' "$URL" | sed -n 's/.*[?&]v=\(v[^&]*\).*/\1/p')
 
 rm -rf $FONT_FOLDER
 mkdir $FONT_FOLDER
 
 # download all http links
-cat $FILE | tr '()' \\n | grep https\*:// | parallel --gnu "wget {} -P $FONT_FOLDER"
+cat $FILE | tr '()' \\n | grep https\*:// | while read -r URL; do
+  FONT_FILE=$(get_local_font_name "$URL")
+  wget -O "${FONT_FOLDER}/${FONT_FILE}" "$URL"
+done
 
-# replace links to local
-sed -e "s*"$DIRNAME"*\./web-font*" $FILE > $FILE".tmp" && mv $FILE".tmp" $FILE
+# replace links to local filenames
+sed -E "s#https://[^)]*/font\\?kit=([^&)]*)[^)]*#./web-font/\\1.woff#g; s#https://[^)]*/([^/?)]*\\.woff2?)#./web-font/\\1#g" \
+  "$FILE" > "$FILE.tmp" && mv "$FILE.tmp" "$FILE"
+
+[ -n "$VERSION" ] && echo "QEXTRA_VERSION::roboto-font::${VERSION}"
