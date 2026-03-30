@@ -239,7 +239,7 @@ export class QuasarConfigFile {
     }
 
     log(
-      `Using ${basename(appPaths.quasarConfigFilename)} in "${appPaths.quasarConfigInputFormat}" format${envBanner}`
+      `Using ${basename(appPaths.quasarConfigFilename)} in "${appPaths.quasarConfigInputFormat}" format${envBanner || ''}`
     )
   }
 

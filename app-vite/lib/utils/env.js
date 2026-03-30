@@ -6,8 +6,8 @@ import { merge } from 'webpack-merge'
 
 import { encodeForDiff } from './encode-for-diff.js'
 
-export const ENV_VAR_PREFIX = 'QCLI_'
-export const validEnvKeyRE = /^[a-zA-Z_$][a-zA-Z0-9_$]+/
+const DEFAULT_ENV_PREFIX = 'QCLI_'
+const validEnvKeyRE = /^[a-zA-Z_$][a-zA-Z0-9_$]+/
 
 /**
  * Get the raw env definitions from the host project env files.
@@ -16,7 +16,7 @@ export function readEnvFiles(ctx, env, isQuasarConfFile = false) {
   if (!env) {
     return {
       envDefineList: {},
-      envBanner: ''
+      envBanner: null
     }
   }
 
@@ -27,7 +27,7 @@ export function readEnvFiles(ctx, env, isQuasarConfFile = false) {
   if (cache.configHash !== configHash) {
     const localEnv = merge(
       {
-        prefix: ENV_VAR_PREFIX,
+        prefix: DEFAULT_ENV_PREFIX,
         folder: ctx.appPaths.appDir,
         files: []
         // filter: (key, value) => true
@@ -40,10 +40,10 @@ export function readEnvFiles(ctx, env, isQuasarConfFile = false) {
 
     let { prefix } = localEnv
     if (!prefix || prefix === 'QUASAR_') {
-      prefix = ENV_VAR_PREFIX
+      prefix = DEFAULT_ENV_PREFIX
     } else if (Array.isArray(prefix)) {
       prefix = prefix.filter(p => validEnvKeyRE.test(p) && p !== 'QUASAR_')
-      if (prefix.length === 0) prefix = ENV_VAR_PREFIX
+      if (prefix.length === 0) prefix = DEFAULT_ENV_PREFIX
     }
 
     const envPrefix = Array.isArray(prefix)
