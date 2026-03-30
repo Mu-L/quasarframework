@@ -101,7 +101,7 @@ type PluginEntry =
   | undefined
   | false;
 
-interface QuasarEnvConfig {
+interface QuasarEnvFilesConfig {
   /**
    * For security reasons, only variables with this prefix from the env files
    * will be exposed to the app code through the env files.
@@ -341,7 +341,7 @@ interface QuasarStaticBuildConfiguration {
    *
    * @default false
    */
-  env?: boolean | QuasarEnvConfig;
+  envFiles?: boolean | QuasarEnvFilesConfig;
 
   /**
    * Build production assets with or without the hash part in filenames.

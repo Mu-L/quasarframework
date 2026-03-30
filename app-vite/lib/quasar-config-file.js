@@ -230,7 +230,7 @@ export class QuasarConfigFile {
     )
     const { envDefineList, envBanner } = readEnvFiles(
       this.#ctx,
-      quasarCli?.quasarConfEnv,
+      quasarCli?.quasarConfEnvFiles,
       true /* isQuasarConfFile */
     )
     this.#rolldownConfigDefines = {
@@ -771,7 +771,7 @@ export class QuasarConfigFile {
         vueOptionsAPI: false,
         vueRouterMode: 'hash',
 
-        env: false,
+        envFiles: false,
 
         minify:
           cfg.metaConf.debugging !== true &&
@@ -828,10 +828,10 @@ export class QuasarConfigFile {
       cfg.build
     )
 
-    if (cfg.build.env) {
+    if (cfg.build.envFiles) {
       const { envDefineList, envBanner } = readEnvFiles(
         this.#ctx,
-        cfg.build.env
+        cfg.build.envFiles
       )
 
       cfg.metaConf.envDefineList = envDefineList
