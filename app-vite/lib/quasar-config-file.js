@@ -389,15 +389,21 @@ export class QuasarConfigFile {
   }
 
   #buildAndWatch(rolldownConfig) {
+    const { promise, resolve } = Promise.withResolvers()
+    this.#resolveBuildAndWatch = quasarConf => {
+      this.#resolveBuildAndWatch = null
+      resolve(quasarConf)
+    }
+
     const watcher = rolldownWatch({
       ...rolldownConfig,
       watch: {
-        exclude: 'node_modules/**'
+        exclude: /node_modules/
       }
     })
 
     watcher.on('event', event => {
-      if (event.code === 'BUNDLE_START') {
+      if (event.code === 'START') {
         if (this.#resolveBuildAndWatch === null) {
           log()
           log(
@@ -406,7 +412,7 @@ export class QuasarConfigFile {
         }
       } else if (event.code === 'BUNDLE_END') {
         event.result.close()
-
+      } else if (event.code === 'END') {
         // not ready yet; watch() has not been issued yet
         if (this.#resolveBuildAndWatch === null && this.#isWatching === false) {
           this.#shouldReadBuiltFileAgain = true
@@ -432,12 +438,7 @@ export class QuasarConfigFile {
       }
     })
 
-    return new Promise(res => {
-      this.#resolveBuildAndWatch = quasarConf => {
-        this.#resolveBuildAndWatch = null
-        res(quasarConf)
-      }
-    })
+    return promise
   }
 
   async #readBuildResult() {

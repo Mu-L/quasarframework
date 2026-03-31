@@ -32,31 +32,31 @@ export class AppTool {
   }
 
   watchWithRolldown(threadName, rolldownConfig, onRebuildSuccess) {
+    const { promise, resolve } = Promise.withResolvers()
     const watcher = rolldownWatch({
       ...rolldownConfig,
       watch: {
-        exclude: 'node_modules/**'
+        exclude: /node_modules/
       }
     })
 
-    let resolve
     let isFirst = true
     let done
 
     watcher.on('event', event => {
-      if (event.code === 'BUNDLE_START') {
+      if (event.code === 'START') {
         done = progress(
           'Compiling of ___ with Rolldown in progress...',
           threadName
         )
       } else if (event.code === 'BUNDLE_END') {
         event.result.close()
-
+      } else if (event.code === 'END') {
         done('___ compiled with success by Rolldown')
 
         if (isFirst === true) {
           isFirst = false
-          resolve()
+          resolve(watcher)
           return
         }
 
@@ -67,11 +67,7 @@ export class AppTool {
       }
     })
 
-    return new Promise(res => {
-      resolve = () => {
-        res(watcher)
-      }
-    })
+    return promise
   }
 
   async buildWithRolldown(threadName, rolldownConfig) {
