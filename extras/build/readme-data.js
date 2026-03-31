@@ -18,8 +18,14 @@ const versionSources = {
   mdiV4: file('mdi-v4/mdi-v4.css', /MaterialDesignIcons\.com v([0-9.]+)/),
   mdiV3: file('mdi-v3/mdi-v3.css', /MaterialDesignIcons\.com\s+([0-9.]+)/),
   fontawesomeV7: file('fontawesome-v7/index.js', /Fontawesome Free v([0-9.]+)/),
-  fontawesomeV6: file('fontawesome-v6/fontawesome-v6.css', /Font Awesome Free ([0-9.]+) by/),
-  fontawesomeV5: file('fontawesome-v5/fontawesome-v5.css', /Font Awesome Free ([0-9.]+) by/),
+  fontawesomeV6: file(
+    'fontawesome-v6/fontawesome-v6.css',
+    /Font Awesome Free ([0-9.]+) by/
+  ),
+  fontawesomeV5: file(
+    'fontawesome-v5/fontawesome-v5.css',
+    /Font Awesome Free ([0-9.]+) by/
+  ),
   ioniconsV8: file('ionicons-v8/index.js', /Ionicons v([0-9.]+)/),
   ioniconsV7: file('ionicons-v7/index.js', /Ionicons v([0-9.]+)/),
   ioniconsV6: file('ionicons-v6/index.js', /Ionicons v([0-9.]+)/),
@@ -28,7 +34,10 @@ const versionSources = {
   evaIcons: file('eva-icons/eva-icons.css', /Eva Icons v([0-9.]+)/),
   themify: file('themify/themify.css', /Themify Icons v([0-9.]+)/),
   lineAwesome: file('line-awesome/line-awesome.css', /Line Awesome v([0-9.]+)/),
-  bootstrapIcons: file('bootstrap-icons/bootstrap-icons.css', /Bootstrap Icons v([0-9.]+)/),
+  bootstrapIcons: file(
+    'bootstrap-icons/bootstrap-icons.css',
+    /Bootstrap Icons v([0-9.]+)/
+  ),
   animate: packageSpec('animate.css')
 }
 
@@ -50,7 +59,8 @@ module.exports.webfontRows = [
     license: '[License](roboto-font-latin-ext/LICENSE)'
   },
   {
-    vendor: '[Material Icons](https://material.io/tools/icons/?style=baseline) (Google)',
+    vendor:
+      '[Material Icons](https://material.io/tools/icons/?style=baseline) (Google)',
     versionSource: versionSources.materialIcons,
     extrasName: '`material-icons`',
     description: 'Material icons font',
@@ -58,7 +68,8 @@ module.exports.webfontRows = [
     license: '[License](material-icons/LICENSE)'
   },
   {
-    vendor: '[Material Icons Outlined](https://material.io/tools/icons/?style=outline)',
+    vendor:
+      '[Material Icons Outlined](https://material.io/tools/icons/?style=outline)',
     versionSource: versionSources.materialIconsOutlined,
     extrasName: '`material-icons-outlined`',
     description: 'Material icons outlined font',
@@ -66,7 +77,8 @@ module.exports.webfontRows = [
     license: '[License](material-icons-outlined/LICENSE)'
   },
   {
-    vendor: '[Material Icons Round](https://material.io/tools/icons/?style=round)',
+    vendor:
+      '[Material Icons Round](https://material.io/tools/icons/?style=round)',
     versionSource: versionSources.materialIconsRound,
     extrasName: '`material-icons-round`',
     description: 'Material icons round font',
@@ -74,7 +86,8 @@ module.exports.webfontRows = [
     license: '[License](material-icons-round/LICENSE)'
   },
   {
-    vendor: '[Material Icons Sharp](https://material.io/tools/icons/?style=sharp)',
+    vendor:
+      '[Material Icons Sharp](https://material.io/tools/icons/?style=sharp)',
     versionSource: versionSources.materialIconsSharp,
     extrasName: '`material-icons-sharp`',
     description: 'Material icons sharp font',
@@ -82,7 +95,8 @@ module.exports.webfontRows = [
     license: '[License](material-icons-sharp/LICENSE)'
   },
   {
-    vendor: '[Material Symbols Outlined](https://fonts.google.com/icons?icon.style=Outlined)',
+    vendor:
+      '[Material Symbols Outlined](https://fonts.google.com/icons?icon.style=Outlined)',
     versionSource: versionSources.materialSymbolsOutlined,
     extrasName: '`material-symbols-outlined`',
     description: 'Material symbols outlined font',
@@ -90,7 +104,8 @@ module.exports.webfontRows = [
     license: '[License](material-symbols-outlined/LICENSE)'
   },
   {
-    vendor: '[Material Symbols Rounded](https://fonts.google.com/icons?icon.style=Rounded)',
+    vendor:
+      '[Material Symbols Rounded](https://fonts.google.com/icons?icon.style=Rounded)',
     versionSource: versionSources.materialSymbolsRounded,
     extrasName: '`material-symbols-rounded`',
     description: 'Material symbols rounded font',
@@ -98,7 +113,8 @@ module.exports.webfontRows = [
     license: '[License](material-symbols-rounded/LICENSE)'
   },
   {
-    vendor: '[Material Symbols Sharp](https://fonts.google.com/icons?icon.style=Sharp)',
+    vendor:
+      '[Material Symbols Sharp](https://fonts.google.com/icons?icon.style=Sharp)',
     versionSource: versionSources.materialSymbolsSharp,
     extrasName: '`material-symbols-sharp`',
     description: 'Material symbols sharp font',
@@ -106,7 +122,8 @@ module.exports.webfontRows = [
     license: '[License](material-symbols-sharp/LICENSE)'
   },
   {
-    vendor: '[MDI v7](https://materialdesignicons.com/) (Material Design Icons)',
+    vendor:
+      '[MDI v7](https://materialdesignicons.com/) (Material Design Icons)',
     versionSource: versionSources.mdiV7,
     extrasName: '`mdi-v7`',
     description: 'Extended Material Design icons font',
@@ -221,7 +238,8 @@ module.exports.webfontRows = [
 
 module.exports.svgRows = [
   {
-    vendor: '[Material Icons](https://material.io/tools/icons/?style=baseline) (Google)',
+    vendor:
+      '[Material Icons](https://material.io/tools/icons/?style=baseline) (Google)',
     versionSource: versionSources.materialIcons,
     iconSetName: '`svg-material-icons`',
     importFrom: '`@quasar/extras/material-icons`',
@@ -229,7 +247,8 @@ module.exports.svgRows = [
     license: '[License](material-icons/LICENSE)'
   },
   {
-    vendor: '[Material Icons Outlined](https://material.io/tools/icons/?style=outlined) (Google)',
+    vendor:
+      '[Material Icons Outlined](https://material.io/tools/icons/?style=outlined) (Google)',
     versionSource: versionSources.materialIconsOutlined,
     iconSetName: '`svg-material-icons-outlined`',
     importFrom: '`@quasar/extras/material-icons-outlined`',
@@ -237,7 +256,8 @@ module.exports.svgRows = [
     license: '[License](material-icons-outlined/LICENSE)'
   },
   {
-    vendor: '[Material Icons Round](https://material.io/tools/icons/?style=round) (Google)',
+    vendor:
+      '[Material Icons Round](https://material.io/tools/icons/?style=round) (Google)',
     versionSource: versionSources.materialIconsRound,
     iconSetName: '`svg-material-icons-round`',
     importFrom: '`@quasar/extras/material-icons-round`',
@@ -245,7 +265,8 @@ module.exports.svgRows = [
     license: '[License](material-icons-round/LICENSE)'
   },
   {
-    vendor: '[Material Icons Sharp](https://material.io/tools/icons/?style=sharp) (Google)',
+    vendor:
+      '[Material Icons Sharp](https://material.io/tools/icons/?style=sharp) (Google)',
     versionSource: versionSources.materialIconsSharp,
     iconSetName: '`svg-material-icons-sharp`',
     importFrom: '`@quasar/extras/material-icons-sharp`',
@@ -253,7 +274,8 @@ module.exports.svgRows = [
     license: '[License](material-icons-sharp/LICENSE)'
   },
   {
-    vendor: '[Material Symbols Outlined](https://fonts.google.com/icons?icon.style=Outlined) (Google)',
+    vendor:
+      '[Material Symbols Outlined](https://fonts.google.com/icons?icon.style=Outlined) (Google)',
     versionSource: versionSources.materialSymbolsOutlined,
     iconSetName: '`svg-material-symbols-outlined`',
     importFrom: '`@quasar/extras/material-symbols-outlined`',
@@ -261,7 +283,8 @@ module.exports.svgRows = [
     license: '[License](material-symbols-outlined/LICENSE)'
   },
   {
-    vendor: '[Material Symbols Rounded](https://fonts.google.com/icons?icon.style=Rounded) (Google)',
+    vendor:
+      '[Material Symbols Rounded](https://fonts.google.com/icons?icon.style=Rounded) (Google)',
     versionSource: versionSources.materialSymbolsRounded,
     iconSetName: '`svg-material-symbols-rounded`',
     importFrom: '`@quasar/extras/material-symbols-rounded`',
@@ -269,7 +292,8 @@ module.exports.svgRows = [
     license: '[License](material-symbols-rounded/LICENSE)'
   },
   {
-    vendor: '[Material Symbols Sharp](https://fonts.google.com/icons?icon.style=Sharp) (Google)',
+    vendor:
+      '[Material Symbols Sharp](https://fonts.google.com/icons?icon.style=Sharp) (Google)',
     versionSource: versionSources.materialSymbolsSharp,
     iconSetName: '`svg-material-symbols-sharp`',
     importFrom: '`@quasar/extras/material-symbols-sharp`',
@@ -277,7 +301,8 @@ module.exports.svgRows = [
     license: '[License](material-symbols-sharp/LICENSE)'
   },
   {
-    vendor: '[MDI v7](https://materialdesignicons.com/) (Material Design Icons)',
+    vendor:
+      '[MDI v7](https://materialdesignicons.com/) (Material Design Icons)',
     versionSource: versionSources.mdiV7,
     iconSetName: '`svg-mdi-v7`',
     importFrom: '`@quasar/extras/mdi-v7`',

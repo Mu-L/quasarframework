@@ -48,8 +48,8 @@ Using `<script setup>`:
 </template>
 
 <script setup>
-import { matMenu } from '@quasar/extras/material-icons'
-import { mdiAbTesting } from '@quasar/extras/mdi-v5'
+  import { matMenu } from '@quasar/extras/material-icons'
+  import { mdiAbTesting } from '@quasar/extras/mdi-v5'
 </script>
 ```
 

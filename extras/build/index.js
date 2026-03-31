@@ -20,7 +20,6 @@ function collectFontVersions(text) {
     if (versionMatch) {
       const [, name, version] = versionMatch
       materialFontVersions[name] = version
-      return
     }
   })
 }

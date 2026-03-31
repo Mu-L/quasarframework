@@ -30,7 +30,6 @@
     "type": "github",
     "url": "https://donate.quasar.dev"
   },
-  "main": "index.js",
   "files": [
     "LICENSE",
     "README.md",
@@ -63,6 +62,7 @@
     "themify",
     "!**/update.sh"
   ],
+  "main": "index.js",
   "exports": {
     ".": "./index.js",
     "./animate/animate-list.common": {

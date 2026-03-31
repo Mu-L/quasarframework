@@ -6,7 +6,8 @@ const extrasRoot = resolve(__dirname, '..')
 const extrasPkg = require('../package.json')
 
 function resolvePackageSpecVersion(name) {
-  const spec = extrasPkg.devDependencies?.[name] || extrasPkg.dependencies?.[name]
+  const spec =
+    extrasPkg.devDependencies?.[name] || extrasPkg.dependencies?.[name]
 
   if (spec === void 0) {
     throw new Error(`Missing package spec for ${name}`)
@@ -59,14 +60,11 @@ function renderTable(headers, rows) {
     return Math.max(header.length, ...rowWidths)
   })
 
-  const renderRow = cells => `| ${cells.map((cell, index) => String(cell).padEnd(widths[index])).join(' | ')} |`
+  const renderRow = cells =>
+    `| ${cells.map((cell, index) => String(cell).padEnd(widths[index])).join(' | ')} |`
   const separator = `| ${widths.map(width => '-'.repeat(width)).join(' | ')} |`
 
-  return [
-    renderRow(headers),
-    separator,
-    ...rows.map(renderRow)
-  ].join('\n')
+  return [renderRow(headers), separator, ...rows.map(renderRow)].join('\n')
 }
 
 function renderRows(rows, googleVersions, type) {
@@ -94,13 +92,30 @@ function renderRows(rows, googleVersions, type) {
 }
 
 module.exports.generateReadme = function generateReadme({ googleVersions }) {
-  const template = readFileSync(resolve(__dirname, 'README.template.md'), 'utf-8')
+  const template = readFileSync(
+    resolve(__dirname, 'README.template.md'),
+    'utf-8'
+  )
   const webfontsTable = renderTable(
-    ['Vendor', 'Version', 'quasar.conf.js extras name', 'Description', 'Notes', 'License'],
+    [
+      'Vendor',
+      'Version',
+      'quasar.conf.js extras name',
+      'Description',
+      'Notes',
+      'License'
+    ],
     renderRows(webfontRows, googleVersions, 'webfont')
   )
   const svgTable = renderTable(
-    ['Vendor', 'Version', 'Quasar IconSet name', 'Import Icons from', 'Notes', 'License'],
+    [
+      'Vendor',
+      'Version',
+      'Quasar IconSet name',
+      'Import Icons from',
+      'Notes',
+      'License'
+    ],
     renderRows(svgRows, googleVersions, 'svg')
   )
 
