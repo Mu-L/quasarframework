@@ -307,10 +307,10 @@ function getFileEnvResult({ appDir, fileList, folderList }) {
     }
   }
 
-  const { parsed } = dotEnvExpand({ parsed: { ...env, ...process.env } })
+  const { parsed } = dotEnvExpand({ parsed: env })
 
   return {
-    rawFileEnv: parsed,
+    rawFileEnv: { ...parsed, ...process.env },
     usedEnvFiles
   }
 }
