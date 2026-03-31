@@ -230,7 +230,7 @@ export class QuasarConfigFile {
     )
     const { envDefineList, envBanner } = readEnvFiles(
       this.#ctx,
-      quasarCli?.quasarConfEnvFiles,
+      quasarCli?.quasarConfEnvFiles || {},
       true /* isQuasarConfFile */
     )
     this.#rolldownConfigDefines = {

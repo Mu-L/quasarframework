@@ -14,13 +14,6 @@ const validEnvKeyRE = /^[a-zA-Z_$][a-zA-Z0-9_$]+/
  * Get the raw env definitions from the host project env files.
  */
 export function readEnvFiles(ctx, env, isQuasarConfFile = false) {
-  if (!env) {
-    return {
-      envDefineList: {},
-      envBanner: null
-    }
-  }
-
   const cacheKey = isQuasarConfFile ? 'readQuasarConfEnvFiles' : 'readEnvFiles'
   const configHash = encodeForDiff(env)
   const cache = ctx.cacheProxy.getRuntime(cacheKey, () => ({}))
