@@ -52,9 +52,9 @@ export class AppTool {
       } else if (event.code === 'BUNDLE_END') {
         event.result.close()
         done('___ compiled with success by Rolldown')
+
         if (isFirstBuild === false) onRebuildSuccess()
-      } else if (event.code === 'END') {
-        if (isFirstBuild === true) {
+        else {
           isFirstBuild = false
           resolve(watcher)
         }

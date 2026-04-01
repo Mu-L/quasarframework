@@ -4,9 +4,9 @@ import { parse as dotEnvParse } from 'dotenv'
 import { expand as dotEnvExpand } from 'dotenv-expand'
 import { merge } from 'webpack-merge'
 
-import { encodeForDiff } from './encode-for-diff.js'
-import { isCI } from './is-terminal.js'
 import { warn } from './logger.js'
+import { isCI } from './is-terminal.js'
+import { encodeForDiff } from './encode-for-diff.js'
 
 const defaultQuasarConfEnvPrefix = ''
 export const defaultClientAppEnvPrefix = 'QCLI_'
@@ -78,14 +78,14 @@ function getEnvFilesPrefix({ prefix, defaultPrefix, banner }) {
   return validPrefixList
 }
 
-export function getQuasarConfEnv(ctx, quasarConfEnvCfg) {
+export function getQuasarConfEnv({ ctx, envCfg, useSnapshot }) {
   const localEnv = merge(
     {
       // prefix: defaultQuasarConfEnvPrefix,
       folder: ctx.appPaths.appDir
       // file: []
     },
-    quasarConfEnvCfg
+    envCfg
   )
 
   const fileList = isCI === true ? ['.env'] : ['.env', '.env.local']
@@ -100,8 +100,9 @@ export function getQuasarConfEnv(ctx, quasarConfEnvCfg) {
     fileList.push(...additionalFiles)
   }
 
-  const { rawFileEnv, usedEnvFiles } = getFileEnvResult({
-    appDir: ctx.appPaths.appDir,
+  const { appDir } = ctx.appPaths
+  const { rawFileEnv, watchEnvFiles, usedEnvFiles } = getFileEnvResult({
+    appDir,
     fileList,
     folderList: Array.isArray(localEnv.folder)
       ? localEnv.folder
@@ -119,10 +120,20 @@ export function getQuasarConfEnv(ctx, quasarConfEnvCfg) {
     ? new RegExp(`^(${prefix.join('|')})[a-zA-Z_$][a-zA-Z0-9_$]+`)
     : new RegExp(`^${prefix}[a-zA-Z_$][a-zA-Z0-9_$]+`)
 
+  const envDefineList = parseEnvDefineList(rawFileEnv, prefixRE)
+
   return {
-    envDefineList: parseEnvDefineList(rawFileEnv, prefixRE),
+    envDefineList,
+    watchEnvFiles,
+    snapshot:
+      useSnapshot === true
+        ? {
+            envDefineList: encodeForDiff(envDefineList),
+            watchEnvFiles: encodeForDiff(watchEnvFiles)
+          }
+        : null,
     envBanner: `${prefix ? `prefix ${prefixLabel}` : 'no env prefix'}; ${
-      usedEnvFiles.length > 0
+      usedEnvFiles.length !== 0
         ? `files: ${usedEnvFiles.join(' | ')}`
         : `no env files`
     }`
@@ -132,7 +143,7 @@ export function getQuasarConfEnv(ctx, quasarConfEnvCfg) {
 /**
  * Get the raw env definitions from the host project env files.
  */
-export function getAppEnv(ctx, envCfg) {
+export function getAppEnv({ ctx, envCfg, useSnapshot }) {
   const configHash = encodeForDiff(envCfg)
   const cache = ctx.cacheProxy.getRuntime(appEnvCacheKey, () => ({}))
 
@@ -201,8 +212,9 @@ export function getAppEnv(ctx, envCfg) {
       fileList.push(...additionalFiles)
     }
 
-    const { rawFileEnv, usedEnvFiles } = getFileEnvResult({
-      appDir: ctx.appPaths.appDir,
+    const { appDir } = ctx.appPaths
+    const { rawFileEnv, watchEnvFiles, usedEnvFiles } = getFileEnvResult({
+      appDir,
       fileList,
       folderList: Array.isArray(localEnv.folder)
         ? localEnv.folder
@@ -236,6 +248,7 @@ export function getAppEnv(ctx, envCfg) {
     const result = {
       clientEnvDefineList: parseEnvDefineList(rawFileEnv, clientPrefixRE),
       backendEnvDefineList: parseEnvDefineList(rawFileEnv, backendPrefixRE),
+      watchEnvFiles,
       envBanner:
         `App env: ${backendPrefix ? `backend prefix ${backendPrefixLabel}` : 'no backend prefix'}; ${clientPrefix ? `client prefix ${clientPrefixLabel}` : 'no client prefix'}` +
         (usedEnvFiles.length !== 0
@@ -251,6 +264,14 @@ export function getAppEnv(ctx, envCfg) {
         localEnv.filter(result.backendEnvDefineList, 'backend') || {}
     }
 
+    if (useSnapshot === true) {
+      result.snapshot = {
+        clientEnvDefineList: encodeForDiff(result.clientEnvDefineList),
+        backendEnvDefineList: encodeForDiff(result.backendEnvDefineList),
+        watchEnvFiles: encodeForDiff(watchEnvFiles)
+      }
+    }
+
     ctx.cacheProxy.setRuntime(appEnvCacheKey, {
       configHash,
       result
@@ -263,7 +284,9 @@ export function getAppEnv(ctx, envCfg) {
 }
 
 function getFileEnvResult({ appDir, fileList, folderList }) {
+  const watchEnvFiles = []
   const usedEnvFiles = []
+
   const envFolderList = folderList.map(folder =>
     isAbsolute(folder) === true ? folder : join(appDir, folder)
   )
@@ -275,6 +298,7 @@ function getFileEnvResult({ appDir, fileList, folderList }) {
 
   const env = Object.fromEntries(
     list.flatMap(filePath => {
+      watchEnvFiles.push(filePath)
       if (existsSync(filePath) === false) return []
 
       usedEnvFiles.push(relative(appDir, filePath))
@@ -285,14 +309,16 @@ function getFileEnvResult({ appDir, fileList, folderList }) {
   if (Object.keys(env).length === 0) {
     return {
       rawFileEnv: { ...process.env },
+      watchEnvFiles,
       usedEnvFiles: []
     }
   }
 
-  const { parsed } = dotEnvExpand({ parsed: env })
+  const { parsed } = dotEnvExpand({ processEnv: {}, parsed: env })
 
   return {
     rawFileEnv: { ...parsed, ...process.env },
+    watchEnvFiles,
     usedEnvFiles
   }
 }

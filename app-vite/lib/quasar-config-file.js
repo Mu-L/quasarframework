@@ -4,6 +4,8 @@ import { existsSync, readFileSync } from 'node:fs'
 import fse from 'fs-extra'
 import { merge } from 'webpack-merge'
 import { build as rolldownBuild, watch as rolldownWatch } from 'rolldown'
+import { watch as chokidarWatch } from 'chokidar'
+import debounce from 'lodash/debounce.js'
 import { transformAssetUrls } from '@quasar/vite-plugin'
 
 import { log, warn, error, fatal, tip } from './utils/logger.js'
@@ -212,10 +214,12 @@ export class QuasarConfigFile {
   #shouldFail = true
 
   #watch = {
+    buildId: 0,
     onUpdate: null,
+    onEnvChange: null,
     shouldReadBuiltFileAgain: false,
     rolldownWatcher: null,
-    packageJsonWatcher: null
+    quasarConfEnvWatcher: null
   }
 
   #cssVariables
@@ -226,6 +230,7 @@ export class QuasarConfigFile {
   constructor({ ctx, host, port, verifyAddress, watch = false }) {
     this.#ctx = ctx
     this.#opts = { host, port, verifyAddress, watch }
+
     this.#hostPackageJsonPath = ctx.appPaths.resolve.app('package.json')
     this.#env = this.#getEnv()
 
@@ -276,7 +281,13 @@ export class QuasarConfigFile {
       })
     }
 
-    return this.#opts.watch === true ? this.#watchBuild() : this.#build()
+    if (this.#opts.watch === false) {
+      return this.#build()
+    }
+
+    const promiseWithResolvers = Promise.withResolvers()
+    this.#watchBuild(promiseWithResolvers)
+    return promiseWithResolvers.promise
   }
 
   async read() {
@@ -329,7 +340,11 @@ export class QuasarConfigFile {
       fse.readFileSync(this.#hostPackageJsonPath, 'utf-8')
     )
 
-    return getQuasarConfEnv(this.#ctx, quasarCli?.quasarConfEnv || {})
+    return getQuasarConfEnv({
+      ctx: this.#ctx,
+      envCfg: quasarCli?.quasarConfEnv || {},
+      useSnapshot: this.#opts.watch
+    })
   }
 
   /**
@@ -394,40 +409,79 @@ export class QuasarConfigFile {
       )
     }
 
-    this.#watch.onUpdate = onUpdate
+    this.#watch.onUpdate = debounce(onUpdate, 500)
     if (this.#watch.shouldReadBuiltFileAgain === true) {
       this.read()
     }
   }
 
-  #watchBuild() {
-    this.#watch.rolldownWatcher?.close()
+  async #watchBuild(promiseWithResolvers) {
+    const localBuildId = ++this.#watch.buildId
+
+    await Promise.all([
+      this.#watch.quasarConfEnvWatcher?.close(),
+      this.#watch.rolldownWatcher?.close()
+    ])
 
     const { appPaths } = this.#ctx
-    const { promise, resolve } = Promise.withResolvers()
+    const onEnvChange = debounce(changedFile => {
+      if (localBuildId !== this.#watch.buildId) return
+
+      const env = this.#getEnv()
+
+      if (env.snapshot.envDefineList !== this.#env.snapshot.envDefineList) {
+        log()
+        log(
+          `Detected quasar.config env change from ${relative(this.#ctx.appPaths.appDir, changedFile)}`
+        )
+        this.#env = env
+        this.#watchBuild(promiseWithResolvers)
+        return
+      }
+
+      if (env.snapshot.watchEnvFiles !== this.#env.snapshot.watchEnvFiles) {
+        const watcher = this.#watch.quasarConfEnvWatcher
+        watcher.unwatch(this.#env.watchEnvFiles)
+        watcher.add(env.watchEnvFiles)
+        this.#env = env
+      }
+    }, 300)
+
+    this.#watch.quasarConfEnvWatcher = chokidarWatch(
+      [this.#hostPackageJsonPath, ...this.#env.watchEnvFiles],
+      {
+        ignoreInitial: true
+      }
+    )
+      .on('add', onEnvChange)
+      .on('change', onEnvChange)
+      .on('unlink', onEnvChange)
 
     this.#watch.rolldownWatcher = rolldownWatch(this.#getRolldownConfig())
-
-    let isFirstBuild = true
     this.#watch.rolldownWatcher.on('event', event => {
+      if (localBuildId !== this.#watch.buildId) {
+        event.result?.close?.()
+        return
+      }
+
       if (event.code === 'START') {
         log(
-          (isFirstBuild === true ? 'Compiling' : 'Recompiling') +
+          (promiseWithResolvers !== null ? 'Compiling' : 'Recompiling') +
             ` ${basename(appPaths.quasarConfigFilename)} (${this.#env.envBanner})`
         )
       } else if (event.code === 'BUNDLE_END') {
         event.result.close()
-        if (isFirstBuild === true) return
+
+        if (promiseWithResolvers !== null) {
+          promiseWithResolvers.resolve()
+          promiseWithResolvers = null
+          return
+        }
 
         if (this.#watch.onUpdate !== null) {
           this.read()
         } else {
           this.#watch.shouldReadBuiltFileAgain = true
-        }
-      } else if (event.code === 'END') {
-        if (isFirstBuild === true) {
-          isFirstBuild = false
-          resolve()
         }
       } else if (event.code === 'ERROR') {
         fse.removeSync(this.#tempFile)
@@ -446,8 +500,6 @@ export class QuasarConfigFile {
         event.result.close()
       }
     })
-
-    return promise
   }
 
   #build() {
@@ -833,10 +885,10 @@ export class QuasarConfigFile {
       cfg.build
     )
 
-    const { clientEnvDefineList, backendEnvDefineList, envBanner } = getAppEnv(
-      this.#ctx,
-      cfg.build.env
-    )
+    const { clientEnvDefineList, backendEnvDefineList, envBanner } = getAppEnv({
+      ctx: this.#ctx,
+      envCfg: cfg.build.env
+    })
 
     cfg.metaConf.clientEnvDefineList = clientEnvDefineList
     cfg.metaConf.backendEnvDefineList = backendEnvDefineList

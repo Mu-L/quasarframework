@@ -144,8 +144,6 @@ const { addMode } = await import(
 await addMode({ ctx, silent: true, target: argv.target })
 
 const { QuasarConfigFile } = await import('../quasar-config-file.js')
-const { default: debounce } = await import('lodash/debounce.js')
-
 const quasarConfFile = new QuasarConfigFile({
   ctx,
   port: argv.port,
@@ -188,10 +186,8 @@ devServer.run(quasarConf).then(async () => {
     await hook.fn(hook.api, { quasarConf })
   })
 
-  quasarConfFile.watch(
-    debounce(qConf => {
-      log('Applying quasar.config file changes...')
-      devServer.run(qConf)
-    }, 550)
-  )
+  quasarConfFile.watch(qConf => {
+    log('Applying quasar.config file changes...')
+    devServer.run(qConf)
+  })
 })
