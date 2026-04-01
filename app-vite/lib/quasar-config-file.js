@@ -285,9 +285,10 @@ export class QuasarConfigFile {
       return this.#build()
     }
 
-    const promiseWithResolvers = Promise.withResolvers()
-    this.#watchBuild(promiseWithResolvers)
-    return promiseWithResolvers.promise
+    const { promise, resolve } = Promise.withResolvers()
+    this.#watchBuild(resolve)
+
+    return promise
   }
 
   async read() {
@@ -415,7 +416,7 @@ export class QuasarConfigFile {
     }
   }
 
-  async #watchBuild(promiseWithResolvers) {
+  async #watchBuild(onReady) {
     const localBuildId = ++this.#watch.buildId
 
     await Promise.all([
@@ -435,7 +436,7 @@ export class QuasarConfigFile {
           `Detected quasar.config env change from ${relative(this.#ctx.appPaths.appDir, changedFile)}`
         )
         this.#env = env
-        this.#watchBuild(promiseWithResolvers)
+        this.#watchBuild(onReady)
         return
       }
 
@@ -466,15 +467,15 @@ export class QuasarConfigFile {
 
       if (event.code === 'START') {
         log(
-          (promiseWithResolvers !== null ? 'Compiling' : 'Recompiling') +
+          (onReady !== null ? 'Compiling' : 'Recompiling') +
             ` ${basename(appPaths.quasarConfigFilename)} (${this.#env.envBanner})`
         )
       } else if (event.code === 'BUNDLE_END') {
         event.result.close()
 
-        if (promiseWithResolvers !== null) {
-          promiseWithResolvers.resolve()
-          promiseWithResolvers = null
+        if (onReady !== null) {
+          onReady()
+          onReady = null
           return
         }
 
