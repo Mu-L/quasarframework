@@ -97,10 +97,8 @@ export class QuasarModeDevserver extends AppDevserver {
   }
 
   // also update ssr-devserver.js when changing here
-  #compilePwaManifest(quasarConf) {
-    if (this.#pwaManifestWatcher !== void 0) {
-      this.#pwaManifestWatcher.close()
-    }
+  async #compilePwaManifest(quasarConf) {
+    await this.#pwaManifestWatcher?.close()
 
     function inject() {
       injectPwaManifest(quasarConf)

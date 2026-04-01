@@ -87,10 +87,8 @@ export class QuasarModeDevserver extends AppDevserver {
     fse.writeFileSync(join(indexHtmlDir, 'index.html'), '', 'utf-8')
   }
 
-  #compileBexManifest(quasarConf, queue) {
-    if (this.#manifestWatcher !== null) {
-      this.#manifestWatcher.close()
-    }
+  async #compileBexManifest(quasarConf, queue) {
+    await this.#manifestWatcher?.close()
 
     const { err: manifestErr, scriptList: manifestScriptList } =
       createManifest(quasarConf)
