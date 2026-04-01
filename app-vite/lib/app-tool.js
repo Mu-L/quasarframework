@@ -40,7 +40,7 @@ export class AppTool {
       }
     })
 
-    let isFirst = true
+    let isFirstBuild = true
     let done
 
     watcher.on('event', event => {
@@ -51,16 +51,13 @@ export class AppTool {
         )
       } else if (event.code === 'BUNDLE_END') {
         event.result.close()
-      } else if (event.code === 'END') {
         done('___ compiled with success by Rolldown')
-
-        if (isFirst === true) {
-          isFirst = false
+        if (isFirstBuild === false) onRebuildSuccess()
+      } else if (event.code === 'END') {
+        if (isFirstBuild === true) {
+          isFirstBuild = false
           resolve(watcher)
-          return
         }
-
-        onRebuildSuccess()
       } else if (event.code === 'ERROR') {
         console.error(event.error)
         event.result.close()

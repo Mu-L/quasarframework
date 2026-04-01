@@ -417,17 +417,17 @@ export class QuasarConfigFile {
         )
       } else if (event.code === 'BUNDLE_END') {
         event.result.close()
-      } else if (event.code === 'END') {
-        if (isFirstBuild === true) {
-          isFirstBuild = false
-          resolve()
-          return
-        }
+        if (isFirstBuild === true) return
 
         if (this.#watch.onUpdate !== null) {
           this.read()
         } else {
           this.#watch.shouldReadBuiltFileAgain = true
+        }
+      } else if (event.code === 'END') {
+        if (isFirstBuild === true) {
+          isFirstBuild = false
+          resolve()
         }
       } else if (event.code === 'ERROR') {
         fse.removeSync(this.#tempFile)
