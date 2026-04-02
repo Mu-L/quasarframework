@@ -22,6 +22,7 @@ import {
 import { findClosestOpenPort, localHostList } from './utils/net.js'
 import { isMinimalTerminal } from './utils/is-terminal.js'
 import { BASELINE_WIDELY_AVAILABLE_TARGET_STRING } from './utils/build-targets.js'
+import { encodeForDiff } from './utils/encode-for-diff.js'
 import {
   getQuasarConfEnv,
   getAppEnv,
@@ -210,16 +211,18 @@ export class QuasarConfigFile {
   #address
   #tempFile
   #hostPackageJsonPath
-  #env
+  #confEnv
+  #appEnv = null
   #shouldFail = true
 
   #watch = {
     buildId: 0,
     onUpdate: null,
-    onEnvChange: null,
     shouldReadBuiltFileAgain: false,
     rolldownWatcher: null,
-    envWatcher: null
+    confEnvWatcher: null,
+    appEnvWatcher: null,
+    cachedQuasarConf: null
   }
 
   #cssVariables
@@ -232,13 +235,13 @@ export class QuasarConfigFile {
     this.#opts = { host, port, verifyAddress, watch }
 
     this.#hostPackageJsonPath = ctx.appPaths.resolve.app('package.json')
-    this.#env = this.#getEnv()
+    this.#confEnv = this.#getConfEnv()
 
     // if filename syntax gets changed, then also update the "clean" cmd
     this.#tempFile = `${ctx.appPaths.quasarConfigFilename}.temporary.compiled.${Date.now()}.js`
   }
 
-  async init() {
+  async read() {
     const { appPaths, cacheProxy, appExt } = this.#ctx
 
     await Promise.all([
@@ -281,17 +284,29 @@ export class QuasarConfigFile {
       })
     }
 
-    if (this.#opts.watch === false) {
-      return this.#build()
+    const { promise, resolve } =
+      this.#opts.watch === false
+        ? {
+            promise: this.#build(),
+            resolve: null
+          }
+        : Promise.withResolvers()
+
+    if (this.#opts.watch === true) {
+      this.#watchBuild(resolve)
     }
 
-    const { promise, resolve } = Promise.withResolvers()
-    this.#watchBuild(resolve)
-
     return promise
+      .then(() => this.#readBuiltFile())
+      .then(quasarConf => {
+        this.#injectAppEnv(quasarConf, true)
+        this.#shouldFail = false
+        return quasarConf
+      })
   }
 
-  async read() {
+  async #readBuiltFile() {
+    this.#watch.shouldReadBuiltFileAgain = false
     let quasarConfigFn
 
     try {
@@ -326,17 +341,14 @@ export class QuasarConfigFile {
 
     const quasarConf = await this.#computeConfig(quasarConfigFn)
 
-    if (this.#watch.onUpdate !== null) {
-      if (quasarConf !== void 0) {
-        this.#watch.onUpdate(quasarConf)
-      }
-    } else {
-      this.#shouldFail = false
-      return quasarConf
+    if (this.#opts.watch === true && quasarConf !== void 0) {
+      this.#watch.cachedQuasarConf = quasarConf
     }
+
+    return quasarConf
   }
 
-  #getEnv() {
+  #getConfEnv() {
     const { quasarCli } = JSON.parse(
       fse.readFileSync(this.#hostPackageJsonPath, 'utf-8')
     )
@@ -346,6 +358,72 @@ export class QuasarConfigFile {
       envCfg: quasarCli?.quasarConfEnv || {},
       useSnapshot: this.#opts.watch
     })
+  }
+
+  #injectAppEnv(quasarConf, envFilesChanged) {
+    if (
+      envFilesChanged === true ||
+      this.#appEnv?.snapshot.envCfg !== encodeForDiff(quasarConf.build.env)
+    ) {
+      const newAppEnv = getAppEnv({
+        ctx: this.#ctx,
+        envCfg: quasarConf.build.env,
+        useSnapshot: this.#opts.watch
+      })
+
+      if (
+        this.#opts.watch === false ||
+        this.#appEnv?.snapshot.watchEnvFiles !==
+          newAppEnv.snapshot?.watchEnvFiles ||
+        this.#appEnv?.snapshot.envCfg !== newAppEnv.snapshot?.envCfg
+      ) {
+        log(newAppEnv.envBanner)
+      }
+
+      if (this.#opts.watch === true) {
+        if (this.#watch.appEnvWatcher === null) {
+          const onEnvChange = debounce(() => {
+            if (
+              this.#watch.cachedQuasarConf !== null &&
+              this.#watch.shouldReadBuiltFileAgain === false
+            ) {
+              this.#injectAppEnv(this.#watch.cachedQuasarConf, true)
+              this.#watch.onUpdate?.(this.#watch.cachedQuasarConf)
+            }
+          }, 300)
+
+          this.#watch.appEnvWatcher = chokidarWatch(
+            [...newAppEnv.watchEnvFiles],
+            {
+              ignoreInitial: true
+            }
+          )
+            .on('add', onEnvChange)
+            .on('change', onEnvChange)
+            .on('unlink', onEnvChange)
+        } else if (
+          newAppEnv.snapshot.watchEnvFiles !==
+          this.#appEnv.snapshot.watchEnvFiles
+        ) {
+          const watcher = this.#watch.appEnvWatcher
+          watcher.unwatch(
+            Array.from(
+              this.#appEnv.watchEnvFiles.difference(newAppEnv.watchEnvFiles)
+            )
+          )
+          watcher.add(
+            Array.from(
+              newAppEnv.watchEnvFiles.difference(this.#appEnv.watchEnvFiles)
+            )
+          )
+        }
+      }
+
+      this.#appEnv = newAppEnv
+    }
+
+    quasarConf.metaConf.clientEnvDefineList = this.#appEnv.clientEnvDefineList
+    quasarConf.metaConf.backendEnvDefineList = this.#appEnv.backendEnvDefineList
   }
 
   /**
@@ -380,7 +458,7 @@ export class QuasarConfigFile {
       transform: {
         target: 'node22',
         define: {
-          ...this.#env.envDefineList,
+          ...this.#confEnv.envDefineList,
           ...quasarRolldownInjectReplacementsDefine
         }
       },
@@ -403,16 +481,12 @@ export class QuasarConfigFile {
   }
 
   watch(onUpdate) {
-    if (this.#watch.onUpdate !== null) {
-      fatal(
-        'quasar.config file is already being watched. Only one watch can be active at a time.',
-        'FAIL'
-      )
-    }
-
     this.#watch.onUpdate = debounce(onUpdate, 500)
     if (this.#watch.shouldReadBuiltFileAgain === true) {
-      this.read()
+      this.#readBuiltFile().then(quasarConf => {
+        this.#injectAppEnv(quasarConf, false)
+        this.#watch.onUpdate(quasarConf)
+      })
     }
   }
 
@@ -421,32 +495,46 @@ export class QuasarConfigFile {
     const localBuildId = ++this.#watch.buildId
     const { appDir, quasarConfigFilename } = this.#ctx.appPaths
 
-    if (this.#watch.envWatcher === null) {
+    if (this.#watch.confEnvWatcher === null) {
       const onEnvChange = debounce(changedFile => {
-        const env = this.#getEnv()
+        const newConfEnv = this.#getConfEnv()
 
-        if (env.snapshot.envDefineList !== this.#env.snapshot.envDefineList) {
+        if (
+          newConfEnv.snapshot.watchEnvFiles !==
+          this.#confEnv.snapshot.watchEnvFiles
+        ) {
+          const watcher = this.#watch.confEnvWatcher
+          watcher.unwatch(
+            Array.from(
+              this.#confEnv.watchEnvFiles.difference(newConfEnv.watchEnvFiles)
+            )
+          )
+          watcher.add(
+            Array.from(
+              newConfEnv.watchEnvFiles.difference(this.#confEnv.watchEnvFiles)
+            )
+          )
+        }
+
+        if (
+          newConfEnv.snapshot.envDefineList !==
+          this.#confEnv.snapshot.envDefineList
+        ) {
           log()
           log(
             `Detected quasar.config env change from ${relative(appDir, changedFile)}`
           )
-          this.#env = env
-          this.#watch.rolldownWatcher.close().then(() => {
-            this.#watchBuild(onReady)
-          })
+          this.#confEnv = newConfEnv
+          this.#watch.rolldownWatcher.close()
+          this.#watchBuild(onReady)
           return
         }
 
-        if (env.snapshot.watchEnvFiles !== this.#env.snapshot.watchEnvFiles) {
-          const watcher = this.#watch.envWatcher
-          watcher.unwatch(this.#env.watchEnvFiles)
-          watcher.add(env.watchEnvFiles)
-          this.#env = env
-        }
+        this.#confEnv = newConfEnv
       }, 300)
 
-      this.#watch.envWatcher = chokidarWatch(
-        [this.#hostPackageJsonPath, ...this.#env.watchEnvFiles],
+      this.#watch.confEnvWatcher = chokidarWatch(
+        [this.#hostPackageJsonPath, ...this.#confEnv.watchEnvFiles],
         {
           ignoreInitial: true
         }
@@ -465,10 +553,13 @@ export class QuasarConfigFile {
         }
 
         if (event.code === 'START') {
-          log(
-            (onReady !== null ? 'Compiling' : 'Recompiling') +
-              ` ${basename(quasarConfigFilename)} (${this.#env.envBanner})`
-          )
+          const banner = ` ${basename(quasarConfigFilename)} (${this.#confEnv.envBanner})`
+          if (onReady === null) {
+            log()
+            log(`Recompiling${banner}...`)
+          } else {
+            log(`Compiling${banner}...`)
+          }
         } else if (event.code === 'BUNDLE_END') {
           event.result.close()
 
@@ -478,11 +569,17 @@ export class QuasarConfigFile {
             return
           }
 
-          if (this.#watch.onUpdate !== null) {
-            this.read()
-          } else {
+          if (this.#watch.onUpdate === null) {
             this.#watch.shouldReadBuiltFileAgain = true
+            return
           }
+
+          this.#readBuiltFile().then(quasarConf => {
+            if (quasarConf !== void 0 && localBuildId === this.#watch.buildId) {
+              this.#injectAppEnv(quasarConf, false)
+              this.#watch.onUpdate(quasarConf)
+            }
+          })
         } else if (event.code === 'ERROR') {
           fse.removeSync(this.#tempFile)
 
@@ -505,7 +602,7 @@ export class QuasarConfigFile {
 
   #build() {
     log(
-      `Compiling ${basename(this.#ctx.appPaths.quasarConfigFilename)} (${this.#env.envBanner})`
+      `Compiling ${basename(this.#ctx.appPaths.quasarConfigFilename)} (${this.#confEnv.envBanner})`
     )
 
     try {
@@ -883,16 +980,6 @@ export class QuasarConfigFile {
       },
       cfg.build
     )
-
-    const { clientEnvDefineList, backendEnvDefineList, envBanner } = getAppEnv({
-      ctx: this.#ctx,
-      envCfg: cfg.build.env
-    })
-
-    cfg.metaConf.clientEnvDefineList = clientEnvDefineList
-    cfg.metaConf.backendEnvDefineList = backendEnvDefineList
-
-    log(envBanner)
 
     if (!cfg.build.target.browser) {
       cfg.build.target.browser = BASELINE_WIDELY_AVAILABLE_TARGET_STRING

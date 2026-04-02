@@ -133,8 +133,6 @@ const quasarConfFile = new QuasarConfigFile({
   host: argv.hostname
 })
 
-await quasarConfFile.init()
-
 const quasarConf = await quasarConfFile.read()
 
 const { QuasarModeBuilder } = await import(
@@ -163,6 +161,7 @@ await ctx.appExt.runAppExtensionHook('beforeBuild', async hook => {
   await hook.fn(hook.api, { quasarConf })
 })
 
+log()
 appBuilder
   .build()
   .catch(err => {

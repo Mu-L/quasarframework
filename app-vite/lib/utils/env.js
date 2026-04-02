@@ -12,7 +12,6 @@ const defaultQuasarConfEnvPrefix = ''
 export const defaultClientAppEnvPrefix = 'QCLI_'
 export const defaultBackendAppEnvPrefix = ''
 const validEnvKeyRE = /^[a-zA-Z_$][a-zA-Z0-9_$]+/
-const appEnvCacheKey = 'AppEnv'
 
 function getEnvFilesPrefix({ prefix, defaultPrefix, banner }) {
   if (!prefix) {
@@ -124,7 +123,7 @@ export function getQuasarConfEnv({ ctx, envCfg, useSnapshot }) {
 
   return {
     envDefineList,
-    watchEnvFiles,
+    watchEnvFiles: new Set(watchEnvFiles),
     snapshot:
       useSnapshot === true
         ? {
@@ -144,83 +143,98 @@ export function getQuasarConfEnv({ ctx, envCfg, useSnapshot }) {
  * Get the raw env definitions from the host project env files.
  */
 export function getAppEnv({ ctx, envCfg, useSnapshot }) {
-  const configHash = encodeForDiff(envCfg)
-  const cache = ctx.cacheProxy.getRuntime(appEnvCacheKey, () => ({}))
+  const hasBackend = ctx.mode.ssr === true
+  const localEnv = merge(
+    {
+      clientPrefix: defaultClientAppEnvPrefix,
+      backendPrefix: defaultBackendAppEnvPrefix,
+      folder: ctx.appPaths.appDir
+      // file: []
+      // filter: (key, value) => true
+    },
+    envCfg
+  )
 
-  if (cache.configHash !== configHash) {
-    const localEnv = merge(
-      {
-        clientPrefix: defaultClientAppEnvPrefix,
-        backendPrefix: defaultBackendAppEnvPrefix,
-        folder: ctx.appPaths.appDir
-        // file: []
-        // filter: (key, value) => true
-      },
-      envCfg
-    )
+  const { modeName: quasarMode, dev } = ctx
+  const buildType = dev === true ? 'dev' : 'prod'
 
-    const { modeName: quasarMode, dev } = ctx
-    const buildType = dev === true ? 'dev' : 'prod'
+  let fileList = [
+    // .env
+    // loaded in all cases
+    '.env',
 
-    let fileList = [
-      // .env
-      // loaded in all cases
-      '.env',
+    // .env.local
+    // loaded in all cases, ignored by git
+    '.env.local',
 
-      // .env.local
-      // loaded in all cases, ignored by git
-      '.env.local',
+    // .env.[dev|prod]
+    // loaded for dev or prod only
+    `.env.${buildType}`,
 
-      // .env.[dev|prod]
-      // loaded for dev or prod only
-      `.env.${buildType}`,
+    // .env.local.[dev|prod]
+    // loaded for dev or prod only, ignored by git
+    `.env.${buildType}.local`,
 
-      // .env.local.[dev|prod]
-      // loaded for dev or prod only, ignored by git
-      `.env.${buildType}.local`,
+    // .env.[quasarMode]
+    // loaded for specific Quasar CLI mode only
+    `.env.${quasarMode}`,
 
-      // .env.[quasarMode]
-      // loaded for specific Quasar CLI mode only
-      `.env.${quasarMode}`,
+    // .env.local.[quasarMode]
+    // loaded for specific Quasar CLI mode only, ignored by git
+    `.env.${quasarMode}.local`,
 
-      // .env.local.[quasarMode]
-      // loaded for specific Quasar CLI mode only, ignored by git
-      `.env.${quasarMode}.local`,
+    // .env.[dev|prod].[quasarMode]
+    // loaded for specific Quasar CLI mode and dev|prod only
+    `.env.${buildType}.${quasarMode}`,
 
-      // .env.[dev|prod].[quasarMode]
-      // loaded for specific Quasar CLI mode and dev|prod only
-      `.env.${buildType}.${quasarMode}`,
+    // .env.local.[dev|prod].[quasarMode]
+    // loaded for specific Quasar CLI mode and dev|prod only, ignored by git
+    `.env.${buildType}.${quasarMode}.local`
+  ]
 
-      // .env.local.[dev|prod].[quasarMode]
-      // loaded for specific Quasar CLI mode and dev|prod only, ignored by git
-      `.env.${buildType}.${quasarMode}.local`
-    ]
+  if (isCI === true) {
+    // in CI, we ignore all .local files, as they are meant to be used locally only
+    fileList = fileList.filter(entry => entry.endsWith('.local') === false)
+  }
 
-    if (isCI === true) {
-      // in CI, we ignore all .local files, as they are meant to be used locally only
-      fileList = fileList.filter(entry => entry.endsWith('.local') === false)
-    }
+  const additionalFiles = Array.isArray(localEnv.file)
+    ? localEnv.file
+    : localEnv.file
+      ? [localEnv.file]
+      : []
 
-    const additionalFiles = Array.isArray(localEnv.file)
-      ? localEnv.file
-      : localEnv.file
-        ? [localEnv.file]
-        : []
+  if (additionalFiles.length !== 0) {
+    // additional user-defined env files
+    fileList.push(...additionalFiles)
+  }
 
-    if (additionalFiles.length !== 0) {
-      // additional user-defined env files
-      fileList.push(...additionalFiles)
-    }
+  const { appDir } = ctx.appPaths
+  const { rawFileEnv, watchEnvFiles, usedEnvFiles } = getFileEnvResult({
+    appDir,
+    fileList,
+    folderList: Array.isArray(localEnv.folder)
+      ? localEnv.folder
+      : [localEnv.folder]
+  })
 
-    const { appDir } = ctx.appPaths
-    const { rawFileEnv, watchEnvFiles, usedEnvFiles } = getFileEnvResult({
-      appDir,
-      fileList,
-      folderList: Array.isArray(localEnv.folder)
-        ? localEnv.folder
-        : [localEnv.folder]
-    })
+  const clientPrefix = getEnvFilesPrefix({
+    prefix: localEnv.clientPrefix,
+    defaultPrefix: defaultClientAppEnvPrefix,
+    banner: 'App envClientPrefix'
+  })
+  const clientPrefixRE = Array.isArray(clientPrefix)
+    ? new RegExp(`^(${clientPrefix.join('|')})[a-zA-Z_$][a-zA-Z0-9_$]+`)
+    : new RegExp(`^${clientPrefix}[a-zA-Z_$][a-zA-Z0-9_$]+`)
+  const clientPrefixLabel = Array.isArray(clientPrefix)
+    ? clientPrefix.join(' | ')
+    : clientPrefix
 
+  const result = {
+    clientEnvDefineList: parseEnvDefineList(rawFileEnv, clientPrefixRE)
+  }
+
+  let backendBanner = ''
+  if (hasBackend === true) {
     const backendPrefix = getEnvFilesPrefix({
       prefix: localEnv.backendPrefix,
       defaultPrefix: defaultBackendAppEnvPrefix,
@@ -233,54 +247,39 @@ export function getAppEnv({ ctx, envCfg, useSnapshot }) {
       ? backendPrefix.join(' | ')
       : backendPrefix
 
-    const clientPrefix = getEnvFilesPrefix({
-      prefix: localEnv.clientPrefix,
-      defaultPrefix: defaultClientAppEnvPrefix,
-      banner: 'App envClientPrefix'
-    })
-    const clientPrefixRE = Array.isArray(clientPrefix)
-      ? new RegExp(`^(${clientPrefix.join('|')})[a-zA-Z_$][a-zA-Z0-9_$]+`)
-      : new RegExp(`^${clientPrefix}[a-zA-Z_$][a-zA-Z0-9_$]+`)
-    const clientPrefixLabel = Array.isArray(clientPrefix)
-      ? clientPrefix.join(' | ')
-      : clientPrefix
+    backendBanner = `${backendPrefix ? `Backend code prefix: ${backendPrefixLabel}` : 'No backend code prefix'}; `
+    result.backendEnvDefineList = parseEnvDefineList(
+      rawFileEnv,
+      backendPrefixRE
+    )
+  }
 
-    const result = {
-      clientEnvDefineList: parseEnvDefineList(rawFileEnv, clientPrefixRE),
-      backendEnvDefineList: parseEnvDefineList(rawFileEnv, backendPrefixRE),
-      watchEnvFiles,
-      envBanner:
-        `App env: ${backendPrefix ? `backend prefix ${backendPrefixLabel}` : 'no backend prefix'}; ${clientPrefix ? `client prefix ${clientPrefixLabel}` : 'no client prefix'}` +
-        (usedEnvFiles.length !== 0
-          ? `; files: ${usedEnvFiles.join(' | ')}`
-          : '; no files')
-    }
+  result.envBanner =
+    `${clientPrefix ? `Client code prefix: ${clientPrefixLabel}` : 'No client code prefix'}; ` +
+    backendBanner +
+    (usedEnvFiles.length !== 0
+      ? `files: ${usedEnvFiles.join(' | ')}`
+      : 'no files')
 
-    if (typeof localEnv.filter === 'function') {
-      result.clientEnvDefineList =
-        localEnv.filter(result.clientEnvDefineList, 'client') || {}
+  if (typeof localEnv.filter === 'function') {
+    result.clientEnvDefineList =
+      localEnv.filter(result.clientEnvDefineList, 'client') || {}
 
+    if (hasBackend === true) {
       result.backendEnvDefineList =
         localEnv.filter(result.backendEnvDefineList, 'backend') || {}
     }
-
-    if (useSnapshot === true) {
-      result.snapshot = {
-        clientEnvDefineList: encodeForDiff(result.clientEnvDefineList),
-        backendEnvDefineList: encodeForDiff(result.backendEnvDefineList),
-        watchEnvFiles: encodeForDiff(watchEnvFiles)
-      }
-    }
-
-    ctx.cacheProxy.setRuntime(appEnvCacheKey, {
-      configHash,
-      result
-    })
-
-    return result
   }
 
-  return cache.result
+  if (useSnapshot === true) {
+    result.snapshot = {
+      envCfg: encodeForDiff(envCfg),
+      watchEnvFiles: encodeForDiff(watchEnvFiles)
+    }
+  }
+
+  result.watchEnvFiles = new Set(watchEnvFiles)
+  return result
 }
 
 function getFileEnvResult({ appDir, fileList, folderList }) {

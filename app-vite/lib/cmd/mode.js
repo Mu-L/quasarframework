@@ -107,7 +107,7 @@ async function run() {
     port: 9000,
     host: 'localhost'
   })
-  await quasarConfFile.init()
+
   const quasarConf = await quasarConfFile.read()
   generateTypes(quasarConf)
 }

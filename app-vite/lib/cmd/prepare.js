@@ -53,8 +53,6 @@ const quasarConfFile = new QuasarConfigFile({
   host: 'localhost'
 })
 
-await quasarConfFile.init()
-
 const quasarConf = await quasarConfFile.read()
 
 const { generateTypes } = await import('../types-generator.js')

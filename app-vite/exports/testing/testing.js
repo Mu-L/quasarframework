@@ -24,8 +24,6 @@ export async function getTestingConfig(ctxParams = {}) {
     host: 'localhost'
   })
 
-  await quasarConfFile.init()
-
   const quasarConf = await quasarConfFile.read()
   const viteConf = await quasarSpaConfig.vite(quasarConf)
 
