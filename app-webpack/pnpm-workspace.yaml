@@ -1,2 +1,16 @@
-# This file exists to avoid pnpm only installing in the root and not in src-capacitor
-# https://github.com/pnpm/pnpm/issues/9348#issuecomment-2771925480
+packages:
+  - ./
+  - ./playground-js
+  - ./playground-ts
+
+catalog:
+  vue: ^3.5.31
+  vue-router: ^5.0.4
+
+onlyBuiltDependencies:
+  - '@parcel/watcher'
+  - core-js
+  - electron-winstaller
+  - esbuild
+  - lightningcss
+  - unrs-resolver

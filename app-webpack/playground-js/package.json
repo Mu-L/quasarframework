@@ -10,9 +10,9 @@
     "build": "quasar build"
   },
   "dependencies": {
-    "@quasar/extras": "workspace:^",
+    "@quasar/extras": "^1.17.0",
     "core-js": "^3.31.1",
-    "quasar": "workspace:^",
+    "quasar": "^2.19.0",
     "vue": "catalog:",
     "vue-router": "catalog:"
   },
