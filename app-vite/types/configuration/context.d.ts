@@ -177,7 +177,6 @@ type CacheProxyModuleKey =
   | "hasTypescript"
   | "nodePackager"
   | "storeProvider"
-  | "vueRouterVersion"
   | "workboxBuild";
 interface CacheProxy {
   getRuntime: (key: string, getInitialValue: () => any) => any;

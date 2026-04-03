@@ -320,9 +320,6 @@ export class QuasarConfigFile {
       }),
       cacheProxy.getModule('storeProvider').then(storeProvider => {
         this.#storeProvider = storeProvider
-      }),
-      cacheProxy.getModule('vueRouterVersion').then(vueRouterVersion => {
-        this.#versions.vueRouter = vueRouterVersion
       })
     ])
 

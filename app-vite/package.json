@@ -154,7 +154,7 @@
     "quasar": "^2.16.0",
     "typescript": ">= 6",
     "vue": "^3.2.29",
-    "vue-router": "^4.0.12 || ^5.0.0",
+    "vue-router": "^5.0.0",
     "workbox-build": ">= 6"
   },
   "peerDependenciesMeta": {

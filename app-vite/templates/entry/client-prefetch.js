@@ -53,7 +53,7 @@ export function addPreFetchHooks ({ router<%= quasarConf.ctx.mode.ssr && quasarC
   // Doing it after initial route is resolved so that we don't double-fetch
   // the data that we already have. Using router.beforeResolve() so that all
   // async components are resolved.
-  router.beforeResolve(async (to, from<%= quasarConf.metaConf.versions.vueRouter === 4 ? ', next' : '' %>) => {
+  router.beforeResolve(async (to, from) => {
     const
       urlPath = window.location.href.replace(window.location.origin, ''),
       matched = getMatchedComponents(to, router),
@@ -82,10 +82,7 @@ export function addPreFetchHooks ({ router<%= quasarConf.ctx.mode.ssr && quasarC
     }
     <% } %>
 
-    if (preFetchList.length === 0) {
-      <%= quasarConf.metaConf.versions.vueRouter === 4 ? 'next()' : '' %>
-      return
-    }
+    if (preFetchList.length === 0) return
 
     let redirectArg = null
     const redirect = url => { redirectArg = url }
@@ -109,7 +106,6 @@ export function addPreFetchHooks ({ router<%= quasarConf.ctx.mode.ssr && quasarC
         <% if (quasarConf.metaConf.hasLoadingBarPlugin) { %>
         LoadingBar.stop()
         <% } %>
-        <%= quasarConf.metaConf.versions.vueRouter === 4 ? 'next()' : '' %>
         return
       }
 
@@ -117,13 +113,12 @@ export function addPreFetchHooks ({ router<%= quasarConf.ctx.mode.ssr && quasarC
         <% if (quasarConf.metaConf.hasLoadingBarPlugin) { %>
         LoadingBar.stop()
         <% } %>
-        <%= quasarConf.metaConf.versions.vueRouter === 4 ? 'next(redirectArg); return' : 'return redirectArg' %>
+        return redirectArg
       }
     }
 
     <% if (quasarConf.metaConf.hasLoadingBarPlugin) { %>
     LoadingBar.stop()
     <% } %>
-    <%= quasarConf.metaConf.versions.vueRouter === 4 ? 'next()' : '' %>
   })
 }
