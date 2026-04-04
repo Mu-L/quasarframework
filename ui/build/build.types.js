@@ -373,7 +373,7 @@ function getIndexDts(apis, quasarLangIndex) {
   writeLine(quasarTypeContents, "export * from './composables'")
   writeLine(quasarTypeContents, "export * from './feature-flag'")
   writeLine(quasarTypeContents, "export * from './globals'")
-  writeLine(quasarTypeContents, "export * from './extras'")
+  writeLine(quasarTypeContents, "export * from './icon-set'")
   writeLine(quasarTypeContents, "export * from './lang'")
   writeLine(quasarTypeContents, "export * from './api'")
   writeLine(quasarTypeContents, "export * from './plugin'")
