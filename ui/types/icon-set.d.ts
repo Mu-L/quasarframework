@@ -1,4 +1,4 @@
-import { StringDictionary } from "../ts-helpers";
+import { StringDictionary } from "./ts-helpers";
 
 type QuasarIconSetType = "positive" | "negative" | "info" | "warning";
 type QuasarIconSetArrow = "up" | "right" | "down" | "left" | "dropdown";
