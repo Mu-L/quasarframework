@@ -160,3 +160,4 @@ await injectMiddlewares(middlewareParams)
 
 export const listenResult = await listen(middlewareParams)
 export const handler = listenResult?.handler
+export default app
