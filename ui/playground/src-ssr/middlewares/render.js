@@ -7,7 +7,7 @@ import { defineSsrMiddleware } from '#q-app/wrappers'
 export default defineSsrMiddleware(({ app, resolve, render, serve }) => {
   // we capture any other Express route and hand it
   // over to Vue and Vue Router to render our page
-  app.get(resolve.urlPath('*'), (req, res) => {
+  app.get(resolve.urlPath('{*path}'), (req, res) => {
     res.setHeader('Content-Type', 'text/html')
 
     render(/* the ssrContext: */ { req, res })
@@ -38,7 +38,9 @@ export default defineSsrMiddleware(({ app, resolve, render, serve }) => {
           // and other useful information
 
           // serve.error is available on dev only
-          serve.error({ err, req, res })
+          const { headers, html } = serve.error({ err, req })
+          res.writeHead(500, headers)
+          res.end(html)
         } else {
           // we're in production, so we should have another method
           // to display something to the client when we encounter an error

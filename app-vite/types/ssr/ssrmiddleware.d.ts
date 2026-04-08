@@ -19,10 +19,6 @@ export interface RenderError extends Error {
   url: string;
 }
 
-interface RenderErrorParams extends RenderParams {
-  err: RenderError;
-}
-
 interface SsrMiddlewareResolve {
   /**
    * Whenever you define a route (with app.use(), app.get(), app.post() etc), you should use the resolve.urlPath() method so that you'll also keep into account the configured publicPath (quasar.config file > build > publicPath).
@@ -108,6 +104,12 @@ export type SsrServeStaticContentCallback = (
   params: SsrServeStaticContentParams
 ) => SsrServeStaticFn;
 
+type SsrRenderErrorFn = (params: {
+  err: RenderError;
+  req: IncomingMessage | Http2ServerRequest;
+  projectRootFolder?: string;
+}) => { statusCode: number; headers: Record<string, string>; html: string };
+
 interface SsrMiddlewareServe {
   /**
    * It's essentially a wrapper over express.static() with a few convenient tweaks:
@@ -120,7 +122,7 @@ interface SsrMiddlewareServe {
    * Displays a wealth of useful debug information (including the stack trace).
    * Warning: It's available only in development and NOT in production.
    */
-  error(ssrContext: RenderErrorParams): void;
+  error: SsrRenderErrorFn;
 }
 
 interface SsrMiddlewareParams extends SsrServeStaticContentParams {

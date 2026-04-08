@@ -342,14 +342,13 @@ export class QuasarModeDevserver extends AppDevserver {
     const serveStatic = await serveStaticContent(middlewareParams)
     middlewareParams.serve = {
       static: serveStatic,
-      error: ({ err, req, res }) => {
+      error: ({ err, req }) => {
         log()
         warn(req.url, 'Render failed')
 
-        renderSSRError({
+        return renderSSRError({
           err,
           req,
-          res,
           projectRootFolder: quasarConf.ctx.appPaths.appDir
         })
       }

@@ -19,6 +19,7 @@
   },
   "devDependencies": {
     "@quasar/app-vite": "workspace:*",
+    "express": "^5.0.0",
     "postcss": "^8.5.8"
   },
   "engines": {
