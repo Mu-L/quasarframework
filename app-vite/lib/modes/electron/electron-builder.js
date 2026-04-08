@@ -76,7 +76,8 @@ export class QuasarModeBuilder extends AppBuilder {
     const patterns = [
       '.yarnrc',
       'package-lock.json',
-      'yarn.lock'
+      'yarn.lock',
+      'src-electron/icons'
       // pnpm-lock.yaml & bun.lockb should be ignored since
       // it errors out with devDeps in package.json
       // (error: lockfile has changes, but lockfile is frozen)
@@ -84,11 +85,6 @@ export class QuasarModeBuilder extends AppBuilder {
       from: filename,
       to: './UnPackaged'
     }))
-
-    patterns.push({
-      from: this.ctx.appPaths.resolve.electron('icons'),
-      to: './UnPackaged/icons'
-    })
 
     this.copyFiles(patterns)
 

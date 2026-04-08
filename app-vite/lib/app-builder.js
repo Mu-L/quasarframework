@@ -1,4 +1,3 @@
-import { lstatSync } from 'node:fs'
 import fse from 'fs-extra'
 import { join, isAbsolute, basename, dirname } from 'node:path'
 
@@ -34,20 +33,11 @@ export class AppBuilder extends AppTool {
 
   copyFiles(patterns, targetFolder = this.quasarConf.build.distDir) {
     patterns.forEach(entry => {
-      const from =
-        isAbsolute(entry.from) === true
-          ? entry.from
-          : this.ctx.appPaths.resolve.app(entry.from)
-
+      const from = this.ctx.appPaths.resolve.app(entry.from)
       if (fse.existsSync(from) !== true) return
 
-      const to =
-        isAbsolute(entry.to) === true ? entry.to : join(targetFolder, entry.to)
-
-      fse.copySync(
-        from,
-        lstatSync(from).isDirectory() === true ? to : join(to, basename(from))
-      )
+      const to = join(targetFolder, entry.to, basename(from))
+      fse.copySync(from, to)
     })
   }
 
