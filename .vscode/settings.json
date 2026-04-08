@@ -10,6 +10,7 @@
   },
 
   "oxc.unusedDisableDirectives": "deny",
+  "oxc.configPath": ".oxlintrc.json",
 
   "search.exclude": {
     "**/dist": true,

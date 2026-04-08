@@ -3,8 +3,8 @@
   "private": true,
   "scripts": {
     "prepare:types": "pnpm --recursive --parallel prepare:types",
-    "lint": "pnpm --recursive lint",
-    "lint:check": "pnpm --recursive lint:check",
+    "lint": "oxfmt && oxlint --fix",
+    "lint:check": "oxfmt --check && oxlint",
     "test": "pnpm build && pnpm --filter quasar test:specs:ci && pnpm --filter quasar test && pnpm --filter @quasar/vite-plugin test",
     "build": "pnpm --filter @quasar/vite-plugin build && pnpm --filter quasar build",
     "vite-ecosystem-ci:build": "pnpm build",

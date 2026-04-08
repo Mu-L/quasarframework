@@ -1,5 +1,26 @@
 {
-  "ignorePatterns": ["**/quasar.config.*.temporary.compiled*", "**/.quasar/"],
+  "ignorePatterns": [
+    "**/quasar.config.*.temporary.compiled*",
+    "**/.quasar/",
+
+    "app-vite/templates/",
+
+    "create-quasar/templates/",
+    "!create-quasar/templates/**/create-quasar-script.js",
+
+    "extras/bootstrap-icons/",
+    "extras/eva-icons/",
+    "extras/fontawesome-*/",
+    "extras/ionicons-*/",
+    "extras/line-awesome/",
+    "extras/material-*/",
+    "extras/mdi-*/",
+    "extras/roboto-*/",
+    "extras/themify/",
+
+    "ui/icon-set/svg-*.js",
+    "ui/lang/index.json"
+  ],
 
   "plugins": ["vue", "import", "eslint"],
 
@@ -25,6 +46,7 @@
     "no-useless-computed-key": "error",
     "prefer-exponentiation-operator": "error",
     "import/first": "error",
+    "import/default": "error",
     "import/no-duplicates": "error",
     "import/no-named-default": "error",
     "promise/avoid-new": "error",
@@ -149,6 +171,36 @@
       "files": ["**/*.d.ts"],
       "rules": {
         "no-unassigned-import": "off"
+      }
+    },
+
+    {
+      "files": ["{app-vite,cli,create-quasar,extras,icongenie}/**/*"],
+
+      "env": {
+        "node": true
+      },
+
+      "rules": {
+        "import/first": "off"
+      }
+    },
+
+    {
+      "files": ["ui/**/*"],
+      "globals": {
+        "__QUASAR_VERSION__": "readonly",
+        "__QUASAR_SSR__": "readonly",
+        "__QUASAR_SSR_SERVER__": "readonly",
+        "__QUASAR_SSR_CLIENT__": "readonly",
+        "__QUASAR_SSR_PWA__": "readonly"
+      }
+    },
+
+    {
+      "files": ["**/*.test.js"],
+      "rules": {
+        "unicorn/consistent-function-scoping": "off"
       }
     }
   ]

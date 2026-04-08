@@ -26,7 +26,6 @@
   },
   "devDependencies": {
     "@quasar/app-vite": "^2.6.0",
-    "autoprefixer": "^10.4.27",
     "axios": "=1.14.0",
     "fs-extra": "^11.2.0",
     "gray-matter": "^4.0.3",
