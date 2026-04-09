@@ -3,9 +3,9 @@ import { readFileSync } from 'node:fs'
 
 import { quasarPath } from './quasar-path.js'
 import {
+  importTransformation,
   mapQuasarImports,
-  removeQuasarImports,
-  importTransformation
+  removeQuasarImports
 } from './js-transform.js'
 
 let transformState

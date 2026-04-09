@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import { QBtn, Notify } from 'quasar'
+import { Notify, QBtn } from 'quasar'
 import { defineComponent } from 'vue'
 
 console.log(QBtn)

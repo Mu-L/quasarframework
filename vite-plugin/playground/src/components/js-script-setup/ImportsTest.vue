@@ -8,7 +8,7 @@
 </template>
 
 <script setup>
-import { QBtn, Notify } from 'quasar'
+import { Notify, QBtn } from 'quasar'
 
 console.log(QBtn)
 console.log('Notify', Notify)

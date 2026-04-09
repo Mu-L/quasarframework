@@ -1,6 +1,6 @@
 import { describe, expect, test, vi } from 'vitest'
 
-import { QBtn, ClosePopup, AddressbarColor, colors } from 'quasar'
+import { AddressbarColor, ClosePopup, QBtn, colors } from 'quasar'
 
 vi.mock('../../../../ui/src/components/btn/QBtn.js', () => ({
   default: { component: true }

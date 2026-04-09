@@ -1,5 +1,5 @@
 import { createApp } from 'vue'
-import { Quasar, Notify } from 'quasar'
+import { Notify, Quasar } from 'quasar'
 
 import '@quasar/extras/material-icons/material-icons.css'
 import 'quasar/src/css/index.sass'

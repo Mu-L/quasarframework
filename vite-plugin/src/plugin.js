@@ -3,7 +3,7 @@ import { normalizePath } from 'vite'
 import { getViteConfig } from './vite-config.js'
 import { vueTransform } from './vue-transform.js'
 import { createScssTransform } from './scss-transform.js'
-import { parseViteRequest, createExtMatcher } from './query.js'
+import { createExtMatcher, parseViteRequest } from './query.js'
 import { loadQuasarImportMap, mapQuasarImports } from './js-transform.js'
 
 const defaultOptions = {

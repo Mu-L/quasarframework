@@ -9,7 +9,7 @@
 </template>
 
 <script lang="ts">
-import { QBtn, Notify } from 'quasar'
+import { Notify, QBtn } from 'quasar'
 import { defineComponent } from 'vue'
 import CustomComponent from './custom-component.ts'
 

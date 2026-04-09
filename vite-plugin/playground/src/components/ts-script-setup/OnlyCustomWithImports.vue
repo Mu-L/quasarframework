@@ -7,7 +7,7 @@
 </template>
 
 <script setup lang="ts">
-import { QBtn, Notify } from 'quasar'
+import { Notify, QBtn } from 'quasar'
 import CustomComponent from './custom-component.ts'
 
 console.log(QBtn)

@@ -1,4 +1,4 @@
-import { describe, expect, test, vi, afterEach } from 'vitest'
+import { afterEach, describe, expect, test, vi } from 'vitest'
 import { mount } from '@vue/test-utils'
 
 afterEach(() => {

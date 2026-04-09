@@ -6,7 +6,7 @@ div
 </template>
 
 <script setup>
-import { QBtn as SomeComponent, Notify } from 'quasar'
+import { Notify, QBtn as SomeComponent } from 'quasar'
 
 console.log(SomeComponent)
 console.log('Notify', Notify)
