@@ -1,6 +1,6 @@
 import parseArgs from 'minimist'
 
-import { relative, dirname, join } from 'node:path'
+import { dirname, join, relative } from 'node:path'
 import fs from 'node:fs'
 import fse from 'fs-extra'
 

@@ -1,5 +1,5 @@
 import fse from 'fs-extra'
-import { join, isAbsolute, basename, dirname } from 'node:path'
+import { basename, dirname, isAbsolute, join } from 'node:path'
 
 import { AppTool } from './app-tool.js'
 import { printBuildSummary } from '../lib/utils/print-build-summary.js'

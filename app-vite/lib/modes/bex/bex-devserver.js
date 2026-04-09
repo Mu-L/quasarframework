@@ -5,7 +5,7 @@ import { createServer } from 'vite'
 
 import { AppDevserver } from '../../app-devserver.js'
 import { quasarBexConfig } from './bex-config.js'
-import { createManifest, copyBexAssets } from './bex-utils.js'
+import { copyBexAssets, createManifest } from './bex-utils.js'
 import { debounce } from '../../utils/rate-limit.js'
 
 export class QuasarModeDevserver extends AppDevserver {

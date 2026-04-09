@@ -2,7 +2,7 @@ import { join } from 'node:path'
 import fse from 'fs-extra'
 import { merge } from 'webpack-merge'
 
-import { log, warn, progress } from '../../utils/logger.js'
+import { log, progress, warn } from '../../utils/logger.js'
 import { AppBuilder } from '../../app-builder.js'
 import { quasarElectronConfig } from './electron-config.js'
 import { getPackageJson } from '../../utils/get-package-json.js'
@@ -171,7 +171,7 @@ export class QuasarModeBuilder extends AppBuilder {
           warn(`${pkgBanner} could not build`, 'FAIL')
           log()
           console.error(err + '\n')
-          reject()
+          reject(err)
         })
     })
   }

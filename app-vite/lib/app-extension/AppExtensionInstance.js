@@ -9,7 +9,7 @@ import { InstallAPI } from './api-classes/InstallAPI.js'
 import { UninstallAPI } from './api-classes/UninstallAPI.js'
 import { PromptsAPI } from './api-classes/PromptsAPI.js'
 
-import { log, warn, fatal } from '../utils/logger.js'
+import { fatal, log, warn } from '../utils/logger.js'
 import { getPackagePath } from '../utils/get-package-path.js'
 import { renderTemplate } from '../utils/template.js'
 

@@ -1,9 +1,9 @@
 import { readFileSync } from 'node:fs'
-import { join, dirname } from 'node:path'
+import { dirname, join } from 'node:path'
 import { createServer } from 'vite'
 
 import { AppDevserver } from '../../app-devserver.js'
-import { log, warn, fatal } from '../../utils/logger.js'
+import { fatal, log, warn } from '../../utils/logger.js'
 import { spawn } from '../../utils/spawn.js'
 import { getPackagePath } from '../../utils/get-package-path.js'
 import { quasarElectronConfig } from './electron-config.js'

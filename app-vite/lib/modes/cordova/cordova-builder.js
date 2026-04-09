@@ -4,7 +4,7 @@ import { join } from 'node:path'
 import { AppBuilder } from '../../app-builder.js'
 import { quasarCordovaConfig } from './cordova-config.js'
 
-import { log, warn, fatal } from '../../utils/logger.js'
+import { fatal, log, warn } from '../../utils/logger.js'
 import { CordovaConfigFile } from './config-file.js'
 import { spawn } from '../../utils/spawn.js'
 import { openIDE } from '../../utils/open-ide.js'

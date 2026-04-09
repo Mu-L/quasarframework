@@ -4,7 +4,7 @@ import fse from 'fs-extra'
 import { AppBuilder } from '../../app-builder.js'
 import { quasarCapacitorConfig } from './capacitor-config.js'
 
-import { log, warn, fatal } from '../../utils/logger.js'
+import { fatal, log, warn } from '../../utils/logger.js'
 import { CapacitorConfigFile } from './config-file.js'
 import { spawn, spawnSync } from '../../utils/spawn.js'
 import { openIDE } from '../../utils/open-ide.js'

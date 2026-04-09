@@ -3,10 +3,10 @@ import { join } from 'node:path'
 import { mergeConfig as mergeViteConfig } from 'vite'
 
 import {
-  createViteConfig,
-  extendViteConfig,
   createBrowserRolldownConfig,
-  extendRolldownConfig
+  createViteConfig,
+  extendRolldownConfig,
+  extendViteConfig
 } from '../../config-tools.js'
 
 function generateDefaultEntry(quasarConf) {

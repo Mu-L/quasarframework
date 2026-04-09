@@ -1,5 +1,5 @@
 import { existsSync } from 'node:fs'
-import { normalize, resolve, join, sep } from 'node:path'
+import { join, normalize, resolve, sep } from 'node:path'
 
 import { fatal } from './logger.js'
 import { cliDir, resolveToCliDir } from './cli-runtime.js'

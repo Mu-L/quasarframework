@@ -3,7 +3,7 @@ import { join } from 'node:path'
 
 import { AppBuilder } from '../../app-builder.js'
 import { quasarPwaConfig } from './pwa-config.js'
-import { injectPwaManifest, buildPwaServiceWorker } from './utils.js'
+import { buildPwaServiceWorker, injectPwaManifest } from './utils.js'
 
 export class QuasarModeBuilder extends AppBuilder {
   async build() {

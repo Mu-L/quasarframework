@@ -1,6 +1,6 @@
 import inquirer from 'inquirer'
 
-import { warn, fatal } from './logger.js'
+import { fatal, warn } from './logger.js'
 import { getExternalNetworkInterface } from './net.js'
 
 export async function getExternalIP() {

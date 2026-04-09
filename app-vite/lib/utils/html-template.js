@@ -1,7 +1,7 @@
 import { minify } from 'html-minifier-terser'
 import {
-  compileTemplateToFn,
   compileTemplateToFile,
+  compileTemplateToFn,
   renderTemplate
 } from './template.js'
 

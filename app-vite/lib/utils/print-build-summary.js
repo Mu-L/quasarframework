@@ -1,7 +1,7 @@
 import { readFileSync, statSync } from 'node:fs'
-import { join, dirname, basename } from 'node:path'
+import { basename, dirname, join } from 'node:path'
 import { gzipSync } from 'zlib'
-import { underline, green, blue, magenta, cyan, gray } from 'kolorist'
+import { blue, cyan, gray, green, magenta, underline } from 'kolorist'
 import { globSync } from 'tinyglobby'
 
 const highlightTypes = ['js', 'css']

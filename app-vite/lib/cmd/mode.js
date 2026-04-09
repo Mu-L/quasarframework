@@ -1,6 +1,6 @@
 import parseArgs from 'minimist'
 
-import { log, warn, fatal } from '../utils/logger.js'
+import { fatal, log, warn } from '../utils/logger.js'
 
 const argv = parseArgs(process.argv.slice(2), {
   alias: {

@@ -5,7 +5,7 @@ import { Zip, ZipDeflate } from 'fflate'
 import { AppBuilder } from '../../app-builder.js'
 import { progress, warn } from '../../utils/logger.js'
 import { quasarBexConfig } from './bex-config.js'
-import { createManifest, copyBexAssets } from './bex-utils.js'
+import { copyBexAssets, createManifest } from './bex-utils.js'
 
 export class QuasarModeBuilder extends AppBuilder {
   async build() {

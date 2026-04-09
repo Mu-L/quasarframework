@@ -1,7 +1,7 @@
 import parseArgs from 'minimist'
-import { green, red, italic, underline } from 'kolorist'
+import { green, italic, red, underline } from 'kolorist'
 
-import { fatal, dot } from '../utils/logger.js'
+import { dot, fatal } from '../utils/logger.js'
 import { getApi } from '../utils/get-api.js'
 import { getCtx } from '../utils/get-ctx.js'
 

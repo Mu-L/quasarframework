@@ -179,7 +179,7 @@ appBuilder
         if (platform === 'win32') return
         // Otherwise, we force exit the process.
         // See process.exit(0) at the end of this then() for the explanation.
-        else process.exit(0)
+        process.exit(0)
       }
     }
 

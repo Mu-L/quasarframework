@@ -1,5 +1,5 @@
 import { App } from "vue";
-import { Router, RouteLocationRaw } from "vue-router";
+import { RouteLocationRaw, Router } from "vue-router";
 import { HasSsrParam } from "./ssr";
 import { HasStoreParam } from "./store";
 

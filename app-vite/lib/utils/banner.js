@@ -1,4 +1,4 @@
-import { green, gray, underline, dim } from 'kolorist'
+import { dim, gray, green, underline } from 'kolorist'
 import { join } from 'node:path'
 
 import { cliPkg } from '../utils/cli-runtime.js'

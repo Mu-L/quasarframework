@@ -3,7 +3,7 @@ import path from 'node:path'
 import { execSync } from 'node:child_process'
 import open from 'open'
 
-import { warn, fatal } from './logger.js'
+import { fatal, warn } from './logger.js'
 
 function findXcodeWorkspace(folder) {
   const root = fs.readdirSync(folder)

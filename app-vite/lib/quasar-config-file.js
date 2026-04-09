@@ -1,4 +1,4 @@
-import { join, isAbsolute, basename, dirname, relative } from 'node:path'
+import { basename, dirname, isAbsolute, join, relative } from 'node:path'
 import { pathToFileURL } from 'node:url'
 import { existsSync, readFileSync } from 'node:fs'
 import fse from 'fs-extra'
@@ -7,7 +7,7 @@ import { build as rolldownBuild, watch as rolldownWatch } from 'rolldown'
 import { watch as chokidarWatch } from 'chokidar'
 import { transformAssetUrls } from '@quasar/vite-plugin'
 
-import { log, warn, error, fatal, tip } from './utils/logger.js'
+import { error, fatal, log, tip, warn } from './utils/logger.js'
 import { appFilesValidations } from './utils/app-files-validations.js'
 import { getPackageMajorVersion } from './utils/get-package-major-version.js'
 import { resolveExtension } from './utils/resolve-extension.js'
@@ -24,10 +24,10 @@ import { BASELINE_WIDELY_AVAILABLE_TARGET_STRING } from './utils/build-targets.j
 import { encodeForDiff } from './utils/encode-for-diff.js'
 import { debounce } from './utils/rate-limit.js'
 import {
-  getQuasarConfEnv,
-  getAppEnv,
+  defaultBackendAppEnvPrefix,
   defaultClientAppEnvPrefix,
-  defaultBackendAppEnvPrefix
+  getAppEnv,
+  getQuasarConfEnv
 } from './utils/env.js'
 
 const urlRegex = /^http(s)?:\/\//i

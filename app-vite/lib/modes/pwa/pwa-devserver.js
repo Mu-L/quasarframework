@@ -4,7 +4,7 @@ import { watch as chokidarWatch } from 'chokidar'
 import { AppDevserver } from '../../app-devserver.js'
 import { openBrowser } from '../../utils/open-browser.js'
 import { quasarPwaConfig } from './pwa-config.js'
-import { injectPwaManifest, buildPwaServiceWorker } from './utils.js'
+import { buildPwaServiceWorker, injectPwaManifest } from './utils.js'
 import { log } from '../../utils/logger.js'
 import { debounce } from '../../utils/rate-limit.js'
 

@@ -2,10 +2,10 @@ import { join } from 'node:path'
 import { mergeConfig as mergeViteConfig } from 'vite'
 
 import {
-  createViteConfig,
-  extendViteConfig,
   createNodeRolldownConfig,
-  extendRolldownConfig
+  createViteConfig,
+  extendRolldownConfig,
+  extendViteConfig
 } from '../../config-tools.js'
 
 import { cliPkg } from '../../utils/cli-runtime.js'

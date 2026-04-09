@@ -1,8 +1,8 @@
 import fs from 'node:fs'
-import { normalize, join, sep } from 'node:path'
+import { join, normalize, sep } from 'node:path'
 import { sync as crossSpawnSync } from 'cross-spawn'
 
-import { log, fatal } from '../utils/logger.js'
+import { fatal, log } from '../utils/logger.js'
 import { spawnSync } from '../utils/spawn.js'
 
 function run({ name, params, cwd, onFail, env = 'development' }) {

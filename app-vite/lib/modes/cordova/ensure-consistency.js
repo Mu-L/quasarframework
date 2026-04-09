@@ -2,7 +2,7 @@ import { existsSync } from 'node:fs'
 import fse from 'fs-extra'
 
 import { spawnSync } from '../../utils/spawn.js'
-import { log, fatal } from '../../utils/logger.js'
+import { fatal, log } from '../../utils/logger.js'
 
 export function ensureWWW({ appPaths, forced }) {
   const www = appPaths.resolve.cordova('www')

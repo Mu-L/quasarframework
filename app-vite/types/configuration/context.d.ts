@@ -2,11 +2,11 @@ import { QuasarAppPaths } from "../app-paths";
 import * as ElectronBuilder from "electron-builder";
 import { QuasarCapacitorTargets } from "./capacitor-conf";
 import {
-  QuasarElectronBundlers,
-  ElectronBuilderTargets,
   ElectronBuilderArchs,
+  ElectronBuilderTargets,
+  ElectronPackagerArchs,
   ElectronPackagerTargets,
-  ElectronPackagerArchs
+  QuasarElectronBundlers
 } from "./electron-conf";
 import { QuasarCordovaTargets } from "./cordova-conf";
 

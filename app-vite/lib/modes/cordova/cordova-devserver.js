@@ -2,7 +2,7 @@ import { createServer } from 'vite'
 
 import { AppDevserver } from '../../app-devserver.js'
 import { CordovaConfigFile } from './config-file.js'
-import { log, fatal } from '../../utils/logger.js'
+import { fatal, log } from '../../utils/logger.js'
 import { spawn } from '../../utils/spawn.js'
 import { onShutdown } from '../../utils/on-shutdown.js'
 import { openIDE } from '../../utils/open-ide.js'

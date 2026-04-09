@@ -1,8 +1,8 @@
-import { DeepRequired, DeepNonNullable } from "ts-essentials";
+import { DeepNonNullable, DeepRequired } from "ts-essentials";
 import {
-  QuasarFonts,
   QuasarAnimations,
-  QuasarExtrasIcons
+  QuasarExtrasIcons,
+  QuasarFonts
 } from "@quasar/extras";
 import { QuasarBootConfiguration } from "./boot";
 import { QuasarBuildConfiguration } from "./build";

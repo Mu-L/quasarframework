@@ -2,10 +2,10 @@ import { join } from 'node:path'
 
 import { escapeRegexString } from '../../utils/escape-regex-string.js'
 import {
-  createViteConfig,
-  extendViteConfig,
   createBrowserRolldownConfig,
-  extendRolldownConfig
+  createViteConfig,
+  extendRolldownConfig,
+  extendViteConfig
 } from '../../config-tools.js'
 
 import { quasarVitePluginPwaResources } from './vite-plugin.pwa-resources.js'

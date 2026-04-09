@@ -1,9 +1,9 @@
 import fse from 'fs-extra'
 import inquirer from 'inquirer'
 
-import { log, warn, fatal } from '../../utils/logger.js'
+import { fatal, log, warn } from '../../utils/logger.js'
 import { spawnSync } from '../../utils/spawn.js'
-import { ensureWWW, ensureConsistency } from './ensure-consistency.js'
+import { ensureConsistency, ensureWWW } from './ensure-consistency.js'
 import { isModeInstalled } from '../modes-utils.js'
 
 /**

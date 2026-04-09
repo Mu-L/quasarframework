@@ -4,7 +4,7 @@ import { merge } from 'webpack-merge'
 import semver from 'semver'
 import { parseJSON, stringifyJSON } from 'confbox'
 
-import { warn, fatal } from '../../utils/logger.js'
+import { fatal, warn } from '../../utils/logger.js'
 import { getPackageJson } from '../../utils/get-package-json.js'
 import { getCallerPath } from '../../utils/get-caller-path.js'
 import { BaseAPI } from './BaseAPI.js'

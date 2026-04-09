@@ -5,10 +5,10 @@ import { merge } from 'webpack-merge'
 
 import { cliPkg } from './utils/cli-runtime.js'
 import { getPackage } from './utils/get-package.js'
-import { log, warn, tip } from './utils/logger.js'
+import { log, tip, warn } from './utils/logger.js'
 import {
-  BASELINE_WIDELY_AVAILABLE_TARGET_STRING,
-  BASELINE_WIDELY_AVAILABLE
+  BASELINE_WIDELY_AVAILABLE,
+  BASELINE_WIDELY_AVAILABLE_TARGET_STRING
 } from './utils/build-targets.js'
 
 import { quasarViteIndexHtmlTransformPlugin } from './plugins/vite.index-html-transform.js'

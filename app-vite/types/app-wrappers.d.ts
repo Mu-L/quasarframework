@@ -6,13 +6,13 @@ import type { RouteCallback } from "./route";
 import type { StoreCallback } from "./store";
 
 import type {
-  SsrMiddlewareCallback,
-  SsrInjectDevMiddlewareCallback,
-  SsrCreateCallback,
-  SsrListenCallback,
   SsrCloseCallback,
-  SsrServeStaticContentCallback,
-  SsrRenderPreloadTagCallback
+  SsrCreateCallback,
+  SsrInjectDevMiddlewareCallback,
+  SsrListenCallback,
+  SsrMiddlewareCallback,
+  SsrRenderPreloadTagCallback,
+  SsrServeStaticContentCallback
 } from "./ssr";
 
 /** Some arguments are available only if you enable the related mode: `store` when using the Store, `ssrContext` when using SSR, etc */

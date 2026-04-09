@@ -1,4 +1,4 @@
-import { RouteLocationRaw, RouteLocationNormalizedLoaded } from "vue-router";
+import { RouteLocationNormalizedLoaded, RouteLocationRaw } from "vue-router";
 import { HasSsrParam } from "./ssr";
 import { HasStoreParam } from "./store";
 

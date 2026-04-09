@@ -2,7 +2,7 @@ import { existsSync, readFileSync, writeFileSync } from 'node:fs'
 import { merge } from 'webpack-merge'
 import { parseJSON, stringifyJSON } from 'confbox'
 
-import { log, fatal } from '../utils/logger.js'
+import { fatal, log } from '../utils/logger.js'
 import { AppExtensionInstance } from './AppExtensionInstance.js'
 
 function readJson(file) {
