@@ -1,4 +1,4 @@
-import { mountCordova, isCordovaFile, verifyCordova } from './mount-cordova.js'
+import { isCordovaFile, mountCordova, verifyCordova } from './mount-cordova.js'
 import { mountTag } from './mount-tag.js'
 
 export function mount(files) {

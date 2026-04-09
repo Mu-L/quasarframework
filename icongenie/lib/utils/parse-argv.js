@@ -1,5 +1,5 @@
 import { existsSync, lstatSync } from 'node:fs'
-import { resolve, normalize, isAbsolute } from 'node:path'
+import { isAbsolute, normalize, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import untildify from 'untildify'
 

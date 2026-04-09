@@ -1,6 +1,6 @@
 import { existsSync } from 'node:fs'
 import { ensureFileSync } from 'fs-extra'
-import { green, gray } from 'kolorist'
+import { gray, green } from 'kolorist'
 
 import { appDir, resolveDir } from '../utils/app-paths.js'
 import { log, warn } from '../utils/logger.js'

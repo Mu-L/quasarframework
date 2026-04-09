@@ -1,4 +1,4 @@
-import { resolve, dirname, basename, isAbsolute, relative } from 'node:path'
+import { basename, dirname, isAbsolute, relative, resolve } from 'node:path'
 import { writeFileSync } from 'node:fs'
 import { ensureDir } from 'fs-extra'
 

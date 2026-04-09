@@ -1,6 +1,6 @@
 import sharp from 'sharp'
 
-import { getPngCompression, getIcoCompression } from './get-compression.js'
+import { getIcoCompression, getPngCompression } from './get-compression.js'
 
 function getRgbColor(color) {
   let hex = color.replace(/^#/, '')

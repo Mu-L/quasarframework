@@ -3,11 +3,11 @@ import { dirname } from 'node:path'
 import imagemin from 'imagemin'
 import pngquant from 'imagemin-pngquant'
 import {
-  BICUBIC2,
-  HERMITE,
   BEZIER,
   BICUBIC,
+  BICUBIC2,
   BILINEAR,
+  HERMITE,
   NEAREST_NEIGHBOR
 } from 'png2icons'
 
