@@ -51,8 +51,8 @@ function escapeRegExp(str) {
 function trimWS(str, wsLeft, wsRight) {
   // Slightly confusing,
   // but _}} will trim the left side of the following string
-  let leftTrim = wsLeft || wsLeft === false ? wsLeft : 'nl'
-  let rightTrim = wsRight || wsRight === false ? wsRight : false
+  const leftTrim = wsLeft || wsLeft === false ? wsLeft : 'nl'
+  const rightTrim = wsRight || wsRight === false ? wsRight : false
 
   if (!rightTrim && !leftTrim) return str
 
@@ -81,7 +81,7 @@ function trimWS(str, wsLeft, wsRight) {
 
 // opts: { exec, interpolate, raw, tagStart, tagEnd }
 function getAST(str, opts) {
-  let ast = []
+  const ast = []
   let trimLeftOfNextStr = false
   let lastIndex = 0
 
@@ -119,10 +119,9 @@ function getAST(str, opts) {
       } else if (prefix) {
         // accumulator is falsy
         return escapeRegExp(prefix)
-      } else {
-        // prefix and accumulator are both falsy
-        return accumulator
       }
+      // prefix and accumulator are both falsy
+      return accumulator
     },
     ''
   )
@@ -239,7 +238,7 @@ function compileBody(ast, opts) {
     }
 
     const type = currentBlock.t // "r", "e", or "i"
-    let content = currentBlock.val || ''
+    const content = currentBlock.val || ''
 
     if (type === 'r') {
       // raw
@@ -267,11 +266,11 @@ export function compileTemplateToFn(str, rawOpts = {}) {
   const opts = { ...defaultParseOptions, ...rawOpts }
   const ast = getAST(str, opts)
   const body = compileBody(ast, opts)
-  return new Function(opts.varName, body)
+  return new Function(opts.varName, body) // eslint-disable-line no-new-func
 }
 
 export function renderTemplate(str, scope, rawOpts) {
-  let opts = rawOpts
+  const opts = rawOpts
   if (opts?.varName === false) {
     opts.varName = defaultParseOptions.varName
     const keys = Object.keys(scope)

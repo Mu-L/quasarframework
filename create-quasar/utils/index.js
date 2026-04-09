@@ -1,17 +1,17 @@
-import { readFileSync, writeFileSync, existsSync } from 'node:fs'
+import { existsSync, readFileSync, writeFileSync } from 'node:fs'
 import { fileURLToPath } from 'node:url'
-import { sep, dirname, normalize, join, resolve, extname } from 'node:path'
+import { dirname, extname, join, normalize, resolve, sep } from 'node:path'
 import { execSync as exec } from 'node:child_process'
 import { sync as spawnSync } from 'cross-spawn'
 import {
+  copySync,
   emptyDirSync,
   ensureDirSync,
-  ensureFileSync,
-  copySync
+  ensureFileSync
 } from 'fs-extra/esm'
 import promptUser from 'prompts'
 import { globSync } from 'tinyglobby'
-import { yellow, green } from 'kolorist'
+import { green, yellow } from 'kolorist'
 
 import { renderTemplate as renderTemplateFn } from './template.js'
 import logger from './logger.js'

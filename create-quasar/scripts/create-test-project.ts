@@ -27,7 +27,7 @@ export async function createProject({
     projectFolder: "test-project",
     overwrite: true,
 
-    scriptType: scriptType,
+    scriptType,
     engine: appEngine,
 
     name: "test-project",

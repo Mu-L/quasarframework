@@ -1,14 +1,14 @@
 import {
   bgGreen,
+  bgRed,
+  bgYellow,
+  black,
   green,
   inverse,
-  bgRed,
   red,
-  bgYellow,
-  yellow,
-  black,
+  underline,
   white,
-  underline
+  yellow
 } from 'kolorist'
 
 import readline from 'node:readline'
