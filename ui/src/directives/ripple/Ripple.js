@@ -1,6 +1,6 @@
 import { createDirective } from '../../utils/private.create/create.js'
 import { css } from '../../utils/dom/dom.js'
-import { position, stop, addEvt, cleanEvt } from '../../utils/event/event.js'
+import { addEvt, cleanEvt, position, stop } from '../../utils/event/event.js'
 import { isKeyCode } from '../../utils/private.keyboard/key-composition.js'
 import throttle from '../../utils/throttle/throttle.js'
 import getSSRProps from '../../utils/private.noop-ssr-directive-transform/noop-ssr-directive-transform.js'
@@ -61,7 +61,7 @@ function showRipple(evt, el, ctx, forceCenter) {
 }
 
 function updateModifiers(ctx, { modifiers, value, arg }) {
-  const cfg = Object.assign({}, ctx.cfg.ripple, modifiers, value)
+  const cfg = { ...ctx.cfg.ripple, ...modifiers, ...value }
   ctx.modifiers = {
     early: cfg.early === true,
     stop: cfg.stop === true,

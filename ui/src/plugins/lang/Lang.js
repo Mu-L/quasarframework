@@ -114,9 +114,7 @@ const Plugin = createReactivePlugin(
           if (lang !== void 0) this.set(lang)
         } else {
           this.props = new Proxy(this.__qLang, {
-            get() {
-              return Reflect.get(...arguments)
-            },
+            get: Reflect.get,
 
             ownKeys(target) {
               return Reflect.ownKeys(target).filter(

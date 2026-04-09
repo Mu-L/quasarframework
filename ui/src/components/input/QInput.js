@@ -1,24 +1,24 @@
 import {
-  h,
-  ref,
   computed,
-  watch,
+  getCurrentInstance,
+  h,
+  nextTick,
   onBeforeUnmount,
   onMounted,
-  nextTick,
-  getCurrentInstance
+  ref,
+  watch
 } from 'vue'
 
 import useField, {
-  useFieldState,
-  useFieldProps,
+  fieldValueIsFilled,
   useFieldEmits,
-  fieldValueIsFilled
+  useFieldProps,
+  useFieldState
 } from '../../composables/private.use-field/use-field.js'
 import useMask, { useMaskProps } from './use-mask.js'
 import {
-  useFormProps,
-  useFormInputNameAttr
+  useFormInputNameAttr,
+  useFormProps
 } from '../../composables/use-form/private.use-form.js'
 import useFileFormDomProps from '../../composables/private.use-file/use-file-dom-props.js'
 import useKeyComposition from '../../composables/private.use-key-composition/use-key-composition.js'
@@ -191,7 +191,7 @@ export default createComponent({
 
           if (
             props.type === 'number' &&
-            temp.hasOwnProperty('value') === true
+            Object.hasOwn(temp, 'value') === true
           ) {
             if (typedNumber === true) {
               typedNumber = false
@@ -303,7 +303,7 @@ export default createComponent({
       emitValueFn = () => {
         emitTimer = null
 
-        if (props.type !== 'number' && temp.hasOwnProperty('value') === true) {
+        if (props.type !== 'number' && Object.hasOwn(temp, 'value') === true) {
           delete temp.value
         }
 
@@ -410,7 +410,7 @@ export default createComponent({
     }
 
     function getCurValue() {
-      return temp.hasOwnProperty('value') === true
+      return Object.hasOwn(temp, 'value') === true
         ? temp.value
         : innerValue.value !== void 0
           ? innerValue.value

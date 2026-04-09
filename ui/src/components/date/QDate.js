@@ -1,11 +1,11 @@
 import {
-  h,
-  ref,
-  computed,
-  watch,
   Transition,
+  computed,
+  getCurrentInstance,
+  h,
   nextTick,
-  getCurrentInstance
+  ref,
+  watch
 } from 'vue'
 
 import QBtn from '../btn/QBtn.js'
@@ -15,19 +15,19 @@ import useDark, {
 } from '../../composables/private.use-dark/use-dark.js'
 import useRenderCache from '../../composables/use-render-cache/use-render-cache.js'
 import {
-  useFormProps,
   useFormAttrs,
-  useFormInject
+  useFormInject,
+  useFormProps
 } from '../../composables/use-form/private.use-form.js'
 import useDatetime, {
-  useDatetimeProps,
+  getDayHash,
   useDatetimeEmits,
-  getDayHash
+  useDatetimeProps
 } from './use-datetime.js'
 
 import { createComponent } from '../../utils/private.create/create.js'
 import { hSlot } from '../../utils/private.render/render.js'
-import { formatDate, __splitDate, getDateDiff } from '../../utils/date/date.js'
+import { __splitDate, formatDate, getDateDiff } from '../../utils/date/date.js'
 import { pad } from '../../utils/format/format.js'
 import {
   jalaaliMonthLength,
@@ -874,9 +874,8 @@ export default createComponent({
         return
       }
 
-      const init = Object.assign({ ...viewModel.value }, from)
-      const final =
-        to !== void 0 ? Object.assign({ ...viewModel.value }, to) : init
+      const init = { ...viewModel.value, ...from }
+      const final = to !== void 0 ? { ...viewModel.value, ...to } : init
 
       editRange.value = {
         init,

@@ -17,7 +17,7 @@ function update(el, ctx, value) {
     changed = ctx.cfg === void 0
   } else {
     handler = value.handler
-    cfg = Object.assign({}, defaultCfg, value.cfg)
+    cfg = { ...defaultCfg, ...value.cfg }
     changed = ctx.cfg === void 0 || isDeepEqual(ctx.cfg, cfg) === false
   }
 

@@ -1,4 +1,4 @@
-import { ref, computed, watch, nextTick } from 'vue'
+import { computed, nextTick, ref, watch } from 'vue'
 
 function samePagination(oldPag, newPag) {
   for (const prop in newPag) {
@@ -32,20 +32,14 @@ export const useTablePaginationProps = {
 export function useTablePaginationState(vm, getCellValue) {
   const { props, emit } = vm
 
-  const innerPagination = ref(
-    Object.assign(
-      {
-        sortBy: null,
-        descending: false,
-        page: 1,
-        rowsPerPage:
-          props.rowsPerPageOptions.length !== 0
-            ? props.rowsPerPageOptions[0]
-            : 5
-      },
-      props.pagination
-    )
-  )
+  const innerPagination = ref({
+    sortBy: null,
+    descending: false,
+    page: 1,
+    rowsPerPage:
+      props.rowsPerPageOptions.length !== 0 ? props.rowsPerPageOptions[0] : 5,
+    ...props.pagination
+  })
 
   const computedPagination = computed(() => {
     const pag =

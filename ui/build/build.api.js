@@ -1,20 +1,20 @@
-import { join, basename } from 'node:path'
+import { basename, join } from 'node:path'
 import { pathToFileURL } from 'node:url'
 import { globSync } from 'tinyglobby'
 import { merge } from 'webpack-merge'
 import fse from 'fs-extra'
 
 import {
-  rootFolder,
-  resolveToRoot,
-  relativeToRoot,
-  logError,
-  readJsonFile,
-  writeFile,
-  kebabCase,
   camelCase,
   capitalize,
-  plural
+  kebabCase,
+  logError,
+  plural,
+  readJsonFile,
+  relativeToRoot,
+  resolveToRoot,
+  rootFolder,
+  writeFile
 } from './build.utils.js'
 
 const dest = resolveToRoot('dist/api')
@@ -757,7 +757,7 @@ function extractRuntimePropAttrs(runtimeProp) {
   return {
     runtimeTypes,
     isRuntimeRequired: runtimeProp.required === true,
-    hasRuntimeDefault: runtimeProp.hasOwnProperty('default'),
+    hasRuntimeDefault: Object.hasOwn(runtimeProp, 'default'),
     runtimeDefaultValue: runtimeProp.default
   }
 }
@@ -779,14 +779,14 @@ function parseObject({
     process.exit(1)
   }
 
-  if (obj.hasOwnProperty('addedIn') === true) {
+  if (Object.hasOwn(obj, 'addedIn') === true) {
     const result = parseAddedIn(obj.addedIn)
     if (result !== true) {
       printErrorAndExit(result)
     }
   }
 
-  if (obj.extends !== void 0 && extendApi[masterType] !== void 0) {
+  if (Object.hasOwn(obj, 'extends') && extendApi[masterType] !== void 0) {
     if (extendApi[masterType][obj.extends] === void 0) {
       printErrorAndExit(`extends "${obj.extends}" which does not exists`)
     }
@@ -912,7 +912,7 @@ function parseObject({
     if (def.isBoolean) {
       def.isBoolean.forEach(prop => {
         if (
-          obj.hasOwnProperty(prop) &&
+          Object.hasOwn(obj, prop) &&
           obj[prop] !== true &&
           obj[prop] !== false
         ) {
@@ -977,7 +977,7 @@ function parseObject({
       }
     }
 
-    if (obj.hasOwnProperty('default')) {
+    if (Object.hasOwn(obj, 'default')) {
       if (typeof obj.default !== 'string') {
         printErrorAndExit('object: stringify "default" value')
       }
@@ -1024,7 +1024,7 @@ function parseObject({
     }
 
     if (
-      obj.hasOwnProperty('passthrough') === true &&
+      Object.hasOwn(obj, 'passthrough') === true &&
       passthroughValues.includes(obj.passthrough) === false
     ) {
       printErrorAndExit(
@@ -1171,7 +1171,7 @@ function parseAPI(file, apiType) {
       printErrorAndExit(` "${type}" is not recognized for a ${apiType}`)
     }
 
-    if (api.hasOwnProperty(type) === true) {
+    if (Object.hasOwn(api, type) === true) {
       const result = topSections[apiType].rootValidations[type](api[type])
       if (result !== true) {
         printErrorAndExit(result)
@@ -1420,7 +1420,7 @@ function fillAPI(apiType, list, encodeFn) {
 
           // API "default" value validation against runtime
           if (hasRuntimeDefault === true) {
-            if (apiEntry.hasOwnProperty('default') === false) {
+            if (Object.hasOwn(apiEntry, 'default') === false) {
               logError(
                 `${name}: "props" -> "${apiPropName}" is missing "default" with ` +
                   `value: "${encodeDefaultValue(runtimeDefaultValue, isRuntimeFunction)}"`
@@ -1501,7 +1501,7 @@ function fillAPI(apiType, list, encodeFn) {
             }
           } else if (
             apiEntry.__runtimeDefault !== true &&
-            apiEntry.hasOwnProperty('default') === true
+            Object.hasOwn(apiEntry, 'default') === true
           ) {
             logError(
               `${name}: "props" -> "${apiPropName}" should NOT have a "default" value; Solutions:` +
@@ -1627,14 +1627,14 @@ function fillAPI(apiType, list, encodeFn) {
             }
 
             if (
-              entry.hasOwnProperty('passthrough') === true &&
+              Object.hasOwn(entry, 'passthrough') === true &&
               entry.passthrough !== true
             ) {
               // save bytes over the wire
               delete entry.passthrough
             }
 
-            if (entry.hasOwnProperty('__runtimeDefault') === true) {
+            if (Object.hasOwn(entry, '__runtimeDefault') === true) {
               // API internal prop; not needed in the final API
               delete entry.__runtimeDefault
             }

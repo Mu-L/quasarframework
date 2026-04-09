@@ -18,7 +18,7 @@ export default function useRenderCache() {
     },
 
     hasCache(key) {
-      return Object.hasOwnProperty.call(cache, key)
+      return Object.hasOwn(cache, key)
     },
 
     clearCache(key) {

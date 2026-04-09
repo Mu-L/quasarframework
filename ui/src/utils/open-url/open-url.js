@@ -4,7 +4,7 @@ import { noop } from '../event/event.js'
 import { isNumber } from '../is/is.js'
 
 function parseFeatures(winFeatures) {
-  const cfg = Object.assign({ noopener: true }, winFeatures)
+  const cfg = { noopener: true, ...winFeatures }
   const feat = []
   for (const key in cfg) {
     const value = cfg[key]
@@ -35,7 +35,7 @@ function openWindow(url, reject, windowFeatures) {
   // also implies "noopener". Only reject if neither is in effect, so that the
   // null return can be treated as a blocked popup.
   // Note: parseFeatures() normalizes values to booleans, so strict === true is safe.
-  const cfg = Object.assign({ noopener: true }, windowFeatures)
+  const cfg = { noopener: true, ...windowFeatures }
   const hasNoopener = cfg.noopener === true || cfg.noreferrer === true
 
   const win = open(url, '_blank', parseFeatures(windowFeatures))

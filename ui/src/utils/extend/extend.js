@@ -20,28 +20,28 @@ function isPlainObject(obj) {
   }
 
   let key
-  // oxlint-disable-next-line no-lone-blocks
   for (key in obj) {
+    // noop on purpose
   }
 
   return key === void 0 || hasOwn.call(obj, key)
 }
 
-export default function extend() {
+export default function extend(...args) {
   let options,
     name,
     src,
     copy,
     copyIsArray,
     clone,
-    target = arguments[0] || {},
+    target = args[0] || {},
     i = 1,
     deep = false
-  const length = arguments.length
+  const length = args.length
 
   if (typeof target === 'boolean') {
     deep = target
-    target = arguments[1] || {}
+    target = args[1] || {}
     i = 2
   }
 
@@ -55,7 +55,7 @@ export default function extend() {
   }
 
   for (; i < length; i++) {
-    if ((options = arguments[i]) !== null) {
+    if ((options = args[i]) !== null) {
       for (name in options) {
         src = target[name]
         copy = options[name]

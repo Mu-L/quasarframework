@@ -65,9 +65,7 @@ const Plugin = createReactivePlugin(
           if (iconSet !== void 0) this.set(iconSet)
         } else {
           this.props = new Proxy(this.__qIconSet, {
-            get() {
-              return Reflect.get(...arguments)
-            },
+            get: Reflect.get,
 
             ownKeys(target) {
               return Reflect.ownKeys(target).filter(key => key !== 'set')

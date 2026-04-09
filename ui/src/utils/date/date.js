@@ -1,5 +1,5 @@
 import { isDate } from '../is/is.js'
-import { pad, capitalize } from '../format/format.js'
+import { capitalize, pad } from '../format/format.js'
 import { jalaaliMonthLength } from './private.persian.js'
 import Lang, { defaultLang } from '../../plugins/lang/Lang.js'
 
@@ -535,20 +535,20 @@ export function startOfDate(date, unit, utc) {
     case 'year':
     case 'years':
       t[`${prefix}Month`](0)
-    case 'month':
+    case 'month': // oxlint-disable-line no-fallthrough
     case 'months':
       t[`${prefix}Date`](1)
-    case 'day':
+    case 'day': // oxlint-disable-line no-fallthrough
     case 'days':
     case 'date':
       t[`${prefix}Hours`](0)
-    case 'hour':
+    case 'hour': // oxlint-disable-line no-fallthrough
     case 'hours':
       t[`${prefix}Minutes`](0)
-    case 'minute':
+    case 'minute': // oxlint-disable-line no-fallthrough
     case 'minutes':
       t[`${prefix}Seconds`](0)
-    case 'second':
+    case 'second': // oxlint-disable-line no-fallthrough
     case 'seconds':
       t[`${prefix}Milliseconds`](0)
   }
@@ -563,40 +563,42 @@ export function endOfDate(date, unit, utc) {
     case 'year':
     case 'years':
       t[`${prefix}Month`](11)
-    case 'month':
+    case 'month': // oxlint-disable-line no-fallthrough
     case 'months':
       t[`${prefix}Date`](daysInMonth(t))
-    case 'day':
+    case 'day': // oxlint-disable-line no-fallthrough
     case 'days':
     case 'date':
       t[`${prefix}Hours`](23)
-    case 'hour':
+    case 'hour': // oxlint-disable-line no-fallthrough
     case 'hours':
       t[`${prefix}Minutes`](59)
-    case 'minute':
+    case 'minute': // oxlint-disable-line no-fallthrough
     case 'minutes':
       t[`${prefix}Seconds`](59)
-    case 'second':
+    case 'second': // oxlint-disable-line no-fallthrough
     case 'seconds':
       t[`${prefix}Milliseconds`](999)
   }
   return t
 }
 
-export function getMaxDate(date /* , ...args */) {
-  let t = new Date(date)
-  Array.prototype.slice.call(arguments, 1).forEach(d => {
-    t = Math.max(t, new Date(d))
-  })
-  return new Date(t)
+export function getMaxDate(date, ...args) {
+  const maxTimestamp = Math.max(
+    new Date(date).getTime(),
+    ...args.map(d => new Date(d).getTime())
+  )
+
+  return new Date(maxTimestamp)
 }
 
-export function getMinDate(date /*, ...args */) {
-  let t = new Date(date)
-  Array.prototype.slice.call(arguments, 1).forEach(d => {
-    t = Math.min(t, new Date(d))
-  })
-  return new Date(t)
+export function getMinDate(date, ...args) {
+  const minTimestamp = Math.min(
+    new Date(date).getTime(),
+    ...args.map(d => new Date(d).getTime())
+  )
+
+  return new Date(minTimestamp)
 }
 
 function getDiff(t, sub, interval) {
@@ -702,28 +704,28 @@ export function isSameDate(date, date2, unit) {
       if (t.getSeconds() !== d.getSeconds()) {
         return false
       }
-    case 'minute': // intentional fall-through
+    case 'minute': // oxlint-disable-line no-fallthrough
     case 'minutes':
       if (t.getMinutes() !== d.getMinutes()) {
         return false
       }
-    case 'hour': // intentional fall-through
+    case 'hour': // oxlint-disable-line no-fallthrough
     case 'hours':
       if (t.getHours() !== d.getHours()) {
         return false
       }
-    case 'day': // intentional fall-through
+    case 'day': // oxlint-disable-line no-fallthrough
     case 'days':
     case 'date':
       if (t.getDate() !== d.getDate()) {
         return false
       }
-    case 'month': // intentional fall-through
+    case 'month': // oxlint-disable-line no-fallthrough
     case 'months':
       if (t.getMonth() !== d.getMonth()) {
         return false
       }
-    case 'year': // intentional fall-through
+    case 'year': // oxlint-disable-line no-fallthrough
     case 'years':
       if (t.getFullYear() !== d.getFullYear()) {
         return false

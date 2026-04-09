@@ -27,13 +27,12 @@ export default class EventBus {
     return this.on(name, listener, ctx) // chainable
   }
 
-  emit(name) {
+  emit(name, ...args) {
     const list = this.__stack[name]
 
     if (list !== void 0) {
-      const params = [].slice.call(arguments, 1)
       list.forEach(entry => {
-        entry.fn.apply(entry.ctx, params)
+        entry.fn.apply(entry.ctx, args)
       })
     }
 

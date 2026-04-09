@@ -79,9 +79,7 @@ export default {
       }
     }
 
-    const shouldExit = getShouldExitFn(
-      Object.assign({ backButtonExit: true }, qConf)
-    )
+    const shouldExit = getShouldExitFn({ backButtonExit: true, ...qConf })
 
     const backHandler = () => {
       if (this.__history.length !== 0) {

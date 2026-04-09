@@ -48,8 +48,9 @@ export function getHorizontalScrollPosition(scrollTarget) {
     : scrollTarget.scrollLeft
 }
 
-export function animVerticalScrollTo(el, to, duration = 0 /* , prevTime */) {
-  const prevTime = arguments[3] === void 0 ? performance.now() : arguments[3]
+// oxlint-disable-next-line default-param-last
+export function animVerticalScrollTo(el, to, duration = 0, rawPrevTime) {
+  const prevTime = rawPrevTime === void 0 ? performance.now() : rawPrevTime
   const pos = getVerticalScrollPosition(el)
 
   if (duration <= 0) {
@@ -70,8 +71,9 @@ export function animVerticalScrollTo(el, to, duration = 0 /* , prevTime */) {
   })
 }
 
-export function animHorizontalScrollTo(el, to, duration = 0 /* , prevTime */) {
-  const prevTime = arguments[3] === void 0 ? performance.now() : arguments[3]
+// oxlint-disable-next-line default-param-last
+export function animHorizontalScrollTo(el, to, duration = 0, rawPrevTime) {
+  const prevTime = rawPrevTime === void 0 ? performance.now() : rawPrevTime
   const pos = getHorizontalScrollPosition(el)
 
   if (duration <= 0) {

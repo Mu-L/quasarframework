@@ -222,9 +222,9 @@ export default {
           this.variableMaskValue1[2] === '8')
       ) {
         return '#.###.###'
-      } else {
-        return '###.#.###'
       }
+
+      return '###.#.###'
     },
 
     variableMask2() {
@@ -234,9 +234,8 @@ export default {
           this.variableMaskValue2[2] === '8')
       ) {
         return '#.###.###'
-      } else {
-        return '###.#.###'
       }
+      return '###.#.###'
     },
 
     variableMask3() {
@@ -246,9 +245,8 @@ export default {
           this.variableMaskValue3[2] === '8')
       ) {
         return '#.###.###'
-      } else {
-        return '###.#.###'
       }
+      return '###.#.###'
     }
   },
 

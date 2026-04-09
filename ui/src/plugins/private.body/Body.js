@@ -2,7 +2,7 @@ import setCssVar from '../../utils/css-var/set-css-var.js'
 import { noop } from '../../utils/event/event.js'
 import { onKeyDownComposition } from '../../utils/private.keyboard/key-composition.js'
 
-import { isRuntimeSsrPreHydration, client } from '../platform/Platform.js'
+import { client, isRuntimeSsrPreHydration } from '../platform/Platform.js'
 
 function getMobilePlatform(is) {
   if (is.ios === true) return 'ios'
@@ -124,8 +124,7 @@ export default {
 
       if ($q.config.brand !== void 0) setColors($q.config.brand)
 
-      const cls = getBodyClasses(client, $q.config)
-      document.body.classList.add.apply(document.body.classList, cls)
+      document.body.classList.add(...getBodyClasses(client, $q.config))
     }
 
     if (client.is.ios === true) {

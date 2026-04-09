@@ -113,14 +113,15 @@ export default function useBtn(props) {
       props.fab === false && props.fabMini === false ? sizeStyle.value : {}
 
     return props.padding !== void 0
-      ? Object.assign({}, obj, {
+      ? {
+          ...obj,
           padding: props.padding
             .split(/\s+/)
             .map(v => (v in btnPadding ? btnPadding[v] + 'px' : v))
             .join(' '),
           minWidth: '0',
           minHeight: '0'
-        })
+        }
       : obj
   })
 

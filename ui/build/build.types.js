@@ -3,7 +3,7 @@ import fse from 'fs-extra'
 import { format } from 'oxfmt'
 import typescript from 'typescript'
 
-import { resolveToRoot, logError, writeFile, clone } from './build.utils.js'
+import { clone, logError, resolveToRoot, writeFile } from './build.utils.js'
 
 const typeRoot = resolveToRoot('types')
 const distRoot = resolveToRoot('dist/types')
@@ -265,6 +265,7 @@ function copyPredefinedTypes(dir, parentDir) {
           parentDir ? parentDir + file : file + '/'
         )
       }
+      return []
     })
 }
 
@@ -286,7 +287,7 @@ function addToExtraInterfaces(def) {
         })
       }
     } else if (
-      !extraInterfaces.hasOwnProperty(def.tsType) &&
+      Object.hasOwn(extraInterfaces, def.tsType) === false &&
       !extraInterfaceExclusions.includes(def.tsType)
     ) {
       extraInterfaces[def.tsType] = void 0
@@ -572,7 +573,7 @@ function getIndexDts(apis, quasarLangIndex) {
         for (const [rawName, definition] of Object.entries(content.slots)) {
           // Replace "[dynamic]" placeholders
           // Example: body-cell-[name] -> [key: `body-cell-${string}`] (TS Template Literal String)
-          const replacement = '${string}'
+          const replacement = '${string}' // oxlint-disable-line no-template-curly-in-string
           let name = rawName.replace(/\[(\w+)\]/, replacement)
 
           name = name.includes(replacement)

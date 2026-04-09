@@ -1,10 +1,10 @@
 import {
-  h,
-  ref,
   computed,
-  onMounted,
+  getCurrentInstance,
+  h,
   onBeforeUnmount,
-  getCurrentInstance
+  onMounted,
+  ref
 } from 'vue'
 
 import { createComponent } from '../../utils/private.create/create.js'
@@ -68,7 +68,7 @@ function highjackAjax(stackEntry) {
 
   if (highjackCount > 1) return
 
-  xhr.prototype.open = function qOpen(_, url) {
+  xhr.prototype.open = function qOpen(method, url, ...restArgs) {
     const stopStack = []
 
     const loadStart = () => {
@@ -92,7 +92,8 @@ function highjackAjax(stackEntry) {
     this.addEventListener('loadstart', loadStart, { once: true })
     this.addEventListener('loadend', loadEnd, { once: true })
 
-    open.apply(this, arguments)
+    // Modern replacement for open.apply(this, arguments)
+    open.call(this, method, url, ...restArgs)
   }
 }
 

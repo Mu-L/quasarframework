@@ -1,12 +1,12 @@
 import {
-  h,
-  ref,
-  computed,
-  watch,
-  withDirectives,
   Transition,
+  computed,
+  getCurrentInstance,
+  h,
   nextTick,
-  getCurrentInstance
+  ref,
+  watch,
+  withDirectives
 } from 'vue'
 
 import QBtn from '../btn/QBtn.js'
@@ -16,19 +16,19 @@ import useDark, {
   useDarkProps
 } from '../../composables/private.use-dark/use-dark.js'
 import {
-  useFormProps,
   useFormAttrs,
-  useFormInject
+  useFormInject,
+  useFormProps
 } from '../../composables/use-form/private.use-form.js'
 import useDatetime, {
-  useDatetimeProps,
+  getDayHash,
   useDatetimeEmits,
-  getDayHash
+  useDatetimeProps
 } from '../date/use-datetime.js'
 
 import { createComponent } from '../../utils/private.create/create.js'
 import { hSlot } from '../../utils/private.render/render.js'
-import { formatDate, __splitDate } from '../../utils/date/date.js'
+import { __splitDate, formatDate } from '../../utils/date/date.js'
 import { position } from '../../utils/event/event.js'
 import { pad } from '../../utils/format/format.js'
 import { vmIsDestroyed } from '../../utils/private.vm/vm.js'
@@ -62,16 +62,10 @@ function getWheelDist(a, b, threshold) {
 }
 
 function getValidValues(start, count, testFn) {
-  const values = Array.apply(null, { length: count + 1 })
-    .map((_, index) => {
-      const i = index + start
-      return {
-        index: i,
-        val: testFn(i) === true // force boolean
-      }
-    })
-    .filter(v => v.val === true)
-    .map(v => v.index)
+  const values = Array.from(
+    { length: count + 1 },
+    (_, index) => index + start
+  ).filter(i => testFn(i) === true)
 
   return {
     min: values[0],
@@ -782,7 +776,7 @@ export default createComponent({
     }
 
     function updateValue(obj) {
-      const date = Object.assign({ ...innerModel.value }, obj)
+      const date = { ...innerModel.value, ...obj }
 
       const val =
         props.calendar === 'persian'

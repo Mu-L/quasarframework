@@ -698,9 +698,9 @@ export default {
     dispVal() {
       if (this.dispValSelection.length === 1) {
         return '1 option selected'
-      } else {
-        return this.dispValSelection.length + ' options selected'
       }
+
+      return this.dispValSelection.length + ' options selected'
     }
   }
 }

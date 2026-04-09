@@ -1,12 +1,12 @@
 import {
-  h,
-  ref,
   computed,
+  getCurrentInstance,
+  h,
   inject,
   onBeforeUnmount,
   onMounted,
-  withDirectives,
-  getCurrentInstance
+  ref,
+  withDirectives
 } from 'vue'
 
 import QIcon from '../icon/QIcon.js'
@@ -18,7 +18,7 @@ import {
   isKeyCode,
   shouldIgnoreKey
 } from '../../utils/private.keyboard/key-composition.js'
-import { tabsKey, emptyRenderFn } from '../../utils/private.symbols/symbols.js'
+import { emptyRenderFn, tabsKey } from '../../utils/private.symbols/symbols.js'
 import { stopAndPrevent } from '../../utils/event/event.js'
 import uid from '../../utils/uid/uid.js'
 import { isDeepEqual } from '../../utils/is/is.js'
@@ -68,10 +68,11 @@ export default function useTab(props, slots, emit, routeData) {
   const ripple = computed(() =>
     props.disable === true || props.ripple === false
       ? false
-      : Object.assign(
-          { keyCodes: [13, 32], early: true },
-          props.ripple === true ? {} : props.ripple
-        )
+      : {
+          keyCodes: [13, 32],
+          early: true,
+          ...(props.ripple === true ? {} : props.ripple)
+        }
   )
 
   const isActive = computed(() => $tabs.currentModel.value === props.name)

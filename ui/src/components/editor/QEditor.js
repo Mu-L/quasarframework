@@ -1,23 +1,23 @@
 import {
-  h,
-  ref,
   computed,
-  watch,
-  onMounted,
-  onBeforeUnmount,
+  getCurrentInstance,
+  h,
   nextTick,
-  getCurrentInstance
+  onBeforeUnmount,
+  onMounted,
+  ref,
+  watch
 } from 'vue'
 
 import Caret from './editor-caret.js'
-import { getToolbar, getFonts, getLinkEditor } from './editor-utils.js'
+import { getFonts, getLinkEditor, getToolbar } from './editor-utils.js'
 
 import useDark, {
   useDarkProps
 } from '../../composables/private.use-dark/use-dark.js'
 import useFullscreen, {
-  useFullscreenProps,
-  useFullscreenEmits
+  useFullscreenEmits,
+  useFullscreenProps
 } from '../../composables/private.use-fullscreen/use-fullscreen.js'
 import useSplitAttrs from '../../composables/use-split-attrs/use-split-attrs.js'
 
@@ -417,12 +417,12 @@ export default createComponent({
                   (buttonDef.value[obj.cmd] &&
                     buttonDef.value[obj.cmd].type === 'no-state')))
               ? obj
-              : Object.assign({ type: 'toggle' }, obj)
-          } else {
-            return {
-              type: 'slot',
-              slot: token
-            }
+              : { type: 'toggle', ...obj }
+          }
+
+          return {
+            type: 'slot',
+            slot: token
           }
         })
       )

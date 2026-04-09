@@ -201,10 +201,10 @@ function d2j(jdn) {
         jm,
         jd
       }
-    } else {
-      // The remaining months.
-      k -= 186
     }
+
+    // The remaining months.
+    k -= 186
   } else {
     // Previous Jalaali year.
     jy -= 1

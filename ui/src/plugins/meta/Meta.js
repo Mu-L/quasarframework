@@ -79,12 +79,12 @@ function diff(meta, other) {
     add[type] = {}
 
     for (const key in old) {
-      if (cur.hasOwnProperty(key) === false) {
+      if (Object.hasOwn(cur, key) === false) {
         remove[type].push(key)
       }
     }
     for (const key in cur) {
-      if (old.hasOwnProperty(key) === false) {
+      if (Object.hasOwn(old, key) === false) {
         add[type][key] = cur[key]
       } else if (changed(old[key], cur[key]) === true) {
         remove[type].push(key)

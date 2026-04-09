@@ -1,4 +1,4 @@
-import { h, ref, markRaw, TransitionGroup } from 'vue'
+import { TransitionGroup, h, markRaw, ref } from 'vue'
 
 import QAvatar from '../../components/avatar/QAvatar.js'
 import QIcon from '../../components/icon/QIcon.js'
@@ -339,10 +339,12 @@ function addNotification(config, $q, originalApi) {
       }
       // otherwise we're updating it
       else {
-        const newNotif = Object.assign({}, Api.config, props, {
+        const newNotif = {
+          ...Api.config,
+          ...props,
           group: false,
           position: notif.position
-        })
+        }
 
         addNotification(newNotif, $q, Api)
       }
