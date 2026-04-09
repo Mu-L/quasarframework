@@ -12,7 +12,7 @@ import {
   transformProdSsrPwaOfflineHtml
 } from '../../utils/html-template.js'
 
-import { injectPwaManifest, buildPwaServiceWorker } from '../pwa/utils.js'
+import { buildPwaServiceWorker, injectPwaManifest } from '../pwa/utils.js'
 
 const ssrManifestIdQueryRE = /vue\?vue/
 const ssrManifestIdQueryReplaceRE = /vue\?vue.*$/
@@ -169,15 +169,16 @@ export class QuasarModeBuilder extends AppBuilder {
      *
      * Example with original viteManifest:
      *  "src/components/UsedOnTwoPlaces.vue?vue&type=script&setup=true&lang.ts": [
-          "/assets/UsedOnTwoPlaces.vue_vue_type_style_index_0_lang-CCF7vrwS.js",
-          "/assets/UsedOnTwoPlaces-CLKnUPw2.css"
-        ],
-        "src/components/UsedOnTwoPlaces.vue?vue&type=style&index=0&lang.scss": [
-          "/assets/UsedOnTwoPlaces.vue_vue_type_style_index_0_lang-CCF7vrwS.js",
-          "/assets/UsedOnTwoPlaces-CLKnUPw2.css"
-        ],
+     *    "/assets/UsedOnTwoPlaces.vue_vue_type_style_index_0_lang-CCF7vrwS.js",
+     *    "/assets/UsedOnTwoPlaces-CLKnUPw2.css"
+     *  ],
+     *  "src/components/UsedOnTwoPlaces.vue?vue&type=style&index=0&lang.scss": [
+     *    "/assets/UsedOnTwoPlaces.vue_vue_type_style_index_0_lang-CCF7vrwS.js",
+     *    "/assets/UsedOnTwoPlaces-CLKnUPw2.css"
+     *  ],
      */
-    for (let [key, value] of Object.entries(viteManifest)) {
+    for (let key in viteManifest) {
+      const value = viteManifest[key]
       if (ssrManifestIdQueryRE.test(key) === true) {
         key = key.replace(ssrManifestIdQueryReplaceRE, 'vue')
         if (ssrManifest[key] !== void 0) continue

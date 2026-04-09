@@ -1,5 +1,5 @@
 import { readFileSync } from 'node:fs'
-import { join, isAbsolute } from 'node:path'
+import { isAbsolute, join } from 'node:path'
 import { pathToFileURL } from 'node:url'
 import { createServer, createServerModuleRunner } from 'vite'
 import { watch as chokidarWatch } from 'chokidar'
@@ -9,7 +9,7 @@ import { green } from 'kolorist'
 import { AppDevserver } from '../../app-devserver.js'
 import { getPackage } from '../../utils/get-package.js'
 import { openBrowser } from '../../utils/open-browser.js'
-import { log, warn, info, dot, progress } from '../../utils/logger.js'
+import { dot, info, log, progress, warn } from '../../utils/logger.js'
 import { debounce } from '../../utils/rate-limit.js'
 import {
   entryPointMarkup,
@@ -17,7 +17,7 @@ import {
 } from '../../utils/html-template.js'
 
 import { quasarSsrConfig } from './ssr-config.js'
-import { injectPwaManifest, buildPwaServiceWorker } from '../pwa/utils.js'
+import { buildPwaServiceWorker, injectPwaManifest } from '../pwa/utils.js'
 
 const doubleSlashRE = /\/\//g
 const autoRemove = 'document.currentScript.remove()'
@@ -77,8 +77,8 @@ export class QuasarModeDevserver extends AppDevserver {
       templatePath: appPaths.resolve.app('index.html'),
       serverFile: appPaths.resolve.entry('compiled-dev-webserver.js'),
       serverEntryFile: appPaths.resolve.entry('server-entry.js'),
-      resolvePublicFolder() {
-        const dir = join(...arguments)
+      resolvePublicFolder(...args) {
+        const dir = join(...args)
         return isAbsolute(dir) === true ? dir : join(publicFolder, dir)
       }
     }
