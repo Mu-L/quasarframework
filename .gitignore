@@ -2,7 +2,6 @@
 .Thumbs.db
 npm-debug.log
 debug.log
-.idea/
 dist/
 node_modules/
 .quasar/
