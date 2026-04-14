@@ -46,7 +46,7 @@
     "lint:check": "oxfmt --check && oxlint"
   },
   "dependencies": {
-    "@hono/node-server": "^1.19.13",
+    "@hono/node-server": "^1.19.14",
     "@quasar/ssl-certificate": "workspace:^",
     "ci-info": "^4.4.0",
     "cross-spawn": "^7.0.6",

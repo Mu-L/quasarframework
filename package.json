@@ -3,8 +3,8 @@
   "private": true,
   "scripts": {
     "prepare:types": "pnpm --recursive --parallel prepare:types",
-    "lint": "oxfmt && oxlint --fix",
-    "lint:check": "oxfmt --check && oxlint",
+    "lint": "oxfmt && oxlint --fix --no-error-on-unmatched-pattern",
+    "lint:check": "oxfmt --check && oxlint --no-error-on-unmatched-pattern",
     "test": "pnpm build && pnpm --filter quasar test:specs:ci && pnpm --filter quasar test && pnpm --filter @quasar/vite-plugin test",
     "build": "pnpm --filter @quasar/vite-plugin build && pnpm --filter quasar build",
     "vite-ecosystem-ci:build": "pnpm build",
@@ -16,13 +16,13 @@
   "devDependencies": {
     "husky": "^9.1.7",
     "lint-staged": "^16.4.0",
-    "oxfmt": "0.44.0",
-    "oxlint": "1.59.0"
+    "oxfmt": "0.45.0",
+    "oxlint": "1.60.0"
   },
   "lint-staged": {
     "*.{js,ts,vue,mjs,cjs,json,css,sass,md}": [
       "oxfmt --no-error-on-unmatched-pattern",
-      "oxlint --deny-warnings --fix"
+      "oxlint --deny-warnings --fix --no-error-on-unmatched-pattern"
     ]
   },
   "packageManager": "pnpm@10.33.0"
