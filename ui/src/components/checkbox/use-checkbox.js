@@ -204,7 +204,7 @@ export default function useCheckbox(type, getInner) {
   return () => {
     const inner = getInnerContent()
 
-    if (props.disable !== true) {
+    if (!props.disable) {
       injectFormInput(
         inner,
         'unshift',

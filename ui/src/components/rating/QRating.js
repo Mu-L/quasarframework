@@ -65,9 +65,7 @@ export default createComponent({
 
     let iconRefs = {}
 
-    const editable = computed(
-      () => props.readonly !== true && props.disable !== true
-    )
+    const editable = computed(() => !props.readonly && !props.disable)
 
     const classes = computed(
       () =>

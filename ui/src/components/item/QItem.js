@@ -57,7 +57,7 @@ export default createComponent({
       () => props.clickable || hasLink.value || props.tag === 'label'
     )
 
-    const isClickable = computed(() => props.disable && isActionable.value)
+    const isClickable = computed(() => !props.disable && isActionable.value)
 
     const classes = computed(
       () =>

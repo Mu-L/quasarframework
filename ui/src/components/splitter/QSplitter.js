@@ -209,7 +209,7 @@ export default createComponent({
               { class: 'q-splitter__separator-area absolute-full' },
               hSlot(slots.separator),
               'sep',
-              props.disable !== true,
+              !props.disable,
               () => sepDirective.value
             )
           ]

@@ -58,7 +58,7 @@ export default createComponent({
 
     const hasDirective = computed(
       () =>
-        props.disable !== true &&
+        !props.disable &&
         (!isRuntimeSsrPreHydration.value ||
           props.once !== true ||
           props.ssrPrerender !== true)

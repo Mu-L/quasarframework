@@ -223,7 +223,7 @@ export default createComponent({
         data,
         getContent(),
         'ripple',
-        props.ripple !== false && props.disable !== true,
+        props.ripple !== false && !props.disable,
         () => [[Ripple, props.ripple]]
       )
     }

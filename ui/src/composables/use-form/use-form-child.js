@@ -35,12 +35,12 @@ export default function useFormChild({
 
     onMounted(() => {
       // register to parent QForm
-      if (props.disable !== true) $form.bindComponent(proxy)
+      if (!props.disable) $form.bindComponent(proxy)
     })
 
     onBeforeUnmount(() => {
       // un-register from parent QForm
-      if (props.disable !== true) $form.unbindComponent(proxy)
+      if (!props.disable) $form.unbindComponent(proxy)
     })
   } else if (requiresQForm === true) {
     console.error('Parent QForm not found on useFormChild()!')

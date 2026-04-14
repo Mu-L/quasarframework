@@ -53,9 +53,7 @@ export default createComponent({
       return formClass.value + (align !== void 0 ? ` ${align}` : '')
     })
 
-    const isDisabled = computed(
-      () => props.disable || $fab.showing.value !== true
-    )
+    const isDisabled = computed(() => props.disable || !$fab.showing.value)
 
     function click(e) {
       $fab.onChildClick(e)

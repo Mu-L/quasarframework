@@ -171,7 +171,7 @@ export default createComponent({
             ]
           : [svg]
 
-      if (props.disable !== true) {
+      if (!props.disable) {
         injectFormInput(
           content,
           'unshift',

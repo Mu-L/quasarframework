@@ -32,9 +32,9 @@ export default createComponent({
       class:
         'q-breadcrumbs__el q-link ' +
         'flex inline items-center relative-position ' +
-        (props.disable !== true
-          ? 'q-link--focusable' + linkClass.value
-          : 'q-breadcrumbs__el--disable'),
+        (props.disable
+          ? 'q-breadcrumbs__el--disable'
+          : 'q-link--focusable' + linkClass.value),
       ...linkAttrs.value,
       onClick: navigateOnClick
     }))
