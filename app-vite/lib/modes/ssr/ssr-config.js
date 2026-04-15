@@ -132,6 +132,11 @@ export const quasarSsrConfig = {
       cfg.output.file = join(quasarConf.build.distDir, 'index.js')
     }
 
+    cfg.resolve.modules = [
+      appPaths.resolve.app('node_modules'),
+      appPaths.resolve.ssr('node_modules')
+    ]
+
     return extendRolldownConfig(
       cfg,
       quasarConf.ssr,

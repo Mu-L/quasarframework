@@ -1,0 +1,10 @@
+{
+  "name": "ssr",
+  "version": "1.0.0",
+  "description": "Quasar SSR server",
+  "private": true,
+  "dependencies": {
+    "hono": "^4.12.12",
+    "@hono/node-server": "^1.19.13"
+  }
+}

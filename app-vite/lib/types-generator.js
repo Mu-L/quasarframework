@@ -100,6 +100,17 @@ function generateTsConfig(quasarConf, fsUtils) {
     })
   }
 
+  if (isModeInstalled(appPaths, 'ssr')) {
+    const target = appPaths.resolve.ssr('node_modules')
+    const { dependencies } = JSON.parse(
+      fse.readFileSync(appPaths.resolve.ssr('package.json'), 'utf8')
+    )
+
+    Object.keys(dependencies).forEach(dep => {
+      aliasMap[dep] = join(target, dep)
+    })
+  }
+
   const paths = {}
   Object.keys(aliasMap).forEach(alias => {
     const rawPath = aliasMap[alias]

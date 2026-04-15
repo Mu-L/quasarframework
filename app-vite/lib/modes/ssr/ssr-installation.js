@@ -1,5 +1,7 @@
 import fse from 'fs-extra'
+import inquirer from 'inquirer'
 
+import { ensureDeps } from './ensure-consistency.js'
 import { log, warn } from '../../utils/logger.js'
 import { isModeInstalled } from '../modes-utils.js'
 
@@ -17,10 +19,35 @@ export async function addMode({ ctx: { appPaths, cacheProxy }, silent }) {
     return
   }
 
-  log('Creating SSR source folder...')
   const hasTypescript = await cacheProxy.getModule('hasTypescript')
   const format = hasTypescript ? 'ts' : 'js'
-  fse.copySync(appPaths.resolve.cli(`templates/ssr/${format}`), appPaths.ssrDir)
+
+  console.log()
+  const answer = await inquirer.prompt([
+    {
+      type: 'select',
+      name: 'webserver',
+      message: 'What production web server should Quasar use?',
+      choices: [
+        { value: 'hono', name: 'Hono' },
+        { value: 'fastify', name: 'Fastify' },
+        { value: 'express', name: 'Express' },
+        { value: 'koa', name: 'Koa' }
+      ]
+    }
+  ])
+
+  log('Creating SSR source folder...')
+  fse.copySync(
+    appPaths.resolve.cli(`templates/ssr/${answer.webserver}/common`),
+    appPaths.ssrDir
+  )
+  fse.copySync(
+    appPaths.resolve.cli(`templates/ssr/${answer.webserver}/${format}`),
+    appPaths.ssrDir
+  )
+
+  await ensureDeps({ appPaths, cacheProxy })
 
   log('SSR support was added')
 }
