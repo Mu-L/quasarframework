@@ -51,7 +51,7 @@
     "ci-info": "^4.4.0",
     "cross-spawn": "^7.0.6",
     "fs-extra": "^11.3.4",
-    "hono": "^4.12.12",
+    "hono": "^4.12.14",
     "http-proxy-middleware": "^3.0.5",
     "kolorist": "^1.8.0",
     "minimist": "^1.2.8",
