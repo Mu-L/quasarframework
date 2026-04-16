@@ -1,3 +1,5 @@
+import { readFileSync } from 'node:fs'
+
 import { getErrorDetails } from './error-details.js'
 import { getStack } from './stack.js'
 import { getEnv } from './env.js'
