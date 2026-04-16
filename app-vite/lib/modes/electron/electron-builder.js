@@ -1,5 +1,4 @@
 import { join } from 'node:path'
-import fse from 'fs-extra'
 import { merge } from 'webpack-merge'
 
 import { log, progress, warn } from '../../utils/logger.js'
@@ -74,6 +73,7 @@ export class QuasarModeBuilder extends AppBuilder {
 
   #copyElectronFiles() {
     const patterns = [
+      '.npmrc',
       '.yarnrc',
       'package-lock.json',
       'yarn.lock',
@@ -87,25 +87,6 @@ export class QuasarModeBuilder extends AppBuilder {
     }))
 
     this.copyFiles(patterns)
-
-    // handle .npmrc separately
-    const npmrc = this.ctx.appPaths.resolve.app('.npmrc')
-    let content = fse.existsSync(npmrc) ? this.readFile(npmrc) : ''
-
-    if (!content.includes('shamefully-hoist')) {
-      content += '\n# needed by pnpm\nshamefully-hoist=true'
-    }
-    // very important, otherwise PNPM creates symlinks which is NOT
-    // what we want for an Electron app that should run cross-platform
-    if (!content.includes('node-linker')) {
-      content +=
-        '\n# pnpm needs this otherwise it creates symlinks\nnode-linker=hoisted'
-    }
-
-    this.writeFile(
-      join(this.quasarConf.build.distDir, 'UnPackaged/.npmrc'),
-      content
-    )
   }
 
   async #packageFiles() {
