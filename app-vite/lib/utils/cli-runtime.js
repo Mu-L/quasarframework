@@ -1,11 +1,10 @@
-import { fileURLToPath } from 'node:url'
-import { join } from 'node:path'
+import { join, normalize } from 'node:path'
 
 import cliPkg from '../../package.json' with { type: 'json' }
 
-export const cliDir = fileURLToPath(new URL('../..', import.meta.url))
-export function resolveToCliDir(dir) {
+const cliDir = normalize(join(import.meta.dirname, '../..'))
+function resolveToCliDir(dir) {
   return join(cliDir, dir)
 }
 
-export { cliPkg }
+export { cliPkg, cliDir, resolveToCliDir }

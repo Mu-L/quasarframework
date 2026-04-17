@@ -2,12 +2,19 @@ import { dirname } from 'node:path'
 import { fileURLToPath } from 'node:url'
 
 export function getCallerPath() {
-  const _prepareStackTrace = Error.prepareStackTrace
-  Error.prepareStackTrace = (_, stack) => stack
-  const stack = new Error('err').stack.slice(1)
-  Error.prepareStackTrace = _prepareStackTrace
-  const filename = stack[1].getFileName()
-  return dirname(
-    filename.startsWith('file://') ? fileURLToPath(filename) : filename
-  )
+  const originalPrepareStackTrace = Error.prepareStackTrace
+
+  try {
+    Error.prepareStackTrace = (_, stack) => stack
+    const err = new Error('err')
+
+    Error.captureStackTrace(err, getCallerPath)
+    const filename = err.stack[0].getFileName()
+
+    return dirname(
+      filename.startsWith('file://') ? fileURLToPath(filename) : filename
+    )
+  } finally {
+    Error.prepareStackTrace = originalPrepareStackTrace
+  }
 }

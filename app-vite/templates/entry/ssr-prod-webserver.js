@@ -6,7 +6,6 @@
 
 import { join, basename, isAbsolute } from 'node:path'
 import { readFileSync } from 'node:fs'
-import { fileURLToPath } from 'node:url'
 import { renderToString } from 'vue/server-renderer'
 <% if (quasarConf.metaConf.hasStore && quasarConf.ssr.manualStoreSerialization !== true) { %>
 import serialize from 'serialize-javascript'
@@ -26,7 +25,7 @@ const resolveUrlPath = publicPath === '/'
   ? url => url || '/'
   : url => url ? (publicPath + url).replace(doubleSlashRE, '/') : publicPath
 
-const rootFolder = fileURLToPath(new URL('.', import.meta.url))
+const rootFolder = import.meta.dirname
 const publicFolder = join(rootFolder, 'client')
 const serverAssetsFolder = join(rootFolder, 'server-assets')
 

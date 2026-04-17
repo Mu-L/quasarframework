@@ -1,12 +1,10 @@
 import { app, BrowserWindow } from 'electron';
 import path from 'path';
 import os from 'os';
-import { fileURLToPath } from 'url'
 
 // needed in case process is undefined under Linux
 const platform = process.platform || os.platform();
-
-const currentDir = fileURLToPath(new URL('.', import.meta.url));
+const currentDir = import.meta.dirname;
 
 let mainWindow: BrowserWindow | undefined;
 
