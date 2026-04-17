@@ -13,6 +13,7 @@ import serialize from 'serialize-javascript'
 
 import renderTemplate from './render-template.js'
 import serverEntry from './server/server-entry.js'
+import clientManifest from './quasar.manifest.json' with { type: 'json' }
 
 import { create, listen, renderPreloadTag, serveStaticContent } from 'app/src-ssr/server'
 import injectMiddlewares from './ssr-middlewares'
@@ -28,12 +29,6 @@ const resolveUrlPath = publicPath === '/'
 const rootFolder = import.meta.dirname
 const publicFolder = join(rootFolder, 'client')
 const serverAssetsFolder = join(rootFolder, 'server-assets')
-
-const clientManifest = JSON.parse(
-  readFileSync(join(rootFolder, './quasar.manifest.json'),
-  'utf-8'
-  )
-)
 
 function renderModulesPreload (modules, opts) {
   let links = ''
@@ -86,34 +81,29 @@ async function render (ssrContext) {
     onRendered: fn => { onRenderedList.push(fn) }
   })
 
-  try {
-    const renderFn = await serverEntry(ssrContext)
-    const runtimePageContent = await renderToString(renderFn, ssrContext)
+  const renderFn = await serverEntry(ssrContext)
+  const runtimePageContent = await renderToString(renderFn, ssrContext)
 
-    onRenderedList.forEach(fn => { fn() })
+  onRenderedList.forEach(fn => { fn() })
 
-    // maintain compatibility with some well-known Vue plugins
-    // like @vue/apollo-ssr:
-    typeof ssrContext.rendered === 'function' && ssrContext.rendered()
+  // maintain compatibility with some well-known Vue plugins
+  // like @vue/apollo-ssr:
+  typeof ssrContext.rendered === 'function' && ssrContext.rendered()
 
-    ssrContext._meta.runtimePageContent = runtimePageContent
+  ssrContext._meta.runtimePageContent = runtimePageContent
 
-    <% if (quasarConf.metaConf.hasStore && quasarConf.ssr.manualStoreSerialization !== true) { %>
-      if (ssrContext.state !== void 0) {
-        ssrContext._meta.headTags = renderStoreState(ssrContext) + ssrContext._meta.headTags
-      }
-    <% } %>
+  <% if (quasarConf.metaConf.hasStore && quasarConf.ssr.manualStoreSerialization !== true) { %>
+    if (ssrContext.state !== void 0) {
+      ssrContext._meta.headTags = renderStoreState(ssrContext) + ssrContext._meta.headTags
+    }
+  <% } %>
 
-    // @vitejs/plugin-vue injects code into a component's setup() that registers
-    // itself on ctx.modules. After the render, ctx.modules would contain all the
-    // components that have been instantiated during this render call.
-    ssrContext._meta.endingHeadTags += renderModulesPreload(ssrContext.modules, { ssrContext })
+  // @vitejs/plugin-vue injects code into a component's setup() that registers
+  // itself on ctx.modules. After the render, ctx.modules would contain all the
+  // components that have been instantiated during this render call.
+  ssrContext._meta.endingHeadTags += renderModulesPreload(ssrContext.modules, { ssrContext })
 
-    return renderTemplate(ssrContext)
-  }
-  catch (err) {
-    throw err
-  }
+  return renderTemplate(ssrContext)
 }
 
 const middlewareParams = {

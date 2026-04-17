@@ -1,30 +1,30 @@
 export interface IResolve {
-  cli: (dir: string) => string;
-  app: (dir: string) => string;
-  src: (dir: string) => string;
-  public: (dir: string) => string;
-  pwa: (dir: string) => string;
-  ssr: (dir: string) => string;
-  cordova: (dir: string) => string;
-  capacitor: (dir: string) => string;
-  electron: (dir: string) => string;
-  bex: (dir: string) => string;
+  readonly cli: (dir: string) => string;
+  readonly app: (dir: string) => string;
+  readonly src: (dir: string) => string;
+  readonly public: (dir: string) => string;
+  readonly pwa: (dir: string) => string;
+  readonly ssr: (dir: string) => string;
+  readonly cordova: (dir: string) => string;
+  readonly capacitor: (dir: string) => string;
+  readonly electron: (dir: string) => string;
+  readonly bex: (dir: string) => string;
 }
 
 export interface QuasarAppPaths {
-  cliDir: string;
-  appDir: string;
-  srcDir: string;
-  publicDir: string;
-  pwaDir: string;
-  ssrDir: string;
-  cordovaDir: string;
-  capacitorDir: string;
-  electronDir: string;
-  bexDir: string;
+  readonly cliDir: string;
+  readonly appDir: string;
+  readonly srcDir: string;
+  readonly publicDir: string;
+  readonly pwaDir: string;
+  readonly ssrDir: string;
+  readonly cordovaDir: string;
+  readonly capacitorDir: string;
+  readonly electronDir: string;
+  readonly bexDir: string;
 
-  quasarConfigFilename: string;
-  quasarConfigInputFormat: "esm" | "ts";
+  readonly quasarConfigFilename: string;
+  readonly quasarConfigInputFormat: "esm" | "ts";
 
-  resolve: IResolve;
+  readonly resolve: IResolve;
 }

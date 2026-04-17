@@ -14,43 +14,42 @@ export interface RenderParams extends Pick<
 
 export interface RenderVueParams extends RenderParams, Record<string, any> {}
 
-export interface RenderError extends Error {
-  /**
-   * HTTP status code
-   */
-  code: number;
-  /**
-   * The URL to redirect to
-   */
-  url?: string;
+export type HttpRedirectStatusCode = 301 | 302 | 303 | 307 | 308;
+
+export interface SsrRenderRouteNotFoundError {
+  readonly routeNotFound: true;
+}
+export interface SsrRenderRedirectError {
+  readonly redirectHttpStatusCode: HttpRedirectStatusCode;
+  readonly redirectUrl: string;
 }
 
 interface SsrMiddlewareResolve {
   /**
    * Whenever you define a route (with app.use(), app.get(), app.post() etc), you should use the resolve.urlPath() method so that you'll also keep into account the configured publicPath (quasar.config file > build > publicPath).
    */
-  urlPath(url: string): string;
+  readonly urlPath: (url: string) => string;
   /**
    * Resolve folder path to the root (of the project in dev and of the distributables in production). Under the hood, it does a path.join()
    * @param paths paths to join
    */
-  root(...paths: string[]): string;
+  readonly root: (...paths: string[]) => string;
   /**
    * Resolve folder path to the "public" folder. Under the hood, it does a path.join()
    * @param paths paths to join
    */
-  public(...paths: string[]): string;
+  readonly public: (...paths: string[]) => string;
   /**
    * Resolve folder path to the "server-assets" folder. Under the hood, it does a path.join()
    * @param paths paths to join
    */
-  serverAssets(...paths: string[]): string;
+  readonly serverAssets: (...paths: string[]) => string;
 }
 
 interface SsrMiddlewareFolders {
-  root: string;
-  public: string;
-  serverAssets: string;
+  readonly root: string;
+  readonly public: string;
+  readonly serverAssets: string;
 }
 
 interface SsrCreateParams {
@@ -58,22 +57,22 @@ interface SsrCreateParams {
    * Terminal PORT env var or the default configured port
    * for the SSR webserver
    */
-  port: number;
+  readonly port: number;
   /**
    * If you use HTTPS in development, this will hold the HTTPS server options
    * from your /quasar.config file.
    */
-  devHttpsOptions?: HttpsServerOptions;
-  resolve: SsrMiddlewareResolve;
-  publicPath: string;
-  folders: SsrMiddlewareFolders;
+  readonly devHttpsOptions?: HttpsServerOptions;
+  readonly resolve: SsrMiddlewareResolve;
+  readonly publicPath: string;
+  readonly folders: SsrMiddlewareFolders;
   /**
    * Uses Vue and Vue Router to render the requested URL path.
    *
-   * @throws {RenderError} when the rendering fails
+   * @throws {Error | SsrRenderRouteNotFoundError | SsrRenderRedirectError} when the rendering fails
    * @returns the rendered HTML string to return to the client
    */
-  render: (ssrContext: RenderVueParams) => Promise<string>;
+  readonly render: (ssrContext: RenderVueParams) => Promise<string>;
 }
 
 export type SsrCreateCallback = (
@@ -81,7 +80,7 @@ export type SsrCreateCallback = (
 ) => SsrDriverTypes["app"] | Promise<SsrDriverTypes["app"]>;
 
 interface SsrServeStaticContentParams extends SsrCreateParams {
-  app: SsrDriverTypes["app"];
+  readonly app: SsrDriverTypes["app"];
 }
 
 interface SsrServeStaticFnParams {
@@ -111,7 +110,12 @@ export type SsrServeStaticContentCallback = (
 ) => SsrServeStaticFn | Promise<SsrServeStaticFn>;
 
 type SsrRenderErrorFn = (params: {
-  renderError: RenderError;
+  /**
+   * The caught error that caused the render to fail.
+   * It can be an instance of Error or any other value
+   * thrown by the render() function.
+   */
+  err: unknown;
   req: SsrDriverTypes["request"];
 }) => { errorHeaders: Record<string, string>; errorHtml: string };
 
@@ -122,16 +126,16 @@ interface SsrMiddlewareServe {
    * - the opts are the same as for express.static()
    * - opts.maxAge is used by default, taking into account the quasar.config file > ssr > maxAge configuration; this sets how long the respective file(s) can live in browser's cache
    */
-  static: SsrServeStaticFn;
+  readonly static: SsrServeStaticFn;
   /**
    * Displays a wealth of useful debug information (including the stack trace).
    * Warning: It's available only in development and NOT in production.
    */
-  error: SsrRenderErrorFn;
+  readonly devError: SsrRenderErrorFn;
 }
 
 interface SsrMiddlewareParams extends SsrServeStaticContentParams {
-  serve: SsrMiddlewareServe;
+  readonly serve: SsrMiddlewareServe;
 }
 
 export type SsrMiddlewareCallback = (
@@ -154,7 +158,7 @@ interface SsrCloseParams extends SsrMiddlewareParams {
   listenResult: SsrDriverTypes["listenResult"];
 }
 
-export type SsrCloseCallback = (params: SsrCloseParams) => void;
+export type SsrCloseCallback = (params: SsrCloseParams) => any | Promise<any>;
 
 interface SsrRenderPreloadTagCallbackOptions {
   ssrContext: RenderVueParams;

@@ -107,12 +107,7 @@ async function start ({
       })
     }
     catch (err) {
-      if (err && err.url) {
-        redirect(err.url)
-        return
-      }
-
-      console.error('[Quasar] boot error:', err)
+      if (!hasRedirected) console.error('[Quasar] boot error:', err)
       return
     }
   }

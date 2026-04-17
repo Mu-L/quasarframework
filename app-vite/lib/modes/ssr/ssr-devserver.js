@@ -311,9 +311,7 @@ export class QuasarModeDevserver extends AppDevserver {
 
     const {
       create,
-      injectDevMiddleware = ({ app }) =>
-        middleware =>
-          app.use(middleware),
+      injectDevMiddleware,
       listen,
       close,
       injectMiddlewares,
@@ -346,12 +344,15 @@ export class QuasarModeDevserver extends AppDevserver {
     const serveStatic = await serveStaticContent(middlewareParams)
     middlewareParams.serve = {
       static: serveStatic,
-      error: ({ renderError, req }) => {
+      error: ({ err, req }) => {
         log()
         warn(req.url, 'Render failed')
 
         return renderSSRError({
-          renderError,
+          err:
+            err instanceof Error
+              ? err
+              : new Error(String(err) || 'Unknown error'),
           req,
           rootFolder: this.#pathMap.rootFolder
         })

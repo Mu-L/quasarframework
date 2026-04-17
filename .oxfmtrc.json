@@ -1,10 +1,11 @@
 {
   "ignorePatterns": [
+    "**/node_modules/",
+    "**/dist/",
     "**/templates/",
     "**/quasar.config.*.temporary.compiled*",
     "**/.quasar/",
 
-    "ui/dist/",
     "ui/icon-set/svg-*.js",
     "ui/lang/index.json",
 
@@ -18,8 +19,9 @@
     "extras/roboto-*/",
     "extras/themify/",
 
-    "create-quasar/templates/",
-    "!create-quasar/templates/**/create-quasar-script.js"
+    "!create-quasar/templates/**/create-quasar-script.js",
+
+    "utils/render-ssr-error/compiled-assets/"
   ],
 
   "printWidth": 80,

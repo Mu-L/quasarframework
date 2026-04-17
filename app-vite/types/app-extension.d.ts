@@ -16,55 +16,63 @@ type GetPersistentConfHandler = () => Record<string, unknown>;
 type HasExtensionHandler = (extId: string) => boolean;
 
 interface BaseAPI {
-  engine: "@quasar/app-vite";
+  readonly engine: "@quasar/app-vite";
 
-  ctx: QuasarContext;
-  extId: string;
-  resolve: IResolve;
-  appDir: string;
+  readonly ctx: QuasarContext;
+  readonly extId: string;
+  readonly resolve: IResolve;
+  readonly appDir: string;
 
-  hasVite: true;
-  hasWebpack: false;
+  readonly hasVite: true;
+  readonly hasWebpack: false;
 
-  hasTypescript: () => Promise<boolean>;
-  getStorePackageName: () => "pinia" | undefined;
-  getNodePackagerName: () => Promise<"npm" | "yarn" | "pnpm" | "bun">;
+  readonly hasTypescript: () => Promise<boolean>;
+  readonly getStorePackageName: () => "pinia" | undefined;
+  readonly getNodePackagerName: () => Promise<"npm" | "yarn" | "pnpm" | "bun">;
 }
 
 interface SharedIndexInstallAPI {
-  getPersistentConf: GetPersistentConfHandler;
-  setPersistentConf: (cfg: Record<string, unknown>) => void;
-  mergePersistentConf: (cfg: Record<string, unknown>) => void;
-  compatibleWith: (packageName: string, semverCondition?: string) => void;
-  hasPackage: (packageName: string, semverCondition?: string) => boolean;
-  hasExtension: HasExtensionHandler;
-  getPackageVersion: (packageName: string) => string | undefined;
+  readonly getPersistentConf: GetPersistentConfHandler;
+  readonly setPersistentConf: (cfg: Record<string, unknown>) => void;
+  readonly mergePersistentConf: (cfg: Record<string, unknown>) => void;
+  readonly compatibleWith: (
+    packageName: string,
+    semverCondition?: string
+  ) => void;
+  readonly hasPackage: (
+    packageName: string,
+    semverCondition?: string
+  ) => boolean;
+  readonly hasExtension: HasExtensionHandler;
+  readonly getPackageVersion: (packageName: string) => string | undefined;
 }
 
 type Callback<T> = (callback: T) => void;
 
 export interface IndexAPI extends BaseAPI, SharedIndexInstallAPI {
-  prompts: Record<string, unknown>;
+  readonly prompts: Record<string, unknown>;
 
-  extendQuasarConf: Callback<(cfg: QuasarConf, api: IndexAPI) => void>;
+  readonly extendQuasarConf: Callback<(cfg: QuasarConf, api: IndexAPI) => void>;
 
-  extendViteConf: ExtendViteConfHandler;
+  readonly extendViteConf: ExtendViteConfHandler;
 
-  extendBexScriptsConf: Callback<(cfg: RolldownOptions, api: IndexAPI) => void>;
-  extendElectronMainConf: Callback<
+  readonly extendBexScriptsConf: Callback<
     (cfg: RolldownOptions, api: IndexAPI) => void
   >;
-  extendElectronPreloadConf: Callback<
+  readonly extendElectronMainConf: Callback<
     (cfg: RolldownOptions, api: IndexAPI) => void
   >;
-  extendPWACustomSWConf: Callback<
+  readonly extendElectronPreloadConf: Callback<
     (cfg: RolldownOptions, api: IndexAPI) => void
   >;
-  extendSSRWebserverConf: Callback<
+  readonly extendPWACustomSWConf: Callback<
+    (cfg: RolldownOptions, api: IndexAPI) => void
+  >;
+  readonly extendSSRWebserverConf: Callback<
     (cfg: RolldownOptions, api: IndexAPI) => void
   >;
 
-  registerCommand: (
+  readonly registerCommand: (
     commandName: string,
     fn: (params: {
       args: string[];
@@ -72,21 +80,21 @@ export interface IndexAPI extends BaseAPI, SharedIndexInstallAPI {
     }) => Promise<void> | void
   ) => void;
 
-  registerDescribeApi: (name: string, relativePath: string) => void;
+  readonly registerDescribeApi: (name: string, relativePath: string) => void;
 
-  beforeDev: Callback<
+  readonly beforeDev: Callback<
     (api: IndexAPI, payload: { quasarConf: QuasarConf }) => Promise<void> | void
   >;
-  afterDev: Callback<
+  readonly afterDev: Callback<
     (api: IndexAPI, payload: { quasarConf: QuasarConf }) => Promise<void> | void
   >;
-  beforeBuild: Callback<
+  readonly beforeBuild: Callback<
     (api: IndexAPI, payload: { quasarConf: QuasarConf }) => Promise<void> | void
   >;
-  afterBuild: Callback<
+  readonly afterBuild: Callback<
     (api: IndexAPI, payload: { quasarConf: QuasarConf }) => Promise<void> | void
   >;
-  onPublish: Callback<
+  readonly onPublish: Callback<
     (
       api: IndexAPI,
       opts: { arg: string; distDir: string }
@@ -96,31 +104,37 @@ export interface IndexAPI extends BaseAPI, SharedIndexInstallAPI {
 
 type ExitLogHandler = (msg: string) => void;
 export interface InstallAPI extends BaseAPI, SharedIndexInstallAPI {
-  prompts: Record<string, unknown>;
+  readonly prompts: Record<string, unknown>;
 
-  extendPackageJson: (extPkg: object | string) => void;
-  extendJsonFile: (file: string, newData: object) => void;
-  render: (templatePath: string, scope?: object) => void;
-  renderFile: (
+  readonly extendPackageJson: (extPkg: object | string) => void;
+  readonly extendJsonFile: (file: string, newData: object) => void;
+  readonly render: (templatePath: string, scope?: object) => void;
+  readonly renderFile: (
     relativeSourcePath: string,
     relativeTargetPath: string,
     scope?: object
   ) => void;
-  onExitLog: ExitLogHandler;
+  readonly onExitLog: ExitLogHandler;
 }
 
 export interface UninstallAPI extends BaseAPI {
-  prompts: Record<string, unknown>;
+  readonly prompts: Record<string, unknown>;
 
-  getPersistentConf: GetPersistentConfHandler;
-  hasExtension: HasExtensionHandler;
-  removePath: (__path: string) => void;
-  onExitLog: ExitLogHandler;
+  readonly getPersistentConf: GetPersistentConfHandler;
+  readonly hasExtension: HasExtensionHandler;
+  readonly removePath: (__path: string) => void;
+  readonly onExitLog: ExitLogHandler;
 }
 
 export interface PromptsAPI extends BaseAPI {
-  compatibleWith: (packageName: string, semverCondition?: string) => void;
-  hasPackage: (packageName: string, semverCondition?: string) => boolean;
-  hasExtension: HasExtensionHandler;
-  getPackageVersion: (packageName: string) => string | undefined;
+  readonly compatibleWith: (
+    packageName: string,
+    semverCondition?: string
+  ) => void;
+  readonly hasPackage: (
+    packageName: string,
+    semverCondition?: string
+  ) => boolean;
+  readonly hasExtension: HasExtensionHandler;
+  readonly getPackageVersion: (packageName: string) => string | undefined;
 }

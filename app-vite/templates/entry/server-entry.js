@@ -53,6 +53,7 @@ const doubleSlashRE = /\/\//
 const addPublicPath = url => (publicPath + url).replace(doubleSlashRE, '/')
 <% } %>
 
+const redirectStatusCodeList = [301, 302, 303, 307, 308]
 const httpRE = /^https?:\/\//
 
 function getRedirectUrl (url, router) {
@@ -122,7 +123,14 @@ export default ssrContext => {
     let hasRedirected = false
     const redirect = (url, httpStatusCode) => {
       hasRedirected = true
-      reject({ url: getRedirectUrl(url, router), code: httpStatusCode })
+      reject({
+        // interface SsrRenderRedirectError
+        redirectUrl: getRedirectUrl(url, router),
+        redirectHttpStatusCode:
+          redirectStatusCodeList.includes(httpStatusCode)
+            ? httpStatusCode
+            : 302
+      })
     }
 
     for (let i = 0; hasRedirected === false && i < bootFunctions.length; i++) {
@@ -138,7 +146,7 @@ export default ssrContext => {
         })
       }
       catch (err) {
-        reject(err)
+        if (!hasRedirected) reject(err)
         return
       }
     }
@@ -153,7 +161,11 @@ export default ssrContext => {
     const { fullPath } = router.resolve(urlPath)
 
     if (fullPath !== urlPath) {
-      return reject({ url: <%= quasarConf.build.publicPath === '/' ? 'fullPath' : 'addPublicPath(fullPath)' %> })
+      return reject({
+        // interface SsrRenderRedirectError
+        redirectUrl: <%= quasarConf.build.publicPath === '/' ? 'fullPath' : 'addPublicPath(fullPath)' %>,
+        redirectHttpStatusCode: 302
+      })
     }
 
     // set router's location
@@ -167,14 +179,22 @@ export default ssrContext => {
 
       // no matched routes
       if (matchedComponents.length === 0) {
-        return reject({ code: 404 })
+        // interface SsrRenderRouteNotFoundError
+        return reject({ routeNotFound: true })
       }
 
       <% if (quasarConf.preFetch) { %>
       let hasRedirected = false
       const redirect = (url, httpStatusCode) => {
         hasRedirected = true
-        reject({ url: getRedirectUrl(url, router), code: httpStatusCode })
+        reject({
+          // interface SsrRenderRedirectError
+          redirectUrl: getRedirectUrl(url, router),
+          redirectHttpStatusCode:
+            redirectStatusCodeList.includes(httpStatusCode)
+              ? httpStatusCode
+              : 302
+        })
       }
 
       // filter and convert all components to their preFetch methods

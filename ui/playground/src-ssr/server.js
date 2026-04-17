@@ -3,12 +3,15 @@
  * https://v2.quasar.dev/quasar-cli-vite/developing-ssr/ssr-webserver
  *
  * Runs in Node.js context.
+ *
+ * Make sure to pnpm/yarn/npm/bun install (in /src-ssr folder)
+ * anything you import here.
  */
 
+import { lstatSync } from 'node:fs'
 import { Hono } from 'hono'
 import { serve } from '@hono/node-server'
 import { serveStatic } from '@hono/node-server/serve-static'
-import { lstatSync } from 'node:fs'
 import {
   defineSsrClose,
   defineSsrCreate,
@@ -18,6 +21,11 @@ import {
   defineSsrServeStaticContent
 } from '#q-app/wrappers'
 
+/**
+ * Create your webserver and return its instance.
+ * If needed, prepare your webserver to receive
+ * connect-like middlewares.
+ */
 export const create = defineSsrCreate(async (/* { ... } */) => {
   const app = new Hono()
 
@@ -29,6 +37,13 @@ export const create = defineSsrCreate(async (/* { ... } */) => {
   return app
 })
 
+/**
+ * Used by Quasar SSR dev server to inject middleware into the webserver.
+ * It uses it to handle Vite dev server, handle public paths, etc.
+ * The given middleware is compatible with `node:http`'s Server, Express, Connect, etc.
+ *
+ * Can be async: defineSsrInjectDevMiddleware(async ({ app }) => { ... })
+ */
 export const injectDevMiddleware = defineSsrInjectDevMiddleware(
   ({ app }) =>
     middleware => {
@@ -40,19 +55,40 @@ export const injectDevMiddleware = defineSsrInjectDevMiddleware(
           middleware(req, res, () => resolve(true))
         })
 
-        if (passed) {
-          await next()
-        }
+        /**
+         * If the Vite middleware calls next(), it didn't handle the request,
+         * so we let Hono continue down the chain.
+         */
+        if (passed) await next()
       })
     }
 )
 
+/**
+ * You need to make the server listen to the indicated port
+ * and return the listening instance or whatever you need to
+ * close the server with.
+ *
+ * The "listenResult" param for the "close()" definition below
+ * is what you return here.
+ *
+ * For production, you can instead export your
+ * handler for serverless use or whatever else fits your needs.
+ */
 export const listen = defineSsrListen(
   async ({ app, devHttpsOptions, port }) => {
     const opts = {
       fetch: app.fetch,
       port
     }
+
+    /**
+     * For production HTTPS you can use the /src-ssr/server-assets folder
+     * to place your certificates and then read them here to create the server.
+     *
+     * Use resolve.serverAssets('path-to-file') to get the absolute path to the file
+     * or directly play with folders.serverAssets.
+     */
 
     if (import.meta.env.QUASAR_DEV && devHttpsOptions) {
       const { createServer } = await import('node:https')
@@ -71,10 +107,29 @@ export const listen = defineSsrListen(
   }
 )
 
+/**
+ * Should close the server and free up any resources.
+ * Will be used on development only when the server needs
+ * to be rebooted.
+ *
+ * Should you need the result of the "listen()" call above,
+ * you can use the "listenResult" param.
+ *
+ * Can be async: defineSsrClose(async ({ listenResult }) => { ... })
+ */
 export const close = defineSsrClose(({ listenResult }) => listenResult.close())
 
 const maxAge = import.meta.env.QUASAR_DEV ? 0 : 1000 * 60 * 60 * 24 * 30
 
+/**
+ * Should return a function that will be used to configure the webserver
+ * to serve static content at "urlPath" from "pathToServe" folder/file.
+ *
+ * Notice resolve.urlPath(urlPath) and resolve.public(pathToServe) usages.
+ *
+ * Can be async: defineSsrServeStaticContent(async ({ app, resolve }) => {
+ * Can return an async function: return async ({ urlPath = '/', pathToServe = '.', opts = {} }) => {
+ */
 export const serveStaticContent = defineSsrServeStaticContent(
   ({ app, resolve }) =>
     ({ urlPath, pathToServe, opts = {} }) => {
@@ -88,8 +143,8 @@ export const serveStaticContent = defineSsrServeStaticContent(
           : `${resolvedUrlPath}*`
         : resolvedUrlPath
 
-      const { maxAge: maxAgeOpt, ...serveOpts } = opts
-      const cacheAge = maxAgeOpt !== void 0 ? maxAgeOpt : maxAge
+      const { maxAge: localMaxAge, ...serveOpts } = opts
+      const cacheAge = localMaxAge ?? maxAge
 
       if (cacheAge > 0) {
         app.get(routePath, async (c, next) => {
@@ -116,6 +171,10 @@ const gifRE = /\.gif$/
 const jpgRE = /\.jpe?g$/
 const pngRE = /\.png$/
 
+/**
+ * Should return a String with HTML output
+ * (if any) for preloading indicated file
+ */
 export const renderPreloadTag = defineSsrRenderPreloadTag(
   (file /* , { ssrContext } */) => {
     if (jsRE.test(file)) {

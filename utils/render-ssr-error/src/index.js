@@ -16,20 +16,20 @@ const after = readFile('after')
 
 /**
  * @param {{
- *  renderError: Error;
+ *  err: Error;
  *  req: import('node:http').IncomingMessage | import('node:http2').Http2ServerRequest;
  *  rootFolder: string;
  * }} params
  */
 export default function renderSSRError({
-  renderError,
+  err,
   req,
   rootFolder // the host app's root folder
 }) {
   const data = {
     rootFolder,
-    error: getErrorDetails(renderError),
-    stack: getStack(renderError, rootFolder),
+    error: getErrorDetails(err),
+    stack: getStack(err, rootFolder),
     env: getEnv(req)
   }
 

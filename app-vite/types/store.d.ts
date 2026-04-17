@@ -8,7 +8,7 @@ export type HasStoreParam = HasStore<{
   /**
    * The store instance.
    */
-  store: StoreInstance;
+  readonly store: StoreInstance;
 }>;
 
 export type StoreParams = {} & HasSsrParam;

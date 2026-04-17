@@ -21,112 +21,112 @@ export type QuasarMode =
 
 interface BaseQuasarContext {
   /** True if we are in development mode */
-  dev: boolean;
+  readonly dev: boolean;
   /** True if we are in production mode */
-  prod: boolean;
+  readonly prod: boolean;
   /** App mode */
-  mode: { [index in QuasarMode]?: true };
-  modeName: QuasarMode;
+  readonly mode: { [index in QuasarMode]?: true };
+  readonly modeName: QuasarMode;
   /** True if debugging is enabled */
-  debug: boolean;
+  readonly debug: boolean;
   /** True if opening remote Vue Devtools in development mode. */
-  vueDevtools: boolean;
+  readonly vueDevtools: boolean;
   /** Util dealing with app paths */
-  appPaths: QuasarAppPaths;
+  readonly appPaths: QuasarAppPaths;
 }
 
 interface CapacitorQuasarContext extends BaseQuasarContext {
-  mode: { capacitor: true };
-  modeName: "capacitor";
+  readonly mode: { capacitor: true };
+  readonly modeName: "capacitor";
   /**
    * App target.
    *
    * @default 'none'
    */
-  target: {
+  readonly target: {
     [index in QuasarCapacitorTargets]?: true;
   };
   /** App target name. */
-  targetName: QuasarCapacitorTargets;
+  readonly targetName: QuasarCapacitorTargets;
 }
 
 interface CordovaQuasarContext extends BaseQuasarContext {
-  mode: { cordova: true };
-  modeName: "cordova";
+  readonly mode: { cordova: true };
+  readonly modeName: "cordova";
   /**
    * App target.
    *
    * @default 'all installed'
    */
-  target: {
+  readonly target: {
     [index in QuasarCordovaTargets]?: true;
   };
   /** App target name. */
-  targetName: QuasarCordovaTargets;
+  readonly targetName: QuasarCordovaTargets;
   /**
    * Emulator name, may be present only for Cordova mode.
    *
    * @example
    * 'iPhone-7', 'iPhone-X', 'iPhone-X', 'com.apple.CoreSimulator.SimRuntime.iOS-12-2'
    */
-  emulator: string;
+  readonly emulator: string;
 }
 
 interface BaseElectronQuasarContext extends BaseQuasarContext {
-  mode: { electron: true };
-  modeName: "electron";
-  bundler: { [index in QuasarElectronBundlers]?: true };
-  bundlerName: QuasarElectronBundlers;
+  readonly mode: { electron: true };
+  readonly modeName: "electron";
+  readonly bundler: { [index in QuasarElectronBundlers]?: true };
+  readonly bundlerName: QuasarElectronBundlers;
 }
 
 interface ElectronBuilderQuasarContext extends BaseElectronQuasarContext {
-  bundler: { builder: true };
-  bundlerName: "builder";
+  readonly bundler: { builder: true };
+  readonly bundlerName: "builder";
   /**
    * App target.
    *
    * @default 'current system'
    */
-  target: {
+  readonly target: {
     [index in ElectronBuilderTargets]?: true;
   };
   /** App target name. */
-  targetName: ElectronBuilderTargets;
-  arch: {
+  readonly targetName: ElectronBuilderTargets;
+  readonly arch: {
     [index in ElectronBuilderArchs]?: true;
   };
-  archName: ElectronBuilderArchs;
+  readonly archName: ElectronBuilderArchs;
   /**
    * Publish options.
    *
    * If not set, its default value is deduced by the environment.
    * See https://www.electron.build/configuration/publish#how-to-publish
    */
-  publish?: "onTag" | "onTagOrDraft" | "always" | "never";
+  readonly publish?: "onTag" | "onTagOrDraft" | "always" | "never";
   /**
    * Electron-builder configuration for publishing.
    * See https://www.electron.build/configuration
    */
-  builder: ElectronBuilder.Configuration;
+  readonly builder: ElectronBuilder.Configuration;
 }
 
 interface ElectronPackagerQuasarContext extends BaseElectronQuasarContext {
-  bundler: { packager: true };
-  bundlerName: "packager";
+  readonly bundler: { packager: true };
+  readonly bundlerName: "packager";
   /**
    * App target.
    *
    * @default 'current system'
    */
-  target: {
+  readonly target: {
     [index in ElectronPackagerTargets]?: true;
   };
   /** App target name. */
-  targetName: ElectronPackagerTargets;
-  arch: {
+  readonly targetName: ElectronPackagerTargets;
+  readonly arch: {
     [index in ElectronPackagerArchs]?: true;
   };
-  archName: ElectronPackagerArchs;
+  readonly archName: ElectronPackagerArchs;
 }
 
 type ElectronQuasarContext =
@@ -134,30 +134,30 @@ type ElectronQuasarContext =
   | ElectronPackagerQuasarContext;
 
 interface SpaQuasarContext extends BaseQuasarContext {
-  mode: { spa: true };
-  modeName: "spa";
+  readonly mode: { spa: true };
+  readonly modeName: "spa";
 }
 
 interface PwaQuasarContext extends BaseQuasarContext {
-  mode: { pwa: true };
-  modeName: "pwa";
+  readonly mode: { pwa: true };
+  readonly modeName: "pwa";
 }
 
 interface SsrQuasarContext extends BaseQuasarContext {
-  mode: { ssr: true; pwa?: true };
-  modeName: "ssr";
+  readonly mode: { ssr: true; pwa?: true };
+  readonly modeName: "ssr";
 }
 
 type QuasarBexTargets = "chrome" | "firefox";
 interface BexQuasarContext extends BaseQuasarContext {
-  mode: { bex: true };
-  modeName: "bex";
+  readonly mode: { bex: true };
+  readonly modeName: "bex";
   /**
    * App target.
    */
-  target: Partial<Record<QuasarBexTargets, true>>;
+  readonly target: Partial<Record<QuasarBexTargets, true>>;
   /** App target name. */
-  targetName: QuasarBexTargets;
+  readonly targetName: QuasarBexTargets;
 }
 
 export type QuasarContext =
@@ -179,13 +179,13 @@ type CacheProxyModuleKey =
   | "storeProvider"
   | "workboxBuild";
 interface CacheProxy {
-  getRuntime: (key: string, getInitialValue: () => any) => any;
-  getAsyncRuntime: (
+  readonly getRuntime: (key: string, getInitialValue: () => any) => any;
+  readonly getAsyncRuntime: (
     key: string,
     getInitialValue: () => Promise<any>
   ) => Promise<any>;
-  setRuntime: (key: string, value: any) => void;
-  getModule: (key: CacheProxyModuleKey) => Promise<any>;
+  readonly setRuntime: (key: string, value: any) => void;
+  readonly getModule: (key: CacheProxyModuleKey) => Promise<any>;
 }
 
 /**

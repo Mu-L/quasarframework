@@ -69,8 +69,8 @@ interface TSConfig {
 }
 
 interface InvokeParams {
-  isClient: boolean;
-  isServer: boolean;
+  readonly isClient: boolean;
+  readonly isServer: boolean;
 }
 
 interface BuildTargetOptions {
@@ -85,8 +85,8 @@ interface BuildTargetOptions {
 }
 
 interface PluginEntryRunOptions {
-  server?: boolean;
-  client?: boolean;
+  readonly server?: boolean;
+  readonly client?: boolean;
 }
 
 type PluginEntry =

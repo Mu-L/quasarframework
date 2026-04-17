@@ -1,13 +1,22 @@
 import { RouteLocationNormalizedLoaded, RouteLocationRaw } from "vue-router";
-import { HasSsrParam } from "./ssr";
+import { HasSsrParam, HttpRedirectStatusCode } from "./ssr";
 import { HasStoreParam } from "./store";
 
 interface PreFetchOptions extends HasSsrParam, HasStoreParam {
-  currentRoute: RouteLocationNormalizedLoaded;
-  previousRoute: RouteLocationNormalizedLoaded;
-  redirect: (url: RouteLocationRaw, statusCode?: number) => void;
-  urlPath: string;
-  publicPath: string;
+  readonly currentRoute: RouteLocationNormalizedLoaded;
+  readonly previousRoute: RouteLocationNormalizedLoaded;
+  readonly redirect: (
+    url: string | RouteLocationRaw,
+    /**
+     * HTTP status code to use for the redirection.
+     * Only used in SSR mode.
+     *
+     * @default 302
+     */
+    httpStatusCode?: HttpRedirectStatusCode
+  ) => void;
+  readonly urlPath: string;
+  readonly publicPath: string;
 }
 
 // https://github.com/quasarframework/quasar/issues/6576#issuecomment-603787603

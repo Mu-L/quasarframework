@@ -5,7 +5,8 @@
   "private": true,
   "dependencies": {
     "express": "^5.0.0",
-    "compression": "^1.8.1"
+    "compression": "^1.8.1",
+    "helmet": "^8.1.0"
   },
   "devDependencies": {
     "@types/compression": "^1.8.1",

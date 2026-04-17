@@ -11,7 +11,7 @@ export interface QSsrContext extends HasStoreParam {
   /**
    * The $q object
    */
-  $q: QVueGlobals;
+  readonly $q: QVueGlobals;
 
   /** The global "nonce" attribute to use */
   nonce?: string;

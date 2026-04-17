@@ -91,7 +91,7 @@ export function addPreFetchHooks ({ router<%= quasarConf.ctx.mode.ssr && quasarC
     LoadingBar.start()
     <% } %>
 
-    for (let i = 0; i < preFetchList.length; i++) {
+    for (let i = 0; redirectArg !== null && i < preFetchList.length; i++) {
       try {
         await preFetchList[i]({
           <% if (quasarConf.metaConf.hasStore) { %>store,<% } %>
@@ -102,23 +102,19 @@ export function addPreFetchHooks ({ router<%= quasarConf.ctx.mode.ssr && quasarC
           publicPath
         })
       } catch (e) {
+        <% if (quasarConf.metaConf.hasLoadingBarPlugin) { %>
+        LoadingBar.stop()
+        <% } %>
+        if (redirectArg !== null) return redirectArg
         console.error(e)
-        <% if (quasarConf.metaConf.hasLoadingBarPlugin) { %>
-        LoadingBar.stop()
-        <% } %>
         return
-      }
-
-      if (redirectArg !== null) {
-        <% if (quasarConf.metaConf.hasLoadingBarPlugin) { %>
-        LoadingBar.stop()
-        <% } %>
-        return redirectArg
       }
     }
 
     <% if (quasarConf.metaConf.hasLoadingBarPlugin) { %>
     LoadingBar.stop()
     <% } %>
+
+    if (redirectArg !== null) return redirectArg
   })
 }
