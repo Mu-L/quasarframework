@@ -1,4 +1,4 @@
-import { readFileSync, statSync } from 'node:fs'
+import { existsSync, readFileSync, statSync } from 'node:fs'
 import { parseJSON } from 'confbox'
 
 import { warning } from './logger.js'
@@ -18,6 +18,8 @@ export function getPkg(appPaths, mode) {
   let lastAppPkgModifiedTime = 0
 
   function getAppPackageJson() {
+    if (!existsSync(appPkgPath)) return {}
+
     const { mtime } = statSync(appPkgPath)
 
     if (mtime !== lastAppPkgModifiedTime) {
@@ -38,6 +40,8 @@ export function getPkg(appPaths, mode) {
   let lastModePkgModifiedTime = 0
 
   function getModePackageJson() {
+    if (!existsSync(modePkgPath)) return {}
+
     const { mtime } = statSync(modePkgPath)
 
     if (mtime !== lastModePkgModifiedTime) {

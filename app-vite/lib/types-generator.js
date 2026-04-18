@@ -91,11 +91,22 @@ function generateTsConfig(quasarConf, fsUtils) {
 
   if (isModeInstalled(appPaths, 'capacitor')) {
     const target = appPaths.resolve.capacitor('node_modules')
-    const { dependencies } = JSON.parse(
+    const json = JSON.parse(
       fse.readFileSync(appPaths.resolve.capacitor('package.json'), 'utf8')
     )
 
-    Object.keys(dependencies).forEach(dep => {
+    Object.keys(json.dependencies || {}).forEach(dep => {
+      aliasMap[dep] = join(target, dep)
+    })
+  }
+
+  if (isModeInstalled(appPaths, 'electron')) {
+    const target = appPaths.resolve.electron('node_modules')
+    const json = JSON.parse(
+      fse.readFileSync(appPaths.resolve.electron('package.json'), 'utf8')
+    )
+
+    Object.keys(json.dependencies || {}).forEach(dep => {
       aliasMap[dep] = join(target, dep)
     })
   }
