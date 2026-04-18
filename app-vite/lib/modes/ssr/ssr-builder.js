@@ -4,8 +4,8 @@ import { stringifyJSON } from 'confbox'
 
 import { AppBuilder } from '../../app-builder.js'
 import { quasarSsrConfig } from './ssr-config.js'
-import { cliDir, cliPkg } from '../../utils/cli-runtime.js'
 import { getFixedDeps } from '../../utils/get-fixed-deps.js'
+import { getPackageJson } from '../../utils/get-package-json.js'
 import {
   getProdSsrRenderTemplateFileContent,
   transformProdSsrPwaOfflineHtml
@@ -119,12 +119,11 @@ export class QuasarModeBuilder extends AppBuilder {
     }
 
     if (this.quasarConf.ssr.manualStoreSerialization !== true) {
-      const version = getFixedDeps(
-        { 'serialize-javascript': cliPkg.dependencies['serialize-javascript'] },
-        cliDir
+      const { version } = getPackageJson(
+        'serialize-javascript',
+        appPaths.cliDir
       )
-
-      pkg.dependencies['serialize-javascript'] = version['serialize-javascript']
+      pkg.dependencies['serialize-javascript'] = version
     }
 
     if (typeof this.quasarConf.ssr.extendPackageJson === 'function') {
