@@ -1,3 +1,4 @@
+import { join } from 'node:path'
 import { quasar as quasarVitePlugin } from '@quasar/vite-plugin'
 import vueVitePlugin from '@vitejs/plugin-vue'
 import { mergeConfig } from 'vite'
@@ -5,6 +6,7 @@ import { merge } from 'webpack-merge'
 
 import { getPackage } from './utils/get-package.js'
 import { log, tip, warn } from './utils/logger.js'
+import { escapeRegexString } from './utils/escape-regex-string.js'
 import {
   BASELINE_WIDELY_AVAILABLE,
   BASELINE_WIDELY_AVAILABLE_TARGET_STRING
@@ -120,7 +122,11 @@ function getQuasarVitePluginRunMode(compileId) {
  */
 export async function createViteConfig(
   quasarConf,
-  { compileId, shippedToClient }
+  {
+    compileId,
+    shippedToClient,
+    modeDeps = null // support for modes with their own package.json
+  }
 ) {
   const { ctx, build, metaConf } = quasarConf
   const { appPaths } = ctx
@@ -241,6 +247,29 @@ export async function createViteConfig(
     }
   }
 
+  if (modeDeps) {
+    const target = appPaths.resolve.app(`${ctx.modeName}/node_modules`)
+
+    const depsList = Object.keys(modeDeps)
+    const depsRE = new RegExp(
+      '^(' + depsList.map(escapeRegexString).join('|') + ')'
+    )
+
+    // we need to set alias as mode deps
+    // are installed in /src-{modeName} and not in root
+    // so it breaks Vite
+    depsList.forEach(dep => {
+      viteConf.resolve.alias[dep] = join(target, dep)
+    })
+
+    viteConf.plugins.unshift({
+      name: `quasar:resolve-${ctx.modeName}-deps`,
+      resolveId(id) {
+        if (depsRE.test(id)) return join(target, id)
+      }
+    })
+  }
+
   return viteConf
 }
 
@@ -275,7 +304,7 @@ export function extendViteConfig(viteConf, quasarConf, invokeParams) {
  */
 export function createNodeRolldownConfig(
   quasarConf,
-  { shippedToClient, format }
+  { format, shippedToClient }
 ) {
   return {
     platform: 'node',
@@ -297,6 +326,10 @@ export function createNodeRolldownConfig(
           ? ['.mjs', '.js', '.cjs', '.ts', '.json']
           : ['.cjs', '.js', '.mjs', '.ts', '.json']
     },
+
+    external: quasarConf.ctx.dev
+      ? [/node_modules/]
+      : Object.keys(quasarConf.ctx.pkg.appPkg.dependencies || {}),
 
     transform: {
       target: quasarConf.build.target.node,
