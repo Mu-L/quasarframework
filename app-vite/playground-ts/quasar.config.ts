@@ -146,9 +146,7 @@ export default defineConfig((/* ctx */) => ({
   },
 
   // Full list of options: https://v2.quasar.dev/quasar-cli-vite/developing-cordova-apps/configuring-cordova
-  cordova: {
-    // noIosLegacyBuildFlag: true, // uncomment only if you know what you are doing
-  },
+  cordova: {},
 
   // Full list of options: https://v2.quasar.dev/quasar-cli-vite/developing-capacitor-apps/configuring-capacitor
   capacitor: {

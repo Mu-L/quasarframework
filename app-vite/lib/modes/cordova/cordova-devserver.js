@@ -88,13 +88,6 @@ export class QuasarModeDevserver extends AppDevserver {
   #runCordovaCommand(quasarConf, args) {
     this.#cordovaConfigFile.prepare(quasarConf)
 
-    if (
-      this.#target === 'ios' &&
-      quasarConf.cordova.noIosLegacyBuildFlag !== true
-    ) {
-      args.push('--buildFlag=-UseModernBuildSystem=0')
-    }
-
     return new Promise(resolve => {
       this.#pid = spawn(
         'cordova',

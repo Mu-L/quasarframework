@@ -145,14 +145,7 @@ export class QuasarModeBuilder extends AppBuilder {
     this.#cordovaConfigFile.reset()
   }
 
-  #runCordovaCommand(args, target) {
-    if (
-      target === 'ios' &&
-      this.quasarConf.cordova.noIosLegacyBuildFlag !== true
-    ) {
-      args.push('--buildFlag=-UseModernBuildSystem=0')
-    }
-
+  #runCordovaCommand(args) {
     return new Promise(resolve => {
       spawn('cordova', args, { cwd: this.ctx.appPaths.cordovaDir }, code => {
         this.#cleanup()
