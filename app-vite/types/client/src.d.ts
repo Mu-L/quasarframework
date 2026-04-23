@@ -12,6 +12,14 @@ interface ImportMetaEnv {
     | "electron"
     | "bex";
 
+  readonly QUASAR_SPA_MODE: boolean;
+  readonly QUASAR_SSR_MODE: boolean;
+  readonly QUASAR_PWA_MODE: boolean;
+  readonly QUASAR_CORDOVA_MODE: boolean;
+  readonly QUASAR_CAPACITOR_MODE: boolean;
+  readonly QUASAR_ELECTRON_MODE: boolean;
+  readonly QUASAR_BEX_MODE: boolean;
+
   readonly QUASAR_TARGET:
     | "chrome"
     | "firefox"

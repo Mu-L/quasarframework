@@ -30,6 +30,8 @@ import {
   getQuasarConfEnv
 } from './utils/env.js'
 
+const quasarModesList = ['bex', 'capacitor', 'cordova', 'pwa', 'spa', 'ssr']
+
 const urlRegex = /^http(s)?:\/\//i
 const defaultPortMapping = {
   spa: 9000,
@@ -1249,6 +1251,13 @@ export class QuasarConfigFile {
       'import.meta.env.QUASAR_VUE_ROUTER_MODE': `"${cfg.build.vueRouterMode}"`,
       'import.meta.env.QUASAR_VUE_ROUTER_BASE': `"${cfg.build.vueRouterBase}"`
     })
+
+    quasarModesList.forEach(mode => {
+      cfg.build.define[`import.meta.env.QUASAR_${mode.toUpperCase()}_MODE`] =
+        String(Boolean(this.#ctx.mode[mode]))
+    })
+
+    console.log(cfg.build.define)
 
     if (
       this.#ctx.mode.bex ||

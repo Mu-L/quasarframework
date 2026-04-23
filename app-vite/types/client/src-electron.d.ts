@@ -9,6 +9,14 @@ interface ImportMetaEnv extends Record<string, any> {
   readonly QUASAR_DEBUG: boolean;
 
   readonly QUASAR_MODE: "electron";
+  readonly QUASAR_SPA_MODE: false;
+  readonly QUASAR_SSR_MODE: false;
+  readonly QUASAR_PWA_MODE: false;
+  readonly QUASAR_CORDOVA_MODE: false;
+  readonly QUASAR_CAPACITOR_MODE: false;
+  readonly QUASAR_ELECTRON_MODE: true;
+  readonly QUASAR_BEX_MODE: false;
+
   readonly QUASAR_TARGET:
     | "all"
     | "darwin"
