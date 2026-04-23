@@ -8,8 +8,8 @@
  * Example:
  *
  * interface ImportMetaEnv {
- *   MY_VAR: string
- *   MY_OTHER_VAR: boolean
+ *   readonly MY_VAR: string
+ *   readonly MY_OTHER_VAR: boolean
  * }
  */
 // interface ImportMetaEnv {}
