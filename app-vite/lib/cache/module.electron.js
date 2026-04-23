@@ -4,7 +4,7 @@ import { fatal } from '../utils/logger.js'
 const bundlerMap = {
   packager: {
     pkg: '@electron/packager',
-    version: '19.0.0'
+    version: '20.0.0'
   },
 
   builder: {
@@ -70,7 +70,7 @@ export async function createInstance({
 
   // Returns a Promise which resolves with the required bundler package.
   // May return "{ packager }" (@electron/packager v19+) or
-  // "{ default }" (@electron/packager v18) or directly the package (electron-builder);
+  // or directly the package (electron-builder);
   function getBundler(bundlerName) {
     const bundler = bundlerMap[bundlerName]
     return getPackage(bundler.pkg, appPaths.electronDir)
