@@ -246,16 +246,19 @@ export async function createViteConfig(
     }
   }
 
-  if (modeDeps) {
-    const target = appPaths.resolve.app(`src-${ctx.modeName}/node_modules`)
+  modeDeps?.forEach(({ dir, deps }) => {
+    if (!deps) return
 
-    // we need to set alias as mode deps
+    // dir is of type: "src-<modeName>", example: "src-pwa"
+    const target = appPaths.resolve.app(`${dir}/node_modules`)
+
+    // we need to set alias as various mode deps
     // are installed in /src-{modeName} and not in root
     // so it breaks Vite
-    Object.keys(modeDeps).forEach(dep => {
-      viteConf.resolve.alias[dep] = join(target, dep)
+    Object.keys(deps).forEach(depName => {
+      viteConf.resolve.alias[depName] = join(target, depName)
     })
-  }
+  })
 
   return viteConf
 }

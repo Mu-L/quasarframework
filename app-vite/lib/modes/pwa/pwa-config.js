@@ -21,7 +21,9 @@ export const quasarPwaConfig = {
     const cfg = await createViteConfig(quasarConf, {
       compileId: 'vite-pwa',
       shippedToClient: true,
-      modeDeps: quasarConf.ctx.pkg.pwaPkg.dependencies
+      modeDeps: [
+        { dir: 'src-pwa', deps: quasarConf.ctx.pkg.pwaPkg.dependencies }
+      ]
     })
 
     // also update ssr-config.js when changing here

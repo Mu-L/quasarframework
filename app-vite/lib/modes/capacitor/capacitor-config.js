@@ -16,7 +16,7 @@ export const quasarCapacitorConfig = {
     const cfg = await createViteConfig(quasarConf, {
       compileId: 'vite-capacitor',
       shippedToClient: true,
-      modeDeps: capacitorPkg.dependencies
+      modeDeps: [{ dir: 'src-capacitor', deps: capacitorPkg.dependencies }]
     })
 
     if (quasarConf.ctx.prod) {
