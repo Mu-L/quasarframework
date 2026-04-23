@@ -5,12 +5,12 @@
  */
 
 import { clientsClaim } from "workbox-core";
+import { NavigationRoute, registerRoute } from "workbox-routing";
 import {
-  precacheAndRoute,
   cleanupOutdatedCaches,
-  createHandlerBoundToURL
+  createHandlerBoundToURL,
+  precacheAndRoute
 } from "workbox-precaching";
-import { registerRoute, NavigationRoute } from "workbox-routing";
 
 declare const self: ServiceWorkerGlobalScope &
   typeof globalThis & { skipWaiting: () => void };

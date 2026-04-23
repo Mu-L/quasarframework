@@ -1,4 +1,16 @@
 /// <reference types="vite/client" />
 /// <reference types="@quasar/app-vite/client" />
 
-interface ImportMetaEnv {}
+/**
+ * Uncomment and add types for your custom environment
+ * variables to avoid TypeScript errors
+ * when using them via import.meta.env.VARIABLE_NAME
+ *
+ * Example:
+ *
+ * interface ImportMetaEnv {
+ *   MY_VAR: string
+ *   MY_OTHER_VAR: boolean
+ * }
+ */
+// interface ImportMetaEnv {}
