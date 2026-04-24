@@ -27,3 +27,11 @@
  *   }
  * }
  */
+
+import { contextBridge } from 'electron'
+import { quasarRuntime } from '#q-app/electron/preload'
+
+/**
+ * Can be used in the renderer process through `window.quasarRuntime`
+ */
+contextBridge.exposeInMainWorld("quasarRuntime", quasarRuntime)

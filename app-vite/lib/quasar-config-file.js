@@ -1301,20 +1301,22 @@ export class QuasarConfigFile {
         const { ensureInstall, getDefaultName } =
           await this.#ctx.cacheProxy.getModule('electron')
 
-        const icon = appPaths.resolve.electron('icons/icon.png')
+        const icon = appPaths.resolve.electron('electron-assets/icons/icon.png')
         const builderIcon =
           process.platform === 'linux'
             ? // backward compatible (linux-512x512.png)
               existsSync(icon)
               ? icon
-              : appPaths.resolve.electron('icons/linux-512x512.png')
-            : appPaths.resolve.electron('icons/icon')
+              : appPaths.resolve.electron(
+                  'electron-assets/icons/linux-512x512.png'
+                )
+            : appPaths.resolve.electron('electron-assets/icons/icon')
 
         cfg.electron = merge(
           {
             packager: {
               asar: true,
-              icon: appPaths.resolve.electron('icons/icon'),
+              icon: appPaths.resolve.electron('electron-assets/icons/icon'),
               overwrite: true
             },
             builder: {
@@ -1325,7 +1327,7 @@ export class QuasarConfigFile {
                 this.#ctx.pkg.appPkg.name ||
                 'Quasar App',
               directories: {
-                buildResources: appPaths.resolve.electron('')
+                buildResources: appPaths.electronDir
               }
             }
           },

@@ -80,6 +80,14 @@
       "types": "./types/bex/bex-bridge.d.ts",
       "import": "./exports/bex/private/bex-bridge.js"
     },
+    "./electron/main": {
+      "types": "./types/electron/main-runtime.d.ts",
+      "import": "./exports/electron/main-runtime.js"
+    },
+    "./electron/preload": {
+      "types": "./types/electron/preload-runtime.d.ts",
+      "import": "./exports/electron/preload-runtime.js"
+    },
     "./lib/testing.js": {
       "import": "./exports/testing/testing.js"
     }

@@ -39,25 +39,14 @@ async function preloadScript(quasarConf, name) {
     appPaths.resolve.electron('node_modules')
   ]
 
-  cfg.external.unshift('electron')
+  cfg.external = [
+    'electron',
+    ...Object.keys(quasarConf.ctx.pkg.electronPkg.dependencies || {})
+  ]
 
-  if (quasarConf.ctx.dev) {
-    cfg.output.file = appPaths.resolve.entry(`preload/${scriptName}.cjs`)
-
-    cfg.transform.define['import.meta.env.QUASAR_PUBLIC_FOLDER'] =
-      JSON.stringify(appPaths.publicDir)
-  } else {
-    cfg.output.file = join(
-      quasarConf.build.distDir,
-      `UnPackaged/preload/${scriptName}.cjs`
-    )
-
-    cfg.transform.define['import.meta.env.QUASAR_PUBLIC_FOLDER'] = '"."'
-
-    cfg.external.push(
-      ...Object.keys(quasarConf.ctx.pkg.electronPkg.dependencies || {})
-    )
-  }
+  cfg.output.file = quasarConf.ctx.dev
+    ? appPaths.resolve.entry(`electron/${scriptName}.cjs`)
+    : join(quasarConf.build.distDir, `UnPackaged/${scriptName}.cjs`)
 
   return {
     scriptName,
@@ -111,41 +100,20 @@ export const quasarElectronConfig = {
     })
     const { appPaths } = quasarConf.ctx
 
-    cfg.transform.define = {
-      ...cfg.transform.define,
-      ...(quasarConf.ctx.dev
-        ? {
-            'import.meta.env.QUASAR_ELECTRON_PRELOAD_FOLDER': JSON.stringify(
-              appPaths.resolve.entry('preload')
-            ),
-            'import.meta.env.QUASAR_ELECTRON_PRELOAD_EXTENSION': '".cjs"',
-            'import.meta.env.QUASAR_PUBLIC_FOLDER': JSON.stringify(
-              appPaths.publicDir
-            )
-          }
-        : {
-            'import.meta.env.QUASAR_ELECTRON_PRELOAD_FOLDER': '"preload"',
-            'import.meta.env.QUASAR_ELECTRON_PRELOAD_EXTENSION': '".cjs"',
-            'import.meta.env.QUASAR_PUBLIC_FOLDER': '"."'
-          })
-    }
-
     cfg.input = quasarConf.sourceFiles.electronMain
     cfg.output.file = quasarConf.ctx.dev
-      ? appPaths.resolve.entry('electron-main.js')
+      ? appPaths.resolve.entry('electron/electron-main.js')
       : join(quasarConf.build.distDir, 'UnPackaged/electron-main.js')
 
     cfg.resolve.modules = [
       'node_modules',
       appPaths.resolve.electron('node_modules')
     ]
-    cfg.external.unshift('electron')
 
-    if (quasarConf.ctx.prod) {
-      cfg.external.push(
-        ...Object.keys(quasarConf.ctx.pkg.electronPkg.dependencies || {})
-      )
-    }
+    cfg.external = [
+      'electron',
+      ...Object.keys(quasarConf.ctx.pkg.electronPkg.dependencies || {})
+    ]
 
     return extendRolldownConfig(
       cfg,

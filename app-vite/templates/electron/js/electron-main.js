@@ -1,30 +1,27 @@
 import { app, BrowserWindow } from 'electron'
 import path from 'node:path'
 import os from 'node:os'
+import {
+  registerQuasarRuntime,
+  resolveElectronAssetsPath,
+} from '#q-app/electron/main'
 
 // needed in case process is undefined under Linux
 const platform = process.platform || os.platform()
 
-let mainWindow
-
 async function createWindow () {
-  if (mainWindow) return
-
   /**
    * Initial window options
    */
-  mainWindow = new BrowserWindow({
-    icon: path.resolve(import.meta.dirname, 'icons/icon.png'), // tray icon
+  const mainWindow = new BrowserWindow({
+    icon: resolveElectronAssetsPath('icons/icon.png'), // linux
     width: 1000,
     height: 600,
     useContentSize: true,
     webPreferences: {
       contextIsolation: true,
       // More info: https://v2.quasar.dev/quasar-cli-vite/developing-electron-apps/electron-preload-script
-      preload: path.resolve(
-        import.meta.dirname,
-        path.join(import.meta.env.QUASAR_ELECTRON_PRELOAD_FOLDER, 'electron-preload' + import.meta.env.QUASAR_ELECTRON_PRELOAD_EXTENSION)
-      )
+      preload: path.join(import.meta.dirname, 'electron-preload.cjs')
     }
   })
 
@@ -43,17 +40,22 @@ async function createWindow () {
       mainWindow.webContents.closeDevTools()
     })
   }
-
-  mainWindow.on('closed', () => {
-    mainWindow = null
-  })
 }
+
+void app.whenReady().then(async () => {
+  await registerQuasarRuntime()
+
+  createWindow()
+
+  app.on('activate', () => {
+    if (BrowserWindow.getAllWindows().length === 0) {
+      createWindow()
+    }
+  })
+})
 
 app.on('window-all-closed', () => {
   if (platform !== 'darwin') {
     app.quit()
   }
 })
-
-app.on('activate', createWindow)
-app.on('ready', createWindow)
