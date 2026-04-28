@@ -51,14 +51,48 @@ export const injectDevMiddleware = defineSsrInjectDevMiddleware(
         const req = c.env.incoming
         const res = c.env.outgoing
 
-        const { promise, resolve } = Promise.withResolvers()
-        middleware(req, res, () => { resolve(true) })
+        const { promise, resolve, reject } = Promise.withResolvers()
+
+        const onDone = () => resolve(false)
+        res.once('finish', onDone)
+        res.once('close', onDone)
+
+        middleware(req, res, err => {
+          res.off('finish', onDone)
+          res.off('close', onDone)
+
+          if (err) reject(err)
+          else resolve(true)
+        })
+
+        const passed = await promise
+
+        if (passed) {
+          /**
+           * Vite skipped the request, so we let Hono continue down the chain
+           */
+          return next()
+        }
 
         /**
-         * If the Vite middleware calls next(), it didn't handle the request,
-         * so we let Hono continue down the chain.
+         * Vite handled the request natively!
+         *
+         * Monkey-patch the native Node.js response methods.
+         * The Hono Node adapter will still try to write headers and end the stream
+         * when we return the dummy response. We neutralize these methods
+         * so it silently does nothing instead of crashing.
          */
-        if (await promise) await next()
+        const noop = () => res
+        res.writeHead = noop
+        res.setHeader = noop
+        res.end = noop
+
+        /**
+         * Return a dummy Response.
+         * This satisfies Hono's strict requirement that every branch
+         * either returns a Response or calls `await next()`.
+         */
+        return new Response(null)
       })
     }
 )
