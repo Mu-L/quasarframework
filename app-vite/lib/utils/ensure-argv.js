@@ -60,9 +60,8 @@ export function ensureArgv(argv, cmd) {
   if (argv.mode === 'bex') {
     const targets = ['chrome', 'firefox']
     if (!argv.target) {
-      fatal(`Please also specify a target (-T <${targets.join('|')}>)`)
-    }
-    if (!targets.includes(argv.target)) {
+      argv.T = argv.target = 'chrome'
+    } else if (!targets.includes(argv.target)) {
       fatal(`Unknown target "${argv.target}" for BEX`)
     }
   }

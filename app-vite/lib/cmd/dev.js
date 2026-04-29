@@ -62,7 +62,8 @@ if (argv.help) {
     --ide, -i        (prod only) Open IDE to build the app instead of using CLI tools
 
     Only for BEX mode:
-    --target, -T     (required) Browser family target [chrome|firefox]
+    --target, -T     Browser family target [chrome|firefox]
+                       (default: chrome)
   `)
   process.exit(0)
 }

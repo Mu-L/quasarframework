@@ -89,7 +89,8 @@ if (argv.help) {
                      - see https://www.electron.build/configuration/publish
 
     Only for BEX mode:
-    --target, -T     (required) Browser family target [chrome|firefox]
+    --target, -T     Browser family target [chrome|firefox]
+                       (default: chrome)
 
   `)
   process.exit(0)
