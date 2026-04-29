@@ -1,4 +1,4 @@
-import { defineConfig } from '#q-app/wrappers'
+import { defineConfig } from '#q-app'
 import { join, normalize } from 'node:path'
 
 import mdPlugin from './build/md/index.js'
@@ -14,17 +14,15 @@ export default defineConfig(ctx => ({
     vueRouterMode: 'history',
     distDir: 'dist/quasar.dev',
     useFilenameHashes: false,
-    // analyze: true,
-    // rebuildCache: true,
 
-    env: {
-      DOCS_BRANCH: 'dev',
-      SEARCH_INDEX: 'quasar-v2',
+    define: {
+      'import.meta.env.DOCS_BRANCH': '"dev"',
+      'import.meta.env.SEARCH_INDEX': '"quasar-v2"',
       ...(ctx.dev
         ? {
-            FS_QUASAR_FOLDER: normalize(
-              join(import.meta.dirname, '../ui')
-            ).replace('\\', '/')
+            'import.meta.env.FS_QUASAR_FOLDER': JSON.stringify(
+              normalize(join(import.meta.dirname, '../ui')).replace('\\', '/')
+            )
           }
         : {})
     },

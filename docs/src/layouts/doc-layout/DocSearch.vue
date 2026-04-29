@@ -138,7 +138,7 @@ function fetchQuery(val, onResult, onError) {
 
     xhr.open(
       'POST',
-      `https://search.quasar.dev/indexes/${process.env.SEARCH_INDEX}/search`
+      `https://search.quasar.dev/indexes/${import.meta.env.SEARCH_INDEX}/search`
     )
     xhr.setRequestHeader('Content-Type', 'application/json')
     xhr.setRequestHeader(

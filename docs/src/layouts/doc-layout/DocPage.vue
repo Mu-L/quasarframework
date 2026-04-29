@@ -129,7 +129,7 @@ docStore.setToc(props.toc)
 
 const editHref = computed(
   () =>
-    `https://github.com/quasarframework/quasar/edit/${process.env.DOCS_BRANCH}/docs/src/pages/${props.editLink}.md`
+    `https://github.com/quasarframework/quasar/edit/${import.meta.env.DOCS_BRANCH}/docs/src/pages/${props.editLink}.md`
 )
 
 const tocClass = computed(

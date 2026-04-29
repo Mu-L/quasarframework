@@ -12,9 +12,9 @@ packages:
   - cli
   - utils/render-ssr-error
   - utils/ssl-certificate
+  - docs
 
 # The packages below are not included. Use their individual folders.
-# - docs
 # - icongenie
 # - app-webpack
 # - app-webpack/playground-js
@@ -30,6 +30,6 @@ onlyBuiltDependencies:
   - '@parcel/watcher'
   - core-js
   - electron-winstaller
-  - esbuild
+  - rolldown
   - lightningcss
   - unrs-resolver

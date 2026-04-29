@@ -182,7 +182,7 @@ function parseComponent(comp) {
 
 function openGitHub() {
   openURL(
-    `https://github.com/quasarframework/quasar/tree/${process.env.DOCS_BRANCH}/docs/src/examples/${examples.name}/${props.file}.vue`
+    `https://github.com/quasarframework/quasar/tree/${import.meta.env.DOCS_BRANCH}/docs/src/examples/${examples.name}/${props.file}.vue`
   )
 }
 
@@ -194,18 +194,18 @@ function toggleExpand() {
   expanded.value = expanded.value === false
 }
 
-if (process.env.CLIENT) {
+if (import.meta.env.QUASAR_CLIENT) {
   onMounted(() => {
     examples.list.then(list => {
       component.value = markRaw(
-        process.env.DEV
+        import.meta.env.QUASAR_DEV
           ? list.code[`/src/examples/${examples.name}/${props.file}.vue`]
               .default
           : list[props.file]
       )
 
       parseComponent(
-        process.env.DEV
+        import.meta.env.QUASAR_DEV
           ? list.source[`/src/examples/${examples.name}/${props.file}.vue`]
           : list[`Raw${props.file}`]
       )

@@ -14,7 +14,7 @@ import routes from './routes'
  */
 
 export default function appRouter() {
-  const createHistory = process.env.SERVER
+  const createHistory = import.meta.env.QUASAR_SERVER
     ? createMemoryHistory
     : createWebHistory
 
@@ -22,7 +22,7 @@ export default function appRouter() {
     scrollBehavior: (to, _, savedPosition) =>
       to.hash.length > 1 ? false : savedPosition || { left: 0, top: 0 },
     routes,
-    history: createHistory(process.env.VUE_ROUTER_BASE)
+    history: createHistory(import.meta.env.QUASAR_VUE_ROUTER_BASE)
   })
 
   Router.beforeEach(to => {
@@ -35,7 +35,7 @@ export default function appRouter() {
     }
   })
 
-  if (process.env.CLIENT) {
+  if (import.meta.env.QUASAR_CLIENT) {
     Router.afterEach(to => {
       gtag('config', 'G-WRH1VBGG35', {
         page_path: to.path
