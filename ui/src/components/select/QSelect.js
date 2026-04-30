@@ -355,9 +355,7 @@ export default createComponent({
     )
 
     const optionScope = computed(() => {
-      if (virtualScrollLength.value === 0) {
-        return []
-      }
+      if (virtualScrollLength.value === 0) return []
 
       const { from, to } = virtualScrollSliceRange.value
 
@@ -444,7 +442,8 @@ export default createComponent({
     )
 
     // returns method to tell if an option is disabled;
-    // takes into account 'option-disable' prop
+    // takes into account 'option-disable' prop;
+    // must be compared strictly to boolean true
     const isOptionDisabled = computed(() =>
       getPropValueFn(props.optionDisable, 'disable')
     )
@@ -564,7 +563,7 @@ export default createComponent({
       if (
         !state.editable.value ||
         opt === void 0 ||
-        isOptionDisabled.value(opt)
+        isOptionDisabled.value(opt) === true
       ) {
         return
       }
@@ -594,9 +593,7 @@ export default createComponent({
         return
       }
 
-      if (!hasDialog || dialogFieldFocused.value) {
-        state.focus()
-      }
+      if (!hasDialog || dialogFieldFocused.value) state.focus()
 
       selectInputText()
 
@@ -649,7 +646,7 @@ export default createComponent({
         } while (
           index !== -1 &&
           index !== optionIndex.value &&
-          isOptionDisabled.value(props.options[index])
+          isOptionDisabled.value(props.options[index]) === true
         )
 
         if (optionIndex.value !== index) {
@@ -899,7 +896,7 @@ export default createComponent({
             index = normalizeToInterval(index + 1, -1, optionsLength - 1)
           } while (
             index !== optionIndex.value &&
-            (isOptionDisabled.value(props.options[index]) ||
+            (isOptionDisabled.value(props.options[index]) === true ||
               !searchRe.test(getOptionLabel.value(props.options[index])))
           )
         }
@@ -1003,7 +1000,8 @@ export default createComponent({
             {
               key: 'option-' + i,
               removable:
-                state.editable.value && !isOptionDisabled.value(scope.opt),
+                state.editable.value &&
+                isOptionDisabled.value(scope.opt) !== true,
               dense: true,
               textColor: props.color,
               tabindex: tabindex.value,
@@ -1564,7 +1562,7 @@ export default createComponent({
       updateInputValue,
       isOptionSelected,
       getEmittingOptionValue,
-      isOptionDisabled: (...args) => isOptionDisabled.value(...args),
+      isOptionDisabled: (...args) => isOptionDisabled.value(...args) === true,
       getOptionValue: (...args) => getOptionValue.value(...args),
       getOptionLabel: (...args) => getOptionLabel.value(...args)
     })
