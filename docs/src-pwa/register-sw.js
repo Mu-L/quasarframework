@@ -1,6 +1,6 @@
 import { register } from 'register-service-worker'
 import { Notify } from 'quasar'
-import { mdiCached } from '@quasar/extras/mdi-v6'
+import { mdiCached } from '@quasar/extras/mdi-v7'
 
 register(import.meta.env.QUASAR_SERVICE_WORKER_FILE, {
   updated() {

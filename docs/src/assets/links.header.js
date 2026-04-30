@@ -216,7 +216,7 @@ export const secondaryToolbarLinks = [
     path: 'https://github.com/quasarframework/quasar/discussions/categories/announcements',
     external: true
   },
-  { name: 'Video Tutorials', mq: 1000, path: '/video-tutorials' },
+  { name: 'Video Tutorials', mq: 1130, path: '/video-tutorials' },
   {
     name: 'Roadmap',
     mq: 1130,
