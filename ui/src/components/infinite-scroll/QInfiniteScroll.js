@@ -195,7 +195,7 @@ export default createComponent({
     function updateSvgAnimations(isRetry) {
       if (renderLoadingSlot.value) {
         if (loadingRef.value === null) {
-          if (isRetry !== true) {
+          if (!isRetry) {
             nextTick(() => {
               updateSvgAnimations(true)
             })

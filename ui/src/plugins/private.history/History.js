@@ -39,13 +39,12 @@ export default {
   remove: noop,
 
   install({ $q }) {
-    if (__QUASAR_SSR_SERVER__ || this.__installed === true) return
+    if (__QUASAR_SSR_SERVER__ || this.__installed) return
 
     const { cordova, capacitor } = client.is
+    if (!cordova && !capacitor) return
 
-    if (cordova !== true && capacitor !== true) return
-
-    const qConf = $q.config[cordova === true ? 'cordova' : 'capacitor']
+    const qConf = $q.config[cordova ? 'cordova' : 'capacitor']
 
     if (qConf?.backButton === false) return
 
@@ -53,7 +52,7 @@ export default {
     // then we got nothing to do
     if (
       // if we're on Capacitor mode
-      capacitor === true &&
+      capacitor &&
       // and it's also not in Capacitor's main instance
       (window.Capacitor === void 0 || window.Capacitor.Plugins.App === void 0)
     ) {
@@ -80,18 +79,18 @@ export default {
       if (this.__history.length !== 0) {
         const entry = this.__history.at(-1)
 
-        if (entry.condition() === true) {
+        if (entry.condition()) {
           this.__history.pop()
           entry.handler()
         }
-      } else if (shouldExit() === true) {
+      } else if (shouldExit()) {
         navigator.app.exitApp()
       } else {
         window.history.back()
       }
     }
 
-    if (cordova === true) {
+    if (cordova) {
       document.addEventListener('deviceready', () => {
         document.addEventListener('backbutton', backHandler, false)
       })

@@ -163,11 +163,10 @@ export default createComponent({
         active,
         horiz: horizontal.value,
         reverse:
-          proxy.$q.lang.rtl === true &&
-          ['top', 'bottom'].includes(props.position)
+          proxy.$q.lang.rtl && ['top', 'bottom'].includes(props.position)
             ? !props.reverse
             : props.reverse,
-        dir: proxy.$q.lang.rtl === true ? -1 : 1
+        dir: proxy.$q.lang.rtl ? -1 : 1
       })
 
       obj[sizeProp.value] = props.size

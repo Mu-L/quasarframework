@@ -329,7 +329,7 @@ export function getRenderer(getPlugin, expose) {
   }
 
   function getBtn(show, icon, fn) {
-    if (show === true) {
+    if (show) {
       const data = {
         type: 'a',
         key: icon,

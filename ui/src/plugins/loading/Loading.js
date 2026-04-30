@@ -41,7 +41,7 @@ function registerProps(opts) {
   }
 
   const newProps =
-    isObject(opts) && opts.ignoreDefaults === true
+    isObject(opts) && opts.ignoreDefaults
       ? { ...originalDefaults, ...opts }
       : { ...defaults, ...opts }
 
@@ -114,7 +114,7 @@ const Plugin = createReactivePlugin(
                           (props.messageColor
                             ? ` text-${props.messageColor}`
                             : ''),
-                        [props.html === true ? 'innerHTML' : 'textContent']:
+                        [props.html ? 'innerHTML' : 'textContent']:
                           props.message
                       })
                     )

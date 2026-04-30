@@ -74,9 +74,7 @@ function addNotification(config, $q, originalApi) {
   let Api
   const notif = { textColor: 'white' }
 
-  if (config.ignoreDefaults !== true) {
-    Object.assign(notif, defaults)
-  }
+  if (!config.ignoreDefaults) Object.assign(notif, defaults)
 
   if (!isObject(config)) {
     if (notif.type) {
@@ -95,15 +93,11 @@ function addNotification(config, $q, originalApi) {
   if (!notif.spinner) {
     notif.spinner = false
   } else {
-    if (notif.spinner === true) {
-      notif.spinner = QSpinner
-    }
-
-    notif.spinner = markRaw(notif.spinner)
+    notif.spinner = notif.spinner === true ? QSpinner : markRaw(notif.spinner)
   }
 
   notif.meta = {
-    hasMedia: Boolean(notif.spinner !== false || notif.icon || notif.avatar),
+    hasMedia: Boolean(notif.spinner || notif.icon || notif.avatar),
     hasText: hasContent(notif.message) || hasContent(notif.caption)
   }
 
@@ -127,7 +121,7 @@ function addNotification(config, $q, originalApi) {
 
   if (notif.timeout === 0) {
     notif.progress = false
-  } else if (notif.progress === true) {
+  } else if (notif.progress) {
     notif.meta.progressClass =
       'q-notification__progress' +
       (notif.progressClass ? ` ${notif.progressClass}` : '')
@@ -139,7 +133,7 @@ function addNotification(config, $q, originalApi) {
 
   const actions = [
     ...(Array.isArray(config.actions) ? config.actions : []),
-    ...(config.ignoreDefaults !== true && Array.isArray(defaults.actions)
+    ...(!config.ignoreDefaults && Array.isArray(defaults.actions)
       ? defaults.actions
       : []),
     ...(Array.isArray(notifTypes[config.type]?.actions)
@@ -161,7 +155,7 @@ function addNotification(config, $q, originalApi) {
       typeof handler === 'function'
         ? () => {
             handler()
-            if (noDismiss !== true) dismiss()
+            if (!noDismiss) dismiss()
           }
         : () => {
             dismiss()
@@ -175,22 +169,20 @@ function addNotification(config, $q, originalApi) {
   Object.assign(notif.meta, {
     class:
       'q-notification row items-stretch' +
-      ` q-notification--${notif.multiLine === true ? 'multi-line' : 'standard'}` +
+      ` q-notification--${notif.multiLine ? 'multi-line' : 'standard'}` +
       (notif.color !== void 0 ? ` bg-${notif.color}` : '') +
       (notif.textColor !== void 0 ? ` text-${notif.textColor}` : '') +
       (notif.classes !== void 0 ? ` ${notif.classes}` : ''),
 
     wrapperClass:
       'q-notification__wrapper col relative-position border-radius-inherit ' +
-      (notif.multiLine === true
-        ? 'column no-wrap justify-center'
-        : 'row items-center'),
+      (notif.multiLine ? 'column no-wrap justify-center' : 'row items-center'),
 
     contentClass:
       'q-notification__content row items-center' +
-      (notif.multiLine === true ? '' : ' col'),
+      (notif.multiLine ? '' : ' col'),
 
-    leftClass: notif.meta.hasText === true ? 'additional' : 'single',
+    leftClass: notif.meta.hasText ? 'additional' : 'single',
 
     attrs: {
       role: 'alert',
@@ -220,10 +212,8 @@ function addNotification(config, $q, originalApi) {
   } else {
     notif.meta.actionsClass =
       'q-notification__actions row items-center ' +
-      (notif.multiLine === true ? 'justify-end' : 'col-auto') +
-      (notif.meta.hasMedia === true
-        ? ' q-notification__actions--with-media'
-        : '')
+      (notif.multiLine ? 'justify-end' : 'col-auto') +
+      (notif.meta.hasMedia ? ' q-notification__actions--with-media' : '')
   }
 
   if (originalApi !== void 0) {
@@ -418,8 +408,8 @@ function getComponent() {
                   const meta = notif.meta
                   const mainChild = []
 
-                  if (meta.hasMedia === true) {
-                    if (notif.spinner !== false) {
+                  if (meta.hasMedia) {
+                    if (notif.spinner) {
                       mainChild.push(
                         h(notif.spinner, {
                           class:
@@ -460,11 +450,11 @@ function getComponent() {
                     }
                   }
 
-                  if (meta.hasText === true) {
+                  if (meta.hasText) {
                     let msgChild
                     const msgData = { class: 'q-notification__message col' }
 
-                    if (notif.html === true) {
+                    if (notif.html) {
                       msgData.innerHTML = notif.caption
                         ? `<div>${notif.message}</div><div class="q-notification__caption">${notif.caption}</div>`
                         : notif.message
@@ -487,7 +477,7 @@ function getComponent() {
                     h('div', { class: meta.contentClass }, mainChild)
                   ]
 
-                  if (notif.progress === true) {
+                  if (notif.progress) {
                     child.push(
                       h('div', {
                         key: `${meta.uid}|p|${meta.badge}`,
@@ -497,7 +487,7 @@ function getComponent() {
                     )
                   }
 
-                  if (notif.actions !== void 0) {
+                  if (notif.actions) {
                     child.push(
                       h(
                         'div',
@@ -568,7 +558,7 @@ export default {
       this.setDefaults($q.config.notify)
     }
 
-    if (!__QUASAR_SSR_SERVER__ && this.__installed !== true) {
+    if (!__QUASAR_SSR_SERVER__ && !this.__installed) {
       positionList.forEach(pos => {
         notificationsList[pos] = ref([])
 

@@ -24,21 +24,18 @@ export function merge(target, source) {
   }
 }
 
-export default function createDialog(
+export function createDialog(
   DefaultComponent,
   supportsCustomComponent,
   parentApp
 ) {
   return pluginProps => {
-    if (__QUASAR_SSR_SERVER__) {
-      return ssrAPI
-    }
+    if (__QUASAR_SSR_SERVER__) return ssrAPI
 
     let DialogComponent, props
-    const isCustom =
-      supportsCustomComponent === true && pluginProps.component !== void 0
+    const isCustom = supportsCustomComponent && pluginProps.component !== void 0
 
-    if (isCustom === true) {
+    if (isCustom) {
       const { component, componentProps } = pluginProps
 
       DialogComponent =
@@ -56,8 +53,8 @@ export default function createDialog(
       if (style !== void 0) otherProps.cardStyle = style
     }
 
-    let vm,
-      emittedOK = false
+    let vm
+    let emittedOK = false
     const dialogRef = ref(null)
     const el = createGlobalNode(false, 'dialog')
 
@@ -113,7 +110,7 @@ export default function createDialog(
         },
         update(componentProps) {
           if (vm !== null) {
-            if (isCustom === true) {
+            if (isCustom) {
               Object.assign(props, componentProps)
             } else {
               const { class: klass, style, ...cfg } = componentProps
@@ -143,7 +140,7 @@ export default function createDialog(
       app = null
       vm = null
 
-      if (emittedOK !== true) {
+      if (!emittedOK) {
         cancelFns.forEach(fn => {
           fn()
         })

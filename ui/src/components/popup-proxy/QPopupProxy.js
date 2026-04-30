@@ -50,9 +50,7 @@ export default createComponent({
     watch(
       () => getType(),
       val => {
-        if (showing.value !== true) {
-          type.value = val
-        }
+        if (!showing.value) type.value = val
       }
     )
 

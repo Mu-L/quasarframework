@@ -10,12 +10,12 @@ const isPlainText = /[a-z0-9_ -]$/i
 export default function useKeyComposition(onInput) {
   return function onComposition(e) {
     if (e.type === 'compositionend' || e.type === 'change') {
-      if (e.target.qComposing !== true) return
+      if (!e.target.qComposing) return
       e.target.qComposing = false
       onInput(e)
     } else if (
       e.type === 'compositionupdate' &&
-      e.target.qComposing !== true &&
+      !e.target.qComposing &&
       typeof e.data === 'string'
     ) {
       const isComposing = client.is.firefox

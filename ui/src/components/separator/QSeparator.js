@@ -44,9 +44,7 @@ export default createComponent({
     const orientClass = computed(() => ` q-separator--${orientation.value}`)
 
     const insetClass = computed(() =>
-      props.inset !== false
-        ? `${orientClass.value}-${insetMap[props.inset]}`
-        : ''
+      props.inset ? `${orientClass.value}-${insetMap[props.inset]}` : ''
     )
 
     const classes = computed(
@@ -63,7 +61,7 @@ export default createComponent({
         acc[props.vertical ? 'width' : 'height'] = props.size
       }
 
-      if (props.spaced !== false) {
+      if (props.spaced) {
         const size =
           props.spaced === true
             ? `${margins.md}px`

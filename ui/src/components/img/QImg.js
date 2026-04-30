@@ -170,7 +170,7 @@ export default createComponent({
       // protect against running forever
       if (count === 1000 || vmIsDestroyed(vm)) return
 
-      if (target.complete === true) {
+      if (target.complete) {
         onReady(target)
       } else {
         registerLoadTimeout(() => {

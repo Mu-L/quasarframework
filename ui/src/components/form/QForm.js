@@ -55,7 +55,7 @@ export default createComponent({
       const index = ++validateIndex
 
       const emitEvent = (res, compRef) => {
-        emit(`validation${res === true ? 'Success' : 'Error'}`, compRef)
+        emit(`validation${res ? 'Success' : 'Error'}`, compRef)
       }
 
       const errorsPromise = props.greedy
@@ -87,7 +87,7 @@ export default createComponent({
           if (err !== void 0) console.error(err)
           emitEvent(false, comp)
 
-          if (localFocus === true) {
+          if (localFocus) {
             // Try to focus first mounted and active component
             const activeError = errors.find(
               ({ comp: compRef }) =>
@@ -121,7 +121,7 @@ export default createComponent({
 
       validate().then(val => {
         // if not outdated && validation succeeded
-        if (index === validateIndex && val === true) {
+        if (index === validateIndex && val) {
           if (props.onSubmit !== void 0) {
             emit('submit', evt)
           } else if (

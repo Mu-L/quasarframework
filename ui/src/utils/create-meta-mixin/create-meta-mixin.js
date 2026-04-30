@@ -43,7 +43,7 @@ export default function createMetaMixin(metaOptions) {
       watch: {
         __qMetaOptions(val) {
           this.__qMeta.val = val
-          if (this.__qMeta.active === true) planClientUpdate()
+          if (this.__qMeta.active) planClientUpdate()
         }
       },
 

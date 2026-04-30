@@ -192,9 +192,7 @@ export default class Caret {
       return true
     }
 
-    return recursive === true
-      ? this.hasParents(list, recursive, el.parentNode)
-      : false
+    return recursive ? this.hasParents(list, recursive, el.parentNode) : false
   }
 
   is(cmd, param) {
@@ -332,13 +330,7 @@ export default class Caret {
   }
 
   selectWord(sel) {
-    if (
-      sel === null ||
-      sel.isCollapsed !== true ||
-      /* IE 11 */ sel.modify === void 0
-    ) {
-      return sel
-    }
+    if (sel === null || !sel.isCollapsed) return sel
 
     // Detect if selection is backwards
     const range = document.createRange()

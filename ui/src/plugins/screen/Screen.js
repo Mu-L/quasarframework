@@ -48,7 +48,7 @@ export default createReactivePlugin(
 
       if (__QUASAR_SSR_SERVER__) return
 
-      if (this.__installed === true) {
+      if (this.__installed) {
         if ($q.config.screen !== void 0) {
           if (!$q.config.screen.bodyClasses) {
             document.body.classList.remove(`screen--${this.name}`)
@@ -78,7 +78,7 @@ export default createReactivePlugin(
                 scrollingElement.clientHeight
             ]
 
-      const classes = $q.config.screen?.bodyClasses === true
+      const useBodyClasses = $q.config.screen?.bodyClasses === true
 
       this.__update = force => {
         const [w, h] = getSize()
@@ -104,20 +104,20 @@ export default createReactivePlugin(
         this.lt.lg = w < s.lg
         this.lt.xl = w < s.xl
         this.xs = this.lt.sm
-        this.sm = this.gt.xs === true && this.lt.md === true
-        this.md = this.gt.sm === true && this.lt.lg === true
-        this.lg = this.gt.md === true && this.lt.xl === true
+        this.sm = this.gt.xs && this.lt.md
+        this.md = this.gt.sm && this.lt.lg
+        this.lg = this.gt.md && this.lt.xl
         this.xl = this.gt.lg
 
         s =
-          (this.xs === true && 'xs') ||
-          (this.sm === true && 'sm') ||
-          (this.md === true && 'md') ||
-          (this.lg === true && 'lg') ||
+          (this.xs && 'xs') ||
+          (this.sm && 'sm') ||
+          (this.md && 'md') ||
+          (this.lg && 'lg') ||
           'xl'
 
         if (s !== this.name) {
-          if (classes === true) {
+          if (useBodyClasses) {
             document.body.classList.remove(`screen--${this.name}`)
             document.body.classList.add(`screen--${s}`)
           }
@@ -181,7 +181,7 @@ export default createReactivePlugin(
         }
 
         // due to optimizations, this would be left out otherwise
-        if (classes === true && this.name === 'xs') {
+        if (useBodyClasses && this.name === 'xs') {
           document.body.classList.add('screen--xs')
         }
       }

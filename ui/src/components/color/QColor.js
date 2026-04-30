@@ -267,7 +267,7 @@ export default createComponent({
 
     const spectrumPointerStyle = computed(() => ({
       top: `${100 - model.value.v}%`,
-      [$q.lang.rtl === true ? 'right' : 'left']: `${model.value.s}%`
+      [$q.lang.rtl ? 'right' : 'left']: `${model.value.s}%`
     }))
 
     const computedPalette = computed(() =>
@@ -384,7 +384,7 @@ export default createComponent({
         rect = panel.getBoundingClientRect()
 
       let x = Math.min(width, Math.max(0, left - rect.left))
-      if ($q.lang.rtl === true) x = width - x
+      if ($q.lang.rtl) x = width - x
 
       const y = Math.min(height, Math.max(0, top - rect.top)),
         s = Math.round((100 * x) / width),
@@ -449,7 +449,7 @@ export default createComponent({
 
       updateModel(rgb, change)
 
-      if (change !== true && evt?.target.selectionEnd !== void 0) {
+      if (!change && evt?.target.selectionEnd !== void 0) {
         const index = evt.target.selectionEnd
         nextTick(() => {
           evt.target.setSelectionRange(index, index)
@@ -534,7 +534,7 @@ export default createComponent({
 
       updateModel(rgb, change)
 
-      if (change !== true) {
+      if (!change) {
         const index = evt.target.selectionEnd
         nextTick(() => {
           evt.target.setSelectionRange(index, index)

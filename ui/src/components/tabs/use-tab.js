@@ -120,15 +120,13 @@ export default function useTab(props, slots, emit, routeData) {
   )
 
   function onClick(e, keyboard) {
-    if (keyboard !== true && e?.qAvoidFocus !== true) {
+    if (!keyboard && !e?.qAvoidFocus) {
       blurTargetRef.value?.focus()
     }
 
     if (props.disable) {
       // we should hinder native navigation though
-      if (routeData?.hasRouterLink.value === true) {
-        stopAndPrevent(e)
-      }
+      if (routeData?.hasRouterLink.value === true) stopAndPrevent(e)
       return
     }
 
@@ -173,7 +171,7 @@ export default function useTab(props, slots, emit, routeData) {
               }
             }
 
-            if (opts.returnRouterError === true) {
+            if (opts.returnRouterError) {
               return hardError !== void 0
                 ? Promise.reject(hardError)
                 : softError
@@ -194,12 +192,12 @@ export default function useTab(props, slots, emit, routeData) {
     if (isKeyCode(e, [13, 32])) {
       onClick(e, true)
     } else if (
-      shouldIgnoreKey(e) !== true &&
+      !shouldIgnoreKey(e) &&
       e.keyCode >= 35 &&
       e.keyCode <= 40 &&
-      e.altKey !== true &&
-      e.metaKey !== true &&
-      $tabs.onKbdNavigate(e.keyCode, proxy.$el) === true
+      !e.altKey &&
+      !e.metaKey &&
+      $tabs.onKbdNavigate(e.keyCode, proxy.$el)
     ) {
       stopAndPrevent(e)
     }
@@ -228,7 +226,7 @@ export default function useTab(props, slots, emit, routeData) {
       content.push(h('div', { class: 'q-tab__label' }, props.label))
     }
 
-    if (props.alert !== false) {
+    if (props.alert) {
       content.push(
         props.alertIcon !== void 0
           ? h(QIcon, {

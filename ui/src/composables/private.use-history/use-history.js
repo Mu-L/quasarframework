@@ -21,7 +21,7 @@ export default function useHistory(showing, hide, hideOnRouteChange) {
 
     addToHistory() {
       historyEntry = {
-        condition: () => hideOnRouteChange.value === true,
+        condition: () => hideOnRouteChange.value,
         handler: hide
       }
 

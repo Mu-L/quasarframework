@@ -131,7 +131,7 @@ export default createComponent({
         props.nextIcon || $q.iconSet.carousel[props.vertical ? 'down' : 'right']
       ]
 
-      return !props.vertical && $q.lang.rtl === true ? ico.reverse() : ico
+      return !props.vertical && $q.lang.rtl ? ico.reverse() : ico
     })
 
     const navIcon = computed(

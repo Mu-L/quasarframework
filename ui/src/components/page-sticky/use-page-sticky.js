@@ -64,7 +64,7 @@ export default function usePageSticky() {
       posY = 0
 
     const side = attach.value
-    const dir = $q.lang.rtl === true ? -1 : 1
+    const dir = $q.lang.rtl ? -1 : 1
 
     if (side.top && top.value !== 0) {
       posY = `${top.value}px`
@@ -86,10 +86,10 @@ export default function usePageSticky() {
 
     if (side.vertical) {
       if (left.value !== 0) {
-        css[$q.lang.rtl === true ? 'right' : 'left'] = `${left.value}px`
+        css[$q.lang.rtl ? 'right' : 'left'] = `${left.value}px`
       }
       if (right.value !== 0) {
-        css[$q.lang.rtl === true ? 'left' : 'right'] = `${right.value}px`
+        css[$q.lang.rtl ? 'left' : 'right'] = `${right.value}px`
       }
     } else if (side.horizontal) {
       if (top.value !== 0) {

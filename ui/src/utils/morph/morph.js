@@ -28,12 +28,10 @@ function getAbsolutePosition(el, resize) {
     top: boundingRect.top - baseRect.top,
     width: boundingRect.right - boundingRect.left,
     height: boundingRect.bottom - boundingRect.top,
-    widthM:
-      boundingRect.right - boundingRect.left + (resize === true ? 0 : marginH),
-    heightM:
-      boundingRect.bottom - boundingRect.top + (resize === true ? 0 : marginV),
-    marginH: resize === true ? marginH : 0,
-    marginV: resize === true ? marginV : 0
+    widthM: boundingRect.right - boundingRect.left + (resize ? 0 : marginH),
+    heightM: boundingRect.bottom - boundingRect.top + (resize ? 0 : marginV),
+    marginH: resize ? marginH : 0,
+    marginV: resize ? marginV : 0
   }
 }
 
@@ -118,7 +116,7 @@ function getMaxZIndex(elStart) {
 
     if (
       zIndexNum > maxIndex &&
-      (el === elStart || zIndexPositions.includes(position) === true)
+      (el === elStart || zIndexPositions.includes(position))
     ) {
       maxIndex = zIndexNum
     }
@@ -210,7 +208,7 @@ export default function morph(_options) {
   const options = normalizeOptions(_options)
 
   const elFrom = getElement(elements.from)
-  if (isValidElement(elFrom) !== true) {
+  if (!isValidElement(elFrom)) {
     // we return a cancel function that return false, meaning the cancel function failed
     return cancel
   }
@@ -297,7 +295,7 @@ export default function morph(_options) {
   // will be called after Vue catches up with the changes done by _options.onToggle() function
   const calculateFinalState = () => {
     const elTo = getElement(elements.to)
-    if (cancelStatus === true || isValidElement(elTo) !== true) {
+    if (cancelStatus === true || !isValidElement(elTo)) {
       if (typeof elFrom.qMorphCancel === 'function') elFrom.qMorphCancel()
       return
     }
@@ -474,7 +472,7 @@ export default function morph(_options) {
       // has fixed position we need to animate it as fixed
       let elToNeedsFixedPosition = elToPositioningType === 'fixed'
       let parent = elToParent
-      while (elToNeedsFixedPosition !== true && parent !== document) {
+      while (!elToNeedsFixedPosition && parent !== document) {
         elToNeedsFixedPosition =
           window.getComputedStyle(parent).position === 'fixed'
         parent = parent.parentNode
@@ -523,12 +521,10 @@ export default function morph(_options) {
 
       // we position the morphing element
       // if we use fixed position for the final element we need to adjust for scroll
-      const documentScroll =
-        elToNeedsFixedPosition === true
-          ? document.documentElement
-          : { scrollLeft: 0, scrollTop: 0 }
-      elTo.style.position =
-        elToNeedsFixedPosition === true ? 'fixed' : 'absolute'
+      const documentScroll = elToNeedsFixedPosition
+        ? document.documentElement
+        : { scrollLeft: 0, scrollTop: 0 }
+      elTo.style.position = elToNeedsFixedPosition ? 'fixed' : 'absolute'
       elTo.style.left = `${elToPosition.left - documentScroll.scrollLeft}px`
       elTo.style.right = 'unset'
       elTo.style.top = `${elToPosition.top - documentScroll.scrollTop}px`

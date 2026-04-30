@@ -30,7 +30,7 @@ function changeClass(ctx, action) {
 }
 
 function trigger(group) {
-  if (group.animating === true || group.queue.length < 2) return
+  if (group.animating || group.queue.length < 2) return
 
   const [from, to] = group.queue
 
@@ -51,8 +51,7 @@ function trigger(group) {
     ...to.opts,
     onEnd(dir, aborted) {
       to.opts.onEnd?.(dir, aborted)
-
-      if (aborted === true) return
+      if (aborted) return
 
       from.animating = false
       to.animating = false
@@ -128,7 +127,7 @@ function updateModel(name, ctx) {
       group.model = name
       group.queue.push(ctx)
 
-      if (group.animating === false && group.queue.length === 2) {
+      if (!group.animating && group.queue.length === 2) {
         trigger(group)
       }
     }
@@ -136,9 +135,7 @@ function updateModel(name, ctx) {
     return
   }
 
-  if (ctx.animating === false) {
-    changeClass(ctx, 'add')
-  }
+  if (!ctx.animating) changeClass(ctx, 'add')
 }
 
 function updateValue(ctx, value) {
@@ -155,7 +152,7 @@ function updateValue(ctx, value) {
   if (model !== ctx.model) {
     ctx.model = model
     updateModel(model, ctx)
-  } else if (ctx.animating === false && ctx.clsAction !== void 0) {
+  } else if (!ctx.animating && ctx.clsAction !== void 0) {
     // ensure HMR
     ctx.el.classList[ctx.clsAction]('q-morph--invisible')
   }

@@ -344,7 +344,7 @@ export default createComponent({
         shakeTimeout = null
       }
 
-      if (hiding === true || showing.value) {
+      if (hiding || showing.value) {
         updateMaximized(false)
 
         if (!props.seamless) {
@@ -354,13 +354,13 @@ export default createComponent({
         }
       }
 
-      if (hiding !== true) {
+      if (!hiding) {
         refocusTarget = null
       }
     }
 
     function updateMaximized(active) {
-      if (active === true) {
+      if (active) {
         if (!isMaximized) {
           if (maximizedModals < 1) {
             document.body.classList.add('q-body--dialog')

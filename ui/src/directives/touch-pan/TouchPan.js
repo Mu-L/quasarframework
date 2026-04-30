@@ -29,43 +29,43 @@ function getChanges(evt, ctx, isFinal) {
 
   const direction = ctx.direction
 
-  if (direction.horizontal === true && direction.vertical !== true) {
+  if (direction.horizontal && !direction.vertical) {
     dir = distX < 0 ? 'left' : 'right'
-  } else if (direction.horizontal !== true && direction.vertical === true) {
+  } else if (!direction.horizontal && direction.vertical) {
     dir = distY < 0 ? 'up' : 'down'
-  } else if (direction.up === true && distY < 0) {
+  } else if (direction.up && distY < 0) {
     dir = 'up'
     if (absX > absY) {
-      if (direction.left === true && distX < 0) {
+      if (direction.left && distX < 0) {
         dir = 'left'
-      } else if (direction.right === true && distX > 0) {
+      } else if (direction.right && distX > 0) {
         dir = 'right'
       }
     }
-  } else if (direction.down === true && distY > 0) {
+  } else if (direction.down && distY > 0) {
     dir = 'down'
     if (absX > absY) {
-      if (direction.left === true && distX < 0) {
+      if (direction.left && distX < 0) {
         dir = 'left'
-      } else if (direction.right === true && distX > 0) {
+      } else if (direction.right && distX > 0) {
         dir = 'right'
       }
     }
-  } else if (direction.left === true && distX < 0) {
+  } else if (direction.left && distX < 0) {
     dir = 'left'
     if (absX < absY) {
-      if (direction.up === true && distY < 0) {
+      if (direction.up && distY < 0) {
         dir = 'up'
-      } else if (direction.down === true && distY > 0) {
+      } else if (direction.down && distY > 0) {
         dir = 'down'
       }
     }
-  } else if (direction.right === true && distX > 0) {
+  } else if (direction.right && distX > 0) {
     dir = 'right'
     if (absX < absY) {
-      if (direction.up === true && distY < 0) {
+      if (direction.up && distY < 0) {
         dir = 'up'
-      } else if (direction.down === true && distY > 0) {
+      } else if (direction.down && distY > 0) {
         dir = 'down'
       }
     }
@@ -73,7 +73,7 @@ function getChanges(evt, ctx, isFinal) {
 
   let synthetic = false
 
-  if (dir === void 0 && isFinal === false) {
+  if (dir === void 0 && !isFinal) {
     if (ctx.event.isFirst || ctx.event.lastDir === void 0) {
       return {}
     }
@@ -133,14 +133,14 @@ export default createDirective(
 
         beforeMount(el, { value, modifiers }) {
           // early return, we don't need to do anything
-          if (modifiers.mouse !== true && !client.has.touch) return
+          if (!modifiers.mouse && !client.has.touch) return
 
           function handleEvent(evt, mouseEvent) {
-            if (modifiers.mouse === true && mouseEvent === true) {
+            if (modifiers.mouse && mouseEvent) {
               stopAndPrevent(evt)
             } else {
-              if (modifiers.stop === true) stop(evt)
-              if (modifiers.prevent === true) prevent(evt)
+              if (modifiers.stop) stop(evt)
+              if (modifiers.prevent) prevent(evt)
             }
           }
 
@@ -185,17 +185,16 @@ export default createDirective(
                * Stop propagation so possible upper v-touch-pan don't catch this as well;
                * If we're not the target (based on modifiers), we'll re-emit the event later
                */
-              if (mouseEvent === true || modifiers.stop === true) {
+              if (mouseEvent || modifiers.stop) {
                 /*
                  * are we directly switching to detected state?
                  * clone event only otherwise
                  */
                 if (
-                  ctx.direction.all !== true &&
+                  !ctx.direction.all &&
                   // account for UMD too where modifiers will be lowercased to work
-                  (mouseEvent !== true ||
-                    (ctx.modifiers.mouseAllDir !== true &&
-                      ctx.modifiers.mousealldir !== true))
+                  (!mouseEvent ||
+                    (!ctx.modifiers.mouseAllDir && !ctx.modifiers.mousealldir))
                 ) {
                   const clone = evt.type.includes('mouse')
                     ? new MouseEvent(evt.type, evt)
@@ -260,15 +259,12 @@ export default createDirective(
                 handleEvent(evt, isMouseEvt)
 
                 let cursor
-                if (
-                  modifiers.preserveCursor !== true &&
-                  modifiers.preservecursor !== true
-                ) {
+                if (!modifiers.preserveCursor && !modifiers.preservecursor) {
                   cursor = document.documentElement.style.cursor || ''
                   document.documentElement.style.cursor = 'grabbing'
                 }
 
-                if (isMouseEvt === true) {
+                if (isMouseEvt) {
                   document.body.classList.add('no-pointer-events--children')
                 }
                 document.body.classList.add('non-selectable')
@@ -283,7 +279,7 @@ export default createDirective(
 
                   document.body.classList.remove('non-selectable')
 
-                  if (isMouseEvt === true) {
+                  if (isMouseEvt) {
                     if (withDelayedFn !== void 0) {
                       setTimeout(() => {
                         removeChildrenNoPointerEvents()
@@ -298,8 +294,8 @@ export default createDirective(
                 }
               }
 
-              if (ctx.event.detected === true) {
-                if (ctx.event.isFirst !== true) {
+              if (ctx.event.detected) {
+                if (!ctx.event.isFirst) {
                   handleEvent(evt, ctx.event.mouse)
                 }
 
@@ -315,8 +311,7 @@ export default createDirective(
 
                     ctx.event.lastX = payload.position.left
                     ctx.event.lastY = payload.position.top
-                    ctx.event.lastDir =
-                      synthetic === true ? void 0 : payload.direction
+                    ctx.event.lastDir = synthetic ? void 0 : payload.direction
                     ctx.event.isFirst = false
                   }
                 }
@@ -325,11 +320,10 @@ export default createDirective(
               }
 
               if (
-                ctx.direction.all === true ||
+                ctx.direction.all ||
                 // account for UMD too where modifiers will be lowercased to work
-                (isMouseEvt === true &&
-                  (ctx.modifiers.mouseAllDir === true ||
-                    ctx.modifiers.mousealldir === true))
+                (isMouseEvt &&
+                  (ctx.modifiers.mouseAllDir || ctx.modifiers.mousealldir))
               ) {
                 start()
                 ctx.event.detected = true
@@ -342,12 +336,12 @@ export default createDirective(
 
               if (absX !== absY) {
                 if (
-                  (ctx.direction.horizontal === true && absX > absY) ||
-                  (ctx.direction.vertical === true && absX < absY) ||
-                  (ctx.direction.up === true && absX < absY && distY < 0) ||
-                  (ctx.direction.down === true && absX < absY && distY > 0) ||
-                  (ctx.direction.left === true && absX > absY && distX < 0) ||
-                  (ctx.direction.right === true && absX > absY && distX > 0)
+                  (ctx.direction.horizontal && absX > absY) ||
+                  (ctx.direction.vertical && absX < absY) ||
+                  (ctx.direction.up && absX < absY && distY < 0) ||
+                  (ctx.direction.down && absX < absY && distY > 0) ||
+                  (ctx.direction.left && absX > absY && distX < 0) ||
+                  (ctx.direction.right && absX > absY && distX > 0)
                 ) {
                   ctx.event.detected = true
                   ctx.move(evt)
@@ -363,16 +357,13 @@ export default createDirective(
               cleanEvt(ctx, 'temp')
               if (client.is.firefox) preventDraggable(el, false)
 
-              if (abort === true) {
+              if (abort) {
                 ctx.styleCleanup?.()
 
-                if (
-                  ctx.event.detected !== true &&
-                  ctx.initialEvent !== void 0
-                ) {
+                if (!ctx.event.detected && ctx.initialEvent !== void 0) {
                   ctx.initialEvent.target.dispatchEvent(ctx.initialEvent.event)
                 }
-              } else if (ctx.event.detected === true) {
+              } else if (ctx.event.detected) {
                 if (ctx.event.isFirst) {
                   ctx.handler(
                     getChanges(evt === void 0 ? ctx.lastEvt : evt, ctx).payload
@@ -403,12 +394,10 @@ export default createDirective(
 
           el.__qtouchpan = ctx
 
-          if (modifiers.mouse === true) {
+          if (modifiers.mouse) {
             // account for UMD too where modifiers will be lowercased to work
             const capture =
-              modifiers.mouseCapture === true || modifiers.mousecapture === true
-                ? 'Capture'
-                : ''
+              modifiers.mouseCapture || modifiers.mousecapture ? 'Capture' : ''
 
             addEvt(ctx, 'main', [
               [el, 'mousedown', 'mouseStart', `passive${capture}`]
@@ -421,7 +410,7 @@ export default createDirective(
                 el,
                 'touchstart',
                 'touchStart',
-                `passive${modifiers.capture === true ? 'Capture' : ''}`
+                `passive${modifiers.capture ? 'Capture' : ''}`
               ],
               [el, 'touchmove', 'noop', 'notPassiveCapture'] // cannot be passive (ex: iOS scroll)
             ])

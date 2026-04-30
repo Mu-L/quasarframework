@@ -1,8 +1,8 @@
 import DialogPlugin from './component/DialogPluginComponent.js'
-import globalDialog from '../../utils/private.dialog/create-dialog.js'
+import { createDialog } from '../../utils/private.dialog/create-dialog.js'
 
 export default {
   install({ $q, parentApp }) {
-    $q.dialog = this.create = globalDialog(DialogPlugin, true, parentApp)
+    $q.dialog = this.create = createDialog(DialogPlugin, true, parentApp)
   }
 }

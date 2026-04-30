@@ -101,7 +101,7 @@ export default createComponent({
     )
 
     const formProps = computed(() => {
-      if (hasForm.value !== true) return {}
+      if (!hasForm.value) return {}
 
       // oxlint-disable-next-line no-shadow
       const { model, isValid, items, ...acc } =
@@ -129,14 +129,13 @@ export default createComponent({
     const okDisabled = computed(() => {
       if (props.prompt !== void 0) {
         return (
-          props.prompt.isValid !== void 0 &&
-          props.prompt.isValid(model.value) !== true
+          props.prompt.isValid !== void 0 && !props.prompt.isValid(model.value)
         )
       }
       if (props.options !== void 0) {
         return (
           props.options.isValid !== void 0 &&
-          props.options.isValid(model.value) !== true
+          !props.options.isValid(model.value)
         )
       }
       return false
@@ -148,8 +147,7 @@ export default createComponent({
       ripple: false,
       disable: okDisabled.value,
       ...(isObject(props.ok) ? props.ok : { flat: true }),
-      'data-autofocus':
-        (props.focus === 'ok' && hasForm.value !== true) || void 0,
+      'data-autofocus': (props.focus === 'ok' && !hasForm.value) || void 0,
       onClick: onOk
     }))
 
@@ -158,8 +156,7 @@ export default createComponent({
       label: cancelLabel.value,
       ripple: false,
       ...(isObject(props.cancel) ? props.cancel : { flat: true }),
-      'data-autofocus':
-        (props.focus === 'cancel' && hasForm.value !== true) || void 0,
+      'data-autofocus': (props.focus === 'cancel' && !hasForm.value) || void 0,
       onClick: onCancel
     }))
 
@@ -194,7 +191,7 @@ export default createComponent({
     function onInputKeyup(evt) {
       // if ENTER key
       if (
-        okDisabled.value !== true &&
+        !okDisabled.value &&
         props.prompt.type !== 'textarea' &&
         isKeyCode(evt, 13)
       ) {

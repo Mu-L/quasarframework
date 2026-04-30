@@ -69,23 +69,19 @@ export default createComponent({
     )
 
     const offset = computed(() => {
-      if (props.modelValue !== true) {
-        return 0
-      }
-      if (fixed.value) {
-        return revealed.value ? size.value : 0
-      }
+      if (!props.modelValue) return 0
+      if (fixed.value) return revealed.value ? size.value : 0
 
       const localOffset = size.value - $layout.scroll.value.position
       return Math.max(localOffset, 0)
     })
 
     const hidden = computed(
-      () => props.modelValue !== true || (fixed.value && !revealed.value)
+      () => !props.modelValue || (fixed.value && !revealed.value)
     )
 
     const revealOnFocus = computed(
-      () => props.modelValue === true && hidden.value && props.reveal
+      () => props.modelValue && hidden.value && props.reveal
     )
 
     const classes = computed(
@@ -95,7 +91,7 @@ export default createComponent({
         '-top' +
         (props.bordered ? ' q-header--bordered' : '') +
         (hidden.value ? ' q-header--hidden' : '') +
-        (props.modelValue !== true ? ' q-layout--prevent-focus' : '')
+        (props.modelValue ? '' : ' q-layout--prevent-focus')
     )
 
     const style = computed(() => {
@@ -103,10 +99,10 @@ export default createComponent({
         css = {}
 
       if (view[0] === 'l' && $layout.left.space) {
-        css[$q.lang.rtl === true ? 'right' : 'left'] = `${$layout.left.size}px`
+        css[$q.lang.rtl ? 'right' : 'left'] = `${$layout.left.size}px`
       }
       if (view[2] === 'r' && $layout.right.space) {
-        css[$q.lang.rtl === true ? 'left' : 'right'] = `${$layout.right.size}px`
+        css[$q.lang.rtl ? 'left' : 'right'] = `${$layout.right.size}px`
       }
 
       return css
@@ -165,7 +161,7 @@ export default createComponent({
     const instance = {}
 
     $layout.instances.header = instance
-    if (props.modelValue === true) updateLayout('size', size.value)
+    if (props.modelValue) updateLayout('size', size.value)
     updateLayout('space', props.modelValue)
     updateLayout('offset', offset.value)
 

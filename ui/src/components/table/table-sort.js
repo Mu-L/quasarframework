@@ -36,7 +36,7 @@ export function useTableSort(
             return data
           }
 
-          const dir = descending === true ? -1 : 1,
+          const dir = descending ? -1 : 1,
             val =
               typeof col.field === 'function'
                 ? v => col.field(v)
@@ -100,7 +100,7 @@ export function useTableSort(
       descending = sortOrder === 'da'
     } else if (props.binaryStateSort) {
       descending = !descending
-    } else if (descending === true) {
+    } else if (descending) {
       if (sortOrder === 'ad') {
         sortBy = null
       } else {

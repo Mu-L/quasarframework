@@ -109,28 +109,25 @@ export function stopAndPrevent(e) {
 }
 
 export function preventDraggable(el, status) {
-  if (el === void 0 || (status === true && el.__dragPrevented === true)) {
-    return
-  }
+  if (el === void 0 || (status && el.__dragPrevented)) return
 
-  const fn =
-    status === true
-      ? element => {
-          element.__dragPrevented = true
-          element.addEventListener(
-            'dragstart',
-            prevent,
-            listenOpts.notPassiveCapture
-          )
-        }
-      : element => {
-          delete element.__dragPrevented
-          element.removeEventListener(
-            'dragstart',
-            prevent,
-            listenOpts.notPassiveCapture
-          )
-        }
+  const fn = status
+    ? element => {
+        element.__dragPrevented = true
+        element.addEventListener(
+          'dragstart',
+          prevent,
+          listenOpts.notPassiveCapture
+        )
+      }
+    : element => {
+        delete element.__dragPrevented
+        element.removeEventListener(
+          'dragstart',
+          prevent,
+          listenOpts.notPassiveCapture
+        )
+      }
 
   el.querySelectorAll('a, img').forEach(fn)
 }

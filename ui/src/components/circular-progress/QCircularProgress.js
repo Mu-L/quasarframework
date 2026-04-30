@@ -38,7 +38,7 @@ export default createComponent({
     const sizeStyle = useSize(props)
 
     const svgStyle = computed(() => {
-      const angle = ($q.lang.rtl === true ? -1 : 1) * props.angle
+      const angle = ($q.lang.rtl ? -1 : 1) * props.angle
 
       return {
         transform:

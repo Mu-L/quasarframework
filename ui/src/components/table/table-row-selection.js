@@ -29,17 +29,13 @@ export function useTableRowSelection(props, emit, computedRows, getRowKey) {
   const allRowsSelected = computed(
     () =>
       computedRows.value.length !== 0 &&
-      computedRows.value.every(
-        row => selectedKeys.value[getRowKey.value(row)] === true
-      )
+      computedRows.value.every(row => selectedKeys.value[getRowKey.value(row)])
   )
 
   const someRowsSelected = computed(
     () =>
       !allRowsSelected.value &&
-      computedRows.value.some(
-        row => selectedKeys.value[getRowKey.value(row)] === true
-      )
+      computedRows.value.some(row => selectedKeys.value[getRowKey.value(row)])
   )
 
   const rowsSelectedNumber = computed(() => props.selected.length)
@@ -56,10 +52,10 @@ export function useTableRowSelection(props, emit, computedRows, getRowKey) {
     emit('selection', { rows, added, keys, evt })
 
     const payload = singleSelection.value
-      ? added === true
+      ? added
         ? rows
         : []
-      : added === true
+      : added
         ? [...props.selected, ...rows]
         : props.selected.filter(row => !keys.includes(getRowKey.value(row)))
 

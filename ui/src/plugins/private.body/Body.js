@@ -26,10 +26,7 @@ function getBodyClasses({ is, has, within }, cfg) {
     cls.push(type)
     cls.push('native-mobile')
 
-    if (
-      is.ios &&
-      (cfg[type] === void 0 || cfg[type].iosStatusBarPadding !== false)
-    ) {
+    if (is.ios && (cfg[type] === void 0 || cfg[type].iosStatusBarPadding)) {
       cls.push('q-ios-padding')
     }
   } else if (is.electron) {
@@ -113,7 +110,7 @@ export default {
       return
     }
 
-    if (this.__installed === true) return
+    if (this.__installed) return
 
     if (isRuntimeSsrPreHydration.value) {
       applyClientSsrCorrections()

@@ -25,7 +25,7 @@ export default function useMeta(metaOptions) {
 
       watch(content, val => {
         meta.val = val
-        if (meta.active === true) planClientUpdate()
+        if (meta.active) planClientUpdate()
       })
     } else {
       meta.val = metaOptions

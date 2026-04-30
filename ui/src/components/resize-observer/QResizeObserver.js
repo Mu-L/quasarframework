@@ -83,7 +83,7 @@ export default createComponent({
           observer = new ResizeObserver(trigger)
           observer.observe(targetEl)
           emitEvent()
-        } else if (stop !== true) {
+        } else if (!stop) {
           nextTick(() => {
             init(true)
           })

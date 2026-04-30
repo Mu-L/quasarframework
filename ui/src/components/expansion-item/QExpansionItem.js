@@ -106,7 +106,7 @@ export default createComponent({
         return null
       }
 
-      const dir = $q.lang.rtl === true ? 'Right' : 'Left'
+      const dir = $q.lang.rtl ? 'Right' : 'Left'
       return {
         ['padding' + dir]: props.contentInsetLevel * 56 + 'px'
       }
@@ -180,9 +180,7 @@ export default createComponent({
     }
 
     function toggleIcon(e, keyboard) {
-      if (keyboard !== true && e.qAvoidFocus !== true) {
-        blurTargetRef.value?.focus()
-      }
+      if (!keyboard && !e.qAvoidFocus) blurTargetRef.value?.focus()
 
       toggle(e)
       stopAndPrevent(e)

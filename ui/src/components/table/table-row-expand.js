@@ -36,7 +36,7 @@ export function useTableRowExpand(props, emit) {
     const target = [...innerExpanded.value]
     const index = target.indexOf(key)
 
-    if (add === true) {
+    if (add) {
       if (index === -1) {
         target.push(key)
         setExpanded(target)

@@ -166,7 +166,7 @@ export default createComponent({
 
       registerTimeout(() => {
         if (evt !== false) setScrollable(true)
-        if (noEvent !== true) emit('show', evt)
+        if (!noEvent) emit('show', evt)
       }, duration)
     }
 
@@ -180,7 +180,7 @@ export default createComponent({
 
       cleanup()
 
-      if (noEvent !== true) {
+      if (!noEvent) {
         registerTimeout(() => {
           emit('hide', evt)
         }, duration)
@@ -210,7 +210,7 @@ export default createComponent({
     const rightSide = computed(() => props.side === 'right')
 
     const stateDirection = computed(
-      () => ($q.lang.rtl === true ? -1 : 1) * (rightSide.value ? 1 : -1)
+      () => ($q.lang.rtl ? -1 : 1) * (rightSide.value ? 1 : -1)
     )
 
     const flagBackdropBg = ref(0)
@@ -310,7 +310,7 @@ export default createComponent({
 
     const openDirective = computed(() => {
       // if props.noSwipeOpen !== true
-      const dir = $q.lang.rtl === true ? props.side : otherSide.value
+      const dir = $q.lang.rtl ? props.side : otherSide.value
 
       return [
         [
@@ -327,7 +327,7 @@ export default createComponent({
 
     const contentCloseDirective = computed(() => {
       // if belowBreakpoint.value === true && props.noSwipeClose !== true
-      const dir = $q.lang.rtl === true ? otherSide.value : props.side
+      const dir = $q.lang.rtl ? otherSide.value : props.side
 
       return [
         [
@@ -344,7 +344,7 @@ export default createComponent({
 
     const backdropCloseDirective = computed(() => {
       // if showing.value === true && props.noSwipeBackdrop !== true
-      const dir = $q.lang.rtl === true ? otherSide.value : props.side
+      const dir = $q.lang.rtl ? otherSide.value : props.side
 
       return [
         [
@@ -370,7 +370,7 @@ export default createComponent({
     }
 
     watch(belowBreakpoint, val => {
-      if (val === true) {
+      if (val) {
         // from lg to xs
         lastDesktopState = showing.value
         if (showing.value) hide(false)
@@ -459,7 +459,7 @@ export default createComponent({
       () => props.mini,
       () => {
         if (props.noMiniAnimation) return
-        if (props.modelValue === true) {
+        if (props.modelValue) {
           animateMini()
           $layout.animate()
         }
@@ -542,7 +542,7 @@ export default createComponent({
       }
 
       applyPosition(
-        ($q.lang.rtl === true ? !rightSide.value : rightSide.value)
+        ($q.lang.rtl ? !rightSide.value : rightSide.value)
           ? Math.max(width - position, 0)
           : Math.min(0, position - width)
       )
@@ -558,7 +558,7 @@ export default createComponent({
 
       const width = size.value,
         dir = evt.direction === props.side,
-        position = ($q.lang.rtl === true ? dir !== true : dir)
+        position = ($q.lang.rtl ? !dir : dir)
           ? between(evt.distance.x, 0, width)
           : 0
 
@@ -603,7 +603,7 @@ export default createComponent({
 
     if (
       props.showIfAbove &&
-      props.modelValue !== true &&
+      !props.modelValue &&
       showing.value &&
       props['onUpdate:modelValue'] !== void 0
     ) {

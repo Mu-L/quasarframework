@@ -813,7 +813,7 @@ export default createComponent({
         props.iconNextPage || $q.iconSet.table.nextPage,
         props.iconLastPage || $q.iconSet.table.lastPage
       ]
-      return $q.lang.rtl === true ? ico.reverse() : ico
+      return $q.lang.rtl ? ico.reverse() : ico
     })
 
     function getBottomDiv() {
@@ -1117,9 +1117,7 @@ export default createComponent({
                 {
                   class:
                     'q-table__grid-item col-xs-12 col-sm-6 col-md-4 col-lg-3' +
-                    (scope.selected === true
-                      ? ' q-table__grid-item--selected'
-                      : '')
+                    (scope.selected ? ' q-table__grid-item--selected' : '')
                 },
                 [h('div', data, child)]
               )

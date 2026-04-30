@@ -5,10 +5,7 @@ export default function usePreventScroll() {
 
   return {
     preventBodyScroll(state) {
-      if (
-        state !== currentState &&
-        (currentState !== void 0 || state === true)
-      ) {
+      if (state !== currentState && (currentState !== void 0 || state)) {
         currentState = state
         preventScroll(state)
       }

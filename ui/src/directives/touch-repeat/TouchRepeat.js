@@ -28,7 +28,6 @@ const keyCodes = {
 
 function shouldEnd(evt, origin) {
   const { top, left } = position(evt)
-
   return Math.abs(left - origin.left) >= 7 || Math.abs(top - origin.top) >= 7
 }
 
@@ -55,11 +54,7 @@ export default createDirective(
           }, [])
 
           // early return, we don't need to do anything
-          if (
-            modifiers.mouse !== true &&
-            !client.has.touch &&
-            keyboard.length === 0
-          ) {
+          if (!modifiers.mouse && !client.has.touch && keyboard.length === 0) {
             return
           }
 
@@ -122,9 +117,7 @@ export default createDirective(
             },
 
             start(evt, mouseEvent, keyboardEvent) {
-              if (keyboardEvent !== true) {
-                ctx.origin = position(evt)
-              }
+              if (!keyboardEvent) ctx.origin = position(evt)
 
               function styleCleanup(withDelay) {
                 ctx.styleCleanup = void 0
@@ -145,7 +138,7 @@ export default createDirective(
               }
 
               ctx.event = {
-                touch: mouseEvent !== true && keyboardEvent !== true,
+                touch: !mouseEvent && !keyboardEvent,
                 mouse: mouseEvent === true,
                 keyboard: keyboardEvent === true,
                 startTime: Date.now(),
@@ -160,7 +153,7 @@ export default createDirective(
                 if (ctx.event.repeatCount === 0) {
                   ctx.event.evt = evt
 
-                  if (keyboardEvent === true) {
+                  if (keyboardEvent) {
                     ctx.event.keyCode = evt.keyCode
                   } else {
                     ctx.event.position = position(evt)
@@ -198,7 +191,7 @@ export default createDirective(
               if (
                 ctx.event !== void 0 &&
                 ctx.timer !== void 0 &&
-                shouldEnd(evt, ctx.origin) === true
+                shouldEnd(evt, ctx.origin)
               ) {
                 clearTimeout(ctx.timer)
                 ctx.timer = void 0
@@ -226,12 +219,10 @@ export default createDirective(
 
           el.__qtouchrepeat = ctx
 
-          if (modifiers.mouse === true) {
+          if (modifiers.mouse) {
             // account for UMD too where modifiers will be lowercased to work
             const capture =
-              modifiers.mouseCapture === true || modifiers.mousecapture === true
-                ? 'Capture'
-                : ''
+              modifiers.mouseCapture || modifiers.mousecapture ? 'Capture' : ''
 
             addEvt(ctx, 'main', [
               [el, 'mousedown', 'mouseStart', `passive${capture}`]
@@ -244,7 +235,7 @@ export default createDirective(
                 el,
                 'touchstart',
                 'touchStart',
-                `passive${modifiers.capture === true ? 'Capture' : ''}`
+                `passive${modifiers.capture ? 'Capture' : ''}`
               ],
               [el, 'touchend', 'noop', 'passiveCapture']
             ])
@@ -253,9 +244,7 @@ export default createDirective(
           if (keyboard.length !== 0) {
             // account for UMD too where modifiers will be lowercased to work
             const capture =
-              modifiers.keyCapture === true || modifiers.keycapture === true
-                ? 'Capture'
-                : ''
+              modifiers.keyCapture || modifiers.keycapture ? 'Capture' : ''
 
             addEvt(ctx, 'main', [
               [el, 'keydown', 'keyboardStart', `notPassive${capture}`]

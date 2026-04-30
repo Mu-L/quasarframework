@@ -5,14 +5,12 @@ export default function debounce(fn, wait = 250, immediate) {
   function debounced(...args) {
     const later = () => {
       timer = null
-      if (immediate !== true) {
-        fn.apply(this, args)
-      }
+      if (!immediate) fn.apply(this, args)
     }
 
     if (timer !== null) {
       clearTimeout(timer)
-    } else if (immediate === true) {
+    } else if (immediate) {
       fn.apply(this, args)
     }
 

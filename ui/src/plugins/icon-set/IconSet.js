@@ -61,7 +61,7 @@ const Plugin = createReactivePlugin(
           }
         )
 
-        if (this.__installed === true) {
+        if (this.__installed) {
           if (iconSet !== void 0) this.set(iconSet)
         } else {
           this.props = new Proxy(this.__qIconSet, {

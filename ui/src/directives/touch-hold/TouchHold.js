@@ -26,7 +26,7 @@ export default createDirective(
           const { modifiers } = binding
 
           // early return, we don't need to do anything
-          if (modifiers.mouse !== true && client.has.touch !== true) return
+          if (!modifiers.mouse && !client.has.touch) return
 
           const ctx = {
             handler: binding.value,
@@ -76,10 +76,9 @@ export default createDirective(
               }
 
               ctx.triggered = false
-              ctx.sensitivity =
-                mouseEvent === true
-                  ? ctx.mouseSensitivity
-                  : ctx.touchSensitivity
+              ctx.sensitivity = mouseEvent
+                ? ctx.mouseSensitivity
+                : ctx.touchSensitivity
 
               ctx.timer = setTimeout(() => {
                 ctx.timer = void 0
@@ -88,7 +87,7 @@ export default createDirective(
 
                 ctx.handler({
                   evt,
-                  touch: mouseEvent !== true,
+                  touch: !mouseEvent,
                   mouse: mouseEvent === true,
                   position: ctx.origin,
                   duration: Date.now() - startTime
@@ -114,7 +113,7 @@ export default createDirective(
               // delay needed otherwise selection still occurs
               ctx.styleCleanup?.(ctx.triggered)
 
-              if (ctx.triggered === true) {
+              if (ctx.triggered) {
                 if (evt !== void 0) stopAndPrevent(evt)
               } else if (ctx.timer !== void 0) {
                 clearTimeout(ctx.timer)
@@ -137,12 +136,10 @@ export default createDirective(
 
           el.__qtouchhold = ctx
 
-          if (modifiers.mouse === true) {
+          if (modifiers.mouse) {
             // account for UMD too where modifiers will be lowercased to work
             const capture =
-              modifiers.mouseCapture === true || modifiers.mousecapture === true
-                ? 'Capture'
-                : ''
+              modifiers.mouseCapture || modifiers.mousecapture ? 'Capture' : ''
 
             addEvt(ctx, 'main', [
               [el, 'mousedown', 'mouseStart', `passive${capture}`]
@@ -155,7 +152,7 @@ export default createDirective(
                 el,
                 'touchstart',
                 'touchStart',
-                `passive${modifiers.capture === true ? 'Capture' : ''}`
+                `passive${modifiers.capture ? 'Capture' : ''}`
               ],
               [el, 'touchend', 'noop', 'notPassiveCapture']
             ])

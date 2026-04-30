@@ -77,7 +77,7 @@ function getScrollDetails(
       parent === window
         ? document.scrollingElement || document.documentElement
         : parent,
-    propElSize = horizontal === true ? 'offsetWidth' : 'offsetHeight',
+    propElSize = horizontal ? 'offsetWidth' : 'offsetHeight',
     details = {
       scrollStart: 0,
       scrollViewSize: -stickyStart - stickyEnd,
@@ -86,7 +86,7 @@ function getScrollDetails(
       offsetEnd: -stickyEnd
     }
 
-  if (horizontal === true) {
+  if (horizontal) {
     if (parent === window) {
       details.scrollStart =
         window.pageXOffset || window.scrollX || document.body.scrollLeft || 0
@@ -97,7 +97,7 @@ function getScrollDetails(
     }
     details.scrollMaxSize = parentCalc.scrollWidth
 
-    if (rtl === true) {
+    if (rtl) {
       details.scrollStart =
         (rtlHasScrollBug ? details.scrollMaxSize - details.scrollViewSize : 0) -
         details.scrollStart
@@ -142,7 +142,7 @@ function getScrollDetails(
     const parentRect = parentCalc.getBoundingClientRect(),
       childRect = child.getBoundingClientRect()
 
-    if (horizontal === true) {
+    if (horizontal) {
       details.offsetStart += childRect.left - parentRect.left
       details.offsetEnd -= childRect.width
     } else {
@@ -162,13 +162,13 @@ function getScrollDetails(
 function setScroll(parent, scroll, horizontal, rtl) {
   if (scroll === 'end') {
     scroll = (parent === window ? document.body : parent)[
-      horizontal === true ? 'scrollWidth' : 'scrollHeight'
+      horizontal ? 'scrollWidth' : 'scrollHeight'
     ]
   }
 
   if (parent === window) {
-    if (horizontal === true) {
-      if (rtl === true) {
+    if (horizontal) {
+      if (rtl) {
         scroll =
           (rtlHasScrollBug
             ? document.body.scrollWidth - document.documentElement.clientWidth
@@ -184,8 +184,8 @@ function setScroll(parent, scroll, horizontal, rtl) {
         scroll
       )
     }
-  } else if (horizontal === true) {
-    if (rtl === true) {
+  } else if (horizontal) {
+    if (rtl) {
       scroll =
         (rtlHasScrollBug ? parent.scrollWidth - parent.offsetWidth : 0) - scroll
     }
@@ -464,7 +464,7 @@ export function useVirtualScroll({
     align
   ) {
     const alignForce = typeof align === 'string' && align.includes('-force')
-    const alignEnd = alignForce === true ? align.replace('-force', '') : align
+    const alignEnd = alignForce ? align.replace('-force', '') : align
     const alignRange = alignEnd !== void 0 ? alignEnd : 'start'
 
     let from = Math.max(
@@ -580,7 +580,7 @@ export function useVirtualScroll({
         const scrollStart = scrollDetails.scrollStart + sizeDiff
 
         scrollPosition =
-          alignForce !== true &&
+          !alignForce &&
           scrollStart < posStart &&
           posEnd < scrollStart + scrollDetails.scrollViewSize
             ? scrollStart
@@ -657,7 +657,7 @@ export function useVirtualScroll({
   function localResetVirtualScroll(toIndex, fullReset) {
     const defaultSize = Number(virtualScrollItemSizeComputed.value)
 
-    if (fullReset === true || !Array.isArray(virtualScrollSizes)) {
+    if (fullReset || !Array.isArray(virtualScrollSizes)) {
       virtualScrollSizes = []
     }
 
@@ -873,7 +873,7 @@ export function useVirtualScroll({
   })
 
   onActivated(() => {
-    if (shouldActivate !== true) return
+    if (!shouldActivate) return
 
     const scrollEl = getVirtualScrollTarget()
 

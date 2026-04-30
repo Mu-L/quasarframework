@@ -157,19 +157,17 @@ export default createComponent({
             Array.isArray(node[props.childrenKey]) &&
             node[props.childrenKey].length !== 0,
           selectable =
-            node.disabled !== true &&
-            hasSelection.value &&
-            node.selectable !== false,
-          expandable = node.disabled !== true && node.expandable !== false,
+            !node.disabled && hasSelection.value && node.selectable !== false,
+          expandable = !node.disabled && node.expandable !== false,
           hasTicking = tickStrategy !== 'none',
           strictTicking = tickStrategy === 'strict',
           leafFilteredTicking = tickStrategy === 'leaf-filtered',
           leafTicking =
             tickStrategy === 'leaf' || tickStrategy === 'leaf-filtered'
 
-        let tickable = node.disabled !== true && node.tickable !== false
+        let tickable = !node.disabled && node.tickable !== false
         if (
-          leafTicking === true &&
+          leafTicking &&
           tickable === true &&
           parent &&
           parent.tickable !== true
@@ -193,40 +191,36 @@ export default createComponent({
           lazy: localLazy,
           disabled: node.disabled,
           link:
-            node.disabled !== true &&
-            (selectable === true ||
-              (expandable === true &&
-                (isParent === true || localLazy === true))),
+            !node.disabled &&
+            (selectable || (expandable && (isParent || localLazy === true))),
           children: [],
           matchesFilter: props.filter
             ? computedFilterMethod.value(node, props.filter)
             : true,
 
-          selected: key === props.selected && selectable === true,
+          selected: key === props.selected && selectable,
           selectable,
-          expanded:
-            isParent === true ? innerExpanded.value.includes(key) : false,
+          expanded: isParent ? innerExpanded.value.includes(key) : false,
           expandable,
           noTick:
             node.noTick === true ||
-            (strictTicking !== true && localLazy && localLazy !== 'loaded'),
+            (!strictTicking && localLazy && localLazy !== 'loaded'),
           tickable,
           tickStrategy,
           hasTicking,
           strictTicking,
           leafFilteredTicking,
           leafTicking,
-          ticked:
-            strictTicking === true
-              ? innerTicked.value.includes(key)
-              : isParent === true
-                ? false
-                : innerTicked.value.includes(key)
+          ticked: strictTicking
+            ? innerTicked.value.includes(key)
+            : isParent
+              ? false
+              : innerTicked.value.includes(key)
         }
 
         acc[key] = m
 
-        if (isParent === true) {
+        if (isParent) {
           m.children = node[props.childrenKey].map(n => travel(n, m))
 
           if (props.filter) {
@@ -236,7 +230,7 @@ export default createComponent({
               m.noTick !== true &&
               m.disabled !== true &&
               m.tickable === true &&
-              leafFilteredTicking === true &&
+              leafFilteredTicking &&
               m.children.every(
                 n =>
                   n.matchesFilter !== true ||
@@ -413,9 +407,7 @@ export default createComponent({
       let target = innerExpanded.value
       const shouldEmit = props.expanded !== void 0
 
-      if (shouldEmit === true) {
-        target = [...target]
-      }
+      if (shouldEmit) target = [...target]
 
       if (state) {
         if (props.accordion && meta.value[key]) {
@@ -447,7 +439,7 @@ export default createComponent({
         target = target.filter(k => k !== key)
       }
 
-      if (shouldEmit === true) {
+      if (shouldEmit) {
         emit('update:expanded', target)
       } else {
         innerExpanded.value = target
@@ -462,9 +454,7 @@ export default createComponent({
       let target = innerTicked.value
       const shouldEmit = props.ticked !== void 0
 
-      if (shouldEmit === true) {
-        target = [...target]
-      }
+      if (shouldEmit) target = [...target]
 
       target = state
         ? [...target, ...keys].filter(
@@ -472,9 +462,7 @@ export default createComponent({
           )
         : target.filter(k => !keys.includes(k))
 
-      if (shouldEmit === true) {
-        emit('update:ticked', target)
-      }
+      if (shouldEmit) emit('update:ticked', target)
     }
 
     function getSlotScope(node, localMeta, key) {
@@ -575,7 +563,7 @@ export default createComponent({
           key,
           class:
             'q-tree__node relative-position' +
-            ` q-tree__node--${isParent === true ? 'parent' : 'child'}`
+            ` q-tree__node--${isParent ? 'parent' : 'child'}`
         },
         [
           h(
@@ -618,7 +606,7 @@ export default createComponent({
                     class: 'q-tree__spinner',
                     color: computedControlColor.value
                   })
-                : isParent === true
+                : isParent
                   ? h(QIcon, {
                       class:
                         'q-tree__arrow' +
@@ -664,7 +652,7 @@ export default createComponent({
             ]
           ),
 
-          isParent === true
+          isParent
             ? props.noTransition
               ? m.expanded === true
                 ? h(

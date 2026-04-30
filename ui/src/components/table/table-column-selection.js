@@ -36,8 +36,7 @@ export function useTableColumnSelection(
     const cols =
       props.visibleColumns !== void 0
         ? colList.value.filter(
-            col =>
-              col.required === true || props.visibleColumns.includes(col.name)
+            col => col.required || props.visibleColumns.includes(col.name)
           )
         : colList.value
 
@@ -52,9 +51,9 @@ export function useTableColumnSelection(
         __thClass:
           alignClass +
           (col.headerClasses !== void 0 ? ' ' + col.headerClasses : '') +
-          (col.sortable === true ? ' sortable' : '') +
+          (col.sortable ? ' sortable' : '') +
           (col.name === sortBy
-            ? ` sorted ${descending === true ? 'sort-desc' : ''}`
+            ? ` sorted ${descending ? 'sort-desc' : ''}`
             : ''),
 
         __tdStyle:

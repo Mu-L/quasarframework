@@ -103,7 +103,7 @@ export function useFieldState({
   return {
     requiredForAttr,
     changeEvent,
-    tag: tagProp === true ? computed(() => props.tag) : { value: 'label' },
+    tag: tagProp ? computed(() => props.tag) : { value: 'label' },
 
     isDark,
 
@@ -298,7 +298,7 @@ export default function useField(state) {
     let target = state.targetRef?.value
 
     if (target && (el === null || el.id !== state.targetUid.value)) {
-      if (target.hasAttribute('tabindex') !== true) {
+      if (!target.hasAttribute('tabindex')) {
         target = target.querySelector('[tabindex]')
       }
 
@@ -375,7 +375,7 @@ export default function useField(state) {
     }
 
     emit('update:modelValue', null)
-    if (state.changeEvent === true) emit('change', null)
+    if (state.changeEvent) emit('change', null)
     emit('clear', props.modelValue)
 
     nextTick(() => {

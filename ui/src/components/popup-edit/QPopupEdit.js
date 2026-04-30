@@ -80,7 +80,7 @@ export default createComponent({
     )
 
     function set() {
-      if (props.validate(currentModel.value) === false) return
+      if (!props.validate(currentModel.value)) return
 
       if (hasModelChanged()) {
         emit('save', currentModel.value, initialValue.value)
@@ -126,7 +126,7 @@ export default createComponent({
 
     function onBeforeHide() {
       if (!validated && hasModelChanged()) {
-        if (props.autoSave && props.validate(currentModel.value) === true) {
+        if (props.autoSave && props.validate(currentModel.value)) {
           emit('save', currentModel.value, initialValue.value)
           emit('update:modelValue', currentModel.value)
         } else {

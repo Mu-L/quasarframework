@@ -56,7 +56,7 @@ export default createComponent({
       dirContentRefs = {}
 
     const langDir = computed(() =>
-      $q.lang.rtl === true
+      $q.lang.rtl
         ? { left: 'right', right: 'left' }
         : { left: 'left', right: 'right' }
     )
@@ -189,7 +189,7 @@ export default createComponent({
           up: slots.bottom !== void 0,
           down: slots.top !== void 0
         },
-        dirs = Object.keys(slotsList).filter(key => slotsList[key] === true)
+        dirs = Object.keys(slotsList).filter(key => slotsList[key])
 
       slotsDef.forEach(slotName => {
         const dir = slotName[0]

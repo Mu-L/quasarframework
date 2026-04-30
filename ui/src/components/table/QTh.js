@@ -47,7 +47,7 @@ export default createComponent({
         col = props.props.col
       }
 
-      if (col.sortable === true) {
+      if (col.sortable) {
         const action = col.align === 'right' ? 'unshift' : 'push'
 
         child = hUniqueSlot(slots.default, [])
@@ -66,7 +66,7 @@ export default createComponent({
           col.__thClass + (props.autoWidth ? ' q-table--col-auto-width' : ''),
         style: col.headerStyle,
         onClick: evt => {
-          if (col.sortable === true) props.props.sort(col)
+          if (col.sortable) props.props.sort(col)
           onClick(evt)
         }
       }

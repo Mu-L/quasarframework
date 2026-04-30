@@ -14,10 +14,10 @@ export function closePortalMenus(proxy, evt) {
       proxy.hide(evt)
 
       // is this a point of separation?
-      if (proxy.$props.separateClosePopup === true) {
+      if (proxy.$props.separateClosePopup) {
         return getParentProxy(proxy)
       }
-    } else if (proxy.__qPortal === true) {
+    } else if (proxy.__qPortal) {
       // treat it as point of separation if parent is QPopupProxy
       // (so mobile matches desktop behavior)
       // and hide it too
@@ -37,7 +37,7 @@ export function closePortalMenus(proxy, evt) {
 
 export function closePortals(proxy, evt, depth) {
   while (depth !== 0 && proxy !== void 0 && proxy !== null) {
-    if (proxy.__qPortal === true) {
+    if (proxy.__qPortal) {
       depth--
 
       if (proxy.$options.name === 'QMenu') {

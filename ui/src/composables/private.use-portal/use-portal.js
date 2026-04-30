@@ -72,7 +72,7 @@ export default function usePortal(vm, innerRef, renderPortalContent, type) {
   const onGlobalDialog = type === 'dialog' && isOnGlobalDialog(vm)
 
   function showPortal(isReady) {
-    if (isReady === true) {
+    if (isReady) {
       removeFocusWaitFlag(focusObj)
       portalIsAccessible.value = true
       return
@@ -97,7 +97,7 @@ export default function usePortal(vm, innerRef, renderPortalContent, type) {
   function hidePortal(isReady) {
     portalIsAccessible.value = false
 
-    if (isReady !== true) return
+    if (!isReady) return
 
     removeFocusWaitFlag(focusObj)
     portalIsActive.value = false

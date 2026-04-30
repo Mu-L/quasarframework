@@ -68,8 +68,7 @@ export default createComponent({
     const targetStyle = computed(() =>
       scrollbarWidth.value !== 0
         ? {
-            [$q.lang.rtl === true ? 'left' : 'right']:
-              `${scrollbarWidth.value}px`
+            [$q.lang.rtl ? 'left' : 'right']: `${scrollbarWidth.value}px`
           }
         : null
     )
@@ -77,9 +76,8 @@ export default createComponent({
     const targetChildStyle = computed(() =>
       scrollbarWidth.value !== 0
         ? {
-            [$q.lang.rtl === true ? 'right' : 'left']: 0,
-            [$q.lang.rtl === true ? 'left' : 'right']:
-              `-${scrollbarWidth.value}px`,
+            [$q.lang.rtl ? 'right' : 'left']: 0,
+            [$q.lang.rtl ? 'left' : 'right']: `-${scrollbarWidth.value}px`,
             width: `calc(100% + ${scrollbarWidth.value}px)`
           }
         : null
@@ -115,7 +113,7 @@ export default createComponent({
         width.value = newWidth
       }
 
-      if (resized === true && props.onResize !== void 0) {
+      if (resized && props.onResize !== void 0) {
         emit('resize', data)
       }
     }

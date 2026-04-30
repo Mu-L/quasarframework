@@ -66,7 +66,7 @@ export default createComponent({
         (isDark.value ? ' q-item--dark' : '') +
         (hasLink.value && props.active === null
           ? linkClass.value
-          : props.active === true
+          : props.active
             ? ` q-item--active${props.activeClass !== void 0 ? ` ${props.activeClass}` : ''}`
             : '') +
         (props.disable ? ' disabled' : '') +
@@ -82,7 +82,7 @@ export default createComponent({
     const style = computed(() => {
       if (props.insetLevel === void 0) return null
 
-      const dir = $q.lang.rtl === true ? 'Right' : 'Left'
+      const dir = $q.lang.rtl ? 'Right' : 'Left'
       return {
         ['padding' + dir]: 16 + props.insetLevel * 56 + 'px'
       }
@@ -90,11 +90,8 @@ export default createComponent({
 
     function onClick(e) {
       if (isClickable.value) {
-        if (blurTargetRef.value !== null && e.qAvoidFocus !== true) {
-          if (
-            e.qKeyEvent !== true &&
-            document.activeElement === rootRef.value
-          ) {
+        if (blurTargetRef.value !== null && !e.qAvoidFocus) {
+          if (!e.qKeyEvent && document.activeElement === rootRef.value) {
             blurTargetRef.value.focus()
           } else if (document.activeElement === blurTargetRef.value) {
             rootRef.value.focus()

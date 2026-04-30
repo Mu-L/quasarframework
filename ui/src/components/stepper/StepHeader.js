@@ -40,10 +40,12 @@ export default createComponent({
     })
 
     const headerNav = computed(() => {
-      const opt = props.step.headerNav,
-        nav = opt === true || opt === '' || opt === void 0
-
-      return !isDisable.value && props.stepper.headerNav && nav
+      const opt = props.step.headerNav
+      return (
+        !isDisable.value &&
+        props.stepper.headerNav &&
+        (opt === true || opt === '' || opt === void 0)
+      )
     })
 
     const hasPrefix = computed(
@@ -114,19 +116,17 @@ export default createComponent({
         (color.value !== void 0 ? ` text-${color.value}` : '') +
         (isError.value
           ? ' q-stepper__tab--error q-stepper__tab--error-with-' +
-            (hasPrefix.value === true ? 'prefix' : 'icon')
+            (hasPrefix.value ? 'prefix' : 'icon')
           : '') +
         (isActive.value ? ' q-stepper__tab--active' : '') +
         (isDone.value ? ' q-stepper__tab--done' : '') +
-        (headerNav.value === true
+        (headerNav.value
           ? ' q-stepper__tab--navigation q-focusable q-hoverable'
           : '') +
         (isDisable.value ? ' q-stepper__tab--disabled' : '')
     )
 
-    const ripple = computed(() =>
-      props.stepper.headerNav !== true ? false : headerNav.value
-    )
+    const ripple = computed(() => props.stepper.headerNav && headerNav.value)
 
     function onActivate() {
       blurRef.value?.focus()
@@ -142,7 +142,7 @@ export default createComponent({
     return () => {
       const data = { class: classes.value }
 
-      if (headerNav.value === true) {
+      if (headerNav.value) {
         data.onClick = onActivate
         data.onKeyup = onKeyup
 
@@ -165,7 +165,7 @@ export default createComponent({
           },
           [
             h('span', { class: 'row flex-center' }, [
-              hasPrefix.value === true
+              hasPrefix.value
                 ? props.step.prefix
                 : h(QIcon, { name: icon.value })
             ])

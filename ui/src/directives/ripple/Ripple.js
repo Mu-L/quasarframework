@@ -6,13 +6,11 @@ import throttle from '../../utils/throttle/throttle.js'
 import getSSRProps from '../../utils/private.noop-ssr-directive-transform/noop-ssr-directive-transform.js'
 
 function showRipple(evt, el, ctx, forceCenter) {
-  if (ctx.modifiers.stop === true) stop(evt)
+  if (ctx.modifiers.stop) stop(evt)
 
-  const color = ctx.modifiers.color
-  let center = ctx.modifiers.center
-  center = center === true || forceCenter === true
-
-  const node = document.createElement('span'),
+  const color = ctx.modifiers.color,
+    center = ctx.modifiers.center || forceCenter === true,
+    node = document.createElement('span'),
     innerNode = document.createElement('span'),
     pos = position(evt),
     { left, top, width, height } = el.getBoundingClientRect(),
@@ -92,10 +90,9 @@ export default createDirective(
 
             start(evt) {
               if (
-                ctx.enabled === true &&
-                evt.qSkipRipple !== true &&
-                evt.type ===
-                  (ctx.modifiers.early === true ? 'pointerdown' : 'click')
+                ctx.enabled &&
+                !evt.qSkipRipple &&
+                evt.type === (ctx.modifiers.early ? 'pointerdown' : 'click')
               ) {
                 showRipple(evt, el, ctx, evt.qKeyEvent === true)
               }
@@ -103,11 +100,10 @@ export default createDirective(
 
             keystart: throttle(evt => {
               if (
-                ctx.enabled === true &&
-                evt.qSkipRipple !== true &&
+                ctx.enabled &&
+                !evt.qSkipRipple &&
                 isKeyCode(evt, ctx.modifiers.keyCodes) &&
-                evt.type ===
-                  `key${ctx.modifiers.early === true ? 'down' : 'up'}`
+                evt.type === `key${ctx.modifiers.early ? 'down' : 'up'}`
               ) {
                 showRipple(evt, el, ctx, true)
               }
@@ -132,10 +128,7 @@ export default createDirective(
             if (ctx !== void 0) {
               ctx.enabled = binding.value !== false
 
-              if (
-                ctx.enabled === true &&
-                Object(binding.value) === binding.value
-              ) {
+              if (ctx.enabled && Object(binding.value) === binding.value) {
                 updateModifiers(ctx, binding)
               }
             }

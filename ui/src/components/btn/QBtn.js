@@ -92,7 +92,7 @@ export default createComponent({
     })
 
     const onEvents = computed(() => {
-      if (props.loading === true) {
+      if (props.loading) {
         return {
           onMousedown: onLoadingEvt,
           onTouchstart: onLoadingEvt,
@@ -149,7 +149,7 @@ export default createComponent({
           // required for iOS and desktop Safari
           !el.contains(rootRef.value)
         ) {
-          if (e.qAvoidFocus !== true) rootRef.value.focus()
+          if (!e.qAvoidFocus) rootRef.value.focus()
 
           const onClickCleanup = () => {
             document.removeEventListener('keydown', stopAndPrevent, true)
@@ -185,7 +185,7 @@ export default createComponent({
 
         if (!e.defaultPrevented) {
           // focus external button if the focus helper was focused before
-          if (e.qAvoidFocus !== true) rootRef.value.focus()
+          if (!e.qAvoidFocus) rootRef.value.focus()
 
           keyboardTarget = rootRef.value
           rootRef.value.classList.add('q-btn--active')
@@ -279,7 +279,7 @@ export default createComponent({
       const blurTarget = blurTargetRef.value
 
       if (
-        destroying !== true &&
+        !destroying &&
         (touchTarget === rootRef.value || mouseTarget === rootRef.value) &&
         blurTarget !== null &&
         blurTarget !== document.activeElement
@@ -370,7 +370,7 @@ export default createComponent({
         })
       ]
 
-      if (props.loading === true && props.percentage !== void 0) {
+      if (props.loading && props.percentage !== void 0) {
         child.push(
           h(
             'span',

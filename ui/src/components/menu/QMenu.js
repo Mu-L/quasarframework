@@ -295,7 +295,7 @@ export default createComponent({
         // menu was hidden from code or ESC plugin
         (evt === void 0 ||
           // menu was not closed from a mouse or touch clickOutside
-          evt.qClickOutside !== true)
+          !evt.qClickOutside)
       ) {
         ;(
           (evt?.type.indexOf('key') === 0
@@ -321,14 +321,14 @@ export default createComponent({
         unwatchPosition = void 0
       }
 
-      if (hiding === true || showing.value) {
+      if (hiding || showing.value) {
         removeFocusout(onFocusout)
         unconfigureScrollTarget()
         removeClickOutside(clickOutsideProps)
         removeEscapeKey(onEscapeKey)
       }
 
-      if (hiding !== true) {
+      if (!hiding) {
         refocusTarget = null
       }
     }
@@ -346,7 +346,7 @@ export default createComponent({
     function onAutoClose(e) {
       // if auto-close, then the ios double-tap fix which
       // issues a click should not close the menu
-      if (avoidAutoClose !== true) {
+      if (!avoidAutoClose) {
         closePortalMenus(proxy, e)
         emit('click', e)
       } else {
@@ -410,7 +410,9 @@ export default createComponent({
       )
     }
 
-    onBeforeUnmount(anchorCleanup)
+    onBeforeUnmount(() => {
+      anchorCleanup()
+    })
 
     // expose public methods
     Object.assign(proxy, { focus, updatePosition })

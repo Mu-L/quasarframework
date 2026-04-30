@@ -105,7 +105,7 @@ export default createComponent({
         )
         __multiplier =
           (props.reverse ? -1 : 1) *
-          (props.horizontal ? 1 : $q.lang.rtl === true ? -1 : 1) *
+          (props.horizontal ? 1 : $q.lang.rtl ? -1 : 1) *
           (props.unit === '%' ? (size === 0 ? 0 : 100 / size) : 1)
 
         rootRef.value.classList.add('q-splitter--active')

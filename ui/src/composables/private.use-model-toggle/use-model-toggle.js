@@ -40,7 +40,7 @@ export default function useModelToggle({
     if (
       props.disable ||
       evt?.qAnchorHandled === true ||
-      (canShow !== void 0 && canShow(evt) !== true)
+      (canShow !== void 0 && !canShow(evt))
     ) {
       return
     }
@@ -66,7 +66,6 @@ export default function useModelToggle({
     if (showing.value) return
 
     showing.value = true
-
     emit('beforeShow', evt)
 
     if (handleShow !== void 0) {
@@ -111,12 +110,12 @@ export default function useModelToggle({
   }
 
   function processModelChange(val) {
-    if (props.disable && val === true) {
+    if (props.disable && val) {
       if (props['onUpdate:modelValue'] !== void 0) {
         emit('update:modelValue', false)
       }
     } else if ((val === true) !== showing.value) {
-      const fn = val === true ? processShow : processHide
+      const fn = val ? processShow : processHide
       fn(payload)
     }
   }
@@ -134,7 +133,7 @@ export default function useModelToggle({
     )
   }
 
-  if (processOnMount === true) {
+  if (processOnMount) {
     onMounted(() => {
       processModelChange(props.modelValue)
     })

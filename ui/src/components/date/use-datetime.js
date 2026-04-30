@@ -39,10 +39,7 @@ export function getDayHash(date) {
 }
 
 export default function useDatetime(props, $q) {
-  const editable = computed(
-    () => props.disable !== true && props.readonly !== true
-  )
-
+  const editable = computed(() => !props.disable && !props.readonly)
   const tabindex = computed(() => (editable.value ? 0 : -1))
 
   const headerClass = computed(() => {
@@ -60,7 +57,7 @@ export default function useDatetime(props, $q) {
 
   function getCurrentDate(dateOnly) {
     const d = new Date()
-    const timeFill = dateOnly === true ? null : 0
+    const timeFill = dateOnly ? null : 0
 
     if (props.calendar === 'persian') {
       const jDate = toJalaali(d)

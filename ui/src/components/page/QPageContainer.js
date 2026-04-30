@@ -31,14 +31,14 @@ export default createComponent({
         css.paddingTop = `${$layout.header.size}px`
       }
       if ($layout.right.space) {
-        css[`padding${$q.lang.rtl === true ? 'Left' : 'Right'}`] =
+        css[`padding${$q.lang.rtl ? 'Left' : 'Right'}`] =
           `${$layout.right.size}px`
       }
       if ($layout.footer.space) {
         css.paddingBottom = `${$layout.footer.size}px`
       }
       if ($layout.left.space) {
-        css[`padding${$q.lang.rtl === true ? 'Right' : 'Left'}`] =
+        css[`padding${$q.lang.rtl ? 'Right' : 'Left'}`] =
           `${$layout.left.size}px`
       }
 

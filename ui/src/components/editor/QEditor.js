@@ -130,7 +130,7 @@ export default createComponent({
     )
 
     const buttonProps = computed(() => {
-      const flat = props.toolbarOutline !== true && props.toolbarPush !== true
+      const flat = !props.toolbarOutline && !props.toolbarPush
 
       return {
         type: 'a',

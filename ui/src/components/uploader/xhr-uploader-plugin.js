@@ -53,9 +53,7 @@ function injectPlugin({ props, emit, helpers }) {
       x.abort()
     })
 
-    if (promises.value.length !== 0) {
-      abortPromises = true
-    }
+    if (promises.value.length !== 0) abortPromises = true
   }
 
   function upload() {
@@ -95,12 +93,10 @@ function injectPlugin({ props, emit, helpers }) {
       promises.value.push(res)
 
       const failed = err => {
-        if (helpers.isAlive() === true) {
+        if (helpers.isAlive()) {
           promises.value = promises.value.filter(p => p !== res)
 
-          if (promises.value.length === 0) {
-            abortPromises = false
-          }
+          if (promises.value.length === 0) abortPromises = false
 
           helpers.queuedFiles.value.push(...files)
           files.forEach(f => {
@@ -114,9 +110,9 @@ function injectPlugin({ props, emit, helpers }) {
 
       res
         .then(factory => {
-          if (abortPromises === true) {
+          if (abortPromises) {
             failed(new Error('Aborted'))
-          } else if (helpers.isAlive() === true) {
+          } else if (helpers.isAlive()) {
             promises.value = promises.value.filter(p => p !== res)
             performUpload(files, factory)
           }
@@ -160,7 +156,7 @@ function injectPlugin({ props, emit, helpers }) {
     xhr.upload.addEventListener(
       'progress',
       e => {
-        if (aborted === true) return
+        if (aborted) return
 
         const loaded = Math.min(maxUploadSize, e.loaded)
 

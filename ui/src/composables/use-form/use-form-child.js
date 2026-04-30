@@ -24,7 +24,7 @@ export default function useFormChild({
     watch(
       () => props.disable,
       val => {
-        if (val === true) {
+        if (val) {
           if (typeof resetValidation === 'function') resetValidation()
           $form.unbindComponent(proxy)
         } else {
@@ -42,7 +42,7 @@ export default function useFormChild({
       // un-register from parent QForm
       if (!props.disable) $form.unbindComponent(proxy)
     })
-  } else if (requiresQForm === true) {
+  } else if (requiresQForm) {
     console.error('Parent QForm not found on useFormChild()!')
   }
 }

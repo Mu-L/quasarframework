@@ -25,7 +25,7 @@ const Plugin = createReactivePlugin(
 
       if (__QUASAR_SSR_SERVER__) return
 
-      if (this.__installed === true) {
+      if (this.__installed) {
         if ($q.config.loadingBar !== void 0) {
           this.setDefaults($q.config.loadingBar)
         }

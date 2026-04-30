@@ -21,7 +21,7 @@ const defaultSizes = {
 function width(val, reverse, $q) {
   return {
     transform: reverse
-      ? `translateX(${$q.lang.rtl === true ? '-' : ''}100%) scale3d(${-val},1,1)`
+      ? `translateX(${$q.lang.rtl ? '-' : ''}100%) scale3d(${-val},1,1)`
       : `scale3d(${val},1,1)`
   }
 }

@@ -220,7 +220,7 @@ export default createComponent({
         emit('update:modelValue', { ...model.value })
       }
 
-      if (change === true) emit('change', { ...model.value })
+      if (change) emit('change', { ...model.value })
     }
 
     function getDragging(event) {
@@ -352,7 +352,7 @@ export default createComponent({
           ? { min: pos.min || props.min, max: pos.max || props.max }
           : { min: pos.min, max: pos.max }
 
-      if (props.snap !== true || props.step === 0) {
+      if (!props.snap || props.step === 0) {
         curMinRatio.value = pos.minR
         curMaxRatio.value = pos.maxR
       } else {

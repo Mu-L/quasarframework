@@ -107,7 +107,7 @@ export default function useValidate(focused, innerLoading) {
   watch(() => props.lazyRules, onRulesChange)
 
   watch(focused, val => {
-    if (val === true) {
+    if (val) {
       isDirtyModel.value = true
     } else if (canDebounceValidate.value && props.lazyRules !== 'ondemand') {
       debouncedValidate()

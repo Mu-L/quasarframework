@@ -67,7 +67,7 @@ function getValidValues(start, count, testFn) {
   const values = Array.from(
     { length: count + 1 },
     (_, index) => index + start
-  ).filter(i => testFn(i) === true)
+  ).filter(i => testFn(i))
 
   return {
     min: values[0],
@@ -192,17 +192,13 @@ export default createComponent({
 
     const pointerStyle = computed(() => {
       const forHour = view.value === 'hour',
-        divider = forHour === true ? 12 : 60,
+        divider = forHour ? 12 : 60,
         amount = innerModel.value[view.value],
         degrees = Math.round(amount * (360 / divider)) - 180
 
       let transform = `rotate(${degrees}deg) translateX(-50%)`
 
-      if (
-        forHour === true &&
-        computedFormat24h.value &&
-        innerModel.value.hour >= 12
-      ) {
+      if (forHour && computedFormat24h.value && innerModel.value.hour >= 12) {
         transform += ' scale(.7)'
       }
 
@@ -285,10 +281,7 @@ export default createComponent({
           end = 23
         } else {
           end = 11
-
-          if (!isAM.value) {
-            offset = 12
-          }
+          if (!isAM.value) offset = 12
         }
       } else {
         end = 55
@@ -735,7 +728,7 @@ export default createComponent({
     function verifyAndUpdate() {
       if (
         hourInSelection.value !== null &&
-        hourInSelection.value(innerModel.value.hour) !== true
+        !hourInSelection.value(innerModel.value.hour)
       ) {
         innerModel.value = __splitDate()
         goToViewWhenHasModel('hour')
@@ -744,7 +737,7 @@ export default createComponent({
 
       if (
         minuteInSelection.value !== null &&
-        minuteInSelection.value(innerModel.value.minute) !== true
+        !minuteInSelection.value(innerModel.value.minute)
       ) {
         innerModel.value.minute = null
         innerModel.value.second = null
@@ -755,7 +748,7 @@ export default createComponent({
       if (
         props.withSeconds &&
         secondInSelection.value !== null &&
-        secondInSelection.value(innerModel.value.second) !== true
+        !secondInSelection.value(innerModel.value.second)
       ) {
         innerModel.value.second = null
         goToViewWhenHasModel('second')
@@ -980,7 +973,7 @@ export default createComponent({
                                       (pos.val === current
                                         ? ' q-time__clock-position--active ' +
                                           headerClass.value
-                                        : pos.disable === true
+                                        : pos.disable
                                           ? ' q-time__clock-position--disable'
                                           : '')
                                   },
@@ -1026,7 +1019,7 @@ export default createComponent({
         child.push(h('div', { class: 'q-time__actions' }, def))
       }
 
-      if (props.name !== void 0 && props.disable !== true) {
+      if (props.name !== void 0 && !props.disable) {
         injectFormInput(child, 'push')
       }
 

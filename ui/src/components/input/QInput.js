@@ -260,7 +260,7 @@ export default createComponent({
 
       const val = e.target.value
 
-      if (e.target.qComposing === true) {
+      if (e.target.qComposing) {
         temp.value = val
         return
       }

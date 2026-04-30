@@ -334,7 +334,7 @@ function normalizeMod(mod) {
 
 export function adjustDate(date, rawMod, utc) {
   const mod = normalizeMod(rawMod),
-    middle = utc === true ? 'UTC' : '',
+    middle = utc ? 'UTC' : '',
     d = new Date(date),
     t =
       mod.year !== void 0 || mod.month !== void 0 || mod.date !== void 0
@@ -546,7 +546,7 @@ function getDayIdentifier(date) {
 
 function getDateIdentifier(date, onlyDate /* = false */) {
   const d = new Date(date)
-  return onlyDate === true ? getDayIdentifier(d) : d.getTime()
+  return onlyDate ? getDayIdentifier(d) : d.getTime()
 }
 
 export function isBetweenDates(date, from, to, opts = {}) {
@@ -555,8 +555,8 @@ export function isBetweenDates(date, from, to, opts = {}) {
     cur = getDateIdentifier(date, opts.onlyDate)
 
   return (
-    (cur > d1 || (opts.inclusiveFrom === true && cur === d1)) &&
-    (cur < d2 || (opts.inclusiveTo === true && cur === d2))
+    (cur > d1 || (opts.inclusiveFrom && cur === d1)) &&
+    (cur < d2 || (opts.inclusiveTo && cur === d2))
   )
 }
 
@@ -569,7 +569,7 @@ export function subtractFromDate(date, mod) {
 
 export function startOfDate(date, unit, utc) {
   const t = new Date(date),
-    prefix = `set${utc === true ? 'UTC' : ''}`
+    prefix = `set${utc ? 'UTC' : ''}`
 
   switch (unit) {
     case 'year':
@@ -603,7 +603,7 @@ export function startOfDate(date, unit, utc) {
 
 export function endOfDate(date, unit, utc) {
   const t = new Date(date),
-    prefix = `set${utc === true ? 'UTC' : ''}`
+    prefix = `set${utc ? 'UTC' : ''}`
 
   switch (unit) {
     case 'year':

@@ -450,7 +450,7 @@ export default function useSlider({
       if (dragging.value !== void 0) {
         updatePosition(event.evt)
         // only if touch, because we also have mousedown/up:
-        if (event.touch === true) updateValue(true)
+        if (event.touch) updateValue(true)
         dragging.value = void 0
         emit('pan', 'end')
       }

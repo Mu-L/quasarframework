@@ -54,9 +54,9 @@ const Plugin = createReactivePlugin(
 
         if (
           ssrContext.$q.config.lang === void 0 ||
-          ssrContext.$q.config.lang.noHtmlAttrs !== true
+          !ssrContext.$q.config.lang.noHtmlAttrs
         ) {
-          const dir = lang.rtl === true ? 'rtl' : 'ltr'
+          const dir = lang.rtl ? 'rtl' : 'ltr'
           const attrs = `lang=${lang.isoName} dir=${dir}`
 
           ssrContext._meta.htmlAttrs =
@@ -76,10 +76,10 @@ const Plugin = createReactivePlugin(
 
         if (
           Plugin.__langConfig === void 0 ||
-          Plugin.__langConfig.noHtmlAttrs !== true
+          !Plugin.__langConfig.noHtmlAttrs
         ) {
           const el = document.documentElement
-          el.setAttribute('dir', lang.rtl === true ? 'rtl' : 'ltr')
+          el.setAttribute('dir', lang.rtl ? 'rtl' : 'ltr')
           el.setAttribute('lang', lang.isoName)
         }
 
@@ -109,7 +109,7 @@ const Plugin = createReactivePlugin(
         $q.lang = Plugin.__qLang
         Plugin.__langConfig = $q.config.lang
 
-        if (this.__installed === true) {
+        if (this.__installed) {
           if (lang !== void 0) this.set(lang)
         } else {
           this.props = new Proxy(this.__qLang, {

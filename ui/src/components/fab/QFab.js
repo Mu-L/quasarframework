@@ -117,7 +117,7 @@ export default createComponent({
     function getTriggerContent() {
       const child = []
 
-      if (props.hideIcon !== true) {
+      if (!props.hideIcon) {
         child.push(
           h('div', { class: iconHolderClass.value }, [
             getIcon('icon', 'icon'),

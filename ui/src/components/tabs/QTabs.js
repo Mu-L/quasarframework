@@ -197,11 +197,11 @@ export default createComponent({
     function updateModel({ name, setCurrent, skipEmit }) {
       if (currentModel.value === name) return
 
-      if (skipEmit !== true && props['onUpdate:modelValue'] !== void 0) {
+      if (!skipEmit && props['onUpdate:modelValue'] !== void 0) {
         emit('update:modelValue', name)
       }
 
-      if (setCurrent === true || props['onUpdate:modelValue'] === void 0) {
+      if (setCurrent || props['onUpdate:modelValue'] === void 0) {
         animate(currentModel.value, name)
         currentModel.value = name
       }
@@ -238,7 +238,7 @@ export default createComponent({
       scrollable.value = scroll
 
       // Arrows need to be updated even if the scroll status was already true
-      if (scroll === true) registerUpdateArrowsTick(updateArrows)
+      if (scroll) registerUpdateArrowsTick(updateArrows)
 
       justify.value = size < Number.parseInt(props.breakpoint, 10)
     }
@@ -359,9 +359,7 @@ export default createComponent({
     function onKbdNavigate(keyCode, fromEl) {
       const tabs = Array.prototype.filter.call(
         contentRef.value.children,
-        el =>
-          el === fromEl ||
-          (el.matches && el.matches('.q-tab.q-focusable') === true)
+        el => el === fromEl || el.matches?.('.q-tab.q-focusable')
       )
 
       const len = tabs.length
@@ -385,7 +383,7 @@ export default createComponent({
       const dirNext =
         keyCode === (props.vertical ? 40 /* ArrowDown */ : 39) /* ArrowRight */
 
-      const dir = dirPrev === true ? -1 : dirNext === true ? 1 : void 0
+      const dir = dirPrev ? -1 : dirNext ? 1 : void 0
 
       if (dir !== void 0) {
         const rtlDir = isRTL.value ? -1 : 1

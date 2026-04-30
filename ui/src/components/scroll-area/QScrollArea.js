@@ -152,7 +152,7 @@ export default createComponent({
     })
     scroll.vertical.thumbHidden = computed(
       () =>
-        ((props.visible === null ? hover.value : props.visible) !== true &&
+        (!(props.visible === null ? hover.value : props.visible) &&
           !tempShowing.value &&
           !panning.value) ||
         scroll.vertical.size.value <= container.vertical.value + 1
@@ -205,7 +205,7 @@ export default createComponent({
     })
     scroll.horizontal.thumbHidden = computed(
       () =>
-        ((props.visible === null ? hover.value : props.visible) !== true &&
+        (!(props.visible === null ? hover.value : props.visible) &&
           !tempShowing.value &&
           !panning.value) ||
         scroll.horizontal.size.value <= container.horizontal.value + 1
@@ -229,7 +229,7 @@ export default createComponent({
     scroll.horizontal.style = computed(() => ({
       ...props.thumbStyle,
       ...props.horizontalThumbStyle,
-      [proxy.$q.lang.rtl === true ? 'right' : 'left']:
+      [proxy.$q.lang.rtl ? 'right' : 'left']:
         `${scroll.horizontal.thumbStart.value}px`,
       width: `${scroll.horizontal.thumbSize.value}px`,
       bottom: `${props.verticalOffset[1]}px`
@@ -310,7 +310,7 @@ export default createComponent({
         change = true
       }
 
-      if (change === true) startTimer()
+      if (change) startTimer()
     }
 
     function updateScroll({ position }) {
@@ -326,7 +326,7 @@ export default createComponent({
         change = true
       }
 
-      if (change === true) startTimer()
+      if (change) startTimer()
     }
 
     function updateScrollSize({ height, width }) {
@@ -349,13 +349,11 @@ export default createComponent({
 
         panRefPos = data.position.value
         panning.value = true
-      } else if (panning.value !== true) {
+      } else if (!panning.value) {
         return
       }
 
-      if (e.isFinal) {
-        panning.value = false
-      }
+      if (e.isFinal) panning.value = false
 
       const dProp = dirProps[axis]
 
@@ -452,7 +450,7 @@ export default createComponent({
         if (targetRef.value !== null) {
           setHorizontalScrollPosition(
             targetRef.value,
-            Math.abs(scroll.horizontal.position.value) * (rtl === true ? -1 : 1)
+            Math.abs(scroll.horizontal.position.value) * (rtl ? -1 : 1)
           )
         }
       }
@@ -496,7 +494,7 @@ export default createComponent({
           axis,
           percentage *
             (scroll[axis].size.value - container[axis].value) *
-            (axis === 'horizontal' && proxy.$q.lang.rtl === true ? -1 : 1),
+            (axis === 'horizontal' && proxy.$q.lang.rtl ? -1 : 1),
           duration
         )
       }

@@ -141,7 +141,7 @@ export default function useFile({
         file.webkitRelativePath + file.lastModified + file.name + file.size
     })
 
-    if (append === true) {
+    if (append) {
       // Avoid duplicate files
       const filenameMap = currentFileList.map(entry => entry.__key)
       files = filterFiles(
@@ -157,10 +157,9 @@ export default function useFile({
     }
 
     if (props.maxTotalSize !== void 0) {
-      let size =
-        append === true
-          ? currentFileList.reduce((total, file) => total + file.size, 0)
-          : 0
+      let size = append
+        ? currentFileList.reduce((total, file) => total + file.size, 0)
+        : 0
 
       files = filterFiles(files, rejectedFiles, 'max-total-size', file => {
         size += file.size
@@ -181,7 +180,7 @@ export default function useFile({
     }
 
     if (props.maxFiles !== void 0) {
-      let filesNumber = append === true ? currentFileList.length : 0
+      let filesNumber = append ? currentFileList.length : 0
 
       files = filterFiles(files, rejectedFiles, 'max-files', () => {
         filesNumber++
@@ -210,14 +209,15 @@ export default function useFile({
 
     // Safari bug: relatedTarget is null for over 10 years
     // https://bugs.webkit.org/show_bug.cgi?id=66547
-    const gone =
+    if (
       e.relatedTarget !== null || !client.is.safari
         ? e.relatedTarget !== dndRef.value
         : !document
             .elementsFromPoint(e.clientX, e.clientY)
             .includes(dndRef.value)
-
-    if (gone === true) dnd.value = false
+    ) {
+      dnd.value = false
+    }
   }
 
   function onDrop(e) {

@@ -177,7 +177,7 @@ export default createComponent({
         props.iconNext || $q.iconSet.pagination.next,
         props.iconLast || $q.iconSet.pagination.last
       ]
-      return $q.lang.rtl === true ? ico.reverse() : ico
+      return $q.lang.rtl ? ico.reverse() : ico
     })
 
     const attrs = computed(() => ({
@@ -304,7 +304,7 @@ export default createComponent({
         ...cfg
       }
 
-      if (active === true) {
+      if (active) {
         Object.assign(data, {
           'aria-current': 'true',
           ...activeBtnProps.value
@@ -390,7 +390,6 @@ export default createComponent({
         const { pgFrom, pgTo, marginalStyle: style } = btnConfig.value
 
         if (btnConfig.value.boundaryStart) {
-          const active = minProp.value === props.modelValue
           contentStart.push(
             getBtn(
               {
@@ -400,13 +399,12 @@ export default createComponent({
                 label: minProp.value
               },
               minProp.value,
-              active
+              minProp.value === props.modelValue
             )
           )
         }
 
         if (btnConfig.value.boundaryEnd) {
-          const active = maxProp.value === props.modelValue
           contentEnd.unshift(
             getBtn(
               {
@@ -416,7 +414,7 @@ export default createComponent({
                 label: maxProp.value
               },
               maxProp.value,
-              active
+              maxProp.value === props.modelValue
             )
           )
         }

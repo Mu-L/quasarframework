@@ -148,7 +148,7 @@ export default createComponent({
 
     const view = ref(props.defaultView)
 
-    const direction = computed(() => ($q.lang.rtl === true ? 'right' : 'left'))
+    const direction = computed(() => ($q.lang.rtl ? 'right' : 'left'))
     const monthDirection = ref(direction.value)
     const yearDirection = ref(direction.value)
 
@@ -369,7 +369,7 @@ export default createComponent({
         $q.iconSet.datetime.arrowLeft,
         $q.iconSet.datetime.arrowRight
       ]
-      return $q.lang.rtl === true ? val.reverse() : val
+      return $q.lang.rtl ? val.reverse() : val
     })
 
     const computedFirstDayOfWeek = computed(() =>
@@ -639,7 +639,7 @@ export default createComponent({
       for (let i = 1; i <= daysInMonth.value; i++) {
         const day = { i, event: eventDaysMap.value[i], classes: [] }
 
-        if (selectionDaysMap.value[i] === true) {
+        if (selectionDaysMap.value[i]) {
           day.in = true
           day.flat = true
         }
@@ -727,10 +727,10 @@ export default createComponent({
           res[day].editRange = true
         }
 
-        if (rangeView.value.includeFrom === true) {
+        if (rangeView.value.includeFrom) {
           res[from].editRangeFrom = true
         }
-        if (rangeView.value.includeTo === true) {
+        if (rangeView.value.includeTo) {
           res[to].editRangeTo = true
         }
       }
@@ -753,20 +753,20 @@ export default createComponent({
       res.forEach(day => {
         let cls = 'q-date__calendar-item '
 
-        if (day.fill === true) {
+        if (day.fill) {
           cls += 'q-date__calendar-item--fill'
         } else {
-          cls += `q-date__calendar-item--${day.in === true ? 'in' : 'out'}`
+          cls += `q-date__calendar-item--${day.in ? 'in' : 'out'}`
 
           if (day.range !== void 0) {
-            cls += ` q-date__range${day.rangeTo === true ? '-to' : day.rangeFrom === true ? '-from' : ''}`
+            cls += ` q-date__range${day.rangeTo ? '-to' : day.rangeFrom ? '-from' : ''}`
           }
 
-          if (day.editRange === true) {
-            cls += ` q-date__edit-range${day.editRangeFrom === true ? '-from' : ''}${day.editRangeTo === true ? '-to' : ''}`
+          if (day.editRange) {
+            cls += ` q-date__edit-range${day.editRangeFrom ? '-from' : ''}${day.editRangeTo ? '-to' : ''}`
           }
 
-          if (day.range !== void 0 || day.editRange === true) {
+          if (day.range !== void 0 || day.editRange) {
             cls += ` text-${day.color}`
           }
         }
@@ -856,7 +856,7 @@ export default createComponent({
     function offsetCalendar(type, descending) {
       if (['month', 'year'].includes(type)) {
         const fn = type === 'month' ? goToMonth : goToYear
-        fn(descending === true ? -1 : 1)
+        fn(descending ? -1 : 1)
       }
     }
 
@@ -1302,7 +1302,7 @@ export default createComponent({
                   ? $q.lang.date.prevYear
                   : $q.lang.date.prevMonth,
               tabindex: tabindex.value,
-              disable: boundaries.prev === false,
+              disable: !boundaries.prev,
               ...getCache('go-#' + type, {
                 onClick() {
                   goTo(-1)
@@ -1359,7 +1359,7 @@ export default createComponent({
                   ? $q.lang.date.nextYear
                   : $q.lang.date.nextMonth,
               tabindex: tabindex.value,
-              disable: boundaries.next === false,
+              disable: !boundaries.next,
               ...getCache('go+#' + type, {
                 onClick() {
                   goTo(1)
@@ -1438,12 +1438,11 @@ export default createComponent({
                       },
                       days.value.map(day =>
                         h('div', { class: day.classes }, [
-                          day.in === true
+                          day.in
                             ? h(
                                 QBtn,
                                 {
-                                  class:
-                                    day.today === true ? 'q-date__today' : '',
+                                  class: day.today ? 'q-date__today' : '',
                                   dense: true,
                                   flat: day.flat,
                                   unelevated: day.unelevated,
@@ -1460,7 +1459,7 @@ export default createComponent({
                                     }
                                   })
                                 },
-                                day.event !== false
+                                day.event
                                   ? () =>
                                       h('div', {
                                         class: 'q-date__event bg-' + day.event
@@ -1499,14 +1498,14 @@ export default createComponent({
             [
               h(QBtn, {
                 class:
-                  currentYear === true && today.value.month === i + 1
+                  currentYear && today.value.month === i + 1
                     ? 'q-date__today'
                     : null,
-                flat: active !== true,
+                flat: !active,
                 label: month,
                 unelevated: active,
-                color: active === true ? computedColor.value : null,
-                textColor: active === true ? computedTextColor.value : null,
+                color: active ? computedColor.value : null,
+                textColor: active ? computedTextColor.value : null,
                 tabindex: tabindex.value,
                 disable: isDisabled(i + 1),
                 ...getCache('month#' + i, {
@@ -1571,8 +1570,8 @@ export default createComponent({
                   label: i,
                   dense: true,
                   unelevated: active,
-                  color: active === true ? computedColor.value : null,
-                  textColor: active === true ? computedTextColor.value : null,
+                  color: active ? computedColor.value : null,
+                  textColor: active ? computedTextColor.value : null,
                   tabindex: tabindex.value,
                   disable: isDisabled(i),
                   ...getCache('yr#' + i, {
@@ -1660,7 +1659,7 @@ export default createComponent({
 
       if (editRange.value === null) {
         const dayProps = days.value.find(
-          item => item.fill !== true && item.i === dayIndex
+          item => !item.fill && item.i === dayIndex
         )
 
         if (!props.noUnset && dayProps.range !== void 0) {
@@ -1672,7 +1671,7 @@ export default createComponent({
           return
         }
 
-        if (dayProps.selected === true) {
+        if (dayProps.selected) {
           removeFromModel(day)
           return
         }

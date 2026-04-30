@@ -9,11 +9,7 @@ function parseValue(val) {
 }
 
 function getId(val, required) {
-  return val === void 0 || val === null
-    ? required === true
-      ? `f_${uid()}`
-      : null
-    : val
+  return val === void 0 || val === null ? (required ? `f_${uid()}` : null) : val
 }
 
 /**
@@ -27,7 +23,7 @@ export default function useId({ getValue, required = true } = {}) {
   if (isRuntimeSsrPreHydration.value) {
     const id = getValue !== void 0 ? ref(parseValue(getValue())) : ref(null)
 
-    if (required === true && id.value === null) {
+    if (required && id.value === null) {
       onMounted(() => {
         id.value = `f_${uid()}` // getId(null, true)
       })

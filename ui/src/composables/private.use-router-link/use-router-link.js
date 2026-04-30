@@ -262,9 +262,9 @@ export default function useRouterLink({
     e.preventDefault()
 
     // then() can also return a "soft" router error (Vue Router behavior)
-    const promise = proxy.$router[replace === true ? 'replace' : 'push'](to)
+    const promise = proxy.$router[replace ? 'replace' : 'push'](to)
 
-    return returnRouterError === true
+    return returnRouterError
       ? promise
       : // else catching hard errors and also "soft" ones - then(err => ...)
         promise.then(() => {}).catch(() => {})

@@ -182,7 +182,7 @@ function getPlatform(UA) {
     browser.safari ||
     browser.vivaldi ||
     // we expect unknown, non iOS mobile browsers to be webkit based
-    (browser.mobile === true && browser.ios !== true && knownMobiles !== true)
+    (browser.mobile && !browser.ios && !knownMobiles)
   ) {
     browser.webkit = true
   }
@@ -255,13 +255,13 @@ function getPlatform(UA) {
        */
 
       if (
-        hasTouch === true &&
-        browser.mac === true &&
-        ((browser.desktop === true && browser.safari === true) ||
-          (browser.nativeMobile === true &&
-            browser.android !== true &&
-            browser.ios !== true &&
-            browser.ipad !== true))
+        hasTouch &&
+        browser.mac &&
+        ((browser.desktop && browser.safari) ||
+          (browser.nativeMobile &&
+            !browser.android &&
+            !browser.ios &&
+            !browser.ipad))
       ) {
         /*
          * Correction needed for iOS since the default
@@ -288,7 +288,7 @@ function getPlatform(UA) {
       }
 
       if (
-        browser.mobile !== true &&
+        !browser.mobile &&
         window.navigator.userAgentData &&
         window.navigator.userAgentData.mobile
       ) {

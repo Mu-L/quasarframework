@@ -15,7 +15,7 @@ export default createComponent({
     const classes = computed(
       () =>
         'q-tr' +
-        (props.props === void 0 || props.props.header === true
+        (props.props === void 0 || props.props.header
           ? ''
           : ' ' + props.props.__trClass) +
         (props.noHover ? ' q-tr--no-hover' : '')

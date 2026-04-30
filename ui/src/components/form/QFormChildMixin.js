@@ -29,14 +29,14 @@ export default {
 
   mounted() {
     // register to parent QForm
-    if (this.disable !== true) {
+    if (!this.disable) {
       this.$.provides[formKey]?.bindComponent(this)
     }
   },
 
   beforeUnmount() {
     // un-register from parent QForm
-    if (this.disable !== true) {
+    if (!this.disable) {
       this.$.provides[formKey]?.unbindComponent(this)
     }
   }

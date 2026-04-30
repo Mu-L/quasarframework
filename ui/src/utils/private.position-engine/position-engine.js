@@ -51,7 +51,7 @@ export function parsePosition(pos, rtl) {
   const parts = pos.split(' ')
   return {
     vertical: parts[0],
-    horizontal: horizontalPos[`${parts[1]}#${rtl === true ? 'rtl' : 'ltr'}`]
+    horizontal: horizontalPos[`${parts[1]}#${rtl ? 'rtl' : 'ltr'}`]
   }
 }
 
@@ -177,7 +177,7 @@ export function setPosition(cfg, retryNumber = 0) {
 
   const anchorProps =
     absoluteOffset === void 0
-      ? getAnchorProps(anchorEl, cover === true ? [0, 0] : offset)
+      ? getAnchorProps(anchorEl, cover ? [0, 0] : offset)
       : getAbsoluteAnchorProps(anchorEl, absoluteOffset, offset)
 
   /**
@@ -201,21 +201,20 @@ export function setPosition(cfg, retryNumber = 0) {
 
   const { offsetWidth: origElWidth, offsetHeight: origElHeight } = targetEl
   const { elWidth, elHeight } =
-    fit === true || cover === true
+    fit || cover
       ? {
           elWidth: Math.max(anchorProps.width, origElWidth),
-          elHeight:
-            cover === true
-              ? Math.max(anchorProps.height, origElHeight)
-              : origElHeight
+          elHeight: cover
+            ? Math.max(anchorProps.height, origElHeight)
+            : origElHeight
         }
       : { elWidth: origElWidth, elHeight: origElHeight }
 
   let elStyle = { maxWidth, maxHeight }
 
-  if (fit === true || cover === true) {
+  if (fit || cover) {
     elStyle.minWidth = anchorProps.width + 'px'
-    if (cover === true) {
+    if (cover) {
       elStyle.minHeight = anchorProps.height + 'px'
     }
   }
@@ -257,7 +256,7 @@ export function setPosition(cfg, retryNumber = 0) {
       anchorProps.right -= offsetX + 2
     }
 
-    if (hasChanged === true) {
+    if (hasChanged) {
       // re-calculate props with the new anchor
       props = getTopLeftProps(
         anchorProps,

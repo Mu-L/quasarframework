@@ -35,16 +35,14 @@ export function isDeepEqual(a, b) {
       let iter = a.entries()
 
       i = iter.next()
-      while (i.done !== true) {
-        if (b.has(i.value[0]) !== true) {
-          return false
-        }
+      while (!i.done) {
+        if (!b.has(i.value[0])) return false
         i = iter.next()
       }
 
       iter = a.entries()
       i = iter.next()
-      while (i.done !== true) {
+      while (!i.done) {
         if (!isDeepEqual(i.value[1], b.get(i.value[0]))) return false
         i = iter.next()
       }
@@ -60,10 +58,8 @@ export function isDeepEqual(a, b) {
       const iter = a.entries()
 
       i = iter.next()
-      while (i.done !== true) {
-        if (b.has(i.value[0]) !== true) {
-          return false
-        }
+      while (!i.done) {
+        if (!b.has(i.value[0])) return false
         i = iter.next()
       }
 
@@ -74,14 +70,10 @@ export function isDeepEqual(a, b) {
     if (a.buffer != null && a.buffer.constructor === ArrayBuffer) {
       length = a.length
 
-      if (length !== b.length) {
-        return false
-      }
+      if (length !== b.length) return false
 
       for (i = length; i-- !== 0; ) {
-        if (a[i] !== b[i]) {
-          return false
-        }
+        if (a[i] !== b[i]) return false
       }
 
       return true

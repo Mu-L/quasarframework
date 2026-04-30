@@ -69,7 +69,7 @@ const Plugin = createReactivePlugin(
 
       $q.dark = this
 
-      if (this.__installed !== true) {
+      if (!this.__installed) {
         this.set(dark !== void 0 ? dark : false)
       }
     }

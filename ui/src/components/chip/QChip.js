@@ -76,12 +76,10 @@ export default createComponent({
     const isDark = useDark(props, $q)
     const sizeStyle = useSize(props, defaultSizes)
 
-    const hasLeftIcon = computed(
-      () => props.selected === true || props.icon !== void 0
-    )
+    const hasLeftIcon = computed(() => props.selected || props.icon !== void 0)
 
     const leftIcon = computed(() =>
-      props.selected === true
+      props.selected
         ? props.iconSelected || $q.iconSet.chip.selected
         : props.icon
     )
@@ -106,7 +104,7 @@ export default createComponent({
         (props.disable ? ' disabled' : '') +
         (props.dense ? ' q-chip--dense' : '') +
         (props.outline ? ' q-chip--outline' : '') +
-        (props.selected === true ? ' q-chip--selected' : '') +
+        (props.selected ? ' q-chip--selected' : '') +
         (isClickable.value
           ? ' q-chip--clickable cursor-pointer non-selectable q-hoverable'
           : '') +

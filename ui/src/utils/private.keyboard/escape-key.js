@@ -9,13 +9,13 @@ function onKeydown(evt) {
 }
 
 function onBlur() {
-  if (escDown === true) {
+  if (escDown) {
     escDown = false
   }
 }
 
 function onKeyup(evt) {
-  if (escDown === true) {
+  if (escDown) {
     escDown = false
 
     if (isKeyCode(evt, 27)) {

@@ -110,7 +110,7 @@ export default createDirective(
                 distY = pos.top - ctx.event.y,
                 absY = Math.abs(distY)
 
-              if (ctx.event.mouse !== true) {
+              if (!ctx.event.mouse) {
                 if (absX < ctx.sensitivity[1] && absY < ctx.sensitivity[1]) {
                   ctx.end(evt)
                   return
@@ -133,7 +133,7 @@ export default createDirective(
                 velY = absY / time
 
               if (
-                ctx.direction.vertical === true &&
+                ctx.direction.vertical &&
                 absX < absY &&
                 absX < 100 &&
                 velY > ctx.sensitivity[0]
@@ -142,7 +142,7 @@ export default createDirective(
               }
 
               if (
-                ctx.direction.horizontal === true &&
+                ctx.direction.horizontal &&
                 absX > absY &&
                 absY < 100 &&
                 velX > ctx.sensitivity[0]
@@ -151,7 +151,7 @@ export default createDirective(
               }
 
               if (
-                ctx.direction.up === true &&
+                ctx.direction.up &&
                 absX < absY &&
                 distY < 0 &&
                 absX < 100 &&
@@ -161,7 +161,7 @@ export default createDirective(
               }
 
               if (
-                ctx.direction.down === true &&
+                ctx.direction.down &&
                 absX < absY &&
                 distY > 0 &&
                 absX < 100 &&
@@ -171,7 +171,7 @@ export default createDirective(
               }
 
               if (
-                ctx.direction.left === true &&
+                ctx.direction.left &&
                 absX > absY &&
                 distX < 0 &&
                 absY < 100 &&
@@ -181,7 +181,7 @@ export default createDirective(
               }
 
               if (
-                ctx.direction.right === true &&
+                ctx.direction.right &&
                 absX > absY &&
                 distX > 0 &&
                 absY < 100 &&
@@ -193,7 +193,7 @@ export default createDirective(
               if (ctx.event.dir !== false) {
                 stopAndPrevent(evt)
 
-                if (ctx.event.mouse === true) {
+                if (ctx.event.mouse) {
                   document.body.classList.add('no-pointer-events--children')
                   document.body.classList.add('non-selectable')
                   clearSelection()
@@ -258,7 +258,7 @@ export default createDirective(
                 el,
                 'touchstart',
                 'touchStart',
-                `passive${modifiers.capture === true ? 'Capture' : ''}`
+                `passive${modifiers.capture ? 'Capture' : ''}`
               ],
               [el, 'touchmove', 'noop', 'notPassiveCapture'] // cannot be passive (ex: iOS scroll)
             ])

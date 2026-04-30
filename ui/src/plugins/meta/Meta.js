@@ -3,6 +3,7 @@ import extend from '../../utils/extend/extend.js'
 
 let updateId = null,
   currentClientMeta
+
 export const clientList = []
 
 function normalize(meta) {
@@ -267,7 +268,7 @@ export default {
       ssrContext.onRendered(() => {
         injectServerMeta(ssrContext)
       })
-    } else if (this.__installed !== true && isRuntimeSsrPreHydration.value) {
+    } else if (!this.__installed && isRuntimeSsrPreHydration.value) {
       currentClientMeta = window.__Q_META__
       document.getElementById('qmeta-init').remove()
     }

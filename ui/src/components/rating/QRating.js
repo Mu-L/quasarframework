@@ -150,27 +150,25 @@ export default createComponent({
           half = halfIndex === i && mouseModel.value < i,
           exSelected =
             mouseModel.value > 0 &&
-            (half === true ? ceil : props.modelValue) >= i &&
+            (half ? ceil : props.modelValue) >= i &&
             mouseModel.value < i,
-          color =
-            half === true
-              ? i <= icons.halfColorLen
-                ? props.colorHalf[i - 1]
-                : icons.halfColor
-              : icons.selColor !== void 0 && active === true
-                ? i <= icons.selColorLen
-                  ? props.colorSelected[i - 1]
-                  : icons.selColor
-                : i <= icons.colorLen
-                  ? props.color[i - 1]
-                  : icons.color,
+          color = half
+            ? i <= icons.halfColorLen
+              ? props.colorHalf[i - 1]
+              : icons.halfColor
+            : icons.selColor !== void 0 && active
+              ? i <= icons.selColorLen
+                ? props.colorSelected[i - 1]
+                : icons.selColor
+              : i <= icons.colorLen
+                ? props.color[i - 1]
+                : icons.color,
           name =
-            (half === true
+            (half
               ? i <= icons.halfIconLen
                 ? props.iconHalf[i - 1]
                 : icons.halfIcon
-              : icons.selIcon !== void 0 &&
-                  (active === true || exSelected === true)
+              : icons.selIcon !== void 0 && (active || exSelected)
                 ? i <= icons.selIconLen
                   ? props.iconSelected[i - 1]
                   : icons.selIcon
@@ -180,12 +178,11 @@ export default createComponent({
 
         acc.push({
           name:
-            (half === true
+            (half
               ? i <= icons.halfIconLen
                 ? props.iconHalf[i - 1]
                 : icons.halfIcon
-              : icons.selIcon !== void 0 &&
-                  (active === true || exSelected === true)
+              : icons.selIcon !== void 0 && (active || exSelected)
                 ? i <= icons.selIconLen
                   ? props.iconSelected[i - 1]
                   : icons.selIcon
@@ -202,10 +199,8 @@ export default createComponent({
 
           iconClass:
             'q-rating__icon' +
-            (active === true || half === true
-              ? ' q-rating__icon--active'
-              : '') +
-            (exSelected === true ? ' q-rating__icon--exselected' : '') +
+            (active || half ? ' q-rating__icon--active' : '') +
+            (exSelected ? ' q-rating__icon--exselected' : '') +
             (mouseModel.value === i ? ' q-rating__icon--hovered' : '') +
             (color !== void 0 ? ` text-${color}` : '')
         })

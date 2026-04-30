@@ -15,26 +15,24 @@ export function getModifierDirections(mod) {
   const dir = {}
 
   for (const direction of directionList) {
-    if (mod[direction] === true) {
-      dir[direction] = true
-    }
+    if (mod[direction]) dir[direction] = true
   }
 
   if (Object.keys(dir).length === 0) return modifiersAll
 
-  if (dir.horizontal === true) {
+  if (dir.horizontal) {
     dir.left = dir.right = true
-  } else if (dir.left === true && dir.right === true) {
+  } else if (dir.left && dir.right) {
     dir.horizontal = true
   }
 
-  if (dir.vertical === true) {
+  if (dir.vertical) {
     dir.up = dir.down = true
-  } else if (dir.up === true && dir.down === true) {
+  } else if (dir.up && dir.down) {
     dir.vertical = true
   }
 
-  if (dir.horizontal === true && dir.vertical === true) {
+  if (dir.horizontal && dir.vertical) {
     dir.all = true
   }
 
@@ -52,7 +50,7 @@ export function shouldStart(evt, ctx) {
   return (
     ctx.event === void 0 &&
     evt.target !== void 0 &&
-    evt.target.draggable !== true &&
+    !evt.target.draggable &&
     typeof ctx.handler === 'function' &&
     !avoidNodeNamesList.includes(evt.target.nodeName.toUpperCase()) &&
     (evt.qClonedBy === void 0 || !evt.qClonedBy.includes(ctx.uid))
