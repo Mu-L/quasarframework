@@ -149,7 +149,7 @@ export default createDirective(
               fn()
             })
             cleanEvt(ctx, 'main')
-            delete el._qripple
+            delete el.__qripple
           }
         }
       }
