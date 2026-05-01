@@ -58,12 +58,12 @@ export default createComponent({
     const dragging = ref(false)
 
     const innerMin = computed(() =>
-      Number.isNaN(props.innerMin) || props.innerMin < props.min
+      !Number.isFinite(props.innerMin) || props.innerMin < props.min
         ? props.min
         : props.innerMin
     )
     const innerMax = computed(() =>
-      Number.isNaN(props.innerMax) || props.innerMax > props.max
+      !Number.isFinite(props.innerMax) || props.innerMax > props.max
         ? props.max
         : props.innerMax
     )
