@@ -1,10 +1,8 @@
 function parsePromises(sequentialPromises) {
-  const isList = Array.isArray(sequentialPromises)
-
-  if (isList) {
+  if (Array.isArray(sequentialPromises)) {
     const totalJobs = sequentialPromises.length
     return {
-      isList,
+      isList: true,
       totalJobs,
       // oxlint-disable-next-line unicorn/new-for-builtins
       resultAggregator: Array(totalJobs).fill(null)
@@ -18,7 +16,7 @@ function parsePromises(sequentialPromises) {
   })
 
   return {
-    isList,
+    isList: false,
     totalJobs: resultKeys.length,
     resultAggregator,
     resultKeys
@@ -68,57 +66,48 @@ export default function runSequentialPromises(
   const { isList, totalJobs, resultAggregator, resultKeys } =
     parsePromises(sequentialPromises)
 
-  const getPromiseThread = () =>
-    new Promise((resolve, reject) => {
-      function runNextPromise() {
-        const currentJobIndex = ++jobIndex
+  if (totalJobs === 0) return Promise.resolve(resultAggregator)
 
-        if (hasAborted || currentJobIndex >= totalJobs) {
-          resolve()
-          return
+  const maxJobIndex = totalJobs - 1
+  const runNextPromise = threadCtx => {
+    if (hasAborted || jobIndex >= maxJobIndex) {
+      return threadCtx.resolve()
+    }
+
+    const currentJobIndex = ++jobIndex
+    const key = isList ? currentJobIndex : resultKeys[currentJobIndex]
+
+    // Promise.resolve() protects against synchronous errors if the user
+    // accidentally passes a normal function instead of an async one.
+    Promise.resolve()
+      .then(() => sequentialPromises[key](resultAggregator))
+      .then(value => {
+        if (!hasAborted) {
+          resultAggregator[key] = { key, status: 'fulfilled', value }
         }
+      })
+      .catch(err => {
+        if (hasAborted) return
 
-        const key = isList ? currentJobIndex : resultKeys[currentJobIndex]
+        const result = { key, status: 'rejected', reason: err }
+        resultAggregator[key] = result
 
-        sequentialPromises[key](resultAggregator)
-          .then(value => {
-            if (hasAborted) {
-              resolve()
-              return // early exit
-            }
+        if (abortOnFail) {
+          hasAborted = true
+          threadCtx.reject({ ...result, resultAggregator })
+        }
+      })
+      .finally(() => {
+        if (!hasAborted) runNextPromise(threadCtx)
+      })
+  }
 
-            resultAggregator[key] = { key, status: 'fulfilled', value }
-
-            // timeout so it doesn't interfere with the .catch() below
-            setTimeout(runNextPromise)
-          })
-          .catch(err => {
-            if (hasAborted) {
-              resolve()
-              return // early exit
-            }
-
-            const result = { key, status: 'rejected', reason: err }
-            resultAggregator[key] = result
-
-            if (abortOnFail) {
-              hasAborted = true
-              reject({ ...result, resultAggregator })
-              return // early exit
-            }
-
-            // timeout so no interference
-            setTimeout(runNextPromise)
-          })
-      }
-
-      runNextPromise()
-    })
-
-  const threads = Array.from(
-    { length: Math.min(totalJobs, threadsNumber) },
-    getPromiseThread
-  )
+  const concurrencyLimit = Math.min(totalJobs, Math.max(1, threadsNumber))
+  const threads = Array.from({ length: concurrencyLimit }, () => {
+    const threadCtx = Promise.withResolvers()
+    runNextPromise(threadCtx)
+    return threadCtx.promise
+  })
 
   return Promise.all(threads).then(() => resultAggregator)
 }
