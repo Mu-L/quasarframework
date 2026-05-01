@@ -276,7 +276,9 @@ export default function morph(_options) {
   elFromClone.style.transition = 'none'
   elFromClone.style.animation = 'none'
   elFromClone.style.pointerEvents = 'none'
-  elFromNext.before(elFromClone)
+
+  // oxlint-disable-next-line unicorn/prefer-modern-dom-apis
+  elFromParent.insertBefore(elFromClone, elFromNext)
 
   // we mark the element with its cleanup function
   elFrom.qMorphCancel = () => {
@@ -397,7 +399,8 @@ export default function morph(_options) {
           ? elFromClone
           : elTo.nextElementSibling
 
-      elToNext.before(elToClone)
+      // oxlint-disable-next-line unicorn/prefer-modern-dom-apis
+      elToParent.insertBefore(elToClone, elToNext)
 
       const {
         borderWidth: elToBorderWidth,
