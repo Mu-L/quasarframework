@@ -1,13 +1,7 @@
-function encode(string) {
-  return encodeURIComponent(string)
-}
-
-function decode(string) {
-  return decodeURIComponent(string)
-}
-
 function stringifyCookieValue(value) {
-  return encode(value === Object(value) ? JSON.stringify(value) : String(value))
+  return encodeURIComponent(
+    value === Object(value) ? JSON.stringify(value) : String(value)
+  )
 }
 
 function read(string) {
@@ -26,7 +20,7 @@ function read(string) {
   // Replace server-side written pluses with spaces.
   // If we can't decode the cookie, ignore it, it's unusable.
   // If we can't parse the cookie, ignore it, it's unusable.
-  string = decode(string.replaceAll('+', ' '))
+  string = decodeURIComponent(string.replaceAll('+', ' '))
 
   try {
     const parsed = JSON.parse(string)
@@ -39,70 +33,63 @@ function read(string) {
   return string
 }
 
-function getString(msOffset) {
-  const time = new Date()
-  time.setMilliseconds(time.getMilliseconds() + msOffset)
-  return time.toUTCString()
+const numberUnitRE = /(\d+)([dhms])/g
+const numberUnitMultiplierMap = {
+  d: 86_400,
+  h: 3600,
+  m: 60,
+  s: 1
 }
 
-function parseExpireString(str) {
-  let timestamp = 0
+function parseExpireToSeconds(str) {
+  let totalSeconds = 0
+  let hasMatch = false
 
-  const days = str.match(/(\d+)d/)
-  const hours = str.match(/(\d+)h/)
-  const minutes = str.match(/(\d+)m/)
-  const seconds = str.match(/(\d+)s/)
+  // "1d", "15m"
+  const matches = str.matchAll(numberUnitRE)
 
-  if (days) {
-    timestamp += days[1] * 864e5
-  }
-  if (hours) {
-    timestamp += hours[1] * 36e5
-  }
-  if (minutes) {
-    timestamp += minutes[1] * 6e4
-  }
-  if (seconds) {
-    timestamp += seconds[1] * 1000
+  for (const match of matches) {
+    hasMatch = true
+    const value = Number.parseInt(match[1], 10)
+    const unit = match[2]
+
+    totalSeconds += value * numberUnitMultiplierMap[unit]
   }
 
-  return timestamp === 0 ? str : getString(timestamp)
+  return hasMatch ? totalSeconds : void 0
 }
 
 // oxlint-disable-next-line default-param-last
 function set(key, val, opts = {}, ssr) {
-  let expire, expireValue
+  let maxAge
+  let isDeletion = false
 
   if (opts.expires !== void 0) {
-    // if it's a Date Object
-    if (Object.prototype.toString.call(opts.expires) === '[object Date]') {
-      expire = opts.expires.toUTCString()
+    // Number check (defined in days -> convert to seconds)
+    if (Number.isFinite(opts.expires)) {
+      maxAge = Math.round(opts.expires * 86_400) // 86400 seconds in a day
+    } else if (opts.expires instanceof Date) {
+      maxAge = Math.round((opts.expires.getTime() - Date.now()) / 1000)
     }
-    // if it's a String (eg. "15m", "1h", "13d", "1d 15m", "31s")
-    // possible units: d (days), h (hours), m (minutes), s (seconds)
+    // String check (eg. "15m", "1h" -> must return seconds)
     else if (typeof opts.expires === 'string') {
-      expire = parseExpireString(opts.expires)
+      maxAge = parseExpireToSeconds(opts.expires)
     }
-    // otherwise it must be a Number (defined in days)
-    else {
-      expireValue = Number.parseFloat(opts.expires)
-      expire = Number.isNaN(expireValue)
-        ? opts.expires
-        : getString(expireValue * 864e5)
-    }
+
+    if (maxAge !== void 0) isDeletion = maxAge <= 0
   }
 
-  const keyValue = `${encode(key)}=${stringifyCookieValue(val)}`
+  const keyValue = `${encodeURIComponent(key)}=${stringifyCookieValue(val)}`
 
   const cookie = [
     keyValue,
-    expire !== void 0 ? '; Expires=' + expire : '', // use expires attribute, max-age is not supported by IE
-    opts.path ? '; Path=' + opts.path : '',
-    opts.domain ? '; Domain=' + opts.domain : '',
-    opts.sameSite ? '; SameSite=' + opts.sameSite : '',
+    maxAge !== void 0 ? `; Max-Age=${maxAge}` : '',
+    opts.path ? `; Path=${opts.path}` : '',
+    opts.domain ? `; Domain=${opts.domain}` : '',
+    opts.sameSite ? `; SameSite=${opts.sameSite}` : '',
     opts.httpOnly ? '; HttpOnly' : '',
     opts.secure ? '; Secure' : '',
-    opts.other ? '; ' + opts.other : ''
+    opts.other ? `; ${opts.other}` : ''
   ].join('')
 
   if (ssr) {
@@ -114,12 +101,9 @@ function set(key, val, opts = {}, ssr) {
 
     ssr.res.setHeader('Set-Cookie', ssr.req.qCookies)
 
-    // make temporary update so future get()
-    // within same SSR timeframe would return the set value
-
     let all = ssr.req.headers.cookie || ''
 
-    if (expire !== void 0 && expireValue < 0) {
+    if (maxAge !== void 0 && isDeletion) {
       const localVal = get(key, ssr)
       if (localVal !== void 0) {
         all = all
@@ -128,7 +112,7 @@ function set(key, val, opts = {}, ssr) {
           .replace(`${key}=${localVal}`, '')
       }
     } else {
-      all = all ? `${keyValue}; ${all}` : cookie
+      all = all ? `${keyValue}; ${all}` : keyValue
     }
 
     ssr.req.headers.cookie = all
@@ -142,6 +126,7 @@ function get(key, ssr) {
   const cookieSource = ssr ? ssr.req.headers : document,
     cookies = cookieSource.cookie ? cookieSource.cookie.split('; ') : [],
     l = cookies.length
+
   let result = key ? null : {},
     i = 0,
     parts,
@@ -150,7 +135,7 @@ function get(key, ssr) {
 
   for (; i < l; i++) {
     parts = cookies[i].split('=')
-    name = decode(parts.shift())
+    name = decodeURIComponent(parts.shift())
     cookie = parts.join('=')
 
     if (!key) {
