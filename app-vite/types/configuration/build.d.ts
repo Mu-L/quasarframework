@@ -355,6 +355,16 @@ interface QuasarStaticBuildConfiguration {
   define?: Record<string, string>;
 
   /**
+   * Sugar for `define` option. Define global constant replacements that will
+   * be automatically transformed into "define" entries with the `import.meta.env` prefix
+   * and already JSON-stringified.
+   *
+   * @example { SOME_DEFINE: 'my-string' } will be transformed into { 'import.meta.env.SOME_DEFINE': '"my-string"' }
+   * @example { VERSION: 22 } will be transformed into { 'import.meta.env.VERSION': '22' }
+   */
+  defineEnv?: Record<string, any>;
+
+  /**
    * Configuration related to the environment variables loaded from
    * .env* files and Node.js process.env injections.
    */

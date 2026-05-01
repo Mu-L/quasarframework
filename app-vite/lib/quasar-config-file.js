@@ -713,6 +713,7 @@ export class QuasarConfigFile {
           viteVuePluginOptions: {},
           vitePlugins: [],
           define: {},
+          defineEnv: {},
           env: {},
           resolve: {},
           htmlMinifyOptions: {}
@@ -997,6 +998,14 @@ export class QuasarConfigFile {
 
     cfg.build.define.__VUE_OPTIONS_API__ = String(
       Boolean(cfg.build.vueOptionsAPI)
+    )
+
+    Object.assign(
+      cfg.build.define,
+      Object.entries(cfg.build.defineEnv).reduce((acc, [key, value]) => {
+        acc[`import.meta.env.${key}`] = JSON.stringify(value)
+        return acc
+      }, {})
     )
 
     if (!cfg.build.target.browser) {

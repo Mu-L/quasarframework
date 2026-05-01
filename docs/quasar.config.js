@@ -14,9 +14,9 @@ export default defineConfig(ctx => ({
     distDir: 'dist/quasar.dev',
     useFilenameHashes: false,
 
-    define: {
-      'import.meta.env.DOCS_BRANCH': '"dev"',
-      'import.meta.env.SEARCH_INDEX': '"quasar-v2"'
+    defineEnv: {
+      DOCS_BRANCH: 'dev',
+      SEARCH_INDEX: 'quasar-v2'
     },
 
     viteVuePluginOptions: {
