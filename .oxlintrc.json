@@ -6,7 +6,6 @@
     "**/.quasar/",
 
     "app-vite/templates/",
-    "app-webpack/templates/",
 
     "create-quasar/templates/",
     "!create-quasar/templates/**/create-quasar-script.js",
@@ -187,7 +186,7 @@
     },
 
     {
-      "files": ["{extras,app-webpack}/**"],
+      "files": ["extras/**"],
       "env": {
         "node": true
       },
@@ -220,10 +219,7 @@
     },
 
     {
-      "files": [
-        "{extras,app-webpack,utils/babel-preset-app,utils/ssr-helpers}/**",
-        "**/*.cjs"
-      ],
+      "files": ["extras/**", "**/*.cjs"],
       "rules": {
         "no-commonjs": "off",
         "unicorn/prefer-module": "off"

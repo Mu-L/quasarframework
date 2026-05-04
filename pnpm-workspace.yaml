@@ -16,8 +16,6 @@ packages:
 
 # The packages below are not included. Use their individual folders.
 # - icongenie
-# - utils/babel-preset-app
-# - utils/ssr-helpers
 
 catalog:
   vue: ^3.5.33
