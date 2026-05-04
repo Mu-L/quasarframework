@@ -4,7 +4,7 @@
 //  parameters and return value when using Quasar with TypeScript
 // We need these in `ui` folder to make `quasar/wrapper` import work,
 //  but they are useful only for Quasar CLI projects
-// They are typed via module augmentation by `@quasar/app-webpack` / `@quasar/app-vite`
+// They are typed via module augmentation by `@quasar/app-vite` / `@quasar/app-webpack`
 
 /*******************************************************
  * Warning!

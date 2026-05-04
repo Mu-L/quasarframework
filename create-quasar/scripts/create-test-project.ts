@@ -1,7 +1,7 @@
 import prompts from "prompts";
 
 type ScriptType = "js" | "ts";
-type AppEngine = "vite-2" | "webpack-4";
+type AppEngine = "vite-2";
 type PackageManager = "yarn" | "npm" | "pnpm";
 
 type CreateProjectOptions = {

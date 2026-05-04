@@ -13,7 +13,8 @@ export async function createQuasarScript({ scope, utils }) {
         },
         {
           title: 'Quasar App CLI with Webpack',
-          value: 'webpack-4'
+          value: 'webpack-4',
+          description: 'deprecated'
         }
       ]
     },

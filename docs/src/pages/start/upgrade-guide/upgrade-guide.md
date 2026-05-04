@@ -3,10 +3,6 @@ title: UI Upgrade Guide
 desc: How to upgrade Quasar from older versions to the latest one.
 ---
 
-::: tip Quasar CLI with Vite or Webpack
-You now have the option to choose between Quasar CLI with Vite and Quasar CLI with Webpack.
-:::
-
 ::: tip Composition and Options API
 You will notice that all of our documentation examples are using Vue 3's Composition API. This does NOT mean that you can't use Vue Options API. On the contrary, maintaining Options API will actually help you on your upgrade path and make it a lot easier for you. After upgrading is done we do recommend switching to the Composition API, but by no means you are required to do so.
 :::
