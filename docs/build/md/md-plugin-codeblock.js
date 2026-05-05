@@ -33,7 +33,6 @@ const langMatch = langList.map(l => l.aliases || l.name).join('|')
  *    * highlight="1,2-4,6" - lines are highlighted
  *    * add="1,2-4,6" - lines are added
  *    * rem="1,2-4,6" - lines are removed
- *    * maxheight="300px" - max height of the code block (including CSS unit)
  * title -> optional card title
  */
 const definitionLineRE = new RegExp(
@@ -181,7 +180,7 @@ function parseCodeLine(content, attrs) {
 }
 
 function getHighlightedContent(rawContent, attrs) {
-  const { lang, maxheight } = attrs
+  const { lang } = attrs
 
   const content = rawContent.trim()
   const lineList = parseCodeLine(content, attrs)
@@ -213,12 +212,9 @@ function getHighlightedContent(rawContent, attrs) {
       ? ' language-css' // we need this class explicitly
       : '' // in all other cases it's useless (it doesn't have special token classes)
 
-  const preAttrs =
-    maxheight !== void 0 ? ` style="max-height:${maxheight}"` : ''
-
   const langProp = customCopyLangList.includes(lang) ? ` lang="${lang}"` : ''
 
-  return `<pre v-pre class="doc-code${codeClass}"${preAttrs}><code>${html}</code></pre><copy-button${langProp} />`
+  return `<pre v-pre class="doc-code${codeClass}"><code>${html}</code></pre><copy-button${langProp} />`
 }
 
 function parseAttrs(rawAttrs) {

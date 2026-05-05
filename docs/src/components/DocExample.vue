@@ -90,7 +90,7 @@
             :key="`pane-${tab}`"
             :name="tab"
           >
-            <DocCode lang="markup" :code="def.parts[tab]" max-height="70vh" />
+            <DocCode lang="markup" :code="def.parts[tab]" />
           </q-tab-panel>
         </q-tab-panels>
       </div>

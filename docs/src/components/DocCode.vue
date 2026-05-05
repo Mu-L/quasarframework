@@ -1,6 +1,6 @@
 <template>
   <div class="relative-position copybtn-hover">
-    <CodePrism :lang="props.lang" :code="props.code" :style="style" />
+    <CodePrism :lang="props.lang" :code="props.code" />
     <CopyButton />
   </div>
 </template>
@@ -13,15 +13,9 @@ import CopyButton from './CopyButton.vue'
 
 const props = defineProps({
   code: String,
-  maxHeight: String,
-
   lang: {
     type: String,
     default: 'js'
   }
 })
-
-const style = computed(() =>
-  props.maxHeight !== void 0 ? { maxHeight: props.maxHeight } : null
-)
 </script>
