@@ -827,20 +827,36 @@ export default [
             path: 'preparation'
           },
           {
+            name: 'Installing SSR Deps',
+            path: 'installing-ssr-dependencies'
+          },
+          {
+            name: 'Build Commands',
+            path: 'build-commands'
+          },
+          {
             name: 'Configuring SSR',
             path: 'configuring-ssr'
           },
           {
-            name: 'ssrContext',
+            name: 'The ssrContext',
             path: 'ssr-context'
+          },
+          {
+            name: 'SSR Webserver',
+            path: 'ssr-webserver'
           },
           {
             name: 'SSR Middleware',
             path: 'ssr-middleware'
           },
           {
-            name: 'SSR Webserver',
-            path: 'ssr-webserver'
+            name: 'Handling 404 and 500 Errors',
+            path: 'handling-404-and-500-errors'
+          },
+          {
+            name: 'SSR with Typescript',
+            path: 'ssr-with-typescript'
           },
           {
             name: 'Vue SSR Directives',
@@ -859,24 +875,12 @@ export default [
             path: 'client-side-hydration'
           },
           {
-            name: 'Handling 404 and 500 Errors',
-            path: 'handling-404-and-500-errors'
-          },
-          {
             name: 'SSR with PWA',
             path: 'ssr-with-pwa'
           },
           {
             name: 'SSR FAQ',
             path: 'ssr-frequently-asked-questions'
-          },
-          {
-            name: 'Build Commands',
-            path: 'build-commands'
-          },
-          {
-            name: 'SSR with Typescript',
-            path: 'ssr-with-typescript'
           },
           {
             name: 'Deploying',

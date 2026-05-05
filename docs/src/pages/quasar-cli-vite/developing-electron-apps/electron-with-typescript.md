@@ -98,7 +98,7 @@ app.on('window-all-closed', () => {
 ```js /src-electron/electron-preload.ts
 /**
  * This file is used specifically for security reasons.
- * Here you can access Nodejs stuff and inject functionality into
+ * Here you can access Node.js stuff and inject functionality into
  * the renderer thread (accessible there through the "window" object)
  *
  * WARNING!

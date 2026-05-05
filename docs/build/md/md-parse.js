@@ -62,7 +62,7 @@ export default function mdParse(code, id) {
   }
 
   if (frontMatter.overline === void 0 && id.includes('quasar-cli-vite')) {
-    frontMatter.overline = 'Quasar CLI with Vite - @quasar/app-vite'
+    frontMatter.overline = 'Quasar CLI with Vite - @quasar/app-vite v3'
   }
 
   const menu = flatMenu[id]

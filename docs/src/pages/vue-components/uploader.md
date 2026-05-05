@@ -108,12 +108,12 @@ Notice that you must install and use one more component (QUploaderAddTrigger) in
 QUploader works by default with the HTTP(S) protocol to upload files (but it's not limited to it as you'll see in the section following this one).
 
 ::: tip
-It is by no means required to use a Nodejs server or Spring or ASP.NET like below -- you can handle file upload however you want, as long as the method you are using fits the HTTP protocol. Example with [PHP](https://secure.php.net/manual/en/features.file-upload.php).
+It is by no means required to use a Node.js server or Spring or ASP.NET like below -- you can handle file upload however you want, as long as the method you are using fits the HTTP protocol. Example with [PHP](https://secure.php.net/manual/en/features.file-upload.php).
 :::
 
-### Nodejs
+### Node.js
 
-Below is a basic server example written in Nodejs. It does nothing other than receiving the files, so consider it as a starting point.
+Below is a basic server example written in Node.js. It does nothing other than receiving the files, so consider it as a starting point.
 
 ```js
 import fs from 'node:fs'

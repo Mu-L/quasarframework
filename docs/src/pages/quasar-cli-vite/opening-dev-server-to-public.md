@@ -13,7 +13,7 @@ When you've finished with your demonstration or testing, make sure to stop local
 
 ## Using Tunnelmole
 
-Tunnelmole will work on any machine with NodeJS 16+ installed and has no non-JavaScript dependencies.
+Tunnelmole will work on any machine with Node.js 16+ installed and has no non-JavaScript dependencies.
 
 First, install `tunnelmole` package globally:
 

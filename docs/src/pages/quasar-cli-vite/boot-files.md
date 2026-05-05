@@ -57,8 +57,6 @@ export default defineBoot(async ({ app, router, store }) => {
 })
 ```
 
-Notice we are using the [ES6 destructuring assignment](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment). Only assign what you actually need/use.
-
 You may ask yourself why we need to export a function. This is actually optional, but before you decide to remove the default export, you need to understand when you need it:
 
 ```js
@@ -399,5 +397,3 @@ In any JavaScript file, you'll be able to import the axios instance like this.
 // we import one of the named exports from src/boot/axios.js
 import { api } from 'boot/axios'
 ```
-
-Further reading on syntax: [ES6 import](https://developer.mozilla.org/en-US/docs/web/javascript/reference/statements/import), [ES6 export](https://developer.mozilla.org/en-US/docs/web/javascript/reference/statements/export).

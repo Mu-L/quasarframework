@@ -7,8 +7,13 @@ scope:
   nodeJsTree:
     l: src-ssr
     c:
-      - l: middlewares/
+      - l: server-assets/
+        e: copied as-is to dist
+      - l: middlewares
         e: SSR middleware files
+        c:
+          - l: render.js
+            e: (or .ts) middleware to render pages with Vue
       - l: server.js
         e: (or .ts) SSR webserver
 ---
@@ -179,19 +184,19 @@ export default {
 }
 ```
 
-## Nodejs Server
+## Node.js Webserver
 
-Adding SSR mode to a Quasar project means a new folder will be created: `/src-ssr`, which contains SSR specific files:
+Adding SSR mode to a Quasar project means a new folder will be created: `/src-ssr`, which contains SSR specific files for the actual Node.js webserver:
 
 <DocTree :def="scope.nodeJsTree" />
 
-You can freely edit these files. Each of the two folders are detailed in their own doc pages (check left-side menu).
+You can freely edit these files. All folders are detailed in their own doc pages (check left-side menu).
 
 Notice a few things:
 
-1. If you import anything from node_modules, then make sure that the package is specified in package.json > "dependencies" and NOT in "devDependencies".
+1. If you import anything from node_modules in /src-ssr, then make sure that the package is specified in /src-ssr/package.json > "dependencies" (runtime deps) and NOT in "devDependencies" (build system deps). The "dependencies" will be embedded into your dist/.
 
-2. The `/src-ssr/middlewares` is built through a separate Rolldown config. You can extend the Rolldown configuration of these files through the `/quasar.config` file:
+2. These files are built through a separate Rolldown config. You can extend the Rolldown configuration of these files through the `/quasar.config` file:
 
 ```js /quasar.config file
 return {

@@ -46,7 +46,7 @@ register(import.meta.env.QUASAR_SERVICE_WORKER_FILE, {
 ```
 
 ::: tip
-This file is automatically bundled into your website/app by Quasar CLI because it is considered as part of app-space `/src`. What this means is that you can use ES6, import other files etc.
+This file is automatically bundled into your website/app by Quasar CLI because it is considered as part of app-space `/src`.
 :::
 
 ## SSL certificate
