@@ -1591,78 +1591,74 @@ Normally, Quasar's SSR build spins up a Node.js webserver that listens on a spec
 
 Since the built SSR server is essentially a Hono/Express/Fastify/etc application under the hood, your goal is to export it in a format your specific cloud provider understands.
 
-But first, let's understand what the Quasar CLI built dist/index.js exports:
+We will use the `/quasar.config` > ssr > `prodScriptNamedExport` property to configure what gets exported by the production generated dist/index.js file:
 
 ```js
 /**
- * Import this if all you care about is the result of
- * your listen() call (from your /src-ssr/server.js)
- */
-export const listenResult = await listen(middlewareParams)
-
-/**
- * Serverless territory. We do a "handler" export, but
- * you must return it from your listen() call for production.
- * Guard the return value with `if(import.meta.env.QUASAR_PROD)`.
- */
-export const handler = listenResult?.handler
-
-/**
- * Serverless territory. We do a "handler" export, but
- * you must return it from your listen() call for production.
- * Guard the return value with `if(import.meta.env.QUASAR_PROD)`.
- */
-export const ssr = listenResult?.ssr
-
-/**
- * Serverless territory. We do a "handler" export, but
- * you must return it from your listen() call for production.
- * Guard the return value with `if(import.meta.env.QUASAR_PROD)`.
- */
-export const main_handler = listenResult?.main_handler
-
-/**
- * Serverless territory. We do a "handler" export, but
- * you must return it from your listen() call for production.
- * Guard the return value with `if(import.meta.env.QUASAR_PROD)`.
- */
-export const main = listenResult?.main
-
-/**
- * We also export the app, should you want to further tamper
- * with it from an external source.
- */
-export default listenResult?.defaultExport || app
-
-/**
- * Import this if you just want to render the
- * html for a page with Vue & VueRouter.
+ * The named exports to use for the production generated SSR index.js script.
+ * Works with `false` (no named exports), a single string (one named export),
+ * or an array of strings (multiple named exports).
  *
- * If this is all that you want in production,
- * then you can entirely skip instantiating a webserver
- * and making it listen on a port. However, make sure
- * that for dev mode, you still do all this.
+ * Useful for serverless environments where you might want to export the
+ * handler function. It creates one or more named exports from the
+ * object returned by the defineSsrListen() function in /src-ssr/server file.
  *
- * @example Look at your /src-ssr/middlewares/render
- * file around the render() call.
+ * @default false
+ *
+ * @example
+ * prodScriptNamedExport: ['handler', 'ssr']
+ * export const listen = defineSsrListen(() => {
+ *   if (import.meta.env.QUASAR_PROD) {
+ *     return { handler, ssr }
+ *   }
+ * })
+ *
+ * This will generate an SSR index.js with the following exports:
+ * const { handler, ssr } = await listen({...})
+ * export { handler, ssr }
+ *
+ * @example
+ * prodScriptNamedExport: 'default'
+ * export const listen = defineSsrListen(({ app }) => {
+ *   if (import.meta.env.QUASAR_PROD) {
+ *     return { default: app }
+ *   }
+ * })
+ *
+ * This will generate an SSR index.js with the following exports:
+ * const listenResult = await listen({...})
+ * export default listenResult?.default
+ *
+ * @example
+ * prodScriptNamedExport: 'app'
+ * export const listen = defineSsrListen(({ app }) => {
+ *   if (import.meta.env.QUASAR_PROD) {
+ *     return { app }
+ *   }
+ * })
+ *
+ * This will generate an SSR index.js with the following exports:
+ * const { app } = await listen({...})
+ * export { app }
+ *
+ * @example 'renderSsrContext' (special case)
+ *
+ * This will generate an SSR index.js with the following export:
+ *   export { render as renderSsrContext }
+ * where "render" is the same function used in
+ * the /src-ssr/middlewares/render file
  */
-export const renderSsrContext = render
+prodScriptNamedExport?: false | string | string[];
 ```
 
-:::tip
-Although we make efforts to support as many use-cases as possible, there may be other currently not offered out of the box. Should you find yourself in such a scenario and you need Quasar CLI's built index.js script to export one more thing, you have two options:
-
-1. (Recommended) Open a Github ticket and mention your specific SSR needs.
-2. Create a script of your own, import the built index.js and export whatever you need from it.
-   :::
-
-Here is how you can configure your `/src-ssr/server.js` for some of the major serverless suppliers:
+Below are examples for some of the major serverless suppliers:
 
 ### AWS Lambda (via Serverless Framework or AWS SAM)
 
 AWS Lambda expects a handler function with an `(event, context)` signature. Because Quasar outputs a Node.js webserver app, you can't pass this directly to Lambda. You need a wrapper library like `serverless-http` to bridge the gap between Lambda's event object and the webserver request/response objects.
 
-```js /src-ssr/server.js
+```js
+// file: /src-ssr/server
 export const listen = defineSsrListen(async ({ app }) => {
   if (import.meta.env.QUASAR_PROD) {
     // Crucial step: we don't listen on any port
@@ -1677,6 +1673,11 @@ export const listen = defineSsrListen(async ({ app }) => {
 
   // ...
 })
+
+// file: /quasar.config
+ssr: {
+  prodScriptNamedExport: 'handler'
+}
 ```
 
 Remember to install `serverless-http` in `/src-ssr` as "dependencies" (and NOT "devDependencies").
@@ -1685,7 +1686,8 @@ Remember to install `serverless-http` in `/src-ssr` as "dependencies" (and NOT "
 
 Firebase Functions are built on top of Google Cloud Functions.
 
-```js /src-ssr/server.js
+```js
+// file: /src-ssr/server
 export const listen = defineSsrListen(async ({ app }) => {
   if (import.meta.env.QUASAR_PROD) {
     // Crucial step: we don't listen on any port
@@ -1700,6 +1702,11 @@ export const listen = defineSsrListen(async ({ app }) => {
 
   // ...
 })
+
+// file: /quasar.config
+ssr: {
+  prodScriptNamedExport: 'ssr'
+}
 ```
 
 Remember to install `firebase-functions` in `/src-ssr` as "dependencies" (and NOT "devDependencies").
@@ -1708,7 +1715,8 @@ Remember to install `firebase-functions` in `/src-ssr` as "dependencies" (and NO
 
 Vercel's Node.js runtime natively understands standard Node HTTP request listeners (functions that take req and res parameters).
 
-```js /src-ssr/server.js
+```js
+// file: /src-ssr/server
 export const listen = defineSsrListen(async ({ app }) => {
   if (import.meta.env.QUASAR_PROD) {
     // Crucial step: we don't listen on any port
@@ -1716,19 +1724,25 @@ export const listen = defineSsrListen(async ({ app }) => {
     return {
       // Example with Express.js;
       // Adapt to your chosen webserver
-      defaultExport: app
+      default: app
     }
   }
 
   // ...
 })
+
+// file: /quasar.config
+ssr: {
+  prodScriptNamedExport: 'default'
+}
 ```
 
 ### Netlify Functions
 
 Netlify Functions operate similarly to AWS Lambda (they are powered by AWS Lambda under the hood). Like AWS, you will need `serverless-http` to wrap your app.
 
-```js /src-ssr/server.js
+```js
+// file: /src-ssr/server
 export const listen = defineSsrListen(async ({ app }) => {
   if (import.meta.env.QUASAR_PROD) {
     // Crucial step: we don't listen on any port
@@ -1743,13 +1757,19 @@ export const listen = defineSsrListen(async ({ app }) => {
 
   // ...
 })
+
+// file: /quasar.config
+ssr: {
+  prodScriptNamedExport: 'handler'
+}
 ```
 
 Remember to install `serverless-http` in `/src-ssr` as "dependencies" (and NOT "devDependencies").
 
 ### Azure Functions
 
-```js /src-ssr/server.js
+```js
+// file: /src-ssr/server
 export const listen = defineSsrListen(async ({ app }) => {
   if (import.meta.env.QUASAR_PROD) {
     // Crucial step: we don't listen on any port
@@ -1758,19 +1778,25 @@ export const listen = defineSsrListen(async ({ app }) => {
     // Adapt to your chosen webserver
     const { createHandler } = await import('azure-function-express')
     return {
-      defaultExport: createHandler(app)
+      default: createHandler(app)
     }
   }
 
   // ...
 })
+
+// file: /quasar.config
+ssr: {
+  prodScriptNamedExport: 'default'
+}
 ```
 
 Remember to install `azure-function-express` in `/src-ssr` as "dependencies" (and NOT "devDependencies").
 
 ### DigitalOcean Functions
 
-```js /src-ssr/server.js
+```js
+// file: /src-ssr/server
 export const listen = defineSsrListen(async ({ app }) => {
   if (import.meta.env.QUASAR_PROD) {
     // Crucial step: we don't listen on any port
@@ -1785,13 +1811,19 @@ export const listen = defineSsrListen(async ({ app }) => {
 
   // ...
 })
+
+// file: /quasar.config
+ssr: {
+  prodScriptNamedExport: 'main'
+}
 ```
 
 Remember to install `serverless-http` in `/src-ssr` as "dependencies" (and NOT "devDependencies").
 
 ### Tencent Cloud
 
-```js /src-ssr/server.js
+```js
+// file: /src-ssr/server
 export const listen = defineSsrListen(async ({ app }) => {
   if (import.meta.env.QUASAR_PROD) {
     // Crucial step: we don't listen on any port
@@ -1806,6 +1838,11 @@ export const listen = defineSsrListen(async ({ app }) => {
 
   // ...
 })
+
+// file: /quasar.config
+ssr: {
+  prodScriptNamedExport: 'main_handler'
+}
 ```
 
 Remember to install `serverless-http` in `/src-ssr` as "dependencies" (and NOT "devDependencies").

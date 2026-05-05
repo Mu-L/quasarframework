@@ -111,6 +111,62 @@ return {
      * (which includes the SSR middlewares)
      */
     extendSSRWebserverConf?: (config: RolldownOptions) => void;
+
+    /**
+     * The named exports to use for the production generated SSR index.js script.
+     * Works with `false` (no named exports), a single string (one named export),
+     * or an array of strings (multiple named exports).
+     *
+     * Useful for serverless environments where you might want to export the
+     * handler function. It creates one or more named exports from the
+     * object returned by the defineSsrListen() function in /src-ssr/server file.
+     *
+     * @default false
+     *
+     * @example
+     * prodScriptNamedExport: ['handler', 'ssr']
+     * export const listen = defineSsrListen(() => {
+     *   if (import.meta.env.QUASAR_PROD) {
+     *     return { handler, ssr }
+     *   }
+     * })
+     *
+     * This will generate an SSR index.js with the following exports:
+     * const { handler, ssr } = await listen({...})
+     * export { handler, ssr }
+     *
+     * @example
+     * prodScriptNamedExport: 'default'
+     * export const listen = defineSsrListen(({ app }) => {
+     *   if (import.meta.env.QUASAR_PROD) {
+     *     return { default: app }
+     *   }
+     * })
+     *
+     * This will generate an SSR index.js with the following exports:
+     * const listenResult = await listen({...})
+     * export default listenResult?.default
+     *
+     * @example
+     * prodScriptNamedExport: 'app'
+     * export const listen = defineSsrListen(({ app }) => {
+     *   if (import.meta.env.QUASAR_PROD) {
+     *     return { app }
+     *   }
+     * })
+     *
+     * This will generate an SSR index.js with the following exports:
+     * const { app } = await listen({...})
+     * export { app }
+     *
+     * @example 'renderSsrContext' (special case)
+     *
+     * This will generate an SSR index.js with the following export:
+     *   export { render as renderSsrContext }
+     * where "render" is the same function used in
+     * the /src-ssr/middlewares/render file
+     */
+    prodScriptNamedExport?: false | string | string[];
   }
 }
 ```

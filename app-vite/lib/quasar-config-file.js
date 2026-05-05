@@ -788,7 +788,8 @@ export class QuasarConfigFile {
           pwaOfflineHtmlFilename: 'offline.html',
           manualStoreHydration: false,
           manualPostHydrationTrigger: false,
-          prodPort: 3000 // gets superseded in production by an eventual process.env.PORT
+          prodPort: 3000, // gets superseded in production by an eventual process.env.PORT
+          prodScriptNamedExport: false
         },
         cfg.ssr
       )
@@ -854,6 +855,12 @@ export class QuasarConfigFile {
           }
         }
       }
+    }
+    // else for production:
+    else if (!Array.isArray(cfg.ssr.prodScriptNamedExport)) {
+      cfg.ssr.prodScriptNamedExport = cfg.ssr.prodScriptNamedExport
+        ? [cfg.ssr.prodScriptNamedExport]
+        : []
     }
 
     if (cfg.css.length !== 0) {
