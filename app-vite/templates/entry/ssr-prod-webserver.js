@@ -146,7 +146,56 @@ await serveStatic({ urlPath: '/', pathToServe: '.' })
 
 await injectMiddlewares(middlewareParams)
 
-export const renderSsrContext = render
+/**
+ * Import this if all you care about is the result of
+ * your listen() call (from your /src-ssr/server.js)
+ */
 export const listenResult = await listen(middlewareParams)
+
+/**
+ * Serverless territory. We do a "handler" export, but
+ * you must return it from your listen() call for production.
+ * Guard the return value with `if(import.meta.env.QUASAR_PROD)`.
+ */
 export const handler = listenResult?.handler
-export default app
+
+/**
+ * Serverless territory. We do a "handler" export, but
+ * you must return it from your listen() call for production.
+ * Guard the return value with `if(import.meta.env.QUASAR_PROD)`.
+ */
+export const ssr = listenResult?.ssr
+
+/**
+ * Serverless territory. We do a "handler" export, but
+ * you must return it from your listen() call for production.
+ * Guard the return value with `if(import.meta.env.QUASAR_PROD)`.
+ */
+export const main_handler = listenResult?.main_handler
+
+/**
+ * Serverless territory. We do a "handler" export, but
+ * you must return it from your listen() call for production.
+ * Guard the return value with `if(import.meta.env.QUASAR_PROD)`.
+ */
+export const main = listenResult?.main
+
+/**
+ * We also export the app, should you want to further tamper
+ * with it from an external source.
+ */
+export default listenResult?.defaultExport || app
+
+/**
+ * Import this if you just want to render the
+ * html for a page with Vue & VueRouter.
+ *
+ * If this is all that you want in production,
+ * then you can entirely skip instantiating a webserver
+ * and making it listen on a port. However, make sure
+ * that for dev mode, you still do all this.
+ *
+ * @example Look at your /src-ssr/middlewares/render
+ * file around the render() call.
+ */
+export const renderSsrContext = render
