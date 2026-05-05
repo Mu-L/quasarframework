@@ -80,7 +80,8 @@ export default defineConfig(ctx => ({
 
   ssr: {
     pwa: ctx.prod,
-    middlewares: ['render']
+    middlewares: ['render'],
+    prodScriptNamedExport: 'renderSsrContext'
   },
 
   pwa: {
