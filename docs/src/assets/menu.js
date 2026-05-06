@@ -777,6 +777,10 @@ export default [
         path: 'handling-import-meta-env'
       },
       {
+        name: 'Dotenv Files Support',
+        path: 'dotenv-files-support'
+      },
+      {
         name: 'State Management with Pinia',
         path: 'state-management-with-pinia'
       },

@@ -1,6 +1,10 @@
 ---
 title: Configuring quasar.config file
 desc: (@quasar/app-vite) Where, how and what you can configure in a Quasar CLI with Vite app.
+related:
+  - /quasar-cli-vite/handling-vite
+  - /quasar-cli-vite/handling-import-meta-env
+  - /quasar-cli-vite/dotenv-files-support
 ---
 
 Notice that your scaffolded project folder contains a `/quasar.config` file. So what can you configure through it? Basically anything that Quasar CLI does for you.
@@ -849,7 +853,8 @@ See these references for more info:
 - [Vite Vue Plugin options](/quasar-cli-vite/handling-vite#vite-vue-plugin-options)
 - [Adding Vite plugins](/quasar-cli-vite/handling-vite#adding-vite-plugins)
 - [Folder Aliases](/quasar-cli-vite/handling-vite#folder-aliases)
-- [Handling Process Env](/quasar-cli-vite/handling-process-env)
+- [Handling import.meta.env](/quasar-cli-vite/handling-import-meta-env)
+- [Dotenv Files Support](/quasar-cli-vite/dotenv-files-support)
 - [html-minifier-terser options](https://github.com/terser/html-minifier-terser?tab=readme-ov-file#options-quick-reference)
 
 ### sourceFiles
@@ -938,12 +943,8 @@ Then, as an example:
 | electron  | Object | Electron specific [config](/quasar-cli-vite/developing-electron-apps/configuring-electron).               |
 | bex       | Object | BEX specific [config](/quasar-cli-vite/developing-browser-extensions/configuring-bex).                    |
 
-## Examples
+## Other Useful Links
 
-### Setting env for dev/build
-
-Please refer to [Adding to import.meta.env](/quasar-cli-vite/handling-process-env#adding-to-import-meta-env) section in our docs.
-
-### Adding Vite plugins
-
-Please refer to the [Handling Vite](/quasar-cli-vite/handling-vite#adding-vite-plugins) page.
+- [Handling Vite](/quasar-cli-vite/handling-vite#adding-vite-plugins)
+- [Adding to import.meta.env](/quasar-cli-vite/handling-import-meta-env)
+- [Dotenv files support](/quasar-cli-vite/dotenv-files-support)

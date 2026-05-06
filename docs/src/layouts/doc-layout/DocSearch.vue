@@ -146,7 +146,10 @@ function fetchQuery(val, onResult, onError) {
         if (!signal.aborted) onError()
       })
       .finally(() => {
-        if (!signal.aborted) LoadingBar.stop()
+        if (!signal.aborted) {
+          controller = null
+          LoadingBar.stop()
+        }
       })
   }, 400)
 }
@@ -301,6 +304,7 @@ watch(terms, val => {
   controller = null
 
   if (!val) {
+    LoadingBar.stop()
     resetSearch()
   } else {
     fetchQuery(val, onResultSuccess, onResultError)

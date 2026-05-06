@@ -141,7 +141,7 @@ interface QuasarBuildEnv {
   /**
    * Additional .env* files to be loaded.
    * Each entry can be an absolute path or a relative path to
-   * quasar.config > build > folder.
+   * quasar.config > build > env > folder.
    *
    * @example ['.env.somefile', '../.env.someotherfile']
    */
