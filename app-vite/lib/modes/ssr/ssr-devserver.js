@@ -344,7 +344,7 @@ export class QuasarModeDevserver extends AppDevserver {
     const serveStatic = await serveStaticContent(middlewareParams)
     middlewareParams.serve = {
       static: serveStatic,
-      error: ({ err, req }) => {
+      devError: ({ err, req }) => {
         log()
         warn(req.url, 'Render failed')
 
