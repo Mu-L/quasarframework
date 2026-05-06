@@ -72,7 +72,7 @@ When you set `devServer > https: true` in your quasar.config file, Quasar will i
 ```js /quasar.config file
 devServer: {
   https: {
-    // Use ABSOLUTE paths or fileURLToPath(new URL('./root/relative/path', import.meta.url))
+    // Use ABSOLUTE paths or path.join(import.meta.dirname, './root/relative/path')
     // https://nodejs.org/api/https.html#https_https_createserver_options_requestlistener
     key: "/path/to/server.key",
     pfx: "/path/to/server.pfx",
