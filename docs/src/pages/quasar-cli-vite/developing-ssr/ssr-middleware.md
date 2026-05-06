@@ -54,7 +54,7 @@ export default defineSsrMiddleware(({
 
 Detailing the Object:
 
-```js
+```ts
 {
   /**
    * Webserver app instance or whatever is returned from src-ssr/server -> create()

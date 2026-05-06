@@ -141,7 +141,7 @@ export default defineConfig(ctx => {
 
 ### css
 
-```js
+```ts
 /**
  * Global CSS/Stylus/SCSS/SASS/... files from `/src/css/`,
  * except for theme files, which are included by default.
@@ -164,7 +164,7 @@ Example:
 
 More on [Boot Files](/quasar-cli-vite/boot-files).
 
-```js
+```ts
 /** Boot files to load. Order is important. */
 boot?: QuasarBootConfiguration;
 
@@ -181,14 +181,14 @@ type QuasarBootConfiguration = (string | BootConfigurationItem)[];
 
 More on the [PreFetch Feature](/quasar-cli-vite/prefetch-feature) page.
 
-```js
+```ts
 /** Enable the preFetch feature. */
 preFetch?: boolean;
 ```
 
 ### extras
 
-```js
+```ts
 /**
  * What to import from [@quasar/extras](https://github.com/quasarframework/quasar/tree/dev/extras) package.
  * @example ['material-icons', 'roboto-font', 'ionicons-v4']
@@ -198,7 +198,7 @@ extras?: (QuasarIconSets | QuasarFonts)[];
 
 ### framework
 
-```js
+```ts
 /**
  * What Quasar language pack to use, what Quasar icon
  * set to use for Quasar components, etc.
@@ -305,7 +305,7 @@ See these references for more info:
 
 More on [CSS animations](/options/animations).
 
-```js
+```ts
 /**
  * What Quasar CSS animations to import.
  * @example [ 'bounceInLeft', 'bounceOutRight' ]
@@ -317,7 +317,7 @@ animations?: QuasarAnimationsConfiguration | 'all';
 
 More info: [Vite server options](https://vitejs.dev/config/#server-options)
 
-```js
+```ts
 import { ServerOptions as ViteServerOptions } from "vite";
 import { Options as OpenOptions } from "open";
 type DevServerOptions = Omit<ViteServerOptions, "open" | "https"> & {
@@ -380,7 +380,7 @@ devServer: {
 
 ### build
 
-````js
+````ts
 /** Build configuration options. */
 build?: QuasarBuildConfiguration;
 
@@ -859,7 +859,7 @@ See these references for more info:
 
 ### sourceFiles
 
-```js
+```ts
 /**
  * Use this property to change the default names of some files of your website/app if you have to.
  * All paths must be relative to the root folder of your project.
@@ -877,20 +877,20 @@ See these references for more info:
  * }
  */
 interface QuasarSourceFilesConfiguration {
-  rootComponent?: string;
-  router?: string;
-  store?: string;
-  pwaRegisterServiceWorker?: string;
-  pwaServiceWorker?: string;
-  pwaManifestFile?: string;
-  electronMain?: string;
-  bexManifestFile?: string;
+  rootComponent?: string
+  router?: string
+  store?: string
+  pwaRegisterServiceWorker?: string
+  pwaServiceWorker?: string
+  pwaManifestFile?: string
+  electronMain?: string
+  bexManifestFile?: string
 }
 ```
 
 ### htmlVariables
 
-```js
+```ts
 /** Add variables that you can use in /index.html. */
 htmlVariables?: Record<string, any>;
 ```

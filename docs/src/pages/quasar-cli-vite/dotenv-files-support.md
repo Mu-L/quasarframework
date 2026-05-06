@@ -15,7 +15,7 @@ Before going forward, it would be a good idea to first familiarize yourself with
 
 ## Why Use a .env File?
 
-- Security: It keeps sensitive data—like database passwords, API keys, and secret tokens—safe. Because .env files are kept out of version control (like GitHub), your secrets aren't exposed to the public or everyone on your team.
+- Security: It keeps sensitive data, like database passwords, API keys, and secret tokens—safe. Because .env files are kept out of version control (like GitHub), your secrets aren't exposed to the public or everyone on your team.
 - Portability: It allows your application to behave differently depending on the environment (development, testing, or production) without changing the code. You just swap out the .env file for each environment.
 - Simplicity: It centralizes configuration into one easy-to-read file.
 
@@ -84,7 +84,7 @@ import.meta.env.QCLI_SOME_VAR // ✅ Available in client code
 
 ### Configuring Dotenv Files
 
-```js /quasar.config file
+```ts /quasar.config file
 build: {
   env: {
     /**

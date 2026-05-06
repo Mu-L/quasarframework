@@ -9,12 +9,12 @@ Quasar supplies a global EventBus, especially useful when upgrading from Quasar 
 
 ### Methods
 
-```js
+```ts
 class EventBus {
-  on (event: string, callback: Function, ctx?: any): this;
-  once (event: string, callback: Function, ctx?: any): this;
-  emit (event: string, ...args: any[]): this;
-  off (event: string, callback?: Function): this;
+  on(event: string, callback: Function, ctx?: any): this
+  once(event: string, callback: Function, ctx?: any): this
+  emit(event: string, ...args: any[]): this
+  off(event: string, callback?: Function): this
 }
 ```
 

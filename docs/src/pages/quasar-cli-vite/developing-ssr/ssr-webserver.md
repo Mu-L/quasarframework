@@ -1593,7 +1593,7 @@ Since the built SSR server is essentially a Hono/Express/Fastify/etc application
 
 We will use the `/quasar.config` > ssr > `prodScriptNamedExport` property to configure what gets exported by the production generated dist/index.js file:
 
-```js
+```ts
 /**
  * The named exports to use for the production generated SSR index.js script.
  * Works with `false` (no named exports), a single string (one named export),

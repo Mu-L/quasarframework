@@ -22,13 +22,11 @@ setup () {
 }
 ```
 
-```js
-function useId(
-  opts?: {
-    getValue?: () => string | null | undefined;
-    required?: boolean; // default: true
-  }
-): Ref<string | null>;
+```ts
+function useId(opts?: {
+  getValue?: () => string | null | undefined
+  required?: boolean // default: true
+}): Ref<string | null>
 ```
 
 ## Example

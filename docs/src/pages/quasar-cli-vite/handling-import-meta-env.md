@@ -87,7 +87,7 @@ if (import.meta.env.QUASAR_ELECTRON_MODE) {
 
 You can add your own definitions to `import.meta.env` through the `/quasar.config` file:
 
-```js /quasar.config file
+```ts /quasar.config file
 build: {
   /**
    * Define global constant replacements. Entries will be defined as globals

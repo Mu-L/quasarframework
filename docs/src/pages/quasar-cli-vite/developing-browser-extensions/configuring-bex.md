@@ -15,14 +15,14 @@ You do not need a new Quasar App per BEX type above as a single Quasar Applicati
 
 ## quasar.config file
 
-```js /quasar.config file > sourceFiles
+```ts /quasar.config file > sourceFiles
 // should you wish to change default files
 sourceFiles: {
   bexManifestFile?: 'src-bex/manifest.json',
 }
 ```
 
-```js /quasar.config file > bex
+```ts /quasar.config file > bex
 bex: {
   /**
    * The list of extra scripts (js/ts) not in your bex manifest that you want to

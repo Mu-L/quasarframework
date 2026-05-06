@@ -11,7 +11,7 @@ But first, let's learn how we can configure the Electron build.
 
 ## quasar.config file
 
-```js /quasar.config file > sourceFiles
+```ts /quasar.config file > sourceFiles
 // should you wish to change default files
 // (notice no extension, so it resolves to both .js and .ts)
 sourceFiles: {
@@ -19,7 +19,7 @@ sourceFiles: {
 }
 ```
 
-```js /quasar.config file > electron
+```ts /quasar.config file > electron
 electron: {
   /**
    * The list of content scripts (js/ts) that you want embedded.

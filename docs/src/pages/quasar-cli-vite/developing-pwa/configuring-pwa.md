@@ -41,7 +41,7 @@ Read more on `register-sw.js` and how to interact with the Service Worker on [Ha
 
 This is the place where you can configure Workbox behavior and also tweak your manifest.json.
 
-```js
+```ts
 pwa: {
   workboxMode?: "GenerateSW" | "InjectManifest";
 
@@ -276,7 +276,7 @@ if (import.meta.env.QUASAR_PROD) {
     )
   )
 }
-<<| js custom-sw.ts |>>
+<<| ts custom-sw.ts |>>
 /*
  * This file (which will be your service worker)
  * is picked up by the build system ONLY if

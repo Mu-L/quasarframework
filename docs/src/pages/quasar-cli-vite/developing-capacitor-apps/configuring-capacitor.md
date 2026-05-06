@@ -19,7 +19,7 @@ Some properties from this file will get overwritten as we'll see in next section
 
 There are two places in the `/quasar.config` file where you can configure Quasar specific features for Capacitor.
 
-```js /quasar.config file
+```ts /quasar.config file
 return {
   capacitor: {
     /**
