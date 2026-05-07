@@ -1,6 +1,13 @@
 import { computed, h, ref } from 'vue'
 import { QCard, QSeparator, QTab, QTabPanels, QTabs } from 'quasar'
 
+const iconClassMap = {
+  Yarn: ' doc-tab-icon doc-tab-icon--yarn',
+  NPM: ' doc-tab-icon doc-tab-icon--npm',
+  PNPM: ' doc-tab-icon doc-tab-icon--pnpm',
+  Bun: ' doc-tab-icon doc-tab-icon--bun'
+}
+
 export default {
   props: {
     title: String,
@@ -44,11 +51,12 @@ export default {
             },
             () =>
               props.tabs.map(tab =>
-                h(
-                  QTab,
-                  { name: tab, class: 'header-btn', noCaps: true },
-                  () => tab
-                )
+                h(QTab, {
+                  name: tab,
+                  label: tab,
+                  class: 'header-btn' + (iconClassMap[tab] || ''),
+                  noCaps: true
+                })
               )
           )
         )
