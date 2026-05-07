@@ -32,4 +32,4 @@ If you appreciate the work that went into this project, please consider [donatin
 
 # License
 
-<%= scope.license %> (c) <%= scope.author %>
+MIT (c) <%= scope.author %>

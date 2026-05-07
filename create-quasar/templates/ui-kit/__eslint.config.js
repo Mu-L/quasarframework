@@ -33,9 +33,7 @@ export default defineConfig(
 
         'umdExportName',
         'componentName',
-        'directiveName',
-
-        'license'
+        'directiveName'
       ]
     }
   },

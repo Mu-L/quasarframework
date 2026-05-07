@@ -30,4 +30,4 @@ quasar ext remove <%= scope.name %>
 If you appreciate the work that went into this App Extension, please consider [donating to Quasar](https://donate.quasar.dev).
 
 # License
-<%= scope.license %> (c) <%= scope.author %>
+MIT (c) <%= scope.author %>

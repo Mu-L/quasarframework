@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "description": "<%= scope.description %>",
   "author": "<%= scope.author %>",
-  "license": "<%= scope.license %>",
+  "license": "MIT",
   "type": "module",
   "main": "./dist/runtime/index.js",
   "module": "./dist/runtime/index.js",

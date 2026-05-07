@@ -29,12 +29,6 @@ export async function createQuasarScript({ scope, utils }) {
 
   await utils.prompts(scope, [
     {
-      type: 'text',
-      name: 'license',
-      initial: 'MIT',
-      message: 'License type:'
-    },
-    {
       type: 'multiselect',
       name: 'preset',
       message: 'Pick the needed scripts:',

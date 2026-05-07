@@ -13,8 +13,6 @@ export async function createQuasarScript({ scope, utils }) {
   await utils.injectAuthor(scope)
 
   await utils.prompts(scope, [
-    utils.commonPrompts.license,
-
     {
       type: 'multiselect',
       name: 'features',

@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "author": "<%= scope.author %>",
   "description": "<%= scope.packageDescription %>",
-  "license": "<%= scope.license %>",
+  "license": "MIT",
   "module": "dist/index.esm.js",
   "main": "dist/index.common.js",
   "scripts": {

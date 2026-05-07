@@ -26,8 +26,7 @@ export default defineConfig(
         'author',
 
         'preset',
-        'orgName',
-        'license'
+        'orgName'
       ]
     },
 
@@ -54,7 +53,6 @@ export default defineConfig(
 
         'preset',
         'orgName',
-        'license',
 
         'packageManagerField',
       ]

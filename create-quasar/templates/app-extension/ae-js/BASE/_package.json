@@ -4,7 +4,7 @@
   "version": "0.0.1",
   "description": "<%= scope.description %>",
   "author": "<%= scope.author %>",
-  "license": "<%= scope.license %>",
+  "license": "MIT",
   "type": "module",
   "scripts": {
     "test": "echo \"No test specified\" && exit 0"

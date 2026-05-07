@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "description": "<%= scope.aeDescription %>",
   "author": "<%= scope.author %>",
-  "license": "<%= scope.license %>",
+  "license": "MIT",
   "type": "module",
   "dependencies": {
     "quasar-ui-<%= scope.name %>": "latest"

@@ -265,7 +265,8 @@ export function compileTemplateToFn(str, rawOpts = {}) {
   const opts = { ...defaultParseOptions, ...rawOpts }
   const ast = getAST(str, opts)
   const body = compileBody(ast, opts)
-  return new Function(opts.varName, body) // eslint-disable-line no-new-func
+  // oxlint-disable-next-line no-new-func
+  return new Function(opts.varName, body)
 }
 
 export function renderTemplate(str, scope, rawOpts) {

@@ -351,13 +351,6 @@ const commonPrompts = {
     initial: 'A Quasar Project',
     format: escapeString,
     validate: val => val.length !== 0 || 'Invalid project description'
-  },
-
-  license: {
-    type: 'text',
-    name: 'license',
-    message: 'License type',
-    initial: 'MIT'
   }
 }
 
