@@ -18,7 +18,7 @@
   "devDependencies": {
     "@quasar/app-vite": "workspace:^",
     "@types/node": "^22.19.11",
-    "typescript": "^5.9.3"
+    "typescript": "^6.0.3"
   },
   "engines": {
     "node": "^28 || ^26 || ^24 || ^22.12",

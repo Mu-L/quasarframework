@@ -39,7 +39,7 @@
   "devDependencies": {
     "@types/prompts": "^2.4.9",
     "tsx": "^4.19.1",
-    "typescript": "^5.9.3"
+    "typescript": "^6.0.3"
   },
   "engines": {
     "node": ">=16"
