@@ -713,7 +713,7 @@ export default [
     path: 'quasar-cli-vite',
     children: [
       {
-        name: 'Upgrade guide',
+        name: 'Upgrade Guide',
         path: 'upgrade-guide'
       },
       {
@@ -793,7 +793,7 @@ export default [
         path: 'testing-and-auditing'
       },
       {
-        name: 'SPA mode',
+        name: 'SPA Mode',
         path: 'developing-spa',
         children: [
           {
@@ -815,7 +815,7 @@ export default [
         ]
       },
       {
-        name: 'SSR mode',
+        name: 'SSR Mode',
         path: 'developing-ssr',
         children: [
           {
@@ -893,7 +893,7 @@ export default [
         ]
       },
       {
-        name: 'PWA mode',
+        name: 'PWA Mode',
         path: 'developing-pwa',
         children: [
           {
@@ -939,7 +939,7 @@ export default [
         path: 'developing-mobile-apps'
       },
       {
-        name: 'Capacitor mode',
+        name: 'Capacitor Mode',
         path: 'developing-capacitor-apps',
         children: [
           {
@@ -989,7 +989,7 @@ export default [
         ]
       },
       {
-        name: 'Cordova mode',
+        name: 'Cordova Mode',
         path: 'developing-cordova-apps',
         children: [
           {
@@ -1031,7 +1031,7 @@ export default [
         ]
       },
       {
-        name: 'Electron mode',
+        name: 'Electron Mode',
         path: 'developing-electron-apps',
         children: [
           {
@@ -1039,7 +1039,7 @@ export default [
             path: 'introduction'
           },
           {
-            name: 'Upgrade guide',
+            name: 'Upgrade Guide',
             path: 'electron-upgrade-guide'
           },
           {
@@ -1089,7 +1089,7 @@ export default [
         ]
       },
       {
-        name: 'Browser Extensions mode',
+        name: 'Browser Extensions (BEX) Mode',
         path: 'developing-browser-extensions',
         children: [
           {
