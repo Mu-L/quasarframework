@@ -123,9 +123,7 @@ The current disadvantage is that it is more tedious to use these icons than thei
 
 ### Svg usage
 
-Usage inside the `<template>`:
-
-```html
+```html A .vue file
 <template>
   <div>
     <q-icon :name="matMenu" />
@@ -133,15 +131,7 @@ Usage inside the `<template>`:
     <q-btn :icon="mdiAbTesting" />
   </div>
 </template>
-```
 
-Notice that we are using `:` to bind variables instead of plain values, it's important. We must make those variables available to the template. The way to do that depends on your Vue API preference:
-
-#### Composition API with "script setup"
-
-This is the most convenient way. Just importing the variables is enough to make them available to the template.
-
-```html
 <script setup>
   import { matMenu } from '@quasar/extras/material-icons'
   import { mdiAbTesting } from '@quasar/extras/mdi-v7'
@@ -149,47 +139,7 @@ This is the most convenient way. Just importing the variables is enough to make 
 </script>
 ```
 
-#### Composition API without "script setup"
-
-```html
-<script>
-  import { matMenu } from '@quasar/extras/material-icons'
-  import { mdiAbTesting } from '@quasar/extras/mdi-v7'
-  import { fasFont } from '@quasar/extras/fontawesome-v5'
-
-  export default {
-    // ...
-    setup() {
-      return {
-        matMenu,
-        mdiAbTesting,
-        fasFont
-      }
-    }
-  }
-</script>
-```
-
-#### Options API
-
-Notice in the example below that we are injecting the icons through the `created()` hook instead of returning them from `data()`. That is because we want to avoid Vue from making them reactive. Since they are static values, making them reactive would introduce some unnecessary overhead. It would still work if we declare them in `data()`, but it would be less performant.
-
-```html
-<script>
-  import { matMenu } from '@quasar/extras/material-icons'
-  import { mdiAbTesting } from '@quasar/extras/mdi-v7'
-  import { fasFont } from '@quasar/extras/fontawesome-v5'
-
-  export default {
-    // ...
-    created() {
-      this.matMenu = matMenu
-      this.mdiAbTesting = mdiAbTesting
-      this.fasFont = fasFont
-    }
-  }
-</script>
-```
+Notice that we are using `:` to bind variables instead of plain values, it's important. We must make those variables available to the template. The way to do that depends on your Vue API preference:
 
 ::: tip
 If you are only using svg icons (and have configured a [Quasar Icon Set](/options/quasar-icon-sets)) then you don't need the webfont equivalent in your app at all.
@@ -205,6 +155,7 @@ If you are only using svg icons (and have configured a [Quasar Icon Set](/option
 | Material Symbols Sharp (Google)    | svg-material-symbols-sharp    | @quasar/extras/material-symbols-sharp    | @quasar/extras v1.14+  |
 | Material Symbols Round (Google)    | svg-material-symbols-rounded  | @quasar/extras/material-symbols-rounded  | @quasar/extras v1.14+  |
 | MDI (Material Design Icons) v3-v7  | svg-mdi-v7                    | @quasar/extras/mdi-v7 etc                | @quasar/extras v1.11+  |
+| Font Awesome v7                    | svg-fontawesome-v7            | @quasar/extras/fontawesome-v7            | @quasar/extras v1.18+  |
 | Font Awesome v6                    | svg-fontawesome-v6            | @quasar/extras/fontawesome-v6            | @quasar/extras v1.13+  |
 | Font Awesome                       | svg-fontawesome-v5            | @quasar/extras/fontawesome-v5            |                        |
 | Ionicons v6                        | svg-ionicons-v6               | @quasar/extras/ionicons-v6               | @quasar/extras v1.12+  |
