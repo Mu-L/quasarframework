@@ -435,11 +435,11 @@ if (api.hasVite) {
 ```js
 /**
  * @param {function} fn
- *   (esbuildConf: Object, api) => undefined
+ *   (rolldownConf: RollupOptions, api) => undefined
  */
 if (api.hasVite) {
-  api.extendSSRWebserverConf((esbuildConf, api) => {
-    // add/remove/change Quasar CLI generated esbuild config object
+  api.extendSSRWebserverConf((rolldownConf, api) => {
+    // add/remove/change Quasar CLI generated Rolldown config object
     // that is used for the SSR webserver (includes SSR middlewares)
   })
 }
@@ -450,11 +450,11 @@ if (api.hasVite) {
 ```js
 /**
  * @param {function} fn
- *   (esbuildConf: Object, api) => undefined
+ *   (rolldownConf: RollupOptions, api) => undefined
  */
 if (api.hasVite) {
-  api.extendElectronMainConf((esbuildConf, api) => {
-    // add/remove/change Quasar CLI generated esbuild config object
+  api.extendElectronMainConf((rolldownConf, api) => {
+    // add/remove/change Quasar CLI generated Rolldown config object
     // that is used for the SSR webserver (includes SSR middlewares)
   })
 }
@@ -465,11 +465,11 @@ if (api.hasVite) {
 ```js
 /**
  * @param {function} fn
- *   (esbuildConf: Object, api) => undefined
+ *   (rolldownConf: RollupOptions, api) => undefined
  */
 if (api.hasVite) {
-  api.extendElectronPreloadConf((esbuildConf, api) => {
-    // add/remove/change Quasar CLI generated esbuild config object
+  api.extendElectronPreloadConf((rolldownConf, api) => {
+    // add/remove/change Quasar CLI generated Rolldown config object
     // that is used for the SSR webserver (includes SSR middlewares)
   })
 }
@@ -480,11 +480,11 @@ if (api.hasVite) {
 ```js
 /**
  * @param {function} fn
- *   (esbuildConf: Object, api) => undefined
+ *   (rolldownConf: RollupOptions, api) => undefined
  */
 if (api.hasVite) {
-  api.extendPWACustomSWConf((esbuildConf, api) => {
-    // add/remove/change Quasar CLI generated esbuild config object
+  api.extendPWACustomSWConf((rolldownConf, api) => {
+    // add/remove/change Quasar CLI generated Rolldown config object
     // that is used for the SSR webserver (includes SSR middlewares)
   })
 }
@@ -495,11 +495,11 @@ if (api.hasVite) {
 ```js
 /**
  * @param {function} fn
- *   (esbuildConf: Object, api) => undefined
+ *   (rolldownConf: RollupOptions, api) => undefined
  */
 if (api.hasVite) {
-  api.extendBexScriptsConf((esbuildConf, api) => {
-    // add/remove/change Quasar CLI generated esbuild config object
+  api.extendBexScriptsConf((rolldownConf, api) => {
+    // add/remove/change Quasar CLI generated Rolldown config object
     // that is used for the SSR webserver (includes SSR middlewares)
   })
 }
