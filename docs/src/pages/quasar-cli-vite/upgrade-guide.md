@@ -596,11 +596,238 @@ Make sure to update your `/quasar.config` file with the newest specs in order to
 
 ## Electron mode changes
 
-**TODO**
+We are introducing `quasarRuntime`. [More info](/quasar-cli-vite/developing-electron-apps/electron-accessing-files).
+
+### Preload script
+
+```js /src-electron/electron-preload (Optional!)
+/**
+ * Only one preload script should contain this
+ */
+
+import { contextBridge } from 'electron'
+import { quasarRuntime } from '#q-app/electron/preload'
+
+/**
+ * Can be used in the renderer process through `window.quasarRuntime`
+ */
+contextBridge.exposeInMainWorld('quasarRuntime', quasarRuntime)
+```
+
+### Main script
+
+And you might also want to update your `/src-electron/electron-main` script. If the diff below seems confusing, check the whole file after this:
+
+```diff /src-electron/electron-main
+- import { fileURLToPath } from 'url'
+- const currentDir = fileURLToPath(new URL('.', import.meta.url));
+
++ import {
++  registerQuasarRuntime,
++  resolveElectronAssetsPath
++ } from "#q-app/electron/main";
+
+- let mainWindow: BrowserWindow | undefined;
+- async function createWindow() {
+-  mainWindow = new BrowserWindow({
+-    icon: path.resolve(currentDir, 'icons/icon.png'), // tray icon
+-    webPreferences: {
+-      preload: path.resolve(
+-        currentDir,
+-        path.join(process.env.QUASAR_ELECTRON_PRELOAD_FOLDER, 'electron-preload' + process.env.QUASAR_ELECTRON_PRELOAD_EXTENSION)
+-      ),
+-    },
++ async function createWindow() {
++  const mainWindow = new BrowserWindow({
++    icon: resolveElectronAssetsPath("icons/icon.png"), // linux
++    webPreferences: {
++      preload: path.join(import.meta.dirname, "electron-preload.cjs")
++    },
+
+-  if (process.env.DEV) {
+-    await mainWindow.loadURL(process.env.APP_URL);
+-  }
++  if (import.meta.env.QUASAR_DEV) {
++    await mainWindow.loadURL(import.meta.env.QUASAR_APP_URL);
++  }
+
+-  mainWindow.on('closed', () => {
+-    mainWindow = undefined;
+-  });
+}
+
+- void app.whenReady().then(createWindow);
+- app.on('window-all-closed', () => {
+-  if (platform !== 'darwin') {
+-    app.quit();
+-  }
+- });
+- app.on('activate', () => {
+-  if (mainWindow === undefined) {
+-    void createWindow();
+-  }
+- });
++ void app.whenReady().then(async () => {
++   await registerQuasarRuntime();
++   void createWindow();
++   app.on("activate", () => {
++     if (BrowserWindow.getAllWindows().length === 0) {
++       void createWindow();
++     }
++   });
++ });
++ app.on("window-all-closed", () => {
++   if (platform !== "darwin") {
++     app.quit();
++   }
++ });
+```
+
+Here is the full `/src-electron/electron-main` file, if the diff above seems confusing:
+
+```tabs /src-electron/electron-main
+<<| js Javascript |>>
+import { app, BrowserWindow } from 'electron'
+import path from 'node:path'
+import os from 'node:os'
+import {
+  registerQuasarRuntime,
+  resolveElectronAssetsPath
+} from '#q-app/electron/main'
+
+// needed in case process is undefined under Linux
+const platform = process.platform || os.platform()
+
+async function createWindow () {
+  /**
+   * Initial window options
+   */
+  const mainWindow = new BrowserWindow({
+    icon: resolveElectronAssetsPath('icons/icon.png'), // linux
+    width: 1000,
+    height: 600,
+    useContentSize: true,
+    webPreferences: {
+      contextIsolation: true,
+      // More info: https://v2.quasar.dev/quasar-cli-vite/developing-electron-apps/electron-preload-script
+      preload: path.join(import.meta.dirname, 'electron-preload.cjs')
+    }
+  })
+
+  if (import.meta.env.QUASAR_DEV) {
+    await mainWindow.loadURL(import.meta.env.QUASAR_APP_URL)
+  } else {
+    await mainWindow.loadFile('index.html')
+  }
+
+  if (import.meta.env.QUASAR_DEBUG) {
+    // if on DEV or Production with debug enabled
+    mainWindow.webContents.openDevTools()
+  } else {
+    // we're on production; no access to devtools pls
+    mainWindow.webContents.on('devtools-opened', () => {
+      mainWindow.webContents.closeDevTools()
+    })
+  }
+}
+
+void app.whenReady().then(async () => {
+  await registerQuasarRuntime()
+
+  createWindow()
+
+  app.on('activate', () => {
+    if (BrowserWindow.getAllWindows().length === 0) {
+      createWindow()
+    }
+  })
+})
+
+app.on('window-all-closed', () => {
+  if (platform !== 'darwin') {
+    app.quit()
+  }
+})
+<<| ts Typescript |>>
+import { BrowserWindow, app } from "electron";
+import path from "node:path";
+import os from "node:os";
+import {
+  registerQuasarRuntime,
+  resolveElectronAssetsPath
+} from "#q-app/electron/main";
+
+// needed in case process is undefined under Linux
+const platform = process.platform || os.platform();
+
+async function createWindow() {
+  /**
+   * Initial window options
+   */
+  const mainWindow = new BrowserWindow({
+    icon: resolveElectronAssetsPath("icons/icon.png"), // linux
+    width: 1000,
+    height: 600,
+    useContentSize: true,
+    webPreferences: {
+      contextIsolation: true,
+      // More info: https://v2.quasar.dev/quasar-cli-vite/developing-electron-apps/electron-preload-script
+      preload: path.join(import.meta.dirname, "electron-preload.cjs")
+    }
+  });
+
+  if (import.meta.env.QUASAR_DEV) {
+    await mainWindow.loadURL(import.meta.env.QUASAR_APP_URL);
+  } else {
+    await mainWindow.loadFile("index.html");
+  }
+
+  if (import.meta.env.QUASAR_DEBUG) {
+    // if on DEV or Production with debug enabled
+    mainWindow.webContents.openDevTools();
+  } else {
+    // we're on production; no access to devtools pls
+    mainWindow.webContents.on("devtools-opened", () => {
+      mainWindow?.webContents.closeDevTools();
+    });
+  }
+}
+
+void app.whenReady().then(async () => {
+  await registerQuasarRuntime();
+
+  void createWindow();
+
+  app.on("activate", () => {
+    if (BrowserWindow.getAllWindows().length === 0) {
+      void createWindow();
+    }
+  });
+});
+
+app.on("window-all-closed", () => {
+  if (platform !== "darwin") {
+    app.quit();
+  }
+});
+```
+
+### Other Electron Mentions
+
+- Don't forget to look over the [Installing Electron Dependencies](/quasar-cli-vite/developing-electron-apps/installing-electron-dependencies) page.
+- You might want to check out the updated [Frameless Electron Window](/quasar-cli-vite/developing-electron-apps/frameless-electron-window) page.
 
 ## SSR mode changes
 
-**TODO**
+We've added way better support for non-Express.js webservers and highly improved typings. When the SSR mode is added to a project, the Quasar CLI will ask what webserver you would like to use. You can pick from Hono/Express.js/Fastify/Koa.
+
+Instead of diffing here, you might want to check the next pages (even if you still want to stay with Express.js):
+
+- [Installing SSR Dependencies](/quasar-cli-vite/developing-ssr/installing-ssr-dependencies)
+- Webserver: check out examples with Hono/Express/Fastify/Koa: [SSR Webserver](/quasar-cli-vite/developing-ssr/ssr-webserver); or remove and add SSR mode again.
+- Middlewares: check out examples with Hono/Express/Fastify/Koa: [SSR Middleware](/quasar-cli-vite/developing-ssr/ssr-middleware); or remove and add SSR mode again.
+- Check out the [SSR Handling of 404 and 500 Errors](/quasar-cli-vite/developing-ssr/handling-404-and-500-errors) page.
+- If using a serverless architecture, then check out the new [Serverless](/quasar-cli-vite/developing-ssr/ssr-webserver#serverless) section in SSR Webserver page.
 
 ## Other considerations
 
