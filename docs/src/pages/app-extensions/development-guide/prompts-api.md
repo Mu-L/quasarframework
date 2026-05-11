@@ -101,13 +101,13 @@ The following is not an exhaustive list of possible types of questions and by no
 
 ### api.engine
 
-Contains the Quasar CLI engine (as String) being used. Examples: `@quasar/app-vite` or `@quasar/app-webpack`.
+Contains the Quasar CLI engine (as String) being used. Example: `@quasar/app-vite` (or legacy `@quasar/app-webpack`).
 
 ### api.hasVite
 
 Boolean - is running on `@quasar/app-vite` or not.
 
-### api.hasWebpack
+### api.hasWebpack <q-badge label="legacy" />
 
 Boolean - is running on `@quasar/app-webpack` or not.
 
@@ -156,15 +156,6 @@ Contains the full path (String) to the root of the app on which this App Extensi
  * @return {Promise<boolean>} host project has Typescript active or not
  */
 await api.hasTypescript()
-```
-
-### api.hasLint
-
-```js
-/**
- * @return {Promise<boolean>} host project has ESLint or not
- */
-await api.hasLint()
 ```
 
 ### api.getStorePackageName

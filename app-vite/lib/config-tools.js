@@ -278,7 +278,10 @@ export async function extendViteConfig(viteConf, quasarConf, invokeParams) {
   const { appExt } = quasarConf.ctx
   const promise = appExt.runAppExtensionHook('extendViteConf', async hook => {
     log(`Extension(${hook.api.extId}): Extending Vite config`)
-    await hook.fn(viteConf, opts, hook.api)
+    const overrides = await hook.fn(viteConf, opts, hook.api)
+    if (Object(overrides) === overrides) {
+      viteConf = mergeConfig(viteConf, overrides)
+    }
   })
 
   return promise.then(() => viteConf)
@@ -389,7 +392,10 @@ export async function extendRolldownConfig(
 
   const promise = ctx.appExt.runAppExtensionHook(methodName, async hook => {
     log(`Extension(${hook.api.extId}): Running "${methodName}(rolldownConfig)"`)
-    await hook.fn(rolldownConfig, hook.api)
+    const overrides = await hook.fn(rolldownConfig, hook.api)
+    if (Object(overrides) === overrides) {
+      rolldownConfig = merge({}, rolldownConfig, overrides)
+    }
   })
 
   return promise.then(() => rolldownConfig)

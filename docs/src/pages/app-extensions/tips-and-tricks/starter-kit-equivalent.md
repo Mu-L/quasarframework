@@ -85,7 +85,7 @@ export default function (api) {
   if (api.hasVite) {
     api.compatibleWith('@quasar/app-vite', '^3.0.0')
   } else {
-    // api.hasWebpack is true
+    // api.hasWebpack is true (legacy)
     api.compatibleWith('@quasar/app-webpack', '^4.0.0')
   }
 
@@ -125,7 +125,7 @@ export default function (api) {
   if (api.hasVite) {
     api.compatibleWith('@quasar/app-vite', '^3.0.0')
   } else {
-    // api.hasWebpack is true
+    // api.hasWebpack is true (legacy)
     api.compatibleWith('@quasar/app-webpack', '^4.0.0')
   }
 

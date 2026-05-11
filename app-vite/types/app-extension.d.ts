@@ -1,3 +1,4 @@
+import { UserConfig as ViteUserConfig } from "vite";
 import { IResolve } from "./app-paths";
 import { QuasarConf, ResolvedQuasarConfValue } from "./configuration/conf";
 import { QuasarContext } from "./configuration/context";
@@ -9,7 +10,7 @@ type ExtendViteConfHandler = (
       ...Parameters<ResolvedQuasarConfValue<"build.extendViteConf">>,
       api: IndexAPI
     ]
-  ) => void
+  ) => ViteUserConfig | void | Promise<ViteUserConfig | void>
 ) => void;
 
 type GetPersistentConfHandler = () => Record<string, unknown>;
@@ -52,24 +53,44 @@ type Callback<T> = (callback: T) => void;
 export interface IndexAPI extends BaseAPI, SharedIndexInstallAPI {
   readonly prompts: Record<string, unknown>;
 
-  readonly extendQuasarConf: Callback<(cfg: QuasarConf, api: IndexAPI) => void>;
+  readonly extendQuasarConf: Callback<
+    (
+      cfg: QuasarConf,
+      api: IndexAPI
+    ) => QuasarConf | void | Promise<QuasarConf | void>
+  >;
 
   readonly extendViteConf: ExtendViteConfHandler;
 
   readonly extendBexScriptsConf: Callback<
-    (cfg: RolldownOptions, api: IndexAPI) => void
+    (
+      cfg: RolldownOptions,
+      api: IndexAPI
+    ) => void | RolldownOptions | Promise<void | RolldownOptions>
   >;
   readonly extendElectronMainConf: Callback<
-    (cfg: RolldownOptions, api: IndexAPI) => void
+    (
+      cfg: RolldownOptions,
+      api: IndexAPI
+    ) => void | RolldownOptions | Promise<void | RolldownOptions>
   >;
   readonly extendElectronPreloadConf: Callback<
-    (cfg: RolldownOptions, api: IndexAPI) => void
+    (
+      cfg: RolldownOptions,
+      api: IndexAPI
+    ) => void | RolldownOptions | Promise<void | RolldownOptions>
   >;
   readonly extendPWACustomSWConf: Callback<
-    (cfg: RolldownOptions, api: IndexAPI) => void
+    (
+      cfg: RolldownOptions,
+      api: IndexAPI
+    ) => void | RolldownOptions | Promise<void | RolldownOptions>
   >;
   readonly extendSSRWebserverConf: Callback<
-    (cfg: RolldownOptions, api: IndexAPI) => void
+    (
+      cfg: RolldownOptions,
+      api: IndexAPI
+    ) => void | RolldownOptions | Promise<void | RolldownOptions>
   >;
 
   readonly registerCommand: (

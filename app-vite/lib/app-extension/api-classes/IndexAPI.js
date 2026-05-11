@@ -290,7 +290,6 @@ export class IndexAPI extends BaseAPI {
    */
 
   #appExtJson
-
   #hooks = {
     extendQuasarConf: [],
 

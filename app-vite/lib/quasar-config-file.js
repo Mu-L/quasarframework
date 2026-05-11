@@ -684,7 +684,7 @@ export class QuasarConfigFile {
 
     const { appPaths } = this.#ctx
 
-    const rawQuasarConf = merge(
+    let rawQuasarConf = merge(
       {
         ctx: this.#ctx,
 
@@ -760,7 +760,10 @@ export class QuasarConfigFile {
           log(
             `Extension(${hook.api.extId}): Extending quasar.config file configuration...`
           )
-          await hook.fn(rawQuasarConf, hook.api)
+          const overrides = await hook.fn(rawQuasarConf, hook.api)
+          if (Object(overrides) === overrides) {
+            rawQuasarConf = mergeConfig(rawQuasarConf, overrides)
+          }
         }
       )
     } catch (err) {
