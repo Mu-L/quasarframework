@@ -61,7 +61,7 @@ pwa: {
    * Should you need some dynamic changes to the /src-pwa/manifest.json,
    * use this method to do it.
    */
-  extendManifestJson?: (json: PwaManifestOptions) => void;
+  extendPWAManifestJson?: (json: PwaManifestOptions) => void;
 
   /**
    * Does the PWA manifest tag requires crossorigin auth?
@@ -74,7 +74,7 @@ pwa: {
    * If using the function form, return HTML tags as one single string.
    * @default true
    */
-  injectPwaMetaTags?: boolean | ((injectParam: InjectPwaMetaTagsParams) => string);
+  injectPWAMetaTags?: boolean | ((injectParam: InjectPWAMetaTagsParams) => string);
 
   /**
    * Extend the Rolldown config that is used for the custom service worker
@@ -93,7 +93,7 @@ pwa: {
    * Can directly modify the "config" parameter or
    * return a new one that will be merged with the default one.
    */
-  extendGenerateSWOptions?: (
+  extendPWAGenerateSWOptions?: (
     config: GenerateSWOptions
   ) => void | GenerateSWOptions | Promise<void | GenerateSWOptions>;
 
@@ -103,7 +103,7 @@ pwa: {
    * Can directly modify the "config" parameter or
    * return a new one that will be merged with the default one.
    */
-  extendInjectManifestOptions?: (
+  extendPWAInjectManifestOptions?: (
     config: InjectManifestOptions
   ) => void | InjectManifestOptions | Promise<void | InjectManifestOptions>;
 }
@@ -140,7 +140,7 @@ Quasar CLI adds (dynamically) some PWA oriented meta tags into your index.html. 
 
 ```js /quasar.config file
 pwa: {
-  injectPwaMetaTags: false
+  injectPWAMetaTags: false
 }
 ```
 
@@ -182,11 +182,11 @@ Then, edit your `/index.html` file. The following are the actual meta tags that 
 
 Notice that you have access to your PWA manifest through `pwaManifest` above.
 
-Alternatively, you can assign a function to injectPwaMetaTags like below:
+Alternatively, you can assign a function to injectPWAMetaTags like below:
 
 ```js /quasar.config file
 pwa: {
-  injectPwaMetaTags ({ pwaManifest, publicPath }) {
+  injectPWAMetaTags ({ pwaManifest, publicPath }) {
     return `<meta name="mobile-web-app-capable" content="yes">`
       + `<meta name="apple-mobile-web-app-status-bar-style" content="default">`
   }
@@ -202,14 +202,14 @@ Setting the mode that you want to use is done through the `/quasar.config` file:
 ```js /quasar.config file
 pwa: {
   workboxMode: 'GenerateSW',
-  extendGenerateSWOptions (cfg) {
+  extendPWAGenerateSWOptions (cfg) {
     // configure workbox on GenerateSW
   }
 }
 
 pwa: {
   workboxMode: 'InjectManifest',
-  extendInjectManifestOptions (cfg) {
+  extendPWAInjectManifestOptions (cfg) {
     // configure workbox on InjectManifest
   }
 }
@@ -342,7 +342,7 @@ Should you need to change it dynamically at build time, you can do so by editing
 
 ```js /quasar.config file
 pwa: {
-  extendManifestJson (json) {
+  extendPWAManifestJson (json) {
     // tamper with the json inline
   }
 }
@@ -372,7 +372,7 @@ For those who don't want to manually reload the page when the service worker is 
 
 ```js /quasar.config file
 pwa: {
-  extendGenerateSWOptions (cfg) {
+  extendPWAGenerateSWOptions (cfg) {
     cfg.skipWaiting = false
     cfg.clientsClaim = false
   }

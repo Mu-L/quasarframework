@@ -68,12 +68,29 @@ export class QuasarModeBuilder extends AppBuilder {
 
     pkg.main = './electron-main.js'
 
-    if (typeof this.quasarConf.electron.extendPackageJson === 'function') {
-      const overrides = await this.quasarConf.electron.extendPackageJson(pkg)
+    if (
+      typeof this.quasarConf.electron.extendElectronPackageJson === 'function'
+    ) {
+      const overrides =
+        await this.quasarConf.electron.extendElectronPackageJson(pkg)
+
       if (Object(overrides) === overrides) {
         pkg = merge({}, pkg, overrides)
       }
     }
+
+    await quasarConf.ctx.appExt.runAppExtensionHook(
+      'extendElectronPackageJson',
+      async hook => {
+        log(
+          `Extension(${hook.api.extId}): Running "extendElectronPackageJson(pkgJson)"`
+        )
+        const overrides = await hook.fn(pkg, hook.api)
+        if (Object(overrides) === overrides) {
+          pkg = merge({}, pkg, overrides)
+        }
+      }
+    )
 
     this.writeFile(
       'UnPackaged/package.json',

@@ -20,12 +20,12 @@ interface QuasarBaseElectronConfiguration {
   preloadScripts?: string[];
 
   /**
-   * Add/remove/change properties of production generated package.json
+   * Add/remove/change properties of Electron production generated package.json
    *
-   * Can directly modify the "pkg" parameter or
+   * Can directly modify the "pkgJson" parameter or
    * return a new one that will be merged with the default one.
    */
-  extendPackageJson?: (pkg: { [index in string]: any }) =>
+  extendElectronPackageJson?: (pkgJson: { [index in string]: any }) =>
     | void
     | { [index in string]: any }
     | Promise<void | { [index in string]: any }>;

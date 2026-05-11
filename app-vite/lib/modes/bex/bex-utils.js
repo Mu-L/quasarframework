@@ -67,6 +67,17 @@ export async function createManifest(quasarConf) {
     }
   }
 
+  await quasarConf.ctx.appExt.runAppExtensionHook(
+    'extendBexManifestJson',
+    async hook => {
+      log(`Extension(${hook.api.extId}): Running "extendBexManifestJson(json)"`)
+      const overrides = await hook.fn(json, hook.api)
+      if (Object(overrides) === overrides) {
+        json = merge({}, json, overrides)
+      }
+    }
+  )
+
   // also changes .ts -> .js and .tsx -> .jsx
   const scriptList = extractBexScripts(quasarConf, json)
 

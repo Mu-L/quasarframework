@@ -275,16 +275,18 @@ export async function extendViteConfig(viteConf, quasarConf, invokeParams) {
     }
   }
 
-  const { appExt } = quasarConf.ctx
-  const promise = appExt.runAppExtensionHook('extendViteConf', async hook => {
-    log(`Extension(${hook.api.extId}): Extending Vite config`)
-    const overrides = await hook.fn(viteConf, opts, hook.api)
-    if (Object(overrides) === overrides) {
-      viteConf = mergeConfig(viteConf, overrides)
+  await quasarConf.ctx.appExt.runAppExtensionHook(
+    'extendViteConf',
+    async hook => {
+      log(`Extension(${hook.api.extId}): Extending Vite config`)
+      const overrides = await hook.fn(viteConf, opts, hook.api)
+      if (Object(overrides) === overrides) {
+        viteConf = mergeConfig(viteConf, overrides)
+      }
     }
-  })
+  )
 
-  return promise.then(() => viteConf)
+  return viteConf
 }
 
 /**
@@ -390,7 +392,7 @@ export async function extendRolldownConfig(
     }
   }
 
-  const promise = ctx.appExt.runAppExtensionHook(methodName, async hook => {
+  await ctx.appExt.runAppExtensionHook(methodName, async hook => {
     log(`Extension(${hook.api.extId}): Running "${methodName}(rolldownConfig)"`)
     const overrides = await hook.fn(rolldownConfig, hook.api)
     if (Object(overrides) === overrides) {
@@ -398,5 +400,5 @@ export async function extendRolldownConfig(
     }
   })
 
-  return promise.then(() => rolldownConfig)
+  return rolldownConfig
 }

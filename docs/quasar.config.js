@@ -89,10 +89,10 @@ export default defineConfig(ctx => ({
 
   pwa: {
     workboxMode: 'GenerateSW',
-    injectPwaMetaTags: false,
+    injectPWAMetaTags: false,
     swFilename: 'service-worker.js',
 
-    extendWorkboxGenerateSWOptions(cfg) {
+    extendPWAGenerateSWOptions(cfg) {
       Object.assign(cfg, {
         cleanupOutdatedCaches: true,
         skipWaiting: true,

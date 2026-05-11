@@ -21,14 +21,14 @@ export class QuasarModeDevserver extends AppDevserver {
     // also update ssr-devserver.js when changing here
     this.registerDiff('pwaManifest', quasarConf => [
       quasarConf.pwa.manifestFilename,
-      quasarConf.pwa.extendManifestJson
+      quasarConf.pwa.extendPWAManifestJson
     ])
 
     // also update ssr-devserver.js when changing here
     this.registerDiff('vitePWA', (quasarConf, diffMap) => [
-      quasarConf.pwa.injectPwaMetaTags,
       quasarConf.pwa.manifestFilename,
-      quasarConf.pwa.extendManifestJson,
+      quasarConf.pwa.injectPWAMetaTags,
+      quasarConf.pwa.extendPWAManifestJson,
       quasarConf.pwa.useCredentialsForManifestTag,
       quasarConf.pwa.swFilename,
 
@@ -42,9 +42,9 @@ export class QuasarModeDevserver extends AppDevserver {
       quasarConf.pwa.swFilename,
       quasarConf.build,
       quasarConf.pwa.workboxMode === 'GenerateSW'
-        ? quasarConf.pwa.extendGenerateSWOptions
+        ? quasarConf.pwa.extendPWAGenerateSWOptions
         : [
-            quasarConf.pwa.extendInjectManifestOptions,
+            quasarConf.pwa.extendPWAInjectManifestOptions,
             quasarConf.pwa.swFilename,
             quasarConf.pwa.extendPWACustomSWConf,
             quasarConf.sourceFiles.pwaServiceWorker,
@@ -79,7 +79,7 @@ export class QuasarModeDevserver extends AppDevserver {
       await watcher.close()
     }
 
-    injectPwaManifest(quasarConf, true)
+    await injectPwaManifest(quasarConf, true)
 
     this.#server = await createServer(await quasarPwaConfig.vite(quasarConf))
     await this.#server.listen()
@@ -103,8 +103,8 @@ export class QuasarModeDevserver extends AppDevserver {
       await watcher.close()
     }
 
-    function inject() {
-      injectPwaManifest(quasarConf)
+    async function inject() {
+      await injectPwaManifest(quasarConf)
       log(
         `Generated the PWA manifest file (${quasarConf.pwa.manifestFilename})`
       )
@@ -117,13 +117,13 @@ export class QuasarModeDevserver extends AppDevserver {
       }
     ).on(
       'change',
-      debounce(() => {
-        inject()
+      debounce(async () => {
+        await inject()
         this.#server?.ws.send({ type: 'full-reload' })
       }, 550)
     )
 
-    inject()
+    await inject()
   }
 
   // also update ssr-devserver.js when changing here

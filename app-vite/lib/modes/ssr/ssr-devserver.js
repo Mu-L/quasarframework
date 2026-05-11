@@ -105,9 +105,9 @@ export class QuasarModeDevserver extends AppDevserver {
 
     // also update pwa-devserver.js when changing here
     this.registerDiff('pwaManifest', quasarConf => [
-      quasarConf.pwa.injectPwaMetaTags,
+      quasarConf.pwa.injectPWAMetaTags,
       quasarConf.pwa.manifestFilename,
-      quasarConf.pwa.extendManifestJson,
+      quasarConf.pwa.extendPWAManifestJson,
       quasarConf.pwa.useCredentialsForManifestTag
     ])
 
@@ -117,9 +117,13 @@ export class QuasarModeDevserver extends AppDevserver {
       quasarConf.pwa.swFilename,
       quasarConf.build,
       quasarConf.pwa.workboxMode === 'GenerateSW'
-        ? quasarConf.pwa.extendGenerateSWOptions
+        ? [
+            quasarConf.pwa.extendPWAGenerateSWOptions,
+            quasarConf.ssr.extendSSRGenerateSWOptions
+          ]
         : [
-            quasarConf.pwa.extendInjectManifestOptions,
+            quasarConf.pwa.extendPWAInjectManifestOptions,
+            quasarConf.ssr.extendSSRInjectManifestOptions,
             quasarConf.pwa.extendPWACustomSWConf,
             quasarConf.sourceFiles.pwaServiceWorker,
             quasarConf.ssr.pwaOfflineHtmlFilename,
@@ -214,7 +218,7 @@ export class QuasarModeDevserver extends AppDevserver {
     this.#viteWatcherList.push(viteServer)
 
     if (quasarConf.ssr.pwa) {
-      injectPwaManifest(quasarConf, true)
+      await injectPwaManifest(quasarConf, true)
     }
 
     let renderTemplate
@@ -402,8 +406,8 @@ export class QuasarModeDevserver extends AppDevserver {
       await watcher.close()
     }
 
-    function inject() {
-      injectPwaManifest(quasarConf)
+    async function inject() {
+      await injectPwaManifest(quasarConf)
       log(
         `Generated the PWA manifest file (${quasarConf.pwa.manifestFilename})`
       )
@@ -416,13 +420,13 @@ export class QuasarModeDevserver extends AppDevserver {
       }
     ).on(
       'change',
-      debounce(() => {
-        inject()
+      debounce(async () => {
+        await inject()
         this.#viteClient?.ws.send({ type: 'full-reload' })
       }, 550)
     )
 
-    inject()
+    await inject()
   }
 
   // also update pwa-devserver.js when changing here

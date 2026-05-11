@@ -31,12 +31,12 @@ electron: {
   preloadScripts?: string[];
 
   /**
-   * Add/remove/change properties of production generated package.json
+   * Add/remove/change properties of Electron production generated package.json
    *
-   * Can directly modify the "pkg" parameter or
+   * Can directly modify the "pkgJson" parameter or
    * return a new one that will be merged with the default one.
    */
-  extendPackageJson?: (pkg: { [index in string]: any }) =>
+  extendElectronPackageJson?: (pkgJson: { [index in string]: any }) =>
     | void
     | { [index in string]: any }
     | Promise<void | { [index in string]: any }>;
@@ -127,4 +127,4 @@ By default, all `dependencies` from your root `package.json` file get installed 
 
 This means that it will also include your UI-only deps, which are already bundled in the UI files (so it will duplicate them). From our CLI perspective, we don't have any generic way of telling whether a dependency is UI only or if it's used by the main/preload scripts, so we cannot reliably auto-remove them.
 
-However, you can do this by using quasar.conf > electron > extendPackageJson(pkg) and overwriting or tampering with the `dependencies` key from your `package.json` file. If you leave only the main & preload threads depdendencies then this will lead to a smaller production executable file.
+However, you can do this by using quasar.conf > electron > extendElectronPackageJson(pkgJson) and overwriting or tampering with the `dependencies` key from your `package.json` file. If you leave only the main & preload threads depdendencies then this will lead to a smaller production executable file.

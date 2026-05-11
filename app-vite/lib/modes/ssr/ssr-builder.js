@@ -23,7 +23,7 @@ export class QuasarModeBuilder extends AppBuilder {
 
     if (this.quasarConf.ssr.pwa) {
       // also update pwa-builder.js when changing here
-      injectPwaManifest(this.quasarConf)
+      await injectPwaManifest(this.quasarConf)
     }
 
     await Promise.all([
@@ -209,12 +209,25 @@ export class QuasarModeBuilder extends AppBuilder {
       pkg.dependencies['serialize-javascript'] = version
     }
 
-    if (typeof this.quasarConf.ssr.extendPackageJson === 'function') {
-      const overrides = await this.quasarConf.ssr.extendPackageJson(pkg)
+    if (typeof this.quasarConf.ssr.extendSSRPackageJson === 'function') {
+      const overrides = await this.quasarConf.ssr.extendSSRPackageJson(pkg)
       if (Object(overrides) === overrides) {
         pkg = merge({}, pkg, overrides)
       }
     }
+
+    await quasarConf.ctx.appExt.runAppExtensionHook(
+      'extendSSRPackageJson',
+      async hook => {
+        log(
+          `Extension(${hook.api.extId}): Running "extendSSRPackageJson(pkgJson)"`
+        )
+        const overrides = await hook.fn(pkg, hook.api)
+        if (Object(overrides) === overrides) {
+          pkg = merge({}, pkg, overrides)
+        }
+      }
+    )
 
     this.writeFile('package.json', stringifyJSON(pkg, { indent: 2 }))
   }

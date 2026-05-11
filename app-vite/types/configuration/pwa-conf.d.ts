@@ -43,7 +43,7 @@ interface PwaManifestIcon {
   purpose?: "badge" | "maskable" | "any";
 }
 
-interface PwaManifestOptions {
+export interface PwaManifestOptions {
   id?: string;
   background_color?: string;
   categories?: string[];
@@ -66,7 +66,7 @@ interface PwaManifestOptions {
   theme_color?: string;
 }
 
-interface InjectPwaMetaTagsParams {
+interface InjectPWAMetaTagsParams {
   pwaManifest: PwaManifestOptions;
   publicPath: string;
 }
@@ -94,8 +94,13 @@ export interface QuasarPwaConfiguration {
   /**
    * Should you need some dynamic changes to the /src-pwa/manifest.json,
    * use this method to do it.
+   *
+   * Can directly modify the "json" parameter or
+   * return a new one that will be merged with the default one.
    */
-  extendManifestJson?: (json: PwaManifestOptions) => void;
+  extendPWAManifestJson?: (
+    json: PwaManifestOptions
+  ) => void | PwaManifestOptions | Promise<void | PwaManifestOptions>;
 
   /**
    * Does the PWA manifest tag requires crossorigin auth?
@@ -108,9 +113,9 @@ export interface QuasarPwaConfiguration {
    * If using the function form, return HTML tags as one single string.
    * @default true
    */
-  injectPwaMetaTags?:
+  injectPWAMetaTags?:
     | boolean
-    | ((injectParam: InjectPwaMetaTagsParams) => string);
+    | ((injectParam: InjectPWAMetaTagsParams) => string);
 
   /**
    * Extend the Rolldown config that is used for the custom service worker
@@ -129,7 +134,7 @@ export interface QuasarPwaConfiguration {
    * Can directly modify the "config" parameter or
    * return a new one that will be merged with the default one.
    */
-  extendGenerateSWOptions?: (
+  extendPWAGenerateSWOptions?: (
     config: GenerateSWOptions
   ) => void | GenerateSWOptions | Promise<void | GenerateSWOptions>;
 
@@ -139,7 +144,7 @@ export interface QuasarPwaConfiguration {
    * Can directly modify the "config" parameter or
    * return a new one that will be merged with the default one.
    */
-  extendInjectManifestOptions?: (
+  extendPWAInjectManifestOptions?: (
     config: InjectManifestOptions
   ) => void | InjectManifestOptions | Promise<void | InjectManifestOptions>;
 }

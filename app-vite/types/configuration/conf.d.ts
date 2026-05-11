@@ -13,7 +13,7 @@ import { QuasarFrameworkConfiguration } from "./framework-conf";
 import { QuasarPwaConfiguration } from "./pwa-conf";
 import { QuasarSsrConfiguration } from "./ssr-conf";
 import { QuasarMobileConfiguration } from "./mobile-conf";
-import { QuasarBexConfiguration } from "./bex";
+import { QuasarBexConfiguration } from "./bex-conf";
 
 import { Options as OpenOptions } from "open";
 import { ServerOptions as ViteServerOptions } from "vite";

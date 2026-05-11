@@ -152,7 +152,7 @@ export default defineConfig((<% if (scope.preset.i18n) { %>ctx<% } else { %>/* c
         'render' // keep this as last one
       ],
 
-      // extendPackageJson (json) {},
+      // extendSSRPackageJson (pkgJson) {},
       // extendSSRWebserverConf (rolldownConf) {},
 
       // manualStoreSerialization: true,
@@ -163,8 +163,8 @@ export default defineConfig((<% if (scope.preset.i18n) { %>ctx<% } else { %>/* c
       pwa: false
       // pwaOfflineHtmlFilename: 'offline.html', // do NOT use index.html as name!
 
-      // pwaExtendGenerateSWOptions (cfg) {},
-      // pwaExtendInjectManifestOptions (cfg) {}
+      // extendSSRGenerateSWOptions (cfg) {},
+      // extendSSRInjectManifestOptions (cfg) {}
     },
 
     // https://v2.quasar.dev/quasar-cli-vite/developing-pwa/configuring-pwa
@@ -172,12 +172,12 @@ export default defineConfig((<% if (scope.preset.i18n) { %>ctx<% } else { %>/* c
       workboxMode: 'GenerateSW' // 'GenerateSW' or 'InjectManifest'
       // swFilename: 'sw.js',
       // manifestFilename: 'manifest.json',
-      // extendManifestJson (json) {},
+      // extendPWAManifestJson (json) {},
       // useCredentialsForManifestTag: true,
-      // injectPwaMetaTags: false,
+      // injectPWAMetaTags: false,
       // extendPWACustomSWConf (rolldownConf) {},
-      // extendGenerateSWOptions (cfg) {},
-      // extendInjectManifestOptions (cfg) {}
+      // extendPWAGenerateSWOptions (cfg) {},
+      // extendPWAInjectManifestOptions (cfg) {}
     },
 
     // Full list of options: https://v2.quasar.dev/quasar-cli-vite/developing-cordova-apps/configuring-cordova
@@ -192,8 +192,7 @@ export default defineConfig((<% if (scope.preset.i18n) { %>ctx<% } else { %>/* c
     electron: {
       // extendElectronMainConf (rolldownConf) {},
       // extendElectronPreloadConf (rolldownConf) {},
-
-      // extendPackageJson (json) {},
+      // extendElectronPackageJson (pkgJson) {},
 
       // Electron preload scripts (if any) from /src-electron, WITHOUT file extension
       preloadScripts: [ 'electron-preload' ],

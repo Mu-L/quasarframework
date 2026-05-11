@@ -226,6 +226,16 @@ api.extendQuasarConf((conf, api) => {
 ```js
 export default function (api, ctx) {
   api.extendQuasarConf((conf, api) => {
+    return {
+      // make sure my-ext boot file is registered
+      boot: ['~quasar-app-extension-my-ext/src/boot/my-ext-bootfile.js'],
+      // make sure my-ext css goes through Vite
+      css: ['~quasar-app-extension-my-ext/src/component/my-ext.sass']
+    }
+  })
+
+  // Alternatively, directly touch the "conf" param
+  api.extendQuasarConf((conf, api) => {
     // make sure my-ext boot file is registered
     conf.boot.push('~quasar-app-extension-my-ext/src/boot/my-ext-bootfile.js')
 
@@ -421,7 +431,7 @@ api.onPublish((api, opts) => {
  * Can directly modify the "config" parameter or
  * return a new one that will be merged with the default one.
  */
-extendViteConf?: (
+api.extendViteConf: (
   config: ViteUserConfig,
   invokeParams: { isClient: boolean, isServer: boolean },
   api
@@ -443,7 +453,7 @@ api.extendViteConf((viteConf, { isClient, isServer }, api) => {
  * Can directly modify the "rolldownConf" parameter or
  * return a new one that will be merged with the default one.
  */
-extendSSRWebserverConf?: (
+api.extendSSRWebserverConf: (
   config: RolldownOptions,
   api
 ) => void | RolldownOptions | Promise<void | RolldownOptions>;
@@ -451,6 +461,75 @@ extendSSRWebserverConf?: (
 // Example:
 api.extendSSRWebserverConf((rolldownConf, api) => {
   // add/remove/change Quasar CLI generated Rolldown config object
+})
+```
+
+### api.extendSSRPackageJson <q-badge label="@quasar/app-vite v3+" />
+
+```ts
+/**
+ * Add/remove/change properties of SSR production generated package.json
+ *
+ * Can directly modify the "pkgJson" parameter or
+ * return a new one that will be merged with the default one.
+ */
+api.extendSSRPackageJson: (
+  pkgJson: { [index in string]: any },
+  api: IndexAPI
+) =>
+  | void
+  | { [index in string]: any }
+  | Promise<void | { [index in string]: any }>;
+
+// Example:
+api.extendSSRPackageJson((pkgJson, api) => {
+  // add/remove/change pkgJson
+})
+```
+
+### api.extendSSRGenerateSWOptions <q-badge label="@quasar/app-vite v3+" />
+
+```ts
+/**
+ * Extend/configure the Workbox GenerateSW options
+ * Specify Workbox options which will be applied on top of
+ *  `pwa > extendPWAGenerateSWOptions()`.
+ * More info: https://developer.chrome.com/docs/workbox/the-ways-of-workbox/
+ *
+ * Can directly modify the "config" parameter or
+ * return a new one that will be merged with the default one.
+ */
+api.extendSSRGenerateSWOptions: (
+  config: GenerateSWOptions,
+  api: IndexAPI
+) => void | GenerateSWOptions | Promise<void | GenerateSWOptions>;
+
+// Example:
+api.extendSSRGenerateSWOptions((config, api) => {
+  // add/remove/change config
+})
+```
+
+### api.extendSSRInjectManifestOptions <q-badge label="@quasar/app-vite v3+" />
+
+```ts
+/**
+ * Extend/configure the Workbox InjectManifest options
+ * Specify Workbox options which will be applied on top of
+ *  `pwa > extendPWAInjectManifestOptions()`.
+ * More info: https://developer.chrome.com/docs/workbox/the-ways-of-workbox/
+ *
+ * Can directly modify the "config" parameter or
+ * return a new one that will be merged with the default one.
+ */
+api.extendSSRInjectManifestOptions: (
+  config: InjectManifestOptions,
+  api: IndexAPI
+) => void | InjectManifestOptions | Promise<void | InjectManifestOptions>;
+
+// Example:
+api.extendSSRInjectManifestOptions((config, api) => {
+  // add/remove/change config
 })
 ```
 
@@ -463,7 +542,7 @@ api.extendSSRWebserverConf((rolldownConf, api) => {
  * Can directly modify the "config" parameter or
  * return a new one that will be merged with the default one.
  */
-extendElectronMainConf?: (
+api.extendElectronMainConf: (
   config: RolldownOptions,
   api
 ) => void | RolldownOptions | Promise<void | RolldownOptions>;
@@ -483,7 +562,7 @@ api.extendElectronMainConf((rolldownConf, api) => {
  * Can directly modify the "config" parameter or
  * return a new one that will be merged with the default one.
  */
-extendElectronPreloadConf?: (
+api.extendElectronPreloadConf: (
   config: RolldownOptions,
   api
 ) => void | RolldownOptions | Promise<void | RolldownOptions>;
@@ -491,6 +570,29 @@ extendElectronPreloadConf?: (
 // Example:
 api.extendElectronPreloadConf((rolldownConf, api) => {
   // add/remove/change Quasar CLI generated Rolldown config object
+})
+```
+
+### api.extendElectronPackageJson <q-badge label="@quasar/app-vite v3+" />
+
+```ts
+/**
+ * Add/remove/change properties of Electron production generated package.json
+ *
+ * Can directly modify the "pkgJson" parameter or
+ * return a new one that will be merged with the default one.
+ */
+api.extendElectronPackageJson: (
+  pkgJson: { [index in string]: any },
+  api: IndexAPI
+) =>
+  | void
+  | { [index in string]: any }
+  | Promise<void | { [index in string]: any }>;
+
+// Example:
+api.extendElectronPackageJson((pkgJson, api) => {
+  // add/remove/change pkgJson
 })
 ```
 
@@ -504,7 +606,7 @@ api.extendElectronPreloadConf((rolldownConf, api) => {
  * Can directly modify the "config" parameter or
  * return a new one that will be merged with the default one.
  */
-extendPWACustomSWConf?: (
+api.extendPWACustomSWConf: (
   config: RolldownOptions,
   api
 ) => void | RolldownOptions | Promise<void | RolldownOptions>;
@@ -512,6 +614,67 @@ extendPWACustomSWConf?: (
 // Example:
 api.extendPWACustomSWConf((rolldownConf, api) => {
   // add/remove/change Quasar CLI generated Rolldown config object
+})
+```
+
+### api.extendPWAManifestJson <q-badge label="@quasar/app-vite v3+" />
+
+```ts
+/**
+ * Should you need some dynamic changes to the /src-pwa/manifest.json,
+ * use this method to do it.
+ *
+ * Can directly modify the "json" parameter or
+ * return a new one that will be merged with the default one.
+ */
+api.extendPWAManifestJson: (
+  json: PwaManifestOptions,
+  api: IndexAPI
+) => void | PwaManifestOptions | Promise<void | PwaManifestOptions>;
+
+// Example:
+api.extendPWAManifestJson((json, api) => {
+  // add/remove/change json
+})
+```
+
+### api.extendPWAGenerateSWOptions <q-badge label="@quasar/app-vite v3+" />
+
+```ts
+/**
+ * Extend/configure the Workbox GenerateSW options.
+ *
+ * Can directly modify the "config" parameter or
+ * return a new one that will be merged with the default one.
+ */
+api.extendPWAGenerateSWOptions: (
+  config: GenerateSWOptions,
+  api: IndexAPI
+) => void | GenerateSWOptions | Promise<void | GenerateSWOptions>;
+
+// Example:
+api.extendPWAGenerateSWOptions((config, api) => {
+  // add/remove/change config
+})
+```
+
+### api.extendPWAInjectManifestOptions <q-badge label="@quasar/app-vite v3+" />
+
+```ts
+/**
+ * Extend/configure the Workbox InjectManifest options.
+ *
+ * Can directly modify the "config" parameter or
+ * return a new one that will be merged with the default one.
+ */
+api.extendPWAInjectManifestOptions: (
+  config: InjectManifestOptions,
+  api: IndexAPI
+) => void | InjectManifestOptions | Promise<void | InjectManifestOptions>;
+
+// Example:
+api.extendPWAInjectManifestOptions((config, api) => {
+  // add/remove/change config
 })
 ```
 
@@ -525,7 +688,7 @@ api.extendPWACustomSWConf((rolldownConf, api) => {
  * Can directly modify the "config" parameter or
  * return a new one that will be merged with the default one.
  */
-extendBexScriptsConf?: (
+api.extendBexScriptsConf: (
   config: RolldownOptions,
   api
 ) => void | RolldownOptions | Promise<void | RolldownOptions>;
@@ -533,5 +696,26 @@ extendBexScriptsConf?: (
 // Example:
 api.extendBexScriptsConf((rolldownConf, api) => {
   // add/remove/change Quasar CLI generated Rolldown config object
+})
+```
+
+### api.extendBexManifestJson <q-badge label="@quasar/app-vite v3+" />
+
+```ts
+/**
+ * Should you need some dynamic changes to the Browser Extension manifest file
+ * (/src-bex/manifest.json) then use this method to do it.
+ *
+ * Can directly modify the "json" parameter or
+ * return a new one that will be merged with the default one.
+ */
+api.extendBexManifestJson: (
+  json: object,
+  api: IndexAPI
+) => void | object | Promise<void | object>;
+
+// Example:
+api.extendBexManifestJson((json, api) => {
+  // add/remove/change json
 })
 ```

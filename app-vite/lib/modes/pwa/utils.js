@@ -10,12 +10,12 @@ const workboxMethodMap = {
 export function createHeadTags(quasarConf) {
   const { publicPath } = quasarConf.build
   const { pwaManifest } = quasarConf.htmlVariables
-  const { useCredentialsForManifestTag, injectPwaMetaTags, manifestFilename } =
+  const { useCredentialsForManifestTag, injectPWAMetaTags, manifestFilename } =
     quasarConf.pwa
 
   let headTags = `<link rel="manifest" href="${publicPath}${manifestFilename}"${useCredentialsForManifestTag ? ' crossorigin="use-credentials"' : ''}>`
 
-  if (injectPwaMetaTags) {
+  if (injectPWAMetaTags) {
     headTags +=
       (pwaManifest.theme_color !== void 0
         ? `<meta name="theme-color" content="${pwaManifest.theme_color}">` +
@@ -32,14 +32,14 @@ export function createHeadTags(quasarConf) {
       `<link rel="apple-touch-icon" sizes="152x152" href="${publicPath}icons/apple-icon-152x152.png">` +
       `<link rel="apple-touch-icon" sizes="167x167" href="${publicPath}icons/apple-icon-167x167.png">` +
       `<link rel="apple-touch-icon" sizes="180x180" href="${publicPath}icons/apple-icon-180x180.png">`
-  } else if (typeof injectPwaMetaTags === 'function') {
-    headTags += injectPwaMetaTags({ publicPath, pwaManifest })
+  } else if (typeof injectPWAMetaTags === 'function') {
+    headTags += injectPWAMetaTags({ publicPath, pwaManifest })
   }
 
   return headTags
 }
 
-export function injectPwaManifest(quasarConf, ifNotAlreadyGenerated) {
+export async function injectPwaManifest(quasarConf, ifNotAlreadyGenerated) {
   if (
     ifNotAlreadyGenerated &&
     quasarConf.htmlVariables.pwaManifest !== void 0
@@ -50,7 +50,7 @@ export function injectPwaManifest(quasarConf, ifNotAlreadyGenerated) {
   const { appPkg } = quasarConf.ctx.pkg
 
   const id = appPkg.name || 'quasar-pwa'
-  const pwaManifest = {
+  let pwaManifest = {
     id,
     name: appPkg.productName || appPkg.name || 'Quasar App',
     short_name: id,
@@ -61,9 +61,25 @@ export function injectPwaManifest(quasarConf, ifNotAlreadyGenerated) {
     ...JSON.parse(readFileSync(quasarConf.metaConf.pwaManifestFile, 'utf8'))
   }
 
-  if (typeof quasarConf.pwa.extendManifestJson === 'function') {
-    quasarConf.pwa.extendManifestJson(pwaManifest)
+  if (typeof quasarConf.pwa.extendPWAManifestJson === 'function') {
+    const overrides = await quasarConf.pwa.extendPWAManifestJson(pwaManifest)
+    if (Object(overrides) === overrides) {
+      pwaManifest = merge({}, pwaManifest, overrides)
+    }
   }
+
+  await quasarConf.ctx.appExt.runAppExtensionHook(
+    'extendPWAManifestJson',
+    async hook => {
+      log(
+        `Extension(${hook.api.extId}): Running "extendPWAManifestJson(pwaManifest)"`
+      )
+      const overrides = await hook.fn(pwaManifest, hook.api)
+      if (Object(overrides) === overrides) {
+        pwaManifest = merge({}, pwaManifest, overrides)
+      }
+    }
+  )
 
   quasarConf.htmlVariables.pwaManifest = pwaManifest
 }

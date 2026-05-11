@@ -103,21 +103,47 @@ export const quasarPwaConfig = {
         opts.inlineWorkboxRuntime = true
       }
 
-      if (typeof quasarConf.pwa.extendGenerateSWOptions === 'function') {
-        const overrides = await quasarConf.pwa.extendGenerateSWOptions(opts)
+      if (typeof quasarConf.pwa.extendPWAGenerateSWOptions === 'function') {
+        const overrides = await quasarConf.pwa.extendPWAGenerateSWOptions(opts)
         if (Object(overrides) === overrides) {
           opts = merge({}, opts, overrides)
         }
       }
 
-      if (
-        ctx.mode.ssr &&
-        typeof quasarConf.ssr.pwaExtendGenerateSWOptions === 'function'
-      ) {
-        const overrides = await quasarConf.ssr.pwaExtendGenerateSWOptions(opts)
-        if (Object(overrides) === overrides) {
-          opts = merge({}, opts, overrides)
+      await quasarConf.ctx.appExt.runAppExtensionHook(
+        'extendPWAGenerateSWOptions',
+        async hook => {
+          log(
+            `Extension(${hook.api.extId}): Running "extendPWAGenerateSWOptions(opts)"`
+          )
+          const overrides = await hook.fn(opts, hook.api)
+          if (Object(overrides) === overrides) {
+            opts = merge({}, opts, overrides)
+          }
         }
+      )
+
+      if (ctx.mode.ssr) {
+        if (typeof quasarConf.ssr.extendSSRGenerateSWOptions === 'function') {
+          const overrides =
+            await quasarConf.ssr.extendSSRGenerateSWOptions(opts)
+          if (Object(overrides) === overrides) {
+            opts = merge({}, opts, overrides)
+          }
+        }
+
+        await quasarConf.ctx.appExt.runAppExtensionHook(
+          'extendSSRGenerateSWOptions',
+          async hook => {
+            log(
+              `Extension(${hook.api.extId}): Running "extendSSRGenerateSWOptions(opts)"`
+            )
+            const overrides = await hook.fn(opts, hook.api)
+            if (Object(overrides) === overrides) {
+              opts = merge({}, opts, overrides)
+            }
+          }
+        )
       }
     } else {
       // else workboxMode is "InjectManifest"
@@ -131,23 +157,52 @@ export const quasarPwaConfig = {
         })
       }
 
-      if (typeof quasarConf.pwa.extendInjectManifestOptions === 'function') {
-        const overrides = await quasarConf.pwa.extendInjectManifestOptions(opts)
+      if (typeof quasarConf.pwa.extendPWAInjectManifestOptions === 'function') {
+        const overrides =
+          await quasarConf.pwa.extendPWAInjectManifestOptions(opts)
+
         if (Object(overrides) === overrides) {
           opts = merge({}, opts, overrides)
         }
       }
 
-      if (
-        ctx.mode.ssr &&
-        typeof quasarConf.ssr.pwaExtendInjectManifestOptions === 'function'
-      ) {
-        const overrides =
-          await quasarConf.ssr.pwaExtendInjectManifestOptions(opts)
-
-        if (Object(overrides) === overrides) {
-          opts = merge({}, opts, overrides)
+      await quasarConf.ctx.appExt.runAppExtensionHook(
+        'extendPWAInjectManifestOptions',
+        async hook => {
+          log(
+            `Extension(${hook.api.extId}): Running "extendPWAInjectManifestOptions(opts)"`
+          )
+          const overrides = await hook.fn(opts, hook.api)
+          if (Object(overrides) === overrides) {
+            opts = merge({}, opts, overrides)
+          }
         }
+      )
+
+      if (ctx.mode.ssr) {
+        if (
+          typeof quasarConf.ssr.extendSSRInjectManifestOptions === 'function'
+        ) {
+          const overrides =
+            await quasarConf.ssr.extendSSRInjectManifestOptions(opts)
+
+          if (Object(overrides) === overrides) {
+            opts = merge({}, opts, overrides)
+          }
+        }
+
+        await quasarConf.ctx.appExt.runAppExtensionHook(
+          'extendSSRInjectManifestOptions',
+          async hook => {
+            log(
+              `Extension(${hook.api.extId}): Running "extendSSRInjectManifestOptions(opts)"`
+            )
+            const overrides = await hook.fn(opts, hook.api)
+            if (Object(overrides) === overrides) {
+              opts = merge({}, opts, overrides)
+            }
+          }
+        )
       }
 
       opts.swSrc = appPaths.resolve.entry('compiled-custom-sw.js')

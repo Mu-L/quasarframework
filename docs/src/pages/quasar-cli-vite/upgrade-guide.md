@@ -20,14 +20,11 @@ api.compatibleWith(
 )
 ```
 
-Some breaking changes:
+Removed `api.hasLint()`.
 
-- Removed `api.hasLint()`.
-- All `api.extendX(fn, api)` methods can now be async and optionally return a (Rolldown/etc) config that will be merged with the default one.
+All `api.extendX(fn, api)` methods can now be async and optionally return a (Rolldown/etc) config that will be merged with the default one.
 
-Example:
-
-```js
+```js // api.extendX() example
 api.extendSSRWebserverConf((rolldownConf, api) => {
   // add/remove/change Quasar CLI generated Rolldown config object
 
@@ -39,6 +36,113 @@ api.extendSSRWebserverConf((rolldownConf, api) => {
     }
   }
 })
+```
+
+Many new Index API methods:
+
+```tabs
+<<| ts SSR |>>
+/**
+ * Add/remove/change properties of SSR production generated package.json
+ *
+ * Can directly modify the "pkgJson" parameter or
+ * return a new one that will be merged with the default one.
+ */
+api.extendSSRPackageJson: (
+  pkgJson: { [index in string]: any },
+  api: IndexAPI
+) =>
+  | void
+  | { [index in string]: any }
+  | Promise<void | { [index in string]: any }>;
+
+/**
+ * Extend/configure the Workbox GenerateSW options
+ * Specify Workbox options which will be applied on top of
+ *  `pwa > extendPWAGenerateSWOptions()`.
+ * More info: https://developer.chrome.com/docs/workbox/the-ways-of-workbox/
+ *
+ * Can directly modify the "config" parameter or
+ * return a new one that will be merged with the default one.
+ */
+api.extendSSRGenerateSWOptions: (
+  config: GenerateSWOptions,
+  api: IndexAPI
+) => void | GenerateSWOptions | Promise<void | GenerateSWOptions>;
+
+/**
+ * Extend/configure the Workbox InjectManifest options
+ * Specify Workbox options which will be applied on top of
+ *  `pwa > extendPWAInjectManifestOptions()`.
+ * More info: https://developer.chrome.com/docs/workbox/the-ways-of-workbox/
+ *
+ * Can directly modify the "config" parameter or
+ * return a new one that will be merged with the default one.
+ */
+api.extendSSRInjectManifestOptions: (
+  config: InjectManifestOptions,
+  api: IndexAPI
+) => void | InjectManifestOptions | Promise<void | InjectManifestOptions>;
+<<| ts Electron |>>
+/**
+ * Add/remove/change properties of Electron production generated package.json
+ *
+ * Can directly modify the "pkgJson" parameter or
+ * return a new one that will be merged with the default one.
+ */
+api.extendElectronPackageJson: (
+  pkgJson: { [index in string]: any },
+  api: IndexAPI
+) =>
+  | void
+  | { [index in string]: any }
+  | Promise<void | { [index in string]: any }>;
+<<| ts PWA |>>
+/**
+ * Should you need some dynamic changes to the /src-pwa/manifest.json,
+ * use this method to do it.
+ *
+ * Can directly modify the "json" parameter or
+ * return a new one that will be merged with the default one.
+ */
+api.extendPWAManifestJson: (
+  json: PwaManifestOptions,
+  api: IndexAPI
+) => void | PwaManifestOptions | Promise<void | PwaManifestOptions>;
+
+/**
+ * Extend/configure the Workbox GenerateSW options.
+ *
+ * Can directly modify the "config" parameter or
+ * return a new one that will be merged with the default one.
+ */
+api.extendPWAGenerateSWOptions: (
+  config: GenerateSWOptions,
+  api: IndexAPI
+) => void | GenerateSWOptions | Promise<void | GenerateSWOptions>;
+
+/**
+ * Extend/configure the Workbox InjectManifest options.
+ *
+ * Can directly modify the "config" parameter or
+ * return a new one that will be merged with the default one.
+ */
+api.extendPWAInjectManifestOptions: (
+  config: InjectManifestOptions,
+  api: IndexAPI
+) => void | InjectManifestOptions | Promise<void | InjectManifestOptions>;
+<<| ts BEX |>>
+/**
+ * Should you need some dynamic changes to the Browser Extension manifest file
+ * (/src-bex/manifest.json) then use this method to do it.
+ *
+ * Can directly modify the "json" parameter or
+ * return a new one that will be merged with the default one.
+ */
+api.extendBexManifestJson: (
+  json: object,
+  api: IndexAPI
+) => void | object | Promise<void | object>;
 ```
 
 ## Bird's eye view on what's new
@@ -279,6 +383,7 @@ build: {
 +  vueOptionsAPI // change to "true" if needed; defaults to "false" now!
 -  polyfillModulePreload // deferring to Vite's default
 },
+
 sourceFiles: {
    // defaults to: 'src-pwa/register-sw' now!
    // change file name or set to your current one:
@@ -288,25 +393,64 @@ sourceFiles: {
    // change file name or set to your current one:
 +  pwaServiceWorker: 'src-pwa/custom-service-worker',
 },
-ssr: {
--  extendSSRWebserverConf (esbuildConf) {},
-+  extendSSRWebserverConf (rolldownConf) {},
-},
-pwa: {
--  extendPWACustomSWConf (esbuildConf) {},
-+  extendPWACustomSWConf (rolldownConf) {},
-},
+
 cordova: {
 -  noIosLegacyBuildFlag: true, // no longer available; only modern build system
 },
+
+ssr: {
+-  extendPackageJson (pkgJson) {},
++  // can now be async and optionally return object to be merged with default one
++  extendSSRPackageJson (pkgJson) {},
+
+-  extendSSRWebserverConf (esbuildConf) {},
++  // can now be async and optionally return object to be merged with default one
++  extendSSRWebserverConf (rolldownConf) {},
+
+-  pwaExtendGenerateSWOptions (conf) {},
+-  pwaExtendInjectManifestOptions (conf) {},
++  // can now be async and optionally return object to be merged with default one
++  extendSSRGenerateSWOptions (conf) {},
++  // can now be async and optionally return object to be merged with default one
++  extendSSRInjectManifestOptions (conf) {},
+},
+
+pwa: {
+-  extendManifestJson (json) {},
++  // can now be async and optionally return object to be merged with default one
++  extendPWAManifestJson (json) {},
+
+-  injectPwaMetaTags: boolean
++  injectPWAMetaTags: boolean
+
+-  extendGenerateSWOptions (conf) {},
+-  extendInjectManifestOptions (conf) {},
++  // can now be async and optionally return object to be merged with default one
++  extendPWAGenerateSWOptions (conf) {},
++  // can now be async and optionally return object to be merged with default one
++  extendPWAInjectManifestOptions (conf) {},
+
+-  extendPWACustomSWConf (esbuildConf) {},
++  // can now be async and optionally return object to be merged with default one
++  extendPWACustomSWConf (rolldownConf) {},
+},
+
 electron: {
+-  extendPackageJson (pkgJson) {},
++  // can now be async and optionally return object to be merged with default one
++  extendElectronPackageJson (pkgJson) {},
+
 -  extendElectronMainConf (esbuildConf) {},
 -  extendElectronPreloadConf (esbuildConf) {},
++  // can now be async and optionally return object to be merged with default one
 +  extendElectronMainConf (rolldownConf) {},
++  // can now be async and optionally return object to be merged with default one
 +  extendElectronPreloadConf (rolldownConf) {},
 },
+
 bex: {
 -  extendBexScriptsConf (esbuildConf) {},
++  // can now be async and optionally return object to be merged with default one
 +  extendBexScriptsConf (rolldownConf) {},
 }
 ```

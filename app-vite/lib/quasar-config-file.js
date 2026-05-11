@@ -1211,7 +1211,7 @@ export class QuasarConfigFile {
       cfg.pwa = merge(
         {
           workboxMode: 'GenerateSW',
-          injectPwaMetaTags: true,
+          injectPWAMetaTags: true,
           swFilename: 'sw.js', // should be .js (as it's the distribution file, not the input file)
           manifestFilename: 'manifest.json',
           useCredentialsForManifestTag: false

@@ -22,26 +22,26 @@ export interface QuasarSsrConfiguration {
   /**
    * Extend/configure the Workbox GenerateSW options
    * Specify Workbox options which will be applied on top of
-   *  `pwa > extendGenerateSWOptions()`.
+   *  `pwa > extendPWAGenerateSWOptions()`.
    * More info: https://developer.chrome.com/docs/workbox/the-ways-of-workbox/
    *
    * Can directly modify the "config" parameter or
    * return a new one that will be merged with the default one.
    */
-  pwaExtendGenerateSWOptions?: (
+  extendSSRGenerateSWOptions?: (
     config: GenerateSWOptions
   ) => void | GenerateSWOptions | Promise<void | GenerateSWOptions>;
 
   /**
    * Extend/configure the Workbox InjectManifest options
    * Specify Workbox options which will be applied on top of
-   *  `pwa > extendInjectManifestOptions()`.
+   *  `pwa > extendPWAInjectManifestOptions()`.
    * More info: https://developer.chrome.com/docs/workbox/the-ways-of-workbox/
    *
    * Can directly modify the "config" parameter or
    * return a new one that will be merged with the default one.
    */
-  pwaExtendInjectManifestOptions?: (
+  extendSSRInjectManifestOptions?: (
     config: InjectManifestOptions
   ) => void | InjectManifestOptions | Promise<void | InjectManifestOptions>;
 
@@ -144,12 +144,12 @@ export interface QuasarSsrConfiguration {
   middlewares?: string[];
 
   /**
-   * Add/remove/change properties of production generated package.json
+   * Add/remove/change properties of SSR production generated package.json
    *
-   * Can directly modify the "config" parameter or
+   * Can directly modify the "pkgJson" parameter or
    * return a new one that will be merged with the default one.
    */
-  extendPackageJson?: (pkg: { [index in string]: any }) =>
+  extendSSRPackageJson?: (pkgJson: { [index in string]: any }) =>
     | void
     | { [index in string]: any }
     | Promise<void | { [index in string]: any }>;

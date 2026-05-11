@@ -7,8 +7,7 @@ import { buildPwaServiceWorker, injectPwaManifest } from './utils.js'
 
 export class QuasarModeBuilder extends AppBuilder {
   async build() {
-    injectPwaManifest(this.quasarConf)
-
+    await injectPwaManifest(this.quasarConf)
     await this.#buildUI()
 
     // also update ssr-builder.js when changing here
