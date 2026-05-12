@@ -11,17 +11,16 @@ export async function createQuasarScript({ scope, utils }) {
           selected: true
         },
         {
-          title: 'Vue Router filename-based routing',
-          value: 'filenameBasedRouting',
-          description:
-            'https://v2.quasar.dev/quasar-cli-vite/page-routing-with-vue-router#filename-based-routing',
-          selected: true
-        },
-        {
           title: 'Linting & Formatting (oxlint + oxfmt or ESLint + prettier)',
           value: 'linting',
           description: 'recommended',
           selected: true
+        },
+        {
+          title: 'Vue Router filename-based routing',
+          value: 'filenameBasedRouting',
+          description:
+            'https://v2.quasar.dev/quasar-cli-vite/page-routing-with-vue-router#filename-based-routing'
         },
         {
           title: 'State Management (Pinia)',
