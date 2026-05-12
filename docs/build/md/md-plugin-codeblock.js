@@ -6,6 +6,7 @@ const langList = [
   { name: 'bash', customCopy: true },
   { name: 'javascript', aliases: 'javascript|js' },
   { name: 'typescript', aliases: 'typescript|ts' },
+  { name: 'yaml' },
   { name: 'sass' },
   { name: 'scss' },
   { name: 'css' },

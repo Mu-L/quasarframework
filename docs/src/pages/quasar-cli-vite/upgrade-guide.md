@@ -186,6 +186,18 @@ $ bun create quasar@latest
 
 :::
 
+### PNPM related
+
+If you're using PNPM v11, edit your `/pnpm-workspace.yaml` file. No longer needing the shamefullyHoist config.
+
+```yaml /pnpm-workspace.yaml
+# https://pnpm.io/settings
+
+# required by Vite 8
+allowBuilds:
+  esbuild: true
+```
+
 ### /package.json
 
 Edit your `/package.json` on the `@quasar/app-vite` entry:
