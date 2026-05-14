@@ -16,7 +16,7 @@ You might want to release new versions of your Quasar App Extensions with suppor
 api.compatibleWith(
   '@quasar/app-vite',
 - '^2.0.0'
-+ '^3.0.0-beta.12'
++ '^3.0.0-beta.13'
 )
 ```
 
@@ -206,7 +206,7 @@ Edit your `/package.json` on the `@quasar/app-vite` entry:
 ```diff /package.json
 "devDependencies": {
 - "@quasar/app-vite": "^2.0.0",
-+ "@quasar/app-vite": "^3.0.0-beta.12"
++ "@quasar/app-vite": "^3.0.0-beta.13"
 }
 ```
 

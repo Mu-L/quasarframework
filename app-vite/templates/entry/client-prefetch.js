@@ -91,7 +91,7 @@ export function addPreFetchHooks ({ router<%= quasarConf.ctx.mode.ssr && quasarC
     LoadingBar.start()
     <% } %>
 
-    for (let i = 0; redirectArg !== null && i < preFetchList.length; i++) {
+    for (let i = 0; redirectArg === null && i < preFetchList.length; i++) {
       try {
         await preFetchList[i]({
           <% if (quasarConf.metaConf.hasStore) { %>store,<% } %>
