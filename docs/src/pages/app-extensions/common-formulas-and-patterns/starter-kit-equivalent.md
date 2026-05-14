@@ -3,15 +3,16 @@ title: Starter kit equivalent
 desc: Tips and tricks on how to use a Quasar App Extension to create the equivalent of a starter kit.
 scope:
   tree:
-    l: '.'
+    l: '/ae'
     c:
       - l: README.md
       - l: package.json
       - l: src
         c:
-          - l: boot
+          - l: runtime
             c:
               - l: my-starter-kit-boot.js
+                e: (or .ts)
           - l: templates
             c:
               - l: common-files
@@ -27,6 +28,7 @@ scope:
                       - l: services
                         c:
                           - l: serviceA.js
+                            e: (or .ts)
               - l: serviceB
                 c:
                   - l: src
@@ -34,14 +36,15 @@ scope:
                       - l: services
                         c:
                           - l: serviceB.js
+                            e: (or .ts)
           - l: index.js
-            e: Described in Index API
+            e: (or .ts) Described in Index API
           - l: install.js
-            e: Described in Install API
+            e: (or .ts) Described in Install API
           - l: prompts.js
-            e: Described in Prompts API
+            e: (or .ts) Described in Prompts API
           - l: uninstall.js
-            e: Described in Uninstall API
+            e: (or .ts) Described in Uninstall API
 ---
 
 This guide is for when you want to create what essentially is a "starter kit" that adds stuff (/quasar.config file configuration, folders, files, CLI hooks) on top of the official starter kit. This allows you to have multiple projects sharing a common structure/logic (and only one package to manage them rather than having to change all projects individually to match your common pattern), and also allows you to share all this with the community.
@@ -51,7 +54,7 @@ In order for creating an App Extension project folder, please first read the [De
 :::
 
 ::: tip Full Example
-To see an example of what we will build, head over to [MyStarterKit full example](https://github.com/quasarframework/app-extension-examples/tree/v2/my-starter-kit), which is a github repo with this App Extension.
+To see an example of what we will build, head over to [MyStarterKit full example](https://github.com/quasarframework/app-extension-examples/tree/v3/my-starter-kit), which is a github repo with the App Extension that we are building on this page.
 :::
 
 We'll be creating an example App Extension which does the following:
@@ -70,24 +73,20 @@ For the intents of this example, we'll be creating the following folder structur
 
 <DocTree :def="scope.tree" />
 
-## The install script
+## The Install script
 
 The install script below is only rendering files into the hosted app. Notice the `src/templates` folder above, where we decided to keep these templates.
 
-```js src/install.js
-export default function (api) {
+```js File: /ae/src/install.js (or .ts)
+import { defineInstallScript } from '@quasar/app-vite'
+
+export default defineInstallScript(api => {
   // (Optional!)
   // Quasar compatibility check; you may need
   // hard dependencies, as in a minimum version of the "quasar"
   // package or a minimum version of Quasar App CLI
   api.compatibleWith('quasar', '^2.0.0')
-
-  if (api.hasVite) {
-    api.compatibleWith('@quasar/app-vite', '^3.0.0')
-  } else {
-    // api.hasWebpack is true (legacy)
-    api.compatibleWith('@quasar/app-webpack', '^4.0.0')
-  }
+  api.compatibleWith('@quasar/app-vite', '^3.0.0-beta.13')
 
   // We render some files into the hosting project
 
@@ -105,29 +104,25 @@ export default function (api) {
 
   // we always render the following template:
   api.render('./templates/common-files')
-}
+})
 ```
 
 Notice that we use the prompts to decide what to render into the hosting project. Furthermore, if the user has selected "service B", then we'll also have a "productName" that we can use when we render the service B's file.
 
-## The index script
+## The Index script
 
 We do a few things in the index script, like extending the /quasar.config file, hooking into one of the many Index API hooks (onPublish in this case):
 
-```js src/index.js
-export default function (api) {
+```js File: /ae/src/index.js (or .ts)
+import { defineIndexScript } from '@quasar/app-vite'
+
+export default defineIndexScript(api => {
   // (Optional!)
   // Quasar compatibility check; you may need
   // hard dependencies, as in a minimum version of the "quasar"
   // package or a minimum version of Quasar App CLI
   api.compatibleWith('quasar', '^2.0.0')
-
-  if (api.hasVite) {
-    api.compatibleWith('@quasar/app-vite', '^3.0.0')
-  } else {
-    // api.hasWebpack is true (legacy)
-    api.compatibleWith('@quasar/app-webpack', '^4.0.0')
-  }
+  api.compatibleWith('@quasar/app-vite', '^3.0.0-beta.13')
 
   // Here we extend the /quasar.config file;
   // (extendQuasarConf() will be defined later in this tutorial, continue reading)
@@ -143,7 +138,7 @@ export default function (api) {
   api.extendViteConf(extendVite)
 
   // there's lots more hooks that you can use...
-}
+})
 ```
 
 Here's an example of `extendQuasarConf` definition:
@@ -160,7 +155,7 @@ function extendQuasarConf(conf, api) {
 
   // make sure my-ext boot file is registered
   conf.boot.push(
-    '~quasar-app-extension-my-starter-kit/src/boot/my-starter-kit-boot.js'
+    '~quasar-app-extension-my-starter-kit/src/runtime/my-starter-kit-boot.js'
   )
 }
 ```
@@ -189,16 +184,18 @@ function extendVite(viteConf, { isClient, isServer }, api) {
 }
 ```
 
-## The uninstall script
+## The Uninstall script
 
 When the App Extension gets uninstall, we need to do some cleanup. But beware what you delete from the app-space! Some files might still be needed. Proceed with extreme care, if you decide to have an uninstall script.
 
 ```js
+import { defineUninstallScript } from '@quasar/app-vite'
+
 // we yarn added it to our App Extension,
 // so we can import the following:
 import rimraf from 'rimraf'
 
-export default function (api) {
+export default defineUninstallScript(api => {
   // Careful when you remove folders!
   // You don't want to delete files that are still needed by the Project,
   // or files that are not owned by this app extension.
@@ -220,7 +217,9 @@ export default function (api) {
   rimraf.sync(api.resolve.app('some-folder'))
   // warning... we've added this folder, but what if the
   // developer added more files into this folder???
-}
+})
 ```
 
-Notice that we are requesting `rimraf` npm package. This means that we yarn/npm added it into our App Extension project.
+Notice that we are requesting `rimraf` npm package. This means that we pnpm/yarn/npm/bun added it into our App Extension project (the /ae folder). This is here as example so that you are aware that the dependencies that you use need to be supplied by your AE.
+
+Alternatively, you can use [api.removePath](/app-extensions/development-guide/uninstall-api#api-removepath).

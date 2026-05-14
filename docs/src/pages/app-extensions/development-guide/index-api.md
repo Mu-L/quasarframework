@@ -222,25 +222,26 @@ api.extendQuasarConf((conf, api) => {
 #### Registering boot and css files
 
 ```js
-export default function (api, ctx) {
+import { defineIndexScript } from '@quasar/app-vite'
+
+export default defineIndexScript(api => {
   api.extendQuasarConf((conf, api) => {
     return {
       // make sure my-ext boot file is registered
-      boot: ['~quasar-app-extension-my-ext/src/boot/my-ext-bootfile.js'],
-      // make sure my-ext css goes through Vite
-      css: ['~quasar-app-extension-my-ext/src/component/my-ext.sass']
+      boot: ['~quasar-app-extension-my-ext/src/runtime/boot.register.js'],
+      // make sure my global my-ext css goes through Vite
+      css: ['~quasar-app-extension-my-ext/src/runtime/style.sass']
     }
   })
 
   // Alternatively, directly touch the "conf" param
   api.extendQuasarConf((conf, api) => {
     // make sure my-ext boot file is registered
-    conf.boot.push('~quasar-app-extension-my-ext/src/boot/my-ext-bootfile.js')
-
-    // make sure my-ext css goes through Vite
-    conf.css.push('~quasar-app-extension-my-ext/src/component/my-ext.sass')
+    conf.boot.push('~quasar-app-extension-my-ext/src/runtime/boot.register.js')
+    // make sure my global my-ext css goes through Vite
+    conf.css.push('~quasar-app-extension-my-ext/src/runtime/style.sass')
   })
-}
+})
 ```
 
 ::: tip
@@ -293,6 +294,10 @@ For syntax of such a JSON file, look into `/node_modules/quasar/dist/api` (in yo
   ...
 }
 ```
+
+::: tip
+You might also want to take a look at [Quasar JSON API Schema](/app-extensions/common-formulas-and-patterns/json-api) page.
+:::
 
 ::: tip
 Always test with the `quasar describe` command to ensure you got the syntax right and there are no errors.

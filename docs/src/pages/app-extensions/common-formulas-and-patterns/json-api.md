@@ -1,14 +1,21 @@
 ---
 title: Quasar JSON API Schema
 desc: The JSON API used to describe Component App Extensions.
+related:
+  - /app-extensions/common-formulas-and-patterns/provide-ui-elements
+  - /app-extensions/development-guide/index-api
 ---
 
-This page describes the JSON API Schema used for component App Extensions.
+This page describes the JSON API Schema used for component App Extensions. Read this page if your App Extension contains a UI component.
+
+::: tip
+You might want to read about the Index script's [api.registerDescribeApi](/app-extensions/development-guide/index-api#api-registerdescribeapi) method. It's sole purpose is to provide a hook into the `quasar describe` CLI command so that users will have an extra way to know how to use your component.
+:::
 
 ## Benefits of using JSON API
 
 1. Describes your existing data format(s)
-2. Provides clear human- and machine- readable documentation
+2. Provides clear human -and machine- readable documentation
 3. Validates data which is useful for:
    - Automated testing
    - Ensuring quality of submitted data
@@ -17,41 +24,25 @@ This page describes the JSON API Schema used for component App Extensions.
 
 At its heart, JSON is built on the following data structures:
 
-object:
-
-```json
+```js
+// object:
 { "key1": "value1", "key2": "value2" }
-```
 
-array:
-
-```json
+// array:
 ["first", "second", "third"]
-```
 
-number:
-
-```json
+// number:
 42
 3.1415926
-```
 
-string:
-
-```json
+// string:
 "This is a string"
-```
 
-boolean:
-
-```json
+// boolean:
 true
 false
-```
 
-null:
-
-```json
+// null:
 null
 ```
 

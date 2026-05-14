@@ -1232,29 +1232,25 @@ export default [
         ]
       },
       {
-        name: 'Tips and Tricks',
-        path: 'tips-and-tricks',
+        name: 'Common Formulas and Patterns',
+        path: 'common-formulas-and-patterns',
         opened: true,
         children: [
           {
-            name: 'Introduction',
-            path: 'introduction'
+            name: 'Starter kit equivalent',
+            path: 'starter-kit-equivalent'
           },
           {
-            name: 'Provide a UI component',
-            path: 'provide-a-ui-component'
-          },
-          {
-            name: 'Provide a directive',
-            path: 'provide-a-directive'
+            name: 'Provide UI elements',
+            path: 'provide-ui-elements'
           },
           {
             name: 'Inject Quasar Plugin',
             path: 'inject-quasar-plugin'
           },
           {
-            name: 'Starter kit equivalent',
-            path: 'starter-kit-equivalent'
+            name: 'JSON API',
+            path: 'json-api'
           }
         ]
       }

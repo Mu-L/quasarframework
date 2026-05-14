@@ -78,10 +78,6 @@ export const footerLinks = [
       {
         name: 'Development Guide',
         path: '/app-extensions/development-guide/introduction'
-      },
-      {
-        name: 'Tips & Tricks',
-        path: '/app-extensions/tips-and-tricks/introduction'
       }
     ]
   }
