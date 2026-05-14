@@ -3,20 +3,19 @@ title: App Extension Prompts API
 desc: Syntax of the questions that the user is going to be asked in order to configure the Quasar App Extension.
 ---
 
-This page refers to `src/prompts.js` file which handles the prompts when installing the App Extension. Not all App Extensions will need prompts -- this is an optional step.
+This page refers to `/ae/src/prompts.js|ts` file which handles the prompts when installing the App Extension. Not all App Extensions will need prompts -- this is an optional step.
 
 The user's answers are stored into `/quasar.extensions.json` (root of project folder), which should not be tampered with unless you really know what you are doing.
 
 Example of basic structure of the file:
 
-```js
-// 1. It can be async
-// 2. It receives the "api" param
-export default function (api) {
-  return [
-    // questions
-  ]
-}
+```js /ae/src/prompts.js (or .ts)
+import { definePromptsScript } from '@quasar/app-vite'
+
+// can be async
+export default definePromptsScript((/* api */) => {
+  return []
+})
 ```
 
 You will have access to `api.prompts` (which holds your App Extension's answers) in [Install](/app-extensions/development-guide/install-api), [Index](/app-extensions/development-guide/index-api) and [Uninstall](/app-extensions/development-guide/uninstall-api).
@@ -193,11 +192,7 @@ api.compatibleWith(packageName, '3.x')
 ```
 
 ```js A more complex example:
-if (api.hasVite) {
-  api.compatibleWith('@quasar/app-vite', '^3.0.0')
-} else {
-  api.compatbileWith('@quasar/app-webpack', '^4.0.0')
-}
+api.compatibleWith('@quasar/app-vite', '^3.0.0-beta.13')
 ```
 
 ### api.hasPackage

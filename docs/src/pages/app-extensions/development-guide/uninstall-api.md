@@ -3,17 +3,18 @@ title: App Extension Uninstall API
 desc: The API for the uninstall script of a Quasar App Extension.
 ---
 
-This page refers to `src/uninstall.js` file which is executed when the App Extension is uninstalled. Not all App Extensions will need an uninstall -- this is an optional step.
+This page refers to `/ae/src/uninstall.js|ts` file which is executed when the App Extension is uninstalled. Not all App Extensions will need an uninstall -- this is an optional step.
 
 Example of basic structure of the file:
 
-```js
+```js /ae/src/uninstall.js (or .ts)
+import { defineUninstallScript } from '@quasar/app-vite'
+
 // can be async
-export default function (api) {
-  // props and methods for "api" Object
-  // are described below
-}
+export default defineUninstallScript((/* api */) => {})
 ```
+
+## The API param
 
 ### api.engine
 

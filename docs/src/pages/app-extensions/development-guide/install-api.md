@@ -3,17 +3,18 @@ title: App Extension Install API
 desc: The API for the install script of a Quasar App Extension. Initializes the app space by rendering or changing files and more.
 ---
 
-This page refers to `src/install.js` file which is executed on the installation of the App Extension only. Not all App Extensions will need an install -- this is an optional step.
+This page refers to `/ae/src/install.js|ts` file which is executed on the installation of the App Extension only. Not all App Extensions will need an install -- this is an optional step.
 
 Example of basic structure of the file:
 
-```js
+```js /ae/src/install.js (or .ts)
+import { defineInstallScript } from '@quasar/app-vite'
+
 // can be async
-export default function (api) {
-  // props and methods for "api" Object
-  // are described below
-}
+export default defineInstallScript((/* api */) => {})
 ```
+
+## The API param
 
 ### api.engine
 
@@ -113,11 +114,7 @@ api.compatibleWith(packageName, '3.x')
 ```
 
 ```js A more complex example:
-if (api.hasVite) {
-  api.compatibleWith('@quasar/app-vite', '^3.0.0')
-} else {
-  api.compatbileWith('@quasar/app-webpack', '^4.0.0')
-}
+api.compatibleWith('@quasar/app-vite', '^3.0.0-beta.13')
 ```
 
 ### api.hasPackage

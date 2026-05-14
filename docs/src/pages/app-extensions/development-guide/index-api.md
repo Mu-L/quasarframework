@@ -3,16 +3,18 @@ title: App Extension Index API
 desc: The API for the index script of a Quasar App Extension. Provides access to Quasar context, registers new CLI commands, extends Vite config and more.
 ---
 
-This page refers to `src/index.js` file, which is executed on `quasar dev` and `quasar build`. This is the main process where you can modify the build to suit the needs of your App Extension. For instance, registering a boot file, modifying the Vite configuration, registering CSS, registering a UI component, registering a Quasar CLI command, etc.
+This page refers to `/ae/src/index.js|ts` file, which is executed on `quasar dev` and `quasar build`. This is the main process where you can modify the build to suit the needs of your App Extension. For instance, registering a boot file, modifying the Vite configuration, registering CSS, registering a UI component, registering a Quasar CLI command, etc.
 
 Example of basic structure of the file:
 
-```js
+```js /ae/src/index.js (or .ts)
+import { defineIndexScript } from '@quasar/app-vite'
+
 // can be async
-export default function (api) {
-  // props & methods for "api" Object described below
-}
+export default defineIndexScript(api => {})
 ```
+
+## The API param
 
 ### api.ctx
 
@@ -130,11 +132,7 @@ api.compatibleWith('@quasar/app-vite', '3.x')
 ```
 
 ```js A more complex example
-if (api.hasVite) {
-  api.compatibleWith('@quasar/app-vite', '^3.0.0')
-} else {
-  api.compatbileWith('@quasar/app-webpack', '^4.0.0')
-}
+api.compatibleWith('@quasar/app-vite', '^3.0.0-beta.13')
 ```
 
 ### api.hasPackage
@@ -419,8 +417,6 @@ api.onPublish((api, opts) => {
   // do something
 })
 ```
-
-## @quasar/app-vite only
 
 ### api.extendViteConf
 

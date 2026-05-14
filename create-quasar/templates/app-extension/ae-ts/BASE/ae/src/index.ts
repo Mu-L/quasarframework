@@ -10,6 +10,6 @@ import { defineIndexScript } from "@quasar/app-vite";
 // can be async
 export default defineIndexScript(api => {
   api.extendQuasarConf(() => ({
-    boot: ["~<%= scope.aeFullName %>/src/assets/boot.register.ts"]
+    boot: ["~<%= scope.aeFullName %>/src/runtime/boot.register.ts"]
   }));
 });
