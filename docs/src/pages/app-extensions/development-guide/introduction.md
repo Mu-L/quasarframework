@@ -158,6 +158,7 @@ export default defineIndexScript(api => {
 When you finalized your App Extension and you're ready to deploy it, all you need to do is to publish it to the npm repository.
 
 - Make sure to edit `/ae/README.md`.
+- Also edit `/ae/package.json` > `peerDependencies` if needed.
 - In order to publish the AE, do it from within the `/ae` folder:
 
 ```bash
