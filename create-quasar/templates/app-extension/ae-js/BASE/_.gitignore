@@ -8,14 +8,6 @@ yarn-error.log*
 # .env files
 .env*
 
-# Editor directories and files
-.idea
-.vscode
-*.suo
-*.ntvs*
-*.njsproj
-*.sln
-
 # Quasar core related directories
 /playground/.quasar
 /playground/dist
