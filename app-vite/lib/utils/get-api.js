@@ -2,7 +2,7 @@ import fs from 'node:fs'
 import path from 'node:path'
 import { createRequire } from 'node:module'
 
-import { fatal } from './logger.js'
+import { aeFatal, fatal } from './logger.js'
 import { getPackage } from './get-package.js'
 
 const require = createRequire(import.meta.url)
@@ -46,17 +46,16 @@ export async function getApi(item, ctx) {
           paths: [callerPath, appPaths.appDir]
         })
       } catch {
-        fatal(
-          `Extension(${ext.extId}): registerDescribeApi - there is no package "${file}" installed`
+        aeFatal(
+          ext.extId,
+          `registerDescribeApi - there is no package "${file}" installed`
         )
       }
     } else {
       file = path.resolve(callerPath, relativePath)
 
       if (!fs.existsSync(file)) {
-        fatal(
-          `Extension(${ext.extId}): registerDescribeApi - there is no file at ${file}`
-        )
+        aeFatal(ext.extId, `registerDescribeApi - there is no file at ${file}`)
       }
     }
 
@@ -66,7 +65,7 @@ export async function getApi(item, ctx) {
         supplier: ext.extId
       }
     } catch {
-      fatal(`Extension(${ext.extId}): Malformed API file at ${file}`)
+      aeFatal(ext.extId, `Malformed API file at ${file}`)
     }
   }
 }

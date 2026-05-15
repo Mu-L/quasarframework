@@ -2,7 +2,7 @@ import { existsSync, readFileSync, writeFileSync } from 'node:fs'
 import { merge } from 'webpack-merge'
 import { parseJSON, stringifyJSON } from 'confbox'
 
-import { fatal, log } from '../utils/logger.js'
+import { aeLog, fatal } from '../utils/logger.js'
 import { AppExtensionInstance } from './AppExtensionInstance.js'
 
 function readJson(file) {
@@ -34,7 +34,7 @@ function getAppExtJson({ file, json, onListUpdate }) {
     },
 
     set(extId, opts) {
-      log(`Updating /quasar.extensions.json for "${extId}" extension ...`)
+      aeLog(extId, 'Updating /quasar.extensions.json')
       const hasAppExt = json[extId] !== void 0
       json[extId] = opts
       save()
@@ -49,7 +49,7 @@ function getAppExtJson({ file, json, onListUpdate }) {
 
     remove(extId) {
       if (acc.has(extId)) {
-        log(`Removing "${extId}" extension from /quasar.extensions.json ...`)
+        aeLog(extId, 'Removing from /quasar.extensions.json')
         delete json[extId]
         save()
         onListUpdate(json)

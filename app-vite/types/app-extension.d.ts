@@ -1,7 +1,6 @@
 import type { UserConfig as ViteUserConfig } from "vite";
 import type { GenerateSWOptions, InjectManifestOptions } from "workbox-build";
 import type { RolldownOptions } from "rolldown";
-import type { Answers, Question } from "inquirer";
 import { IResolve } from "./app-paths";
 import { QuasarConf, ResolvedQuasarConfValue } from "./configuration/conf";
 import { QuasarContext } from "./configuration/context";
@@ -53,8 +52,13 @@ interface SharedIndexInstallAPI {
 
 type Callback<T> = (callback: T) => void;
 
+export type PromptsScriptAnswers<Key extends string = string> = Record<
+  Key,
+  any
+>;
+
 export interface IndexAPI extends BaseAPI, SharedIndexInstallAPI {
-  readonly prompts: Answers;
+  readonly prompts: PromptsScriptAnswers;
 
   readonly extendQuasarConf: Callback<
     (
@@ -298,7 +302,7 @@ export type IndexAPICallback = (api: IndexAPI) => void | Promise<void>;
 
 type ExitLogHandler = (msg: string) => void;
 export interface InstallAPI extends BaseAPI, SharedIndexInstallAPI {
-  readonly prompts: Answers;
+  readonly prompts: PromptsScriptAnswers;
 
   readonly extendPackageJson: (extPkg: object | string) => void;
   readonly extendJsonFile: (file: string, newData: object) => void;
@@ -314,7 +318,7 @@ export interface InstallAPI extends BaseAPI, SharedIndexInstallAPI {
 export type InstallAPICallback = (api: InstallAPI) => void | Promise<void>;
 
 export interface UninstallAPI extends BaseAPI {
-  readonly prompts: Answers;
+  readonly prompts: PromptsScriptAnswers;
 
   readonly getPersistentConf: GetPersistentConfHandler;
   readonly hasExtension: HasExtensionHandler;
@@ -339,4 +343,8 @@ export interface PromptsAPI extends BaseAPI {
 
 export type PromptsAPICallback = (
   api: PromptsAPI
-) => Question[] | Promise<Question[]>;
+) =>
+  | PromptsScriptAnswers
+  | Promise<PromptsScriptAnswers>
+  | void
+  | Promise<void>;

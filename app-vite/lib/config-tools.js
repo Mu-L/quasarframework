@@ -5,7 +5,7 @@ import { mergeConfig } from 'vite'
 import { merge } from 'webpack-merge'
 
 import { getPackage } from './utils/get-package.js'
-import { log, tip, warn } from './utils/logger.js'
+import { aeLog, tip, warn } from './utils/logger.js'
 import {
   BASELINE_WIDELY_AVAILABLE,
   BASELINE_WIDELY_AVAILABLE_TARGET_STRING
@@ -290,7 +290,7 @@ export async function extendViteConfig(viteConf, quasarConf, invokeParams) {
   await quasarConf.ctx.appExt.runAppExtensionHook(
     'extendViteConf',
     async hook => {
-      log(`Extension(${hook.api.extId}): Extending Vite config`)
+      aeLog(hook.api.extId, `Extending Vite config`)
       const overrides = await hook.fn(viteConf, opts, hook.api)
       if (Object(overrides) === overrides) {
         viteConf = mergeConfig(viteConf, overrides)
@@ -407,7 +407,7 @@ export async function extendRolldownConfig(
   }
 
   await ctx.appExt.runAppExtensionHook(methodName, async hook => {
-    log(`Extension(${hook.api.extId}): Running "${methodName}(rolldownConfig)"`)
+    aeLog(hook.api.extId, `Running "${methodName}(rolldownConfig)"`)
     const overrides = await hook.fn(rolldownConfig, hook.api)
     if (Object(overrides) === overrides) {
       rolldownConfig = merge({}, rolldownConfig, overrides)

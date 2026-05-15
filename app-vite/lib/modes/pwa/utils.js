@@ -1,6 +1,6 @@
 import { readFileSync } from 'node:fs'
 
-import { progress } from '../../utils/logger.js'
+import { aeLog, progress } from '../../utils/logger.js'
 
 const workboxMethodMap = {
   GenerateSW: 'generateSW',
@@ -71,9 +71,7 @@ export async function injectPwaManifest(quasarConf, ifNotAlreadyGenerated) {
   await quasarConf.ctx.appExt.runAppExtensionHook(
     'extendPWAManifestJson',
     async hook => {
-      log(
-        `Extension(${hook.api.extId}): Running "extendPWAManifestJson(pwaManifest)"`
-      )
+      aeLog(hook.api.extId, `Running "extendPWAManifestJson(pwaManifest)"`)
       const overrides = await hook.fn(pwaManifest, hook.api)
       if (Object(overrides) === overrides) {
         pwaManifest = merge({}, pwaManifest, overrides)

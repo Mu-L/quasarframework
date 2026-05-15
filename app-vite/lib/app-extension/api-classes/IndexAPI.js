@@ -1,7 +1,7 @@
 import semver from 'semver'
 import { merge } from 'webpack-merge'
 
-import { fatal } from '../../utils/logger.js'
+import { aeFatal } from '../../utils/logger.js'
 import { getPackageJson } from '../../utils/get-package-json.js'
 import { getCallerPath } from '../../utils/get-caller-path.js'
 import { BaseAPI } from './BaseAPI.js'
@@ -69,14 +69,16 @@ export class IndexAPI extends BaseAPI {
     const json = getPackageJson(packageName, this.appDir)
 
     if (json === void 0) {
-      fatal(
-        `Extension(${this.extId}): Dependency not found - ${packageName}. Please install it.`
+      aeFatal(
+        this.extId,
+        `Dependency not found - ${packageName}. Please install it.`
       )
     }
 
     if (!semver.satisfies(json.version, semverCondition)) {
-      fatal(
-        `Extension(${this.extId}): is not compatible with ${packageName} v${json.version}. Required version: ${semverCondition}`
+      aeFatal(
+        this.extId,
+        `Not compatible with ${packageName} v${json.version}. Required version: ${semverCondition}`
       )
     }
   }

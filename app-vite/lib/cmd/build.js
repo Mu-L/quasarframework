@@ -120,7 +120,7 @@ const ctx = getCtx({
 const { displayBanner } = await import('../utils/banner.js')
 await displayBanner({ argv, ctx, cmd: 'build' })
 
-const { log, fatal } = await import('../utils/logger.js')
+const { aeLog, log, fatal } = await import('../utils/logger.js')
 
 // install mode if it's missing
 const { addMode } = await import(
@@ -159,7 +159,7 @@ if (typeof quasarConf.build.beforeBuild === 'function') {
 
 // run possible beforeBuild hooks
 await ctx.appExt.runAppExtensionHook('beforeBuild', async hook => {
-  log(`Extension(${hook.api.extId}): Running beforeBuild hook...`)
+  aeLog(hook.api.extId, `Running beforeBuild hook...`)
   await hook.fn(hook.api, { quasarConf })
 })
 
@@ -207,7 +207,7 @@ appBuilder
 
     // run possible beforeBuild hooks
     await ctx.appExt.runAppExtensionHook('afterBuild', async hook => {
-      log(`Extension(${hook.api.extId}): Running afterBuild hook...`)
+      aeLog(hook.api.extId, `Running afterBuild hook...`)
       await hook.fn(hook.api, { quasarConf })
     })
 
@@ -224,7 +224,7 @@ appBuilder
 
       // run possible onPublish hooks
       await ctx.appExt.runAppExtensionHook('onPublish', async hook => {
-        log(`Extension(${hook.api.extId}): Running onPublish hook...`)
+        aeLog(hook.api.extId, `Running onPublish hook...`)
         await hook.fn(hook.api, opts)
       })
     }

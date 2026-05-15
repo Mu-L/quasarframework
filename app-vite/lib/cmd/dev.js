@@ -4,7 +4,7 @@ if (process.env.NODE_ENV === void 0) {
 
 import parseArgs from 'minimist'
 
-import { log } from '../utils/logger.js'
+import { aeLog, log } from '../utils/logger.js'
 
 const argv = parseArgs(process.argv.slice(2), {
   alias: {
@@ -157,7 +157,7 @@ if (typeof quasarConf.build.beforeDev === 'function') {
 
 // run possible beforeDev hooks
 await ctx.appExt.runAppExtensionHook('beforeDev', async hook => {
-  log(`Extension(${hook.api.extId}): Running beforeDev hook...`)
+  aeLog(hook.api.extId, `Running beforeDev hook...`)
   await hook.fn(hook.api, { quasarConf })
 })
 
@@ -174,7 +174,7 @@ if (typeof quasarConf.build.afterDev === 'function') {
 
 // run possible afterDev hooks
 await ctx.appExt.runAppExtensionHook('afterDev', async hook => {
-  log(`Extension(${hook.api.extId}): Running afterDev hook...`)
+  aeLog(hook.api.extId, `Running afterDev hook...`)
   await hook.fn(hook.api, { quasarConf })
 })
 

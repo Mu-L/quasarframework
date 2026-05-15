@@ -1,6 +1,6 @@
 import semver from 'semver'
 
-import { fatal } from '../../utils/logger.js'
+import { aeFatal } from '../../utils/logger.js'
 import { getPackageJson } from '../../utils/get-package-json.js'
 import { BaseAPI } from './BaseAPI.js'
 
@@ -31,14 +31,16 @@ export class PromptsAPI extends BaseAPI {
     const json = getPackageJson(packageName, this.appDir)
 
     if (json === void 0) {
-      fatal(
-        `Extension(${this.extId}): Dependency not found - ${packageName}. Please install it.`
+      aeFatal(
+        this.extId,
+        `Dependency not found - ${packageName}. Please install it.`
       )
     }
 
     if (!semver.satisfies(json.version, semverCondition)) {
-      fatal(
-        `Extension(${this.extId}): is not compatible with ${packageName} v${json.version}. Required version: ${semverCondition}`
+      aeFatal(
+        this.extId,
+        `Not compatible with ${packageName} v${json.version}. Required version: ${semverCondition}`
       )
     }
   }
@@ -56,10 +58,7 @@ export class PromptsAPI extends BaseAPI {
    */
   hasPackage(packageName, semverCondition) {
     const json = getPackageJson(packageName, this.appDir)
-
-    if (json === void 0) {
-      return false
-    }
+    if (json === void 0) return false
 
     return semverCondition !== void 0
       ? semver.satisfies(json.version, semverCondition)

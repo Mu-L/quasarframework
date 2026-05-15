@@ -2,6 +2,7 @@ import { join } from 'node:path'
 import { writeFileSync } from 'node:fs'
 import { stringifyJSON } from 'confbox'
 
+import { aeLog } from '../../utils/logger.js'
 import { AppBuilder } from '../../app-builder.js'
 import { quasarSsrConfig } from './ssr-config.js'
 import { getFixedDeps } from '../../utils/get-fixed-deps.js'
@@ -221,9 +222,7 @@ export class QuasarModeBuilder extends AppBuilder {
     await this.ctx.appExt.runAppExtensionHook(
       'extendSSRPackageJson',
       async hook => {
-        log(
-          `Extension(${hook.api.extId}): Running "extendSSRPackageJson(pkgJson)"`
-        )
+        aeLog(hook.api.extId, `Running "extendSSRPackageJson(pkgJson)"`)
         const overrides = await hook.fn(pkg, hook.api)
         if (Object(overrides) === overrides) {
           pkg = merge({}, pkg, overrides)

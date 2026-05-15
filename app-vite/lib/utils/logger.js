@@ -13,6 +13,8 @@ import {
 
 import readline from 'node:readline'
 
+export const dot = '•'
+
 /**
  * Pills
  */
@@ -26,8 +28,6 @@ export const warningPill = msg => bgYellow(black(` ${msg} `))
  * Main approach - App CLI related
  */
 
-export const dot = '•'
-
 const banner = 'App ' + dot
 const greenBanner = green(banner)
 const redBanner = red(banner)
@@ -37,8 +37,7 @@ const tipBanner = `${green('App')} ${dot} ${successPill('TIP')} ${dot} 🚀 `
 export const clearConsole = process.stdout.isTTY
   ? () => {
       // Fill screen with blank lines. Then move to 0 (beginning of visible part) and clear it
-      const blank = '\n'.repeat(process.stdout.rows)
-      console.log(blank)
+      console.log('\n'.repeat(process.stdout.rows))
       readline.cursorTo(process.stdout, 0, 0)
       readline.clearScreenDown(process.stdout)
     }
@@ -48,8 +47,9 @@ export function tip(msg) {
   console.log(msg ? ` ${tipBanner} ${msg}` : '')
 }
 
-export function log(msg) {
-  console.log(msg ? ` ${greenBanner} ${msg}` : '')
+export function log(msg, pill) {
+  const pillBanner = pill !== void 0 ? green(`${pill} ${dot} `) : ''
+  console.log(msg ? ` ${greenBanner} ${pillBanner}${msg}` : '')
 }
 
 export function warn(msg, pill) {
@@ -105,6 +105,20 @@ export function warning(msg, title = 'WARNING') {
 }
 export function getWarning(msg, title = 'WARNING') {
   return ` ${yellowBanner} ${warningPill(title)} ${yellow(dot + ' ' + msg)}`
+}
+
+/**
+ * AE related
+ */
+
+export function aeLog(extId, message) {
+  log(message, `AE (${extId})`)
+}
+export function aeWarn(extId, message) {
+  warn(message, `AE (${extId})`)
+}
+export function aeFatal(extId, message) {
+  fatal(message, `AE (${extId})`)
 }
 
 /**

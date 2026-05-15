@@ -2,7 +2,7 @@ import fse from 'fs-extra'
 import { join } from 'node:path'
 import { merge } from 'webpack-merge'
 
-import { warn } from '../../utils/logger.js'
+import { aeLog, warn } from '../../utils/logger.js'
 
 export async function createManifest(quasarConf) {
   let json
@@ -70,7 +70,7 @@ export async function createManifest(quasarConf) {
   await quasarConf.ctx.appExt.runAppExtensionHook(
     'extendBexManifestJson',
     async hook => {
-      log(`Extension(${hook.api.extId}): Running "extendBexManifestJson(json)"`)
+      aeLog(hook.api.extId, `Running "extendBexManifestJson(json)"`)
       const overrides = await hook.fn(json, hook.api)
       if (Object(overrides) === overrides) {
         json = merge({}, json, overrides)

@@ -4,7 +4,7 @@ import { merge } from 'webpack-merge'
 import semver from 'semver'
 import { parseJSON, stringifyJSON } from 'confbox'
 
-import { fatal, warn } from '../../utils/logger.js'
+import { aeFatal, aeWarn, warn } from '../../utils/logger.js'
 import { getPackageJson } from '../../utils/get-package-json.js'
 import { getCallerPath } from '../../utils/get-caller-path.js'
 import { BaseAPI } from './BaseAPI.js'
@@ -72,14 +72,16 @@ export class InstallAPI extends BaseAPI {
     const json = getPackageJson(packageName, this.appDir)
 
     if (json === void 0) {
-      fatal(
-        `Extension(${this.extId}): Dependency not found - ${packageName}. Please install it.`
+      aeFatal(
+        this.extId,
+        `Dependency not found - ${packageName}. Please install it.`
       )
     }
 
     if (!semver.satisfies(json.version, semverCondition)) {
-      fatal(
-        `Extension(${this.extId}): is not compatible with ${packageName} v${json.version}. Required version: ${semverCondition}`
+      aeFatal(
+        this.extId,
+        `Not compatible with ${packageName} v${json.version}. Required version: ${semverCondition}`
       )
     }
   }
@@ -144,16 +146,18 @@ export class InstallAPI extends BaseAPI {
 
       if (!fs.existsSync(source)) {
         warn()
-        warn(
-          `Extension(${this.extId}): extendPackageJson() - cannot locate ${extPkg}. Skipping...`
+        aeWarn(
+          this.extId,
+          `extendPackageJson() - cannot locate ${extPkg}. Skipping...`
         )
         warn()
         return
       }
       if (fs.lstatSync(source).isDirectory()) {
         warn()
-        warn(
-          `Extension(${this.extId}): extendPackageJson() - "${extPkg}" is a folder instead of file. Skipping...`
+        aeWarn(
+          this.extId,
+          `extendPackageJson() - "${extPkg}" is a folder instead of file. Skipping...`
         )
         warn()
         return
@@ -162,9 +166,7 @@ export class InstallAPI extends BaseAPI {
       try {
         extPkg = JSON.parse(fs.readFileSync(source, 'utf8'))
       } catch {
-        warn(
-          `Extension(${this.extId}): extendPackageJson() - "${extPkg}" is malformed`
-        )
+        aeWarn(this.extId, `extendPackageJson() - "${extPkg}" is malformed`)
         warn()
         process.exit(1)
       }
@@ -228,11 +230,13 @@ export class InstallAPI extends BaseAPI {
         )
       } catch {
         warn()
-        warn(
-          `Extension(${this.extId}): extendJsonFile() - "${filePath}" doesn't conform to JSON format: this could happen if you are trying to update flavoured JSON files (eg. JSON with Comments or JSON5). Skipping...`
+        aeWarn(
+          this.extId,
+          `extendJsonFile() - "${filePath}" doesn't conform to JSON format: this could happen if you are trying to update flavoured JSON files (eg. JSON with Comments or JSON5). Skipping...`
         )
-        warn(
-          `Extension(${this.extId}): extendJsonFile() - The extension tried to apply these updates to "${filePath}" file: ${JSON.stringify(newData)}`
+        aeWarn(
+          this.extId,
+          `extendJsonFile() - The extension tried to apply these updates to "${filePath}" file: ${JSON.stringify(newData)}`
         )
         warn()
       }
@@ -253,15 +257,17 @@ export class InstallAPI extends BaseAPI {
 
     if (!fs.existsSync(source)) {
       warn()
-      warn(
-        `Extension(${this.extId}): render() - cannot locate ${templatePath}. Skipping...\n`
+      aeWarn(
+        this.extId,
+        `render() - cannot locate ${templatePath}. Skipping...\n`
       )
       return
     }
     if (!fs.lstatSync(source).isDirectory()) {
       warn()
-      warn(
-        `Extension(${this.extId}): render() - "${templatePath}" is a file instead of folder. Skipping...\n`
+      aeWarn(
+        this.extId,
+        `render() - "${templatePath}" is a file instead of folder. Skipping...\n`
       )
       return
     }
@@ -289,15 +295,17 @@ export class InstallAPI extends BaseAPI {
 
     if (!fs.existsSync(sourcePath)) {
       warn()
-      warn(
-        `Extension(${this.extId}): renderFile() - cannot locate ${relativeSourcePath}. Skipping...\n`
+      aeWarn(
+        this.extId,
+        `renderFile() - cannot locate ${relativeSourcePath}. Skipping...\n`
       )
       return
     }
     if (fs.lstatSync(sourcePath).isDirectory()) {
       warn()
-      warn(
-        `Extension(${this.extId}): renderFile() - "${relativeSourcePath}" is a folder instead of a file. Skipping...\n`
+      aeWarn(
+        this.extId,
+        `renderFile() - "${relativeSourcePath}" is a folder instead of a file. Skipping...\n`
       )
       return
     }

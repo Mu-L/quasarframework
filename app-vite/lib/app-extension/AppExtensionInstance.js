@@ -9,7 +9,7 @@ import { InstallAPI } from './api-classes/InstallAPI.js'
 import { UninstallAPI } from './api-classes/UninstallAPI.js'
 import { PromptsAPI } from './api-classes/PromptsAPI.js'
 
-import { fatal, log, warn } from '../utils/logger.js'
+import { aeFatal, aeLog, aeWarn, fatal, log } from '../utils/logger.js'
 import { getPackagePath } from '../utils/get-package-path.js'
 import { renderTemplate } from '../utils/template.js'
 
@@ -182,16 +182,14 @@ export class AppExtensionInstance {
       )
     }
 
-    log(
-      `${skipPkgInstall ? 'Invoking' : 'Installing'} "${this.extId}" Quasar App Extension`
-    )
-    log()
+    aeLog(this.extId, skipPkgInstall ? 'Invoking...' : 'Installing...')
 
     if (skipPkgInstall !== true) {
       await this.#installPackage()
     } else if (!this.isInstalled) {
-      fatal(
-        `Tried to invoke App Extension "${this.extId}" but its npm package is not installed`
+      aeFatal(
+        this.extId,
+        `Tried to invoke App Extension but its npm package is not installed`
       )
     }
 
@@ -202,8 +200,7 @@ export class AppExtensionInstance {
     // run extension install
     const hooks = await this.#runInstallScript(prompts)
 
-    log(`Quasar App Extension "${this.extId}" successfully installed.`)
-    log()
+    aeLog(this.extId, `Successfully installed`)
 
     if (hooks && hooks.exitLog.length !== 0) {
       hooks.exitLog.forEach(msg => {
@@ -214,25 +211,22 @@ export class AppExtensionInstance {
   }
 
   async uninstall(skipPkgUninstall) {
-    log(
-      `${skipPkgUninstall ? 'Uninvoking' : 'Uninstalling'} "${this.extId}" Quasar App Extension`
-    )
-    log()
+    aeLog(this.extId, skipPkgUninstall ? 'Uninvoking...' : 'Uninstalling...')
 
     // verify if already installed
     if (skipPkgUninstall) {
       if (!this.isInstalled) {
-        fatal(
-          `Tried to uninvoke App Extension "${this.extId}" but there's no npm package installed for it.`
+        aeFatal(
+          this.extId,
+          `Tried to uninvoke App Extension but there's no npm package installed for it.`
         )
       }
     } else if (!this.isInstalled) {
-      warn(`Quasar App Extension "${this.packageName}" is not installed...`)
+      aeWarn(this.extId, `Quasar App Extension is not installed...`)
       return
     }
 
-    const prompts = this.getPrompts()
-    const hooks = await this.#runUninstallScript(prompts)
+    const hooks = await this.#runUninstallScript()
 
     this.#appExtJson.remove(this.extId)
 
@@ -240,8 +234,7 @@ export class AppExtensionInstance {
       await this.#uninstallPackage()
     }
 
-    log(`Quasar App Extension "${this.extId}" successfully removed.`)
-    log()
+    aeLog(this.extId, 'Successfully removed')
 
     if (hooks && hooks.exitLog.length !== 0) {
       hooks.exitLog.forEach(msg => {
@@ -253,7 +246,7 @@ export class AppExtensionInstance {
 
   async run() {
     if (!this.isInstalled) {
-      warn(`Quasar App Extension "${this.extId}" is missing...`)
+      aeWarn(this.extId, 'Quasar App Extension is missing...')
       process.exit(1, 'ext-missing')
     }
 
@@ -268,7 +261,7 @@ export class AppExtensionInstance {
       this.#appExtJson
     )
 
-    log(`Running "${this.extId}" Quasar App Extension...`)
+    aeLog(this.extId, 'Running...')
     await script(api)
 
     return api.__getHooks(this.#appExtJson)
@@ -288,6 +281,9 @@ export class AppExtensionInstance {
 
     if (typeof getPromptsObject !== 'function') return {}
 
+    aeLog(this.extId, 'Running prompts script...')
+    log()
+
     const api = new PromptsAPI(
       {
         ctx: this.#ctx,
@@ -296,10 +292,10 @@ export class AppExtensionInstance {
       this.#appExtJson
     )
 
-    const prompts = await inquirer.prompt(await getPromptsObject(api))
+    const prompts = await getPromptsObject(api)
+    log()
 
-    console.log()
-    return prompts
+    return prompts || {}
   }
 
   async #installPackage() {
@@ -346,9 +342,7 @@ export class AppExtensionInstance {
     const scriptPath = this.#getScriptPath(scriptName)
     if (!scriptPath) {
       if (fatalError) {
-        fatal(
-          `App Extension "${this.extId}" has missing ${scriptName} script...`
-        )
+        aeFatal(this.extId, `App Extension has missing ${scriptName} script...`)
       }
 
       return
@@ -364,16 +358,18 @@ export class AppExtensionInstance {
       console.error(err)
 
       if (fatalError) {
-        fatal(
-          `App Extension "${this.extId}" > ${scriptName} script has thrown the error from above.`
+        aeFatal(
+          this.extId,
+          `${scriptName} script has thrown the error from above.`
         )
       }
     }
 
     if (typeof fn !== 'function') {
       if (fatalError) {
-        fatal(
-          `App Extension "${this.extId}" > ${scriptName} script does not have a default export as a function...`
+        aeFatal(
+          this.extId,
+          `${scriptName} script does not have a default export as a function...`
         )
       }
 
@@ -388,7 +384,7 @@ export class AppExtensionInstance {
 
     if (typeof script !== 'function') return
 
-    log('Running App Extension install script...')
+    aeLog(this.extId, 'Running install script...')
 
     const api = new InstallAPI(
       {
@@ -423,18 +419,18 @@ export class AppExtensionInstance {
     return hooks
   }
 
-  async #runUninstallScript(prompts) {
+  async #runUninstallScript() {
     const script = await this.#getScript('uninstall')
 
     if (typeof script !== 'function') return
 
-    log('Running App Extension uninstall script...')
+    aeLog(this.extId, 'Running uninstall script...')
 
     const api = new UninstallAPI(
       {
         ctx: this.#ctx,
         extId: this.extId,
-        prompts
+        prompts: this.getPrompts()
       },
       this.#appExtJson
     )

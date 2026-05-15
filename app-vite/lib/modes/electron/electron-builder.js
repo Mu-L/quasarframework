@@ -1,7 +1,7 @@
 import { join } from 'node:path'
 import { merge } from 'webpack-merge'
 
-import { log, progress, warn } from '../../utils/logger.js'
+import { aeLog, log, progress, warn } from '../../utils/logger.js'
 import { AppBuilder } from '../../app-builder.js'
 import { quasarElectronConfig } from './electron-config.js'
 import { getPackageJson } from '../../utils/get-package-json.js'
@@ -83,9 +83,7 @@ export class QuasarModeBuilder extends AppBuilder {
     await this.ctx.appExt.runAppExtensionHook(
       'extendElectronPackageJson',
       async hook => {
-        log(
-          `Extension(${hook.api.extId}): Running "extendElectronPackageJson(pkgJson)"`
-        )
+        aeLog(hook.api.extId, `Running "extendElectronPackageJson(pkgJson)"`)
         const overrides = await hook.fn(pkg, hook.api)
         if (Object(overrides) === overrides) {
           pkg = merge({}, pkg, overrides)
