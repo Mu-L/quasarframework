@@ -19,10 +19,8 @@
     "@quasar/app-vite": "workspace:^"
   },
   "engines": {
-    "node": "^28 || ^26 || ^24 || ^22.12",
-    "npm": ">= 6.13.4",
-    "pnpm": ">= 10.0.0",
-    "yarn": ">= 1.21.1"
+    "node": ">= 26 || ^24 || ^22.12",
+    "pnpm": ">= 11"
   },
   "productName": "Quasar App"
 }

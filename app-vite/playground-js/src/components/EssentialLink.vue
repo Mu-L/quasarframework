@@ -13,7 +13,7 @@
 
 <script setup>
 const props = defineProps({
-  title: {
+  label: {
     type: String,
     required: true
   },
