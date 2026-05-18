@@ -304,18 +304,18 @@ async function installDeps(scope) {
 
 // returns a Promise!
 function lintFolder(scope) {
+  const hasOxlint = scope.linter === 'oxlint' || scope.preset.oxlint
   return runCommand({
     cmd: scope.packageManager,
-    args:
-      scope.linter === 'oxlint'
-        ? ['run', 'lint']
-        : scope.packageManager === 'npm'
-          ? ['run', 'lint', '--', '--fix']
-          : ['run', 'lint', '--fix'],
+    args: hasOxlint
+      ? ['run', 'lint']
+      : scope.packageManager === 'npm'
+        ? ['run', 'lint', '--', '--fix']
+        : ['run', 'lint', '--fix'],
     cwd: scope.projectFolder,
-    message: `${scope.linter === 'oxlint' ? 'Linting & Formatting' : 'Linting'} the project folder...`,
-    successMessage: `Project ${scope.linter === 'oxlint' ? 'linted & formatted' : 'linted'} successfully!`,
-    errorMessage: `Could not auto ${scope.linter === 'oxlint' ? 'lint & format' : 'lint'} the project folder.`
+    message: `${hasOxlint ? 'Linting & Formatting' : 'Linting'} the project folder...`,
+    successMessage: `Project ${hasOxlint ? 'linted & formatted' : 'linted'} successfully!`,
+    errorMessage: `Could not auto ${hasOxlint ? 'lint & format' : 'lint'} the project folder.`
   })
 }
 

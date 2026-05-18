@@ -113,7 +113,8 @@ export async function createProjectFolder(scope) {
 
       if (
         scope.linter === 'oxlint' ||
-        scope.preset.lint // legacy eslint
+        scope.preset.oxlint ||
+        scope.preset.eslint // legacy eslint
       ) {
         await utils.lintFolder(scope)
       }
@@ -131,12 +132,13 @@ export async function createProjectFolder(scope) {
 
     if (
       scope.linter === 'oxlint' ||
-      scope.preset.lint // legacy eslint
+      scope.preset.oxlint ||
+      scope.preset.eslint // legacy eslint
     ) {
       scope.meta.lintCmd =
         `${pkgManager} run lint` +
         // legacy eslint:
-        (scope.preset.lint ? ' --fix' : '')
+        (scope.preset.eslint ? ' --fix' : '')
     }
   }
 
