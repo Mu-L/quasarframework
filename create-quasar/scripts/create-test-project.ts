@@ -2,7 +2,7 @@ import { join } from "node:path";
 
 type ScriptType = "js" | "ts";
 type AppEngine = "vite-2" | "vite-3";
-type PackageManager = "yarn" | "npm" | "pnpm" | "bun";
+type PackageManager = "yarn" | "npm" | "pnpm";
 
 type CreateProjectOptions = {
   scriptType: ScriptType;

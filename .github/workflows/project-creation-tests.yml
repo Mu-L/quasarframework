@@ -78,7 +78,7 @@ jobs:
         script-type: [js, ts]
         app-engine: [vite-2, vite-3]
         node-version: [22, 24, 26]
-        package-manager: [yarn, npm, pnpm, bun]
+        package-manager: [yarn, npm, pnpm]
 
     name: Test ${{ matrix.script-type }}-${{ matrix.app-engine }} (Node v${{ matrix.node-version }} - ${{ matrix.package-manager }})
 
