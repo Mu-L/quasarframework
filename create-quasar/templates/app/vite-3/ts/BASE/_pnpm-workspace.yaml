@@ -1,6 +1,10 @@
 # https://pnpm.io/settings
 
-# required by Vite 8
 allowBuilds:
   '@parcel/watcher': true
+  core-js: true
+  electron-winstaller: true
   esbuild: true
+  lightningcss: true
+  rolldown: true
+  unrs-resolver: true

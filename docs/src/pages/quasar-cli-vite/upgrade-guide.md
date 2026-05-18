@@ -197,10 +197,14 @@ If you're using PNPM v11, edit your `/pnpm-workspace.yaml` file. No longer needi
 ```yaml /pnpm-workspace.yaml
 # https://pnpm.io/settings
 
-# required by Vite 8
 allowBuilds:
   '@parcel/watcher': true
+  core-js: true
+  electron-winstaller: true
   esbuild: true
+  lightningcss: true
+  rolldown: true
+  unrs-resolver: true
 ```
 
 ### /package.json
@@ -384,8 +388,13 @@ Still for PNPM, edit your root project file `/pnpm-workspace.yaml`:
 -  - esbuild
 
 + allowBuilds:
-+.  '@parcel/watcher': true
-+   esbuild: true
++  '@parcel/watcher': true
++  core-js: true
++  electron-winstaller: true
++  esbuild: true
++  lightningcss: true
++  rolldown: true
++  unrs-resolver: true
 <<| diff PNPM v10 |>>
 - shamefullyHoist: true
 - onlyBuiltDependencies:
@@ -393,8 +402,13 @@ Still for PNPM, edit your root project file `/pnpm-workspace.yaml`:
 -  - esbuild
 
 + onlyBuiltDependencies:
-+.  '@parcel/watcher': true
-+   esbuild: true
++  '@parcel/watcher': true
++  core-js: true
++  electron-winstaller: true
++  esbuild: true
++  lightningcss: true
++  rolldown: true
++  unrs-resolver: true
 ```
 
 ### Notable /quasar.config file changes
