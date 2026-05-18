@@ -18,47 +18,6 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  lint:
-    if: >-
-      ${{
-        github.event_name == 'workflow_dispatch' ||
-        github.event_name == 'pull_request' ||
-
-        startsWith(github.event.release.tag_name, 'quasar') ||
-        startsWith(github.event.release.tag_name, '@quasar/extras') ||
-        startsWith(github.event.release.tag_name, '@quasar/app-webpack') ||
-        startsWith(github.event.release.tag_name, '@quasar/app-vite')
-      }}
-
-    permissions:
-      contents: read # to fetch code (actions/checkout)
-
-    runs-on: ubuntu-latest
-
-    defaults:
-      run:
-        working-directory: create-quasar
-
-    name: Lint create-quasar
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v6
-
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v5
-
-      - name: Setup Node
-        uses: actions/setup-node@v6
-        with:
-          node-version: 22
-          cache: 'pnpm'
-
-      - name: Install dependencies
-        run: pnpm i
-
-      - name: Lint the code
-        run: pnpm lint
-
   test:
     needs: lint
 

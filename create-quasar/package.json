@@ -24,8 +24,8 @@
   "type": "module",
   "main": "index.js",
   "scripts": {
-    "lint": "oxfmt -c ../.oxfmtrc.json && oxlint --fix -c ../.oxlintrc.json",
-    "lint:check": "oxfmt --check -c ../.oxfmtrc.json && oxlint -c ../.oxlintrc.json",
+    "lint": "oxfmt && oxlint --fix",
+    "lint:check": "oxfmt --check && oxlint",
     "create-test-project": "tsx scripts/create-test-project.ts"
   },
   "dependencies": {
