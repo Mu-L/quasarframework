@@ -1,6 +1,7 @@
 # https://pnpm.io/settings
 shamefullyHoist: true
 
-onlyBuiltDependencies:
-  - '@parcel/watcher'
-  - esbuild
+# required by Vite 8
+allowBuilds:
+  '@parcel/watcher': true
+  esbuild: true
