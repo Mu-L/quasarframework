@@ -1,6 +1,6 @@
 {
   "name": "create-quasar",
-  "version": "2.2.3",
+  "version": "3.0.0",
   "description": "Scaffolds Quasar Apps, AppExtensions or UI kits",
   "homepage": "https://quasar.dev",
   "bugs": "https://github.com/quasarframework/quasar/issues",
@@ -29,18 +29,17 @@
     "create-test-project": "tsx scripts/create-test-project.ts"
   },
   "dependencies": {
+    "@clack/prompts": "^1.4.0",
     "cross-spawn": "^7.0.6",
     "fs-extra": "^11.3.5",
     "kolorist": "^1.8.0",
     "minimist": "^1.2.8",
-    "prompts": "^2.4.2",
     "tinyglobby": "^0.2.16"
   },
   "devDependencies": {
-    "@types/prompts": "^2.4.9",
     "tsx": "^4.19.1"
   },
   "engines": {
-    "node": ">=16"
+    "node": ">=20"
   }
 }

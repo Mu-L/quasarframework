@@ -1,0 +1,68 @@
+{
+  "name": "<%= scope.name %>",
+  "version": "0.0.1",
+  "description": "A Quasar Project",
+  "productName": "<%= scope.productName %>",
+  "author": "<%= scope.author %>",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    <% if (scope.preset.eslint) { %>"lint": "eslint -c ./eslint.config.js \"./src*/**/*.{js,cjs,mjs,vue}\"",<% } %>
+    <% if (scope.prettier) { %>"format": "prettier --write \"**/*.{js,vue,css<% if (scope.preset.sass) { %>,scss<% } %>,html,md,json}\" --ignore-path .gitignore",<% } %>
+    "test": "echo \"No test specified\" && exit 0",
+    "dev": "quasar dev",
+    "build": "quasar build",
+    "postinstall": "quasar prepare"
+  },
+  "dependencies": {
+    <% if (scope.preset.i18n) { %>"vue-i18n": "^11.3.0",<% } %>
+    <% if (scope.preset.pinia) { %>"pinia": "^3.0.1",<% } %>
+    "@quasar/extras": "^1.16.4",
+    "core-js": "^3.31.1",
+    "quasar": "^2.16.0",
+    "vue": "^3.5.22",
+    "vue-router": "^5.0.3"
+  },
+  "devDependencies": {
+    <% if (scope.preset.eslint) { %>
+    "@eslint/js": "^9.14.0",
+    "eslint": "^9.14.0",
+    "eslint-plugin-vue": "^10.8.0",
+    "eslint-webpack-plugin": "^4.2.0",
+    "globals": "^17.4.0",
+    "vue-eslint-parser": "^10.4.0",
+    <% } %>
+    <% if (scope.prettier) { %>
+    "@vue/eslint-config-prettier": "^10.2.0",
+    "prettier": "^3.8.1",
+    <% } %>
+    "@quasar/app-webpack": "^4.1.0",
+    "autoprefixer": "^10.4.27"
+  },
+  "browserslist": [
+    "last 10 Chrome versions",
+    "last 10 Firefox versions",
+    "last 4 Edge versions",
+    "last 7 Safari versions",
+    "last 8 Android versions",
+    "last 8 ChromeAndroid versions",
+    "last 8 FirefoxAndroid versions",
+    "last 10 iOS versions",
+    "last 5 Opera versions"
+  ],
+  "keywords": [
+    "quasar",
+    "quasar-app",
+    "quasar-cli",
+    "quasar-app-webpack",
+    "webpack",
+    "vue",
+    "vuejs"
+  ],
+  "engines": {
+    "node": ">= 26 || ^24 || ^22 || ^20",
+    "npm": ">= 6.13.4",
+    "yarn": ">= 1.21.1",
+    "pnpm": ">= 10.0.0"
+  }
+}

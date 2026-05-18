@@ -1,7 +1,5 @@
-import prompts from "prompts";
-
 type ScriptType = "js" | "ts";
-type AppEngine = "vite-2";
+type AppEngine = "vite-2" | "vite-3";
 type PackageManager = "yarn" | "npm" | "pnpm";
 
 type CreateProjectOptions = {
@@ -22,34 +20,35 @@ export async function createProject({
   // To alter the behavior to run correctly within this script
   process.env.CREATE_TEST_PROJECT_OVERRIDE = "true";
 
-  prompts.override({
+  const scope = {
+    nogit: false,
     projectType: "app",
     projectFolder: "test-project",
     overwrite: true,
+    packageManager,
 
     scriptType,
     engine: appEngine,
 
     name: "test-project",
     productName: "Test Project",
-    description: "A test project",
-    author: "Quasar Team (info@quasar.dev)",
+    author: "Quasar Team (info@quasar.dev)"
+  };
 
-    // The defaults
+  if (appEngine === "vite-3") {
+    Object.assign(scope, {
+      preset: ["sass", "linting"],
+      linter: "oxlint"
+    });
+  } else if (appEngine === "vite-2") {
+    Object.assign(scope, {
+      preset: ["sass", "eslint"],
+      prettier: true
+    });
+  }
 
-    preset: ["sass", "eslint"],
-    prettier: true,
-
-    packageManager
-  });
-
-  // We are overriding .override() as every call overrides the previous overrides (too many overrides :D)
-  // This way, we guarantee that even if we call prompts.override() in create-quasar code, our values remain
-  prompts.override = () => {};
-  // Remove all extra arguments to avoid interfering with the index.js script
-  process.argv = process.argv.slice(0, 2);
-
-  await import("../index.js");
+  const { createProjectFolder } = await import("../create-project-folder.js");
+  await createProjectFolder(scope);
 }
 
 const args = process.argv.slice(2) as [ScriptType, AppEngine, PackageManager];
