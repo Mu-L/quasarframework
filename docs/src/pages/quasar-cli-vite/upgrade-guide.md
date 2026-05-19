@@ -921,6 +921,10 @@ We now have first-class support for Vue Router's filename-based routing.
 
 You might want to [give it a try](/quasar-cli-vite/page-routing-with-vue-router#filename-based-routing).
 
+### New CLI option: --nocolor
+
+By default, all CLI commands output colored text in the terminal (when not running in a CI environment). Should you wish to avoid this, use the `--nocolor` when you run any of the CLI commands.
+
 ## Final Note
 
 A quick favor to ask: Please consider supporting our efforts! If you use Quasar at work, drop a message to your management about sponsoring us at [https://donate.quasar.dev/](https://donate.quasar.dev/). We rely on your support to make massive updates like this possible!
