@@ -50,6 +50,7 @@
     "lint:check": "oxfmt --check && oxlint"
   },
   "dependencies": {
+    "ci-info": "^4.4.0",
     "cross-spawn": "^7.0.6",
     "elementtree": "^0.1.7",
     "fs-extra": "^11.2.0",
@@ -58,7 +59,6 @@
     "is-png": "^3.0.1",
     "joi": "^17.13.0",
     "kolorist": "^1.8.0",
-    "minimist": "^1.2.8",
     "png2icons": "^2.0.1",
     "potrace": "^2.1.5",
     "read-chunk": "^4.0.3",
@@ -68,10 +68,7 @@
     "untildify": "^5.0.0",
     "update-notifier": "^7.0.0"
   },
-  "resolutions": {
-    "minimist": "^1.2.8"
-  },
   "engines": {
-    "node": ">= 18.12.0"
+    "node": ">= 22.22.0"
   }
 }

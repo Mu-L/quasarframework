@@ -1,38 +1,26 @@
-import parseArgs from 'minimist'
+import { getArgv } from '../utils/get-argv.js'
 
-const processArgv = process.argv.slice(2)
-
-const argv = parseArgs(processArgv, {
-  alias: {
-    p: 'profile', // config file
-    i: 'icon',
-    b: 'background',
-    m: 'mode',
-    f: 'filter',
-    q: 'quality',
-    h: 'help'
-  },
-  boolean: ['h', 'skip-trim'],
-  string: [
-    'p',
-    'i',
-    'b',
-    'm',
-    'f',
-    'q',
-    'padding',
-    'theme-color',
-    'png-color',
-    'splashscreen-color',
-    'svg-color',
-    'splashscreen-icon-ratio'
-  ]
+const argv = getArgv({
+  profile: { type: 'string', short: 'p' },
+  icon: { type: 'string', short: 'i' },
+  background: { type: 'string', short: 'b' },
+  mode: { type: 'string', short: 'm' },
+  filter: { type: 'string', short: 'f' },
+  quality: { type: 'string' },
+  padding: { type: 'string' },
+  'theme-color': { type: 'string' },
+  'png-color': { type: 'string' },
+  'splashscreen-color': { type: 'string' },
+  'splashscreen-icon-ratio': { type: 'string' },
+  'skip-trim': { type: 'boolean' },
+  nocolor: { type: 'boolean' },
+  help: { type: 'boolean', short: 'h' }
 })
 
 // if user hasn't explicitly specified this, then
 // we shouldn't take it into account
-if (!processArgv.includes('--skip-trim')) {
-  delete argv['skip-trim']
+if (!process.argv.includes('--skip-trim')) {
+  delete argv.skipTrim
 }
 
 import { green } from 'kolorist'
@@ -161,8 +149,11 @@ if (argv.help) {
                               "assets": [ /* list of custom assets */ ]
                             }
 
+    --nocolor             Disable colored output
     --help, -h            Displays this message
   `)
+
+  argv.__warn?.()
   process.exit(0)
 }
 

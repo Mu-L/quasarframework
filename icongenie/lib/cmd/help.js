@@ -12,6 +12,7 @@ console.log(`
 
   Options
     --version, -v Print Quasar Icon Genie CLI version
+    --nocolor     Disable colored output
 
   Commands
     generate, g   Generate App icons & splashscreens

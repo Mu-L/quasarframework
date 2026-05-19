@@ -6,9 +6,7 @@ export function mountTag(files) {
   if (tagFiles.length === 0) return
 
   console.log()
-  log(
-    `You will need the following tags in your /index.html or /src/index.template.html:\n`
-  )
+  log(`You will need the following tags in your /index.html:\n`)
   tagFiles.forEach(file => {
     console.log(file.tag)
   })

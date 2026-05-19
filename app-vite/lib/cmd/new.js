@@ -77,7 +77,7 @@ const { appPaths, cacheProxy } = getCtx()
 const hasTypescript = await cacheProxy.getModule('hasTypescript')
 
 if (!argv.format) {
-  argv.format = argv.f = hasTypescript ? 'ts' : 'js'
+  argv.format = hasTypescript ? 'ts' : 'js'
 }
 
 /** @type {string[]} */

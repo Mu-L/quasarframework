@@ -1,5 +1,12 @@
 #!/usr/bin/env node
 
+if (
+  process.argv.includes('--nocolor') ||
+  (await import('ci-info').then(({ isCI }) => isCI))
+) {
+  process.env.FORCE_COLOR = '0'
+}
+
 // oxlint-disable-next-line import/no-unassigned-import
 import '../lib/utils/node-version-check.js'
 

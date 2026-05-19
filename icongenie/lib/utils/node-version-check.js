@@ -6,8 +6,8 @@ const minor = Number.parseInt(version[1].replaceAll(/\D/g, ''), 10)
 const patch = Number.parseInt(version[2].replaceAll(/\D/g, ''), 10)
 
 const min = {
-  major: 18,
-  minor: 12,
+  major: 22,
+  minor: 22,
   patch: 0
 }
 

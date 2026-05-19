@@ -1,13 +1,12 @@
-import parseArgs from 'minimist'
+import { getArgv } from '../utils/get-argv.js'
 
-const argv = parseArgs(process.argv.slice(2), {
-  alias: {
-    m: 'mode',
-    p: 'profile',
-    f: 'filter',
-    h: 'help'
-  },
-  boolean: ['h']
+const argv = getArgv({
+  mode: { type: 'string', short: 'm' },
+  profile: { type: 'string', short: 'p' },
+  filter: { type: 'string', short: 'f' },
+
+  nocolor: { type: 'boolean' },
+  help: { type: 'boolean', short: 'h' }
 })
 
 if (argv.help) {
@@ -65,8 +64,11 @@ if (argv.help) {
                         "assets": [ /* list of custom assets */ ]
                       }
 
+    --nocolor       Disable colored output
     --help, -h      Displays this message
   `)
+
+  argv.__warn?.()
   process.exit(0)
 }
 

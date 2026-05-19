@@ -1,32 +1,22 @@
-import parseArgs from 'minimist'
+import { getArgv } from '../utils/get-argv.js'
 
-const argv = parseArgs(process.argv.slice(2), {
-  alias: {
-    o: 'output',
-    a: 'assets',
+const argv = getArgv({
+  output: { type: 'string', short: 'o' },
+  assets: { type: 'string', short: 'a' },
+  icon: { type: 'string', short: 'i' },
+  background: { type: 'string', short: 'b' },
+  include: { type: 'string' },
+  filter: { type: 'string', short: 'f' },
+  quality: { type: 'string' },
+  padding: { type: 'string' },
+  'theme-color': { type: 'string' },
+  'png-color': { type: 'string' },
+  'splashscreen-color': { type: 'string' },
+  'splashscreen-icon-ratio': { type: 'string' },
+  'skip-trim': { type: 'boolean' },
 
-    i: 'icon',
-    b: 'background',
-    f: 'filter',
-    q: 'quality',
-    h: 'help'
-  },
-  boolean: ['h', 'skip-trim'],
-  string: [
-    'o',
-    'a',
-    'i',
-    'b',
-    'include',
-    'f',
-    'q',
-    'padding',
-    'theme-color',
-    'png-color',
-    'splashscreen-color',
-    'svg-color',
-    'splashscreen-icon-ratio'
-  ]
+  nocolor: { type: 'boolean' },
+  help: { type: 'boolean', short: 'h' }
 })
 
 if (argv.help) {
@@ -138,7 +128,13 @@ if (argv.help) {
                                Represents percentages; Valid values: 0 - 100
                                If 0 then it doesn't add the icon of top of background
                                Default: ${defaultParams.splashscreenIconRatio}
+
+    --nocolor             Disable colored output
+    --help, -h            Displays this message
+
   `)
+
+  argv.__warn?.()
   process.exit(0)
 }
 
