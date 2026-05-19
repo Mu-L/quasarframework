@@ -36,7 +36,7 @@
     "tinyglobby": "^0.2.16"
   },
   "devDependencies": {
-    "tsx": "^4.19.1"
+    "tsx": "^4.22.2"
   },
   "engines": {
     "node": ">=20"

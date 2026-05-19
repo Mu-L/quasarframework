@@ -39,6 +39,12 @@ const createSvg = () =>
     ]
   )
 
+function onKeydown(e) {
+  if (e.keyCode === 13 || e.keyCode === 32) {
+    stopAndPrevent(e)
+  }
+}
+
 export default createComponent({
   name: 'QRadio',
 
@@ -130,12 +136,6 @@ export default createComponent({
 
       if (!props.disable && !isTrue.value) {
         emit('update:modelValue', props.val, e)
-      }
-    }
-
-    function onKeydown(e) {
-      if (e.keyCode === 13 || e.keyCode === 32) {
-        stopAndPrevent(e)
       }
     }
 

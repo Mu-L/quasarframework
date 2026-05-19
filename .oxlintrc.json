@@ -153,6 +153,7 @@
     "unicorn/no-array-for-each": "off",
     "unicorn/no-array-reduce": "off",
     "unicorn/no-abusive-eslint-disable": "off",
+    "no-implicit-globals": "off",
 
     /** Pedantic rule overrides */
     "unicorn/explicit-length-check": [

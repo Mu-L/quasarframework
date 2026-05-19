@@ -141,6 +141,20 @@ export function useFieldState({
   }
 }
 
+function getInnerAppendNode(key, content) {
+  return content === null
+    ? null
+    : h(
+        'div',
+        {
+          key,
+          class:
+            'q-field__append q-field__marginal row no-wrap items-center q-anchor--skip'
+        },
+        content
+      )
+}
+
 export default function useField(state) {
   const { props, emit, slots, attrs, proxy } = getCurrentInstance()
   const { $q } = proxy
@@ -612,20 +626,6 @@ export default function useField(state) {
           : null
       ]
     )
-  }
-
-  function getInnerAppendNode(key, content) {
-    return content === null
-      ? null
-      : h(
-          'div',
-          {
-            key,
-            class:
-              'q-field__append q-field__marginal row no-wrap items-center q-anchor--skip'
-          },
-          content
-        )
   }
 
   let shouldActivate = false

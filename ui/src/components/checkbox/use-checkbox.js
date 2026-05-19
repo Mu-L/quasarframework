@@ -54,6 +54,12 @@ export const useCheckboxProps = {
 
 export const useCheckboxEmits = ['update:modelValue']
 
+function onKeydown(e) {
+  if (e.keyCode === 13 || e.keyCode === 32) {
+    stopAndPrevent(e)
+  }
+}
+
 export default function useCheckbox(type, getInner) {
   const { props, slots, emit, proxy } = getCurrentInstance()
   const { $q } = proxy
@@ -182,12 +188,6 @@ export default function useCheckbox(type, getInner) {
     }
 
     return props.indeterminateValue
-  }
-
-  function onKeydown(e) {
-    if (e.keyCode === 13 || e.keyCode === 32) {
-      stopAndPrevent(e)
-    }
   }
 
   function onKeyup(e) {

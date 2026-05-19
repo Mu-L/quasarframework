@@ -31,6 +31,11 @@ let touchTarget = null,
   keyboardTarget = null,
   mouseTarget = null
 
+function onLoadingEvt(evt) {
+  stopAndPrevent(evt)
+  evt.qSkipRipple = true
+}
+
 export default createComponent({
   name: 'QBtn',
 
@@ -316,11 +321,6 @@ export default createComponent({
       }
 
       rootRef.value?.classList.remove('q-btn--active')
-    }
-
-    function onLoadingEvt(evt) {
-      stopAndPrevent(evt)
-      evt.qSkipRipple = true
     }
 
     onBeforeUnmount(() => {

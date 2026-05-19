@@ -93,26 +93,26 @@ export default {
 
   methods: {
     validateNameAsync(val) {
-      return new Promise(function validateNameAsync(resolve) {
+      return new Promise(resolve => {
         resolve((val && val.length !== 0) || 'Please type something')
       })
     },
 
     validateAgeRequiredAsync(val) {
-      return new Promise(function validateAgeRequiredAsync(resolve) {
+      return new Promise(resolve => {
         resolve((val !== null && val !== '') || 'Please type your age')
       })
     },
 
     validateAgeRangeAsync(val) {
-      return new Promise(function validateAgeRangeAsync(resolve) {
+      return new Promise(resolve => {
         resolve((val > 0 && val < 100) || 'Please type a real age')
       })
     },
 
     programaticSubmit() {
       const form = this.$refs.form
-      setTimeout(function programaticSubmit() {
+      setTimeout(() => {
         form.submit()
       }, 100)
     },

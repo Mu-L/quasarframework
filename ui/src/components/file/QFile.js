@@ -23,6 +23,11 @@ import { humanStorageSize } from '../../utils/format/format.js'
 import { prevent } from '../../utils/event/event.js'
 import { injectProp } from '../../utils/private.inject-obj-prop/inject-obj-prop.js'
 
+function onKeydown(e) {
+  // prevent form submit if ENTER is pressed
+  if (e.keyCode === 13) prevent(e)
+}
+
 export default createComponent({
   name: 'QFile',
 
@@ -131,11 +136,6 @@ export default createComponent({
 
     function emitValue(files) {
       emit('update:modelValue', props.multiple ? files : files[0])
-    }
-
-    function onKeydown(e) {
-      // prevent form submit if ENTER is pressed
-      if (e.keyCode === 13) prevent(e)
     }
 
     function onKeyup(e) {

@@ -26,6 +26,23 @@ import { injectProp } from '../../utils/private.inject-obj-prop/inject-obj-prop.
 
 const tickStrategyOptions = ['none', 'strict', 'leaf', 'leaf-filtered']
 
+function getNodeMedia(node) {
+  if (node.icon !== void 0) {
+    return h(QIcon, {
+      class: 'q-tree__icon q-mr-sm',
+      name: node.icon,
+      color: node.iconColor
+    })
+  }
+  const src = node.img || node.avatar
+  if (src) {
+    return h('img', {
+      class: `q-tree__${node.img ? 'img' : 'avatar'} q-mr-sm`,
+      src
+    })
+  }
+}
+
 export default createComponent({
   name: 'QTree',
 
@@ -505,23 +522,6 @@ export default createComponent({
           ? nodes.filter(n => meta.value[n[props.nodeKey]].matchesFilter)
           : nodes
       ).map(child => getNode(child))
-    }
-
-    function getNodeMedia(node) {
-      if (node.icon !== void 0) {
-        return h(QIcon, {
-          class: 'q-tree__icon q-mr-sm',
-          name: node.icon,
-          color: node.iconColor
-        })
-      }
-      const src = node.img || node.avatar
-      if (src) {
-        return h('img', {
-          class: `q-tree__${node.img ? 'img' : 'avatar'} q-mr-sm`,
-          src
-        })
-      }
     }
 
     function onShow() {
