@@ -121,7 +121,6 @@
     "confbox": "^0.2.4",
     "cross-spawn": "^7.0.6",
     "dot-prop": "10.1.0",
-    "dotenv": "^17.4.2",
     "dotenv-expand": "^13.0.0",
     "elementtree": "0.1.7",
     "fflate": "^0.8.2",

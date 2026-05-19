@@ -1,6 +1,6 @@
 import { existsSync, readFileSync } from 'node:fs'
 import { isAbsolute, join, relative } from 'node:path'
-import { parse as dotEnvParse } from 'dotenv'
+import { parseEnv } from 'node:util'
 import { expand as dotEnvExpand } from 'dotenv-expand'
 import { merge } from 'webpack-merge'
 import { isCI } from 'ci-info'
@@ -264,7 +264,7 @@ function getFileEnvResult({ appDir, fileList, folderList }) {
       if (!existsSync(filePath)) return []
 
       usedEnvFiles.push(relative(appDir, filePath))
-      return Object.entries(dotEnvParse(readFileSync(filePath, 'utf8')))
+      return Object.entries(parseEnv(readFileSync(filePath, 'utf8')))
     })
   )
 
