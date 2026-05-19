@@ -1,7 +1,7 @@
 import { dirname } from 'node:path'
 import { fileURLToPath } from 'node:url'
 
-export function getCallerPath() {
+export function getCallerPath(index = 0) {
   const originalPrepareStackTrace = Error.prepareStackTrace
 
   try {
@@ -9,7 +9,7 @@ export function getCallerPath() {
     const err = new Error('err')
 
     Error.captureStackTrace(err, getCallerPath)
-    const filename = err.stack[0].getFileName()
+    const filename = err.stack[index].getFileName()
 
     return dirname(
       filename.startsWith('file://') ? fileURLToPath(filename) : filename

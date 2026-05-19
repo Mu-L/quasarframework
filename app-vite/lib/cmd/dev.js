@@ -109,7 +109,7 @@ async function startVueDevtools(ctx, devtoolsPort) {
   }
 
   const nodePackager = await cacheProxy.getModule('nodePackager')
-  nodePackager.installPackage('@vue/devtools', { isDevDependency: true })
+  await nodePackager.installPackage('@vue/devtools', { isDevDependency: true })
 
   // a small delay is a must, otherwise require.resolve
   // after a installing the dependencies will fail

@@ -122,10 +122,9 @@ export class QuasarModeBuilder extends AppBuilder {
     const { appPaths, cacheProxy } = this.ctx
 
     const nodePackager = await cacheProxy.getModule('nodePackager')
-    nodePackager.install({
+    await nodePackager.install({
       cwd: join(this.quasarConf.build.distDir, 'UnPackaged'),
       params: this.quasarConf.electron.unPackagedInstallParams,
-      displayName: 'UnPackaged production folder',
       env: 'production'
     })
 

@@ -1,8 +1,7 @@
 import fse from 'fs-extra'
-import inquirer from 'inquirer'
 import { globSync } from 'tinyglobby'
 
-import { log, warn } from '../../utils/logger.js'
+import { createPromptSession, warn } from '../../utils/logger.js'
 import { spawnSync } from '../../utils/spawn.js'
 
 import { ensureConsistency, ensureDeps } from './capacitor-consistency.js'
@@ -45,20 +44,24 @@ export async function addMode({
     return
   }
 
-  console.log()
-  const answer = await inquirer.prompt([
-    {
-      name: 'appId',
-      type: 'input',
-      message: 'What is the Capacitor app id?',
-      default: 'org.capacitor.quasar.app',
-      validate: appId => (appId ? true : 'Please fill in a value')
-    }
-  ])
+  const promptSession = await createPromptSession(
+    'Installing Capacitor Mode...'
+  )
 
-  log('Creating Capacitor source folder...')
+  const answer = await promptSession.prompt({
+    appId: () =>
+      promptSession.text({
+        message: 'What is the Capacitor app id?',
+        placeholder: 'org.capacitor.quasar.app',
+        validate: val => {
+          if (!val) return 'Please fill in a value'
+        }
+      })
+  })
 
-  // Create /src-capacitor from template
+  const copyTask = promptSession.taskLog({
+    title: 'Creating /src-capacitor...'
+  })
   fse.ensureDirSync(appPaths.capacitorDir)
 
   const nodePackager = await cacheProxy.getModule('nodePackager')
@@ -81,43 +84,32 @@ export async function addMode({
     fse.writeFileSync(dest, renderTemplate(content, scope), 'utf8')
   })
 
+  copyTask.success('Created /src-capacitor')
+
   await ensureDeps({ appPaths, cacheProxy })
 
   const { capBin } = await cacheProxy.getModule('capCli')
-  log('Initializing capacitor...')
-  spawnSync(capBin, ['init', '--web-dir', 'www', scope.appName, scope.appId], {
-    cwd: appPaths.capacitorDir
-  })
+  await spawnSync(
+    capBin,
+    ['init', '--web-dir', 'www', scope.appName, scope.appId],
+    {
+      cwd: appPaths.capacitorDir
+    }
+  )
 
-  log('Capacitor support was added')
-
-  if (!target) {
-    console.log()
-    console.log(
-      ' No Capacitor platform has been added yet as these get installed on demand automatically when running "quasar dev" or "quasar build".'
+  if (target) {
+    await addPlatform(target, appPaths, cacheProxy)
+  } else {
+    promptSession.note(
+      'Capacitor support was added without any platform. ' +
+        '\nYou can add Android or iOS platforms by running: ' +
+        '\n "quasar dev -m capacitor -T android" or ' +
+        '\n "quasar dev -m capacitor -T ios".',
+      'Next step:'
     )
-    log()
-    return
   }
 
-  await addPlatform(target, appPaths, cacheProxy)
-}
-
-/**
- * @param {{
- *   ctx: import('../../../types/configuration/context').InternalQuasarContext,
- * }} options
- */
-export function removeMode({ ctx: { appPaths } }) {
-  if (!isModeInstalled(appPaths, 'capacitor')) {
-    warn('No Capacitor support detected. Aborting.')
-    return
-  }
-
-  log('Removing Capacitor folder')
-  fse.removeSync(appPaths.capacitorDir)
-
-  log('Capacitor support was removed')
+  promptSession.end('Capacitor support was added')
 }
 
 async function addPlatform(target, appPaths, cacheProxy) {
@@ -129,11 +121,9 @@ async function addPlatform(target, appPaths, cacheProxy) {
   const { capBin, capVersion } = await cacheProxy.getModule('capCli')
 
   const nodePackager = await cacheProxy.getModule('nodePackager')
-  nodePackager.installPackage(`@capacitor/${target}@^${capVersion}.0.0`, {
-    displayName: 'Capacitor platform',
+  await nodePackager.installPackage(`@capacitor/${target}@^${capVersion}.0.0`, {
     cwd: appPaths.capacitorDir
   })
 
-  log(`Adding Capacitor platform "${target}"`)
-  spawnSync(capBin, ['add', target], { cwd: appPaths.capacitorDir })
+  await spawnSync(capBin, ['add', target], { cwd: appPaths.capacitorDir })
 }

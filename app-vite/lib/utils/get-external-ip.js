@@ -1,6 +1,4 @@
-import inquirer from 'inquirer'
-
-import { fatal, warn } from './logger.js'
+import { createPromptSession, fatal, warn } from './logger.js'
 import { getExternalNetworkInterface } from './net.js'
 
 export async function getExternalIP() {
@@ -18,14 +16,18 @@ export async function getExternalIP() {
     return address
   }
 
-  const answer = await inquirer.prompt([
-    {
-      type: 'select',
-      name: 'address',
-      message: 'What external IP should Quasar use?',
-      choices: interfaces.map(intf => intf.address)
-    }
-  ])
+  const promptSession = await createPromptSession('Multiple external IPs')
+  const { address } = await promptSession.prompt({
+    address: () =>
+      promptSession.select({
+        message: 'Pick External IP:',
+        options: interfaces.map(intf => ({
+          label: intf.address,
+          value: intf.address
+        }))
+      })
+  })
+  promptSession.end()
 
-  return answer.address
+  return address
 }

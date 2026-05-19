@@ -1,7 +1,6 @@
 import fse from 'fs-extra'
-import inquirer from 'inquirer'
 
-import { fatal, log, warn } from '../../utils/logger.js'
+import { createPromptSession, fatal, log, warn } from '../../utils/logger.js'
 import { spawnSync } from '../../utils/spawn.js'
 import { ensureConsistency, ensureWWW } from './cordova-consistency.js'
 import { isModeInstalled } from '../modes-utils.js'
@@ -23,7 +22,7 @@ export async function addMode({
 }) {
   if (isModeInstalled(appPaths, 'cordova')) {
     if (target) {
-      addPlatform(appPaths, target)
+      await addPlatform(appPaths, target)
     } else if (silent !== true) {
       warn('Cordova support detected already. Aborting.')
     }
@@ -41,20 +40,20 @@ export async function addMode({
     return
   }
 
-  console.log()
-  const answer = await inquirer.prompt([
-    {
-      name: 'appId',
-      type: 'input',
-      message: 'What is the Cordova app id?',
-      default: 'org.cordova.quasar.app',
-      validate: appId => (appId ? true : 'Please fill in a value')
-    }
-  ])
+  const promptSession = await createPromptSession('Installing Cordova Mode...')
 
-  log('Creating Cordova source folder...')
+  const answer = await promptSession.prompt({
+    appId: () =>
+      promptSession.text({
+        message: 'What is the Cordova app id?',
+        placeholder: 'org.cordova.quasar.app',
+        validate: val => {
+          if (!val) return 'Please fill in a value'
+        }
+      })
+  })
 
-  spawnSync(
+  await spawnSync(
     'cordova',
     ['create', 'src-cordova', answer.appId, appName],
     { cwd: appPaths.appDir },
@@ -65,59 +64,44 @@ export async function addMode({
 
   ensureWWW({ appPaths, forced: true })
 
-  log('Cordova support was installed')
-  log(`App name was taken from package.json: "${appName}"`)
-  log()
-  warn(
-    'If you want a different App name then remove Cordova support, edit productName field from package.json then add Cordova support again.'
+  promptSession.note(
+    `App name was taken from package.json: "${appName}"` +
+      '\n\nIf you want a different App name then remove Cordova support,' +
+      '\nedit productName field from package.json then' +
+      '\nadd Cordova support again.',
+    'App name:'
   )
-  warn()
 
-  console.log(' ⚠️  WARNING!')
-  console.log(
-    ' ⚠️  If developing for iOS, it is HIGHLY recommended that you install the Ionic Webview Plugin.'
+  promptSession.note(
+    'If developing for iOS, it is HIGHLY recommended that you' +
+      '\ninstall the Ionic Webview Plugin.' +
+      '\n\nhttps://quasar.dev/quasar-cli/developing-cordova-apps/preparation',
+    'WARNING!'
   )
-  console.log(
-    ' ⚠️  Please refer to docs: https://quasar.dev/quasar-cli/developing-cordova-apps/preparation'
-  )
-  console.log(' ⚠️  --------')
-  console.log()
 
-  if (!target) {
-    console.log()
-    console.log(
-      ' No Cordova platform has been added yet as these get installed on demand automatically when running "quasar dev" or "quasar build".'
+  if (target) {
+    await addPlatform(appPaths, target)
+  } else {
+    promptSession.note(
+      'Cordova support was added without any platform. ' +
+        '\nYou can add Android or iOS platforms by running: ' +
+        '\n "quasar dev -m capacitor -T android" or ' +
+        '\n "quasar dev -m capacitor -T ios".',
+      'Next step:'
     )
-    log()
-    return
   }
 
-  addPlatform(appPaths, target)
+  promptSession.end('Cordova support was added')
 }
 
-/**
- * @param {{
- *   ctx: import('../../../types/configuration/context').InternalQuasarContext,
- * }} options
- */
-export function removeMode({ ctx: { appPaths } }) {
-  if (!isModeInstalled(appPaths, 'cordova')) {
-    warn('No Cordova support detected. Aborting.')
-    return
-  }
-
-  fse.removeSync(appPaths.cordovaDir)
-  log('Cordova support was removed')
-}
-
-function addPlatform(appPaths, target) {
-  ensureConsistency({ appPaths })
+async function addPlatform(appPaths, target) {
+  await ensureConsistency({ appPaths })
 
   // if it has the platform
   if (fse.existsSync(appPaths.resolve.cordova(`platforms/${target}`))) return
 
   log(`Adding Cordova platform "${target}"`)
-  spawnSync(
+  await spawnSync(
     'cordova',
     ['platform', 'add', target],
     { cwd: appPaths.cordovaDir },

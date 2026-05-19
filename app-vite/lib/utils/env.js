@@ -3,10 +3,10 @@ import { isAbsolute, join, relative } from 'node:path'
 import { parse as dotEnvParse } from 'dotenv'
 import { expand as dotEnvExpand } from 'dotenv-expand'
 import { merge } from 'webpack-merge'
+import { isCI } from 'ci-info'
 
 import { dot, warn } from './logger.js'
 import { green } from 'kolorist'
-import { isCI } from './is-terminal.js'
 import { encodeForDiff } from './encode-for-diff.js'
 
 const defaultQuasarConfEnvPrefix = ''

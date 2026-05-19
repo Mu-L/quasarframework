@@ -12,7 +12,7 @@ export function createInstance({ appPaths: { appDir }, cacheProxy }) {
     isInstalled: getPackagePath(name, appDir) !== void 0,
     async install() {
       const nodePackager = await cacheProxy.getModule('nodePackager')
-      nodePackager.installPackage(name)
+      await nodePackager.installPackage(name)
     }
   }
 }

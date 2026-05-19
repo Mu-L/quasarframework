@@ -127,8 +127,7 @@ export class CapacitorConfigFile {
 
     const nodePackager = await cacheProxy.getModule('nodePackager')
     nodePackager[fn](nameParam, {
-      cwd: appPaths.capacitorDir,
-      displayName: 'Capacitor (DEVELOPMENT ONLY) SSL support'
+      cwd: appPaths.capacitorDir
     })
 
     // make sure "cap sync" is run before triggering IDE or build

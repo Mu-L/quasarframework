@@ -4,11 +4,7 @@ export async function ensureDeps({ appPaths, cacheProxy }) {
   if (existsSync(appPaths.resolve.bex('node_modules'))) return
 
   const nodePackager = await cacheProxy.getModule('nodePackager')
-  nodePackager.install({
-    cwd: appPaths.bexDir,
-    params: nodePackager.name === 'pnpm' ? ['i', '--ignore-workspace'] : void 0,
-    displayName: 'BEX'
-  })
+  await nodePackager.install({ cwd: appPaths.bexDir })
 }
 
 export async function ensureConsistency(opts) {

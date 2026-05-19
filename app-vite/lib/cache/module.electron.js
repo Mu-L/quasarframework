@@ -17,13 +17,13 @@ function isValidName(bundlerName) {
   return ['packager', 'builder'].includes(bundlerName)
 }
 
+// returns a Promise!
 function installBundler(bundlerName, nodePackager, appPaths) {
   const bundler = bundlerMap[bundlerName]
 
-  nodePackager.installPackage(`${bundler.pkg}@^${bundler.version}`, {
+  return nodePackager.installPackage(`${bundler.pkg}@^${bundler.version}`, {
     cwd: appPaths.electronDir,
-    isDevDependency: true,
-    displayName: bundler.pkg
+    isDevDependency: true
   })
 }
 
@@ -46,13 +46,13 @@ export async function createInstance({
     return hasPackage(bundler.pkg, electronPkg)
   }
 
-  function ensureInstall(bundlerName) {
+  async function ensureInstall(bundlerName) {
     if (!isValidName(bundlerName)) {
       fatal(`Unknown bundler "${bundlerName}" for Electron`)
     }
 
     if (!bundlerIsInstalled(bundlerName)) {
-      installBundler(bundlerName, nodePackager, appPaths)
+      await installBundler(bundlerName, nodePackager, appPaths)
     }
   }
 

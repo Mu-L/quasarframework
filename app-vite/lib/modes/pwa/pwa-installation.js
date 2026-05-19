@@ -1,7 +1,7 @@
 import fse from 'fs-extra'
 
 import { ensureConsistency } from './pwa-consistency.js'
-import { log, warn } from '../../utils/logger.js'
+import { createPromptSession, warn } from '../../utils/logger.js'
 import { isModeInstalled } from '../modes-utils.js'
 
 /**
@@ -20,7 +20,9 @@ export async function addMode({ ctx: { appPaths, cacheProxy }, silent }) {
     return
   }
 
-  log('Creating PWA source folder...')
+  const promptSession = await createPromptSession('Installing PWA Mode...')
+
+  const copyTask = promptSession.taskLog({ title: 'Creating /src-pwa...' })
 
   fse.copySync(appPaths.resolve.cli(`templates/pwa/common`), appPaths.pwaDir)
   fse.copySync(
@@ -35,23 +37,8 @@ export async function addMode({ ctx: { appPaths, cacheProxy }, silent }) {
   const format = hasTypescript ? 'ts' : 'js'
   fse.copySync(appPaths.resolve.cli(`templates/pwa/${format}`), appPaths.pwaDir)
 
+  copyTask.success('Created /src-pwa')
+
   await ensureConsistency({ appPaths, cacheProxy })
-
-  log('PWA support was added')
-}
-
-/**
- * @param {{
- *   ctx: import('../../../types/configuration/context').InternalQuasarContext,
- * }} options
- */
-export function removeMode({ ctx: { appPaths } }) {
-  if (!isModeInstalled(appPaths, 'pwa')) {
-    warn('No PWA support detected. Aborting.')
-    return
-  }
-
-  log('Removing PWA source folder')
-  fse.removeSync(appPaths.pwaDir)
-  log('PWA support was removed')
+  promptSession.end('PWA support was added')
 }

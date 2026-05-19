@@ -109,6 +109,7 @@
     "build:ts": "pnpm --filter app-vite-playground-ts build"
   },
   "dependencies": {
+    "@clack/prompts": "^1.4.0",
     "@quasar/render-ssr-error": "workspace:^",
     "@quasar/ssl-certificate": "workspace:^",
     "@quasar/vite-plugin": "workspace:^",
@@ -126,7 +127,6 @@
     "fflate": "^0.8.2",
     "fs-extra": "^11.3.5",
     "html-minifier-terser": "^7.2.0",
-    "inquirer": "^13.4.2",
     "isbinaryfile": "^5.0.2",
     "kolorist": "^1.8.0",
     "minimist": "^1.2.8",
@@ -182,9 +182,7 @@
     }
   },
   "engines": {
-    "node": "^30 || ^28 || ^26 || ^24 || ^22",
-    "npm": ">= 6.14.12",
-    "yarn": ">= 1.17.3"
+    "node": "^30 || ^28 || ^26 || ^24 || ^22.22.0"
   },
   "volta": {
     "node": "lts"

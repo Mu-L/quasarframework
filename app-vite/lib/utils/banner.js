@@ -138,7 +138,7 @@ export function printDevRunningBanner(quasarConf) {
   const { ctx } = quasarConf
 
   const banner = [
-    ` ${greenBanner} Reported at............ ${dim(new Date().toLocaleDateString())} ${dim(new Date().toLocaleTimeString())}`,
+    ` ${greenBanner} Reported at............ ${new Date().toLocaleDateString()} ${new Date().toLocaleTimeString()}`,
     ` ${greenBanner} App dir................ ${green(ctx.appPaths.appDir)}`
   ]
 

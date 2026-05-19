@@ -38,7 +38,7 @@ export async function createQuasarScript({ scope, utils }) {
               value: 'oxlint'
             }
           ],
-          'AE Scripts': [
+          'Additional AE Scripts': [
             {
               label: 'Prompts script',
               value: 'prompts'

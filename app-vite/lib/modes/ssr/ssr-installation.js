@@ -1,8 +1,7 @@
 import fse from 'fs-extra'
-import inquirer from 'inquirer'
 
 import { ensureConsistency } from './ssr-consistency.js'
-import { log, warn } from '../../utils/logger.js'
+import { createPromptSession, warn } from '../../utils/logger.js'
 import { isModeInstalled } from '../modes-utils.js'
 
 /**
@@ -21,25 +20,25 @@ export async function addMode({ ctx: { appPaths, cacheProxy }, silent }) {
     return
   }
 
+  const promptSession = await createPromptSession('Installing SSR Mode...')
+
+  const answer = await promptSession.prompt({
+    webserver: () =>
+      promptSession.select({
+        message: 'What production web server should Quasar use?',
+        options: [
+          { value: 'hono', label: 'Hono' },
+          { value: 'fastify', label: 'Fastify' },
+          { value: 'express', label: 'Express' },
+          { value: 'koa', label: 'Koa' }
+        ]
+      })
+  })
+
+  const copyTask = promptSession.taskLog({ title: 'Creating /src-ssr...' })
+
   const hasTypescript = await cacheProxy.getModule('hasTypescript')
   const format = hasTypescript ? 'ts' : 'js'
-
-  console.log()
-  const answer = await inquirer.prompt([
-    {
-      type: 'select',
-      name: 'webserver',
-      message: 'What production web server should Quasar use?',
-      choices: [
-        { value: 'hono', name: 'Hono' },
-        { value: 'fastify', name: 'Fastify' },
-        { value: 'express', name: 'Express' },
-        { value: 'koa', name: 'Koa' }
-      ]
-    }
-  ])
-
-  log('Creating SSR source folder...')
   fse.copySync(
     appPaths.resolve.cli(`templates/ssr/${answer.webserver}/common`),
     appPaths.ssrDir
@@ -49,23 +48,8 @@ export async function addMode({ ctx: { appPaths, cacheProxy }, silent }) {
     appPaths.ssrDir
   )
 
+  copyTask.success('Created /src-ssr')
+
   await ensureConsistency({ appPaths, cacheProxy })
-
-  log('SSR support was added')
-}
-
-/**
- * @param {{
- *   ctx: import('../../../types/configuration/context').InternalQuasarContext,
- * }} options
- */
-export function removeMode({ ctx: { appPaths } }) {
-  if (!isModeInstalled(appPaths, 'ssr')) {
-    warn('No SSR support detected. Aborting.')
-    return
-  }
-
-  log('Removing SSR source folder')
-  fse.removeSync(appPaths.ssrDir)
-  log('SSR support was removed')
+  promptSession.end('SSR support was added')
 }

@@ -1,6 +1,6 @@
 import parseArgs from 'minimist'
 
-import { fatal, log, warn } from '../utils/logger.js'
+import { createPromptSession, fatal, log, warn } from '../utils/logger.js'
 
 const argv = parseArgs(process.argv.slice(2), {
   alias: {
@@ -59,6 +59,11 @@ async function run() {
     process.exit(1)
   }
 
+  if (mode === 'spa') {
+    warn('SPA mode is included by default. No need to add or remove it.')
+    process.exit(1)
+  }
+
   if (
     ![void 0, 'pwa', 'cordova', 'capacitor', 'electron', 'ssr', 'bex'].includes(
       mode
@@ -67,37 +72,40 @@ async function run() {
     fatal(`Unknown mode "${mode}" to ${action}`)
   }
 
-  const { addMode, removeMode } = await import(
-    `../modes/${mode}/${mode}-installation.js`
-  )
-  const actionMap = { add: addMode, remove: removeMode }
+  if (action === 'add') {
+    const { addMode } = await import(`../modes/${mode}/${mode}-installation.js`)
 
-  if (
-    action === 'remove' &&
-    argv.yes !== true &&
-    isModeInstalled(ctx.appPaths, mode)
-  ) {
-    console.log()
-
-    const { default: inquirer } = await import('inquirer')
-    const answer = await inquirer.prompt([
-      {
-        name: 'go',
-        type: 'confirm',
-        message: `Will also remove /src-${mode} folder. Are you sure?`,
-        default: false
-      }
-    ])
-
-    if (!answer.go) {
-      console.log()
-      console.log('⚠️  Aborted...')
-      console.log()
-      process.exit(0)
+    await addMode({ ctx })
+  } else if (action === 'remove') {
+    if (!isModeInstalled(ctx.appPaths, mode)) {
+      warn(`No ${mode.toUpperCase()} support detected. Aborting.`)
+      return
     }
-  }
 
-  await actionMap[action]({ ctx })
+    const promptSession = await createPromptSession(
+      `Removing ${mode.toUpperCase()} Mode...`
+    )
+    if (argv.yes !== true) {
+      const { go } = await promptSession.prompt({
+        go: () =>
+          promptSession.confirm({
+            message: `Will remove /src-${mode} folder. Are you sure?`,
+            initialValue: false
+          })
+      })
+
+      if (!go) {
+        promptSession.cancel('Aborted by user')
+        process.exit(1)
+      }
+    }
+
+    const remTask = promptSession.taskLog({ title: `Removing /src-${mode}...` })
+    const { default: fse } = await import('fs-extra')
+    fse.removeSync(ctx.appPaths[`${mode}Dir`])
+    remTask.success(`Removed /src-${mode}`)
+    promptSession.end(`${mode.toUpperCase()} support was removed`)
+  }
 
   // Ensure types are re-generated accordingly
   const { QuasarConfigFile } = await import('../quasar-config-file.js')

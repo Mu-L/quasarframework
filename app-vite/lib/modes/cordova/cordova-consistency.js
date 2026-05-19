@@ -14,18 +14,18 @@ export function ensureWWW({ appPaths, forced }) {
   }
 }
 
-export function ensureDeps({ appPaths }) {
+export async function ensureDeps({ appPaths }) {
   if (existsSync(appPaths.resolve.cordova('node_modules'))) {
     return
   }
 
   log('Installing dependencies in /src-cordova')
-  spawnSync(
+  await spawnSync(
     'npm',
     ['install'],
     {
       cwd: appPaths.cordovaDir,
-      env: { ...process.env, NODE_ENV: 'development' }
+      env: { NODE_ENV: 'development' }
     },
     () => {
       fatal('npm failed installing dependencies in /src-cordova', 'FAIL')
@@ -33,7 +33,7 @@ export function ensureDeps({ appPaths }) {
   )
 }
 
-export function ensureConsistency(opts) {
+export async function ensureConsistency(opts) {
   ensureWWW(opts)
-  ensureDeps(opts)
+  await ensureDeps(opts)
 }

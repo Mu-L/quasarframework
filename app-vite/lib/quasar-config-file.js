@@ -6,6 +6,7 @@ import { merge } from 'webpack-merge'
 import { rolldown, watch as rolldownWatch } from 'rolldown'
 import { watch as chokidarWatch } from 'chokidar'
 import { transformAssetUrls } from '@quasar/vite-plugin'
+import { isCI } from 'ci-info'
 
 import { aeLog, error, fatal, log, tip, warn } from './utils/logger.js'
 import { appFilesValidations } from './utils/app-files-validations.js'
@@ -19,7 +20,6 @@ import {
 } from './plugins/rolldown.inject-replacements.js'
 
 import { findClosestOpenPort, localHostList } from './utils/net.js'
-import { isMinimalTerminal } from './utils/is-terminal.js'
 import { BASELINE_WIDELY_AVAILABLE_TARGET_STRING } from './utils/build-targets.js'
 import { encodeForDiff } from './utils/encode-for-diff.js'
 import { debounce } from './utils/rate-limit.js'
@@ -1188,9 +1188,8 @@ export class QuasarConfigFile {
         !this.#ctx.mode.cordova &&
         !this.#ctx.mode.capacitor
       ) {
-        cfg.metaConf.openBrowser = !isMinimalTerminal
-          ? cfg.devServer.open
-          : false
+        cfg.metaConf.openBrowser =
+          !isCI && process.stdout.isTTY ? cfg.devServer.open : false
       }
 
       delete cfg.devServer.open
@@ -1433,7 +1432,7 @@ export class QuasarConfigFile {
           }
         }
 
-        ensureInstall(cfg.electron.bundler)
+        await ensureInstall(cfg.electron.bundler)
       }
     }
 

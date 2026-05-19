@@ -2,15 +2,15 @@ import fs from 'node:fs'
 import { join, normalize, sep } from 'node:path'
 import { sync as crossSpawnSync } from 'cross-spawn'
 
-import { fatal, log } from '../utils/logger.js'
+import { fatal } from '../utils/logger.js'
 import { spawnSync } from '../utils/spawn.js'
 
-function run({ name, params, cwd, onFail, env = 'development' }) {
-  spawnSync(
+// returns a Promise!
+function run({ name, params, cwd, env = 'development' }) {
+  return spawnSync(
     name,
     params.filter(param => typeof param === 'string' && param.length !== 0),
-    { cwd, env: { ...process.env, NODE_ENV: env } },
-    onFail
+    { cwd, env: { NODE_ENV: env } }
   )
 }
 
@@ -71,51 +71,37 @@ class PackageManager {
     return this.cachedIsInstalled
   }
 
-  install({
-    cwd = this.appDir,
-    params,
-    displayName,
-    env = 'development'
-  } = {}) {
-    displayName = displayName ? displayName + ' ' : ''
-
-    log(`Installing ${displayName}dependencies...`)
-    run({
+  // returns a Promise!
+  install({ cwd = this.appDir, params, env = 'development' } = {}) {
+    return run({
       name: this.name,
       params:
         params && params.length !== 0 ? params : this.getInstallParams(env),
       cwd,
-      env,
-      onFail: () =>
-        fatal(`Failed to install ${displayName}dependencies`, 'FAIL')
+      env
     })
   }
 
-  installPackage(
-    name,
-    { cwd = this.appDir, displayName = name, isDevDependency = false } = {}
-  ) {
-    log(`Installing ${displayName}...`)
-    run({
+  // returns a Promise!
+  installPackage(name, { cwd = this.appDir, isDevDependency = false } = {}) {
+    return run({
       name: this.name,
       params: this.getInstallPackageParams(
         Array.isArray(name) ? name : [name],
         isDevDependency
       ),
-      cwd,
-      onFail: () => fatal(`Failed to install ${displayName}`, 'FAIL')
+      cwd
     })
   }
 
-  uninstallPackage(name, { cwd = this.appDir, displayName = name } = {}) {
-    log(`Uninstalling ${displayName}...`)
-    run({
+  // returns a Promise!
+  uninstallPackage(name, { cwd = this.appDir } = {}) {
+    return run({
       name: this.name,
       params: this.getUninstallPackageParams(
         Array.isArray(name) ? name : [name]
       ),
-      cwd,
-      onFail: () => fatal(`Failed to uninstall ${displayName}`, 'FAIL')
+      cwd
     })
   }
 }

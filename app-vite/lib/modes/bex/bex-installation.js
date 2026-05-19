@@ -1,6 +1,6 @@
 import fse from 'fs-extra'
 
-import { log, warn } from '../../utils/logger.js'
+import { createPromptSession, warn } from '../../utils/logger.js'
 import { isModeInstalled } from '../modes-utils.js'
 import { ensureConsistency } from './bex-consistency.js'
 
@@ -15,13 +15,14 @@ export async function addMode({ ctx: { appPaths, cacheProxy }, silent }) {
     await ensureConsistency({ appPaths, cacheProxy })
 
     if (silent !== true) {
-      warn('Browser Extension support detected already. Aborting.')
+      warn('BEX support detected already. Aborting.')
     }
     return
   }
 
-  console.log()
-  log('Creating Browser Extension source folder...')
+  const promptSession = await createPromptSession('Installing BEX Mode...')
+
+  const copyTask = promptSession.taskLog({ title: 'Creating /src-bex...' })
 
   fse.copySync(appPaths.resolve.cli('templates/bex/common'), appPaths.bexDir)
 
@@ -29,23 +30,9 @@ export async function addMode({ ctx: { appPaths, cacheProxy }, silent }) {
   const format = hasTypescript ? 'ts' : 'js'
   fse.copySync(appPaths.resolve.cli(`templates/bex/${format}`), appPaths.bexDir)
 
+  copyTask.success('Created /src-bex')
+
   await ensureConsistency({ appPaths, cacheProxy })
 
-  log('Browser Extension support was added')
-}
-
-/**
- * @param {{
- *   ctx: import('../../../types/configuration/context').InternalQuasarContext,
- * }} options
- */
-export function removeMode({ ctx: { appPaths } }) {
-  if (!isModeInstalled(appPaths, 'bex')) {
-    warn('No Browser Extension support detected. Aborting.')
-    return
-  }
-
-  log('Removing Browser Extension source folder')
-  fse.removeSync(appPaths.bexDir)
-  log('Browser Extension support was removed')
+  promptSession.end('BEX support was added')
 }

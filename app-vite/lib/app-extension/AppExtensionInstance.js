@@ -1,7 +1,6 @@
 import { relative, resolve } from 'node:path'
 import { pathToFileURL } from 'node:url'
 import fse from 'fs-extra'
-import inquirer from 'inquirer'
 import { isBinaryFileSync as isBinary } from 'isbinaryfile'
 
 import { IndexAPI } from './api-classes/IndexAPI.js'
@@ -9,30 +8,43 @@ import { InstallAPI } from './api-classes/InstallAPI.js'
 import { UninstallAPI } from './api-classes/UninstallAPI.js'
 import { PromptsAPI } from './api-classes/PromptsAPI.js'
 
-import { aeFatal, aeLog, aeWarn, fatal, log } from '../utils/logger.js'
+import {
+  aeFatal,
+  aeLog,
+  aeWarn,
+  createPromptSession,
+  fatal,
+  log
+} from '../utils/logger.js'
 import { getPackagePath } from '../utils/get-package-path.js'
 import { renderTemplate } from '../utils/template.js'
 
-async function promptOverwrite({ targetPath, options, ctx }) {
-  const choices = [
-    { name: 'Overwrite', value: 'overwrite' },
-    { name: 'Overwrite all', value: 'overwriteAll' },
-    { name: 'Skip (might break extension)', value: 'skip' },
-    { name: 'Skip all (might break extension)', value: 'skipAll' }
-  ]
+const overWriteOptions = [
+  { label: 'Overwrite', value: 'overwrite' },
+  { label: 'Overwrite all', value: 'overwriteAll' },
+  { label: 'Skip (might break extension)', value: 'skip' },
+  { label: 'Skip all (might break extension)', value: 'skipAll' }
+]
 
-  return await inquirer.prompt([
-    {
-      name: 'action',
-      type: 'select',
-      message: `Overwrite "${relative(ctx.appPaths.appDir, targetPath)}"?`,
-      choices:
-        options !== void 0
-          ? choices.filter(choice => options.includes(choice.value))
-          : choices,
-      default: 'overwrite'
-    }
-  ])
+async function promptOverwrite({ targetPath, options, ctx }) {
+  const promptSession = await createPromptSession(
+    `"${relative(ctx.appPaths.appDir, targetPath)}" already exists`
+  )
+
+  const { action } = await promptSession.prompt({
+    action: () =>
+      promptSession.select({
+        message: 'What do you want to do?',
+        options:
+          options !== void 0
+            ? overWriteOptions.filter(choice => options.includes(choice.value))
+            : overWriteOptions,
+        initialValue: 'overwrite'
+      })
+  })
+
+  promptSession.end('Thanks for answering!')
+  return action
 }
 
 async function renderFile(
@@ -40,13 +52,13 @@ async function renderFile(
   ctx
 ) {
   if (overwritePrompt && fse.existsSync(targetPath)) {
-    const answer = await promptOverwrite({
+    const action = await promptOverwrite({
       targetPath,
       options: ['overwrite', 'skip'],
       ctx
     })
 
-    if (answer.action === 'skip') return
+    if (action === 'skip') return
   }
 
   fse.ensureFileSync(targetPath)
@@ -91,14 +103,14 @@ async function renderFolders({ source, rawCopy, scope }, ctx) {
       if (overwrite === 'skipAll') {
         continue
       } else {
-        const answer = await promptOverwrite({ targetPath, ctx })
+        const action = await promptOverwrite({ targetPath, ctx })
 
-        if (answer.action === 'overwriteAll') {
+        if (action === 'overwriteAll') {
           overwrite = 'overwriteAll'
-        } else if (answer.action === 'skipAll') {
+        } else if (action === 'skipAll') {
           overwrite = 'skipAll'
           continue
-        } else if (answer.action === 'skip') {
+        } else if (action === 'skip') {
           continue
         }
       }
@@ -200,7 +212,7 @@ export class AppExtensionInstance {
     // run extension install
     const hooks = await this.#runInstallScript(prompts)
 
-    aeLog(this.extId, `Successfully installed`)
+    aeLog(this.extId, `Installed App Extension`)
 
     if (hooks && hooks.exitLog.length !== 0) {
       hooks.exitLog.forEach(msg => {
@@ -234,7 +246,7 @@ export class AppExtensionInstance {
       await this.#uninstallPackage()
     }
 
-    aeLog(this.extId, 'Successfully removed')
+    aeLog(this.extId, 'Removed App Extension')
 
     if (hooks && hooks.exitLog.length !== 0) {
       hooks.exitLog.forEach(msg => {
@@ -300,12 +312,14 @@ export class AppExtensionInstance {
 
   async #installPackage() {
     const nodePackager = await this.#ctx.cacheProxy.getModule('nodePackager')
-    nodePackager.installPackage(this.packageFullName, { isDevDependency: true })
+    await nodePackager.installPackage(this.packageFullName, {
+      isDevDependency: true
+    })
   }
 
   async #uninstallPackage() {
     const nodePackager = await this.#ctx.cacheProxy.getModule('nodePackager')
-    nodePackager.uninstallPackage(this.packageFullName)
+    await nodePackager.uninstallPackage(this.packageFullName)
     this.#isInstalled = false
   }
 
@@ -413,7 +427,7 @@ export class AppExtensionInstance {
 
     if (api.__getNodeModuleNeedsUpdate(this.#appExtJson)) {
       const nodePackager = await this.#ctx.cacheProxy.getModule('nodePackager')
-      nodePackager.install()
+      await nodePackager.install()
     }
 
     return hooks

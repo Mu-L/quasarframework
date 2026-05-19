@@ -1,3 +1,5 @@
+import readline from 'node:readline'
+import { isCI } from 'ci-info'
 import {
   bgGreen,
   bgRed,
@@ -10,8 +12,6 @@ import {
   white,
   yellow
 } from 'kolorist'
-
-import readline from 'node:readline'
 
 export const dot = '•'
 
@@ -140,4 +140,143 @@ export function progress(msg, token) {
     success(`${parseMsg(progressMessage)} ${dot} ${diffTime}ms`, 'DONE')
     log()
   }
+}
+
+/**
+ * Prompts
+ */
+
+let promptSession = null
+
+export async function createPromptSession(message) {
+  if (promptSession !== null) {
+    return {
+      ...promptSession,
+      end() {}
+    }
+  }
+
+  const {
+    intro,
+    outro,
+    isCancel,
+    cancel,
+    confirm,
+    select,
+    text,
+    taskLog,
+    note,
+    log: promptsLog
+  } = await import('@clack/prompts')
+
+  log()
+  intro(message)
+
+  promptSession = {
+    intro,
+    outro,
+    cancel,
+    confirm,
+    select,
+    text,
+    taskLog,
+    log: promptsLog,
+    note,
+
+    async prompt(questions) {
+      const scope = {}
+      for (const key in questions) {
+        const question = questions[key]
+        const answer = await question()
+        if (isCancel(answer)) {
+          cancel('Operation cancelled.')
+          process.exit(1)
+        }
+
+        scope[key] = answer
+      }
+      return scope
+    },
+
+    end(endMessage = 'Done!') {
+      outro(endMessage)
+      promptSession = null
+    }
+  }
+
+  return promptSession
+}
+
+// returns a Promise!
+export function taskLogger(message) {
+  if (promptSession !== null) {
+    return promptSession.taskLog({ title: message })
+  }
+
+  log(message)
+
+  return Promise.resolve({
+    log,
+    success() {},
+    error(msg) {
+      warn()
+      warn(msg)
+    }
+  })
+}
+
+export function cancelPromptSession(message) {
+  promptSession?.cancel(message)
+}
+
+/**
+ * Alternate Screen
+ */
+
+export function enterAlternateScreen(message) {
+  if (isCI) return
+
+  // Enter Alternate Screen Buffer (hides current terminal history)
+  process.stdout.write('\u001B[?1049h')
+  // Move cursor to top left
+  process.stdout.write('\u001B[H')
+
+  if (message) console.log(`>>> ${message}\n`)
+}
+
+export function exitAlternateScreen() {
+  if (!isCI) process.stdout.write('\u001B[?1049l')
+}
+
+export function waitForKey() {
+  // Are we in a real terminal?
+  // If not (e.g., CI pipeline), resolve immediately so the script doesn't hang forever.
+  if (isCI) return Promise.resolve()
+
+  const { stdin } = process
+  process.stdout.write('Press any key to continue...')
+
+  const { promise, resolve: resolvePromise } = Promise.withResolvers()
+
+  // Enable raw mode to bypass the 'Enter' key requirement
+  stdin.setRawMode(true)
+  stdin.resume()
+  stdin.setEncoding('utf8')
+
+  const handleKey = key => {
+    stdin.off('data', handleKey)
+    stdin.setRawMode(false)
+    stdin.pause()
+
+    // Explicitly handle Ctrl+C
+    if (key === '\u0003') {
+      console.log('\nProcess cancelled by user (Ctrl+C)\n')
+      process.exit(1)
+    }
+
+    resolvePromise()
+  }
+
+  stdin.on('data', handleKey)
+  return promise
 }

@@ -141,32 +141,31 @@ export class InstallAPI extends BaseAPI {
     if (!extPkg) return
 
     if (typeof extPkg === 'string') {
-      const dir = getCallerPath()
+      const dir = getCallerPath(1)
       const source = path.resolve(dir, extPkg)
 
       if (!fs.existsSync(source)) {
-        warn()
         aeWarn(
           this.extId,
           `extendPackageJson() - cannot locate ${extPkg}. Skipping...`
         )
-        warn()
         return
       }
       if (fs.lstatSync(source).isDirectory()) {
-        warn()
         aeWarn(
           this.extId,
           `extendPackageJson() - "${extPkg}" is a folder instead of file. Skipping...`
         )
-        warn()
         return
       }
 
       try {
         extPkg = JSON.parse(fs.readFileSync(source, 'utf8'))
       } catch {
-        aeWarn(this.extId, `extendPackageJson() - "${extPkg}" is malformed`)
+        aeWarn(
+          this.extId,
+          `extendPackageJson() - "${extPkg}" is malformed. Exiting...`
+        )
         warn()
         process.exit(1)
       }
@@ -251,23 +250,21 @@ export class InstallAPI extends BaseAPI {
    * @param {object} scope (optional; rendering scope variables)
    */
   render(templatePath, scope) {
-    const dir = getCallerPath()
+    const dir = getCallerPath(1)
     const source = path.resolve(dir, templatePath)
     const rawCopy = !scope || Object.keys(scope).length === 0
 
     if (!fs.existsSync(source)) {
-      warn()
       aeWarn(
         this.extId,
-        `render() - cannot locate ${templatePath}. Skipping...\n`
+        `render() - cannot locate ${templatePath}. Skipping...`
       )
       return
     }
     if (!fs.lstatSync(source).isDirectory()) {
-      warn()
       aeWarn(
         this.extId,
-        `render() - "${templatePath}" is a file instead of folder. Skipping...\n`
+        `render() - "${templatePath}" is a file instead of folder. Skipping...`
       )
       return
     }
@@ -288,24 +285,22 @@ export class InstallAPI extends BaseAPI {
    * @param {object} scope (optional; rendering scope variables)
    */
   renderFile(relativeSourcePath, relativeTargetPath, scope) {
-    const dir = getCallerPath()
+    const dir = getCallerPath(1)
     const sourcePath = path.resolve(dir, relativeSourcePath)
     const targetPath = this.resolve.app(relativeTargetPath)
     const rawCopy = !scope || Object.keys(scope).length === 0
 
     if (!fs.existsSync(sourcePath)) {
-      warn()
       aeWarn(
         this.extId,
-        `renderFile() - cannot locate ${relativeSourcePath}. Skipping...\n`
+        `renderFile() - cannot locate ${relativeSourcePath}. Skipping...`
       )
       return
     }
     if (fs.lstatSync(sourcePath).isDirectory()) {
-      warn()
       aeWarn(
         this.extId,
-        `renderFile() - "${relativeSourcePath}" is a folder instead of a file. Skipping...\n`
+        `renderFile() - "${relativeSourcePath}" is a folder instead of a file. Skipping...`
       )
       return
     }
