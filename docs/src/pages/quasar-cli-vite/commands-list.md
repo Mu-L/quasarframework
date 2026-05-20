@@ -261,6 +261,7 @@ $ quasar build -h
                       - Capacitor (it only fills in /src-capacitor/www folder with the UI code)
                       - Electron (it only creates the /dist/electron/UnPackaged folder)
                       - BEX (it only creates the /dist/bex-* folder)
+    --nosummary     Don't output build summary at the end of the process
     --nocolor       Disable colored output
     --help, -h      Displays this message
 

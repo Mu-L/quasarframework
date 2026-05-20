@@ -8,7 +8,6 @@ import {
   green,
   inverse,
   red,
-  underline,
   white,
   yellow
 } from 'kolorist'
@@ -142,7 +141,7 @@ export function aeFatal(extId, message) {
  */
 
 export function progress({ tool, waitAction, doneAction, target }) {
-  const targetBanner = target ? ' ' + underline(green(target)) : ''
+  const targetBanner = target ? ` <${target}>` : ''
   info(`${tool} ${dot} ${waitAction}${targetBanner}`, 'WAIT')
 
   const startTime = Date.now()

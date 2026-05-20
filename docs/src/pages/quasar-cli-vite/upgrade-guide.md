@@ -181,7 +181,7 @@ We've also massively upgraded the dev setup for AEs. You might want to do a top 
 
 - 🛣️ Vue Router: First-class support for the [filename-based routing](/quasar-cli-vite/page-routing-with-vue-router#filename-based-routing).
 
-- 🛠️ Modernized Core: The codebase has been updated to take full advantage of Node.js v22+ features, alongside countless other small but significant improvements across all Quasar modes to boost your productivity.
+- 🛠️ Modernized Core: The codebase has been updated to take full advantage of Node.js v22+ features, alongside countless other small but significant improvements across all Quasar modes to boost your productivity. The CLI uses significantly less dependencies.
 
 ## Start the upgrade
 
@@ -916,9 +916,19 @@ We now have first-class support for Vue Router's filename-based routing.
 
 You might want to [give it a try](/quasar-cli-vite/page-routing-with-vue-router#filename-based-routing).
 
-### New CLI option: --nocolor
+### New CLI command options
+
+#### For all commands: --nocolor
 
 By default, all CLI commands output colored text in the terminal (when not running in a CI environment). Should you wish to avoid this, use the `--nocolor` when you run any of the CLI commands.
+
+#### For build command: --nosummary
+
+Should you want your build to skip printing the build summary (and thus being slightly faster) after building your app:
+
+```bash
+$ quasar build --nosummary
+```
 
 ### Running AE commands
 
@@ -948,6 +958,10 @@ You may want to add a CSP meta tag in your `/index.html`. This is especially use
   </head>
 </html>
 ```
+
+::: tip
+This works great with Oxlint and Oxfmt. However, the above might need a bit of tweaking when using ESLint and vite-plugin-checker.
+:::
 
 ## Final Note
 

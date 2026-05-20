@@ -59,6 +59,8 @@ export class AppBuilder extends AppTool {
   }
 
   printSummary(folder, showGzipped) {
-    printBuildSummary(folder, showGzipped)
+    if (!this.argv.nosummary) {
+      printBuildSummary(folder, showGzipped)
+    }
   }
 }

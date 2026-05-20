@@ -13,6 +13,7 @@ const argv = getArgv({
   ide: { type: 'boolean', short: 'i' },
   debug: { type: 'boolean', short: 'd' },
   publish: { type: 'string', short: 'P' },
+  nosummary: { type: 'boolean' },
   nocolor: { type: 'boolean' },
   help: { type: 'boolean', short: 'h' }
 })
@@ -56,6 +57,7 @@ if (argv.help) {
                       - Capacitor (it only fills in /src-capacitor/www folder with the UI code)
                       - Electron (it only creates the /dist/electron/UnPackaged folder)
                       - BEX (it only creates the /dist/bex-* folder)
+    --nosummary     Don't output build summary at the end of the process
     --nocolor       Disable colored output
     --help, -h      Displays this message
 

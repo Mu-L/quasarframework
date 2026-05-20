@@ -24,7 +24,7 @@ export async function displayBanner({ argv, ctx, cmd, details }) {
   let banner = ''
 
   if (details?.buildOutputFolder) {
-    banner += ` ${underline('Build succeeded')}\n`
+    banner += `\n ${underline('Build succeeded')}\n`
   }
 
   banner += `
