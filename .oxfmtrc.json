@@ -19,6 +19,7 @@
     "extras/roboto-*/",
     "extras/themify/",
 
+    "create-quasar/templates/",
     "!create-quasar/templates/**/create-quasar-script.js",
 
     "utils/render-ssr-error/compiled-assets/"
