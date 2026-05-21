@@ -380,7 +380,7 @@ devServer: {
 
 ### build
 
-````ts
+```ts
 import { Plugin, UserConfig as ViteUserConfig } from 'vite'
 import { Options as VuePluginOptions } from '@vitejs/plugin-vue'
 import { CompilerOptions, TypeAcquisition } from 'typescript'
@@ -547,24 +547,20 @@ interface QuasarStaticBuildConfiguration {
    * return a new one that will be merged with the default one.
    *
    * @example
-   * ```js
    * // return overrides
    * extendViteConf: (config) => ({
    *   optimizeDeps: {
    *     include: ['some-package']
    *   }
    * })
-   * ```
    *
    * @example
-   * ```js
    * // directly modify the config object
    * extendViteConf(config) {
    *   config.optimizeDeps ||= {}
    *   config.optimizeDeps.include ||= []
    *   config.optimizeDeps.include.push('some-package)
    * }
-   * ```
    */
   extendViteConf?: (
     config: ViteUserConfig,
@@ -879,7 +875,7 @@ interface QuasarDynamicBuildConfiguration {
    */
   sourcemap?: boolean | 'inline' | 'hidden'
 }
-````
+```
 
 See these references for more info:
 

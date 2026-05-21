@@ -164,24 +164,20 @@ interface QuasarStaticBuildConfiguration {
    * return a new one that will be merged with the default one.
    *
    * @example
-   * ```js
    * // return overrides
    * extendViteConf: (config) => ({
    *   optimizeDeps: {
    *     include: ['some-package']
    *   }
    * })
-   * ```
    *
    * @example
-   * ```js
    * // directly modify the config object
    * extendViteConf(config) {
    *   config.optimizeDeps ||= {}
    *   config.optimizeDeps.include ||= []
    *   config.optimizeDeps.include.push('some-package)
    * }
-   * ```
    */
   extendViteConf?: (
     config: ViteUserConfig,
