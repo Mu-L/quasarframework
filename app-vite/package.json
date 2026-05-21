@@ -50,19 +50,7 @@
       "import": "./exports/wrappers.js"
     },
     "./client": {
-      "types": "./types/client/src.d.ts"
-    },
-    "./client/bex": {
-      "types": "./types/client/src-bex.d.ts"
-    },
-    "./client/electron": {
-      "types": "./types/client/src-electron.d.ts"
-    },
-    "./client/pwa": {
-      "types": "./types/client/src-pwa.d.ts"
-    },
-    "./client/ssr": {
-      "types": "./types/client/src-ssr.d.ts"
+      "types": "./types/client.d.ts"
     },
     "./package.json": "./package.json",
     "./bin/quasar": {

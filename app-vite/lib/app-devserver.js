@@ -41,7 +41,8 @@ export class AppDevserver extends AppTool {
 
     this.registerDiff('types', quasarConf => [
       quasarConf.build.typescript,
-      quasarConf.build.alias
+      quasarConf.build.alias,
+      quasarConf.build.define
     ])
 
     this.registerDiff('viteUrl', quasarConf => [quasarConf.metaConf.APP_URL])

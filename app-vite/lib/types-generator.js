@@ -191,10 +191,7 @@ function generateTsConfig(quasarConf, fsUtils) {
       paths
     },
     // include and exclude are relative to .quasar
-    include: [
-      './**/*.d.ts', // Since .quasar starts with a dot, it won't be included by default
-      './../**/*'
-    ],
+    include: ['./*.d.ts', './../**/*'],
     exclude: [
       './../dist',
       './../node_modules',
@@ -267,16 +264,15 @@ function writeFeatureFlags(quasarConf, fsUtils) {
   fsUtils.writeFileSync('feature-flags.d.ts', contents)
 }
 
-/*
-  Load app-vite's augmentations for `quasar` package.
-  It will augment CLI-specific features.
-
-  Load Vite's client types, see https://vitejs.dev/guide/features#client-types
-*/
+/**
+ * Load q/app-vite's augmentations for `quasar` package.
+ * It will augment CLI-specific features, including
+ * import.meta.env interface.
+ * It also loads vite's client types.
+ */
 const declarationsTemplate = `/* oxlint-disable */
 /// <reference types="@quasar/app-vite" />
-
-/// <reference types="vite/client" />
+/// <reference types="@quasar/app-vite/client" />
 `
 
 // Mocks all files ending in `.vue` showing them as plain Vue instances
@@ -298,11 +294,30 @@ declare module 'pinia' {
 }
 `
 
+function getImportMetaEnvDeclaration(quasarConf) {
+  const keys = Object.keys(quasarConf.build.define).filter(
+    key =>
+      key.startsWith('import.meta.env.') &&
+      !key.startsWith('import.meta.env.QUASAR_')
+  )
+
+  if (keys.length === 0) return ''
+
+  const declarations = keys
+    .map(key => `  readonly ${key.replace('import.meta.env.', '')}: string;`)
+    .join('\n')
+
+  return `\ninterface ImportMetaEnv {\n${declarations}\n}\n`
+}
+
 /**
  * @param {import('../types/configuration/conf').ResolvedQuasarConf} quasarConf
  */
 function writeDeclarations(quasarConf, fsUtils) {
-  fsUtils.writeFileSync('quasar.d.ts', declarationsTemplate)
+  fsUtils.writeFileSync(
+    'quasar.d.ts',
+    declarationsTemplate + getImportMetaEnvDeclaration(quasarConf)
+  )
 
   if (quasarConf.build.typescript.vueShim) {
     fsUtils.writeFileSync('shims-vue.d.ts', vueShimsTemplate)
