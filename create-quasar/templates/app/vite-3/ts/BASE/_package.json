@@ -28,7 +28,7 @@
     <% if (scope.linter === 'oxlint') { %>
     "oxfmt": "^0.x",
     "oxlint": "^1.63.0",
-    "oxlint-tsgolint": "^0.22.1",
+    "oxlint-tsgolint": "^0.x",
     <% } else if (scope.linter === 'eslint') { %>
     "@eslint/js": "^9.39.4",
     "eslint": "^9.39.4",

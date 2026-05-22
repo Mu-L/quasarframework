@@ -19,7 +19,7 @@
 <% if (scope.preset.oxlint) { %>
     "oxfmt": "^0.x",
     "oxlint": "^1.63.0",
-    "oxlint-tsgolint": "^0.22.1",
+    "oxlint-tsgolint": "^0.x",
 <% } %>
     "typescript": "npm:@typescript/native-preview@beta"
   },
