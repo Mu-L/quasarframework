@@ -31,8 +31,7 @@ Also create these files:
   "extends": "../tsconfig.json",
   "compilerOptions": {
     "lib": ["WebWorker", "ESNext"]
-  },
-  "include": ["*.ts", "*.d.ts"]
+  }
 }
 ```
 
