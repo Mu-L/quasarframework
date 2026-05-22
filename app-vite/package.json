@@ -1,6 +1,6 @@
 {
   "name": "@quasar/app-vite",
-  "version": "3.0.0-beta.20",
+  "version": "3.0.0-beta.21",
   "description": "Quasar Framework App CLI with Vite",
   "keywords": [
     "cli",
@@ -81,7 +81,7 @@
       "node": "./exports/eslint/eslint.js",
       "import": "./exports/eslint/eslint.js"
     },
-    "./lib/testing.js": {
+    "./testing": {
       "import": "./exports/testing/testing.js"
     }
   },
