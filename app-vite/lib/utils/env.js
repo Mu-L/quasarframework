@@ -79,24 +79,28 @@ function getEnvFilesPrefix({ prefix, defaultPrefix, banner }) {
   return validPrefixList
 }
 
-function convertArrayOrStringToArray(value) {
+function convertFileToArray(value) {
   if (Array.isArray(value)) return value
-  return value ? [value] : []
+  return typeof value === 'string' ? [value] : []
+}
+
+function convertFolderToArray(value, appDir) {
+  if (Array.isArray(value)) return value.length !== 0 ? value : [appDir]
+  return typeof value === 'string' ? [value] : [appDir]
 }
 
 export function getQuasarConfEnv({ ctx, envCfg, useSnapshot }) {
   const localEnv = merge(
     {
       // prefix: defaultQuasarConfEnvPrefix,
-      folder: ctx.appPaths.appDir
-      // file: []
+      // folder: ctx.appPaths.appDir | string[]
+      // file: string | string[]
     },
     envCfg
   )
 
   const fileList = isCI ? ['.env'] : ['.env', '.env.local']
-  const additionalFiles = convertArrayOrStringToArray(localEnv.file)
-
+  const additionalFiles = convertFileToArray(localEnv.file)
   if (additionalFiles.length !== 0) {
     // additional user-defined env files
     fileList.push(...additionalFiles)
@@ -106,7 +110,7 @@ export function getQuasarConfEnv({ ctx, envCfg, useSnapshot }) {
   const { rawFileEnv, watchEnvFiles, usedEnvFiles } = getFileEnvResult({
     appDir,
     fileList,
-    folderList: convertArrayOrStringToArray(localEnv.folder)
+    folderList: convertFolderToArray(localEnv.folder, ctx.appPaths.appDir)
   })
 
   const prefix = getEnvFilesPrefix({
@@ -133,8 +137,8 @@ export function getQuasarConfEnv({ ctx, envCfg, useSnapshot }) {
       : null,
     envBanner: `${prefix ? `prefix ${prefixLabel}` : 'no env prefix'}; ${
       usedEnvFiles.length !== 0
-        ? `files: ${usedEnvFiles.join(' | ')}`
-        : `no env files`
+        ? `dotenv files: ${usedEnvFiles.join(' | ')}`
+        : `no dotenv files`
     }`
   }
 }
@@ -146,17 +150,16 @@ export function getAppEnv({ ctx, envCfg, useSnapshot }) {
   const localEnv = merge(
     {
       clientPrefix: defaultClientAppEnvPrefix,
-      backendPrefix: defaultBackendAppEnvPrefix,
-      folder: ctx.appPaths.appDir
-      // file: []
+      backendPrefix: defaultBackendAppEnvPrefix
+      // folder: ctx.appPaths.appDir | string[]
+      // file: string | string[]
       // filter: (key, value) => true
     },
     envCfg
   )
 
   const fileList = isCI ? ['.env'] : ['.env', '.env.local']
-  const additionalFiles = convertArrayOrStringToArray(localEnv.file)
-
+  const additionalFiles = convertFileToArray(localEnv.file)
   if (additionalFiles.length !== 0) {
     // additional user-defined env files
     fileList.push(...additionalFiles)
@@ -166,7 +169,7 @@ export function getAppEnv({ ctx, envCfg, useSnapshot }) {
   const { rawFileEnv, watchEnvFiles, usedEnvFiles } = getFileEnvResult({
     appDir,
     fileList,
-    folderList: convertArrayOrStringToArray(localEnv.folder)
+    folderList: convertFolderToArray(localEnv.folder, ctx.appPaths.appDir)
   })
 
   const clientPrefix = getEnvFilesPrefix({
@@ -208,8 +211,8 @@ export function getAppEnv({ ctx, envCfg, useSnapshot }) {
     `${clientPrefix ? `Client code prefix: ${clientPrefixLabel}` : 'No client code prefix'}; ` +
     backendBanner +
     (usedEnvFiles.length !== 0
-      ? `files: ${usedEnvFiles.join(' | ')}`
-      : 'no files')
+      ? `dotenv files: ${usedEnvFiles.join(' | ')}`
+      : `no dotenv files`)
 
   if (typeof localEnv.filter === 'function') {
     result.clientEnvDefineList =
@@ -261,7 +264,7 @@ function getFileEnvResult({ appDir, fileList, folderList }) {
     return {
       rawFileEnv: { ...process.env },
       watchEnvFiles,
-      usedEnvFiles: []
+      usedEnvFiles
     }
   }
 
