@@ -1,6 +1,7 @@
 import fse from 'fs-extra'
 
 import { createPromptSession, fatal, log, warn } from '../../utils/logger.js'
+
 import { spawnSync } from '../../utils/spawn.js'
 import { ensureConsistency, ensureWWW } from './cordova-consistency.js'
 import { isModeInstalled } from '../modes-utils.js'
@@ -75,7 +76,7 @@ export async function addMode({
   promptSession.note(
     'If developing for iOS, it is HIGHLY recommended that you' +
       '\ninstall the Ionic Webview Plugin.' +
-      '\n\nhttps://quasar.dev/quasar-cli/developing-cordova-apps/preparation',
+      `\n\n${green('https://quasar.dev/quasar-cli/developing-cordova-apps/preparation')}`,
     'WARNING!'
   )
 

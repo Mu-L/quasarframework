@@ -60,7 +60,8 @@ api.extendSSRPackageJson: (
  * Extend/configure the Workbox GenerateSW options
  * Specify Workbox options which will be applied on top of
  *  `pwa > extendPWAGenerateSWOptions()`.
- * More info: https://developer.chrome.com/docs/workbox/the-ways-of-workbox/
+ *
+ * https://developer.chrome.com/docs/workbox/the-ways-of-workbox/
  *
  * Can directly modify the "config" parameter or
  * return a new one that will be merged with the default one.
@@ -74,7 +75,8 @@ api.extendSSRGenerateSWOptions: (
  * Extend/configure the Workbox InjectManifest options
  * Specify Workbox options which will be applied on top of
  *  `pwa > extendPWAInjectManifestOptions()`.
- * More info: https://developer.chrome.com/docs/workbox/the-ways-of-workbox/
+ *
+ * https://developer.chrome.com/docs/workbox/the-ways-of-workbox/
  *
  * Can directly modify the "config" parameter or
  * return a new one that will be merged with the default one.
@@ -656,7 +658,7 @@ async function createWindow () {
     useContentSize: true,
     webPreferences: {
       contextIsolation: true,
-      // More info: https://v2.quasar.dev/quasar-cli-vite/developing-electron-apps/electron-preload-script
+      // https://v2.quasar.dev/quasar-cli-vite/developing-electron-apps/electron-preload-script
       preload: path.join(import.meta.dirname, 'electron-preload.cjs')
     }
   })
@@ -718,7 +720,7 @@ async function createWindow() {
     useContentSize: true,
     webPreferences: {
       contextIsolation: true,
-      // More info: https://v2.quasar.dev/quasar-cli-vite/developing-electron-apps/electron-preload-script
+      // https://v2.quasar.dev/quasar-cli-vite/developing-electron-apps/electron-preload-script
       preload: path.join(import.meta.dirname, "electron-preload.cjs")
     }
   });

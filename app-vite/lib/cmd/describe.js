@@ -170,7 +170,7 @@ function printProp(prop, propName, indentLevel) {
     console.log(`${indent}".sync" modifier required!`)
   }
   if (prop.link) {
-    console.log(`${indent}Link: ${prop.link}`)
+    console.log(`${indent}Link: ${green(prop.link)}`)
   }
   if (prop.values) {
     console.log(`${indent}Accepted values: ${prop.values.join(' | ')}`)
@@ -515,7 +515,7 @@ async function run() {
         openBrowser({ url: api.meta.docsUrl, wait: false })
       } else {
         console.log(
-          ' Please report this issue to: https://github.com/quasarframework/quasar/issues/'
+          ` Please report this issue to: ${green('https://github.com/quasarframework/quasar/issues/')}`
         )
         console.log(
           ' Write down the command that you tried along with a complete log of "quasar info" command output'

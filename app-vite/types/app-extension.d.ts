@@ -240,7 +240,8 @@ export interface IndexAPI extends BaseAPI, SharedIndexInstallAPI {
    * Extend/configure the Workbox GenerateSW options
    * Specify Workbox options which will be applied on top of
    *  `pwa > extendPWAGenerateSWOptions()`.
-   * More info: https://developer.chrome.com/docs/workbox/the-ways-of-workbox/
+   *
+   * https://developer.chrome.com/docs/workbox/the-ways-of-workbox/
    *
    * Can directly modify the "config" parameter or
    * return a new one that will be merged with the default one.
@@ -256,7 +257,8 @@ export interface IndexAPI extends BaseAPI, SharedIndexInstallAPI {
    * Extend/configure the Workbox InjectManifest options
    * Specify Workbox options which will be applied on top of
    *  `pwa > extendPWAInjectManifestOptions()`.
-   * More info: https://developer.chrome.com/docs/workbox/the-ways-of-workbox/
+   *
+   * https://developer.chrome.com/docs/workbox/the-ways-of-workbox/
    *
    * Can directly modify the "config" parameter or
    * return a new one that will be merged with the default one.
