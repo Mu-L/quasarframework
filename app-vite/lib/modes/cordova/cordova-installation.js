@@ -1,4 +1,5 @@
 import fse from 'fs-extra'
+import { green } from 'kolorist'
 
 import { createPromptSession, fatal, log, warn } from '../../utils/logger.js'
 

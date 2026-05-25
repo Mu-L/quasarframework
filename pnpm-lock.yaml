@@ -266,7 +266,7 @@ importers:
         version: 5.0.7(@vue/compiler-sfc@3.5.34)(pinia@3.0.4(typescript@6.0.3)(vue@3.5.34(typescript@6.0.3)))(vue@3.5.34(typescript@6.0.3))
     devDependencies:
       '@quasar/app-vite':
-        specifier: ^3.0.0-beta.25
+        specifier: ^3.0.0-beta.26
         version: link:../app-vite
       fs-extra:
         specifier: ^11.3.5
