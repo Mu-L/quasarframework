@@ -85,7 +85,7 @@
     "postcss": "^8.5.15",
     "postcss-rtlcss": "^6.0.0",
     "rolldown": "^1.0.2",
-    "sass-embedded": "^1.98.0",
+    "sass-embedded": "^1.100.0",
     "table": "^6.8.2",
     "tinyglobby": "^0.2.16",
     "vue": "catalog:",
