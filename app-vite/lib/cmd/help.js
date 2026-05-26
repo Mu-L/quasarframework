@@ -1,10 +1,7 @@
-import { readFileSync } from 'node:fs'
-
-console.log(
-  readFileSync(new URL('../../assets/logo.art', import.meta.url), 'utf8')
-)
-
+import { showCliBanner } from '@quasar/art'
 import { cliPkg } from '../utils/cli-runtime.js'
+
+showCliBanner()
 
 if (process.env.QUASAR_CLI_VERSION) {
   console.log('  Running @quasar/cli v' + process.env.QUASAR_CLI_VERSION)

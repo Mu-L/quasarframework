@@ -7,11 +7,10 @@ if (
   process.env.FORCE_COLOR = '0'
 }
 
-// oxlint-disable-next-line import/no-unassigned-import
-import '../lib/utils/node-version-check.js'
+await import('../lib/utils/node-version-check.js')
 
-import updateNotifier from 'update-notifier'
-import { packageJson } from '../lib/utils/package-json.js'
+const { default: updateNotifier } = await import('update-notifier')
+const { packageJson } = await import('../lib/utils/package-json.js')
 
 updateNotifier({ pkg: packageJson }).notify()
 
@@ -56,5 +55,7 @@ if (cmd) {
   cmd = 'help'
 }
 
-console.log()
+const { showCliBanner } = await import('@quasar/art')
+showCliBanner()
+
 import(`../lib/cmd/${cmd}.js`)

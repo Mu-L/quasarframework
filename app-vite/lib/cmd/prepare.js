@@ -28,15 +28,12 @@ if (argv.help) {
   process.exit(0)
 }
 
-const { readFileSync } = await import('node:fs')
-const { supressLogger } = await import('../utils/logger.js')
-
 if (argv.silent) {
+  const { supressLogger } = await import('../utils/logger.js')
   supressLogger()
 } else {
-  console.log(
-    readFileSync(new URL('../../assets/logo.art', import.meta.url), 'utf8')
-  )
+  const { showCliBanner } = await import('@quasar/art')
+  showCliBanner()
 }
 
 const { getCtx } = await import('../utils/get-ctx.js')

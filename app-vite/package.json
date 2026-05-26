@@ -1,6 +1,6 @@
 {
   "name": "@quasar/app-vite",
-  "version": "3.0.0-beta.27",
+  "version": "3.0.0-beta.28",
   "description": "Quasar Framework App CLI with Vite",
   "keywords": [
     "cli",
@@ -97,6 +97,7 @@
   },
   "dependencies": {
     "@clack/prompts": "^1.4.0",
+    "@quasar/art": "workspace:^",
     "@quasar/render-ssr-error": "workspace:^",
     "@quasar/ssl-certificate": "workspace:^",
     "@quasar/vite-plugin": "workspace:^",

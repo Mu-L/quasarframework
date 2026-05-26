@@ -3,11 +3,19 @@
 import { join } from 'node:path'
 import { parseArgs } from 'node:util'
 
+if (
+  process.argv.includes('--nocolor') ||
+  (await import('ci-info').then(({ isCI }) => isCI))
+) {
+  process.env.FORCE_COLOR = '0'
+}
+
 function getArgv() {
   try {
     return parseArgs({
       options: {
-        nogit: { type: 'boolean', alias: 'n', default: false }
+        nogit: { type: 'boolean', alias: 'n', default: false },
+        nocolor: { type: 'boolean' }
       },
       strict: true,
       allowPositionals: true

@@ -1,12 +1,11 @@
-import { existsSync, readFileSync, readdirSync } from 'node:fs'
+import { existsSync, readdirSync } from 'node:fs'
 import { join } from 'node:path'
+import { showCliBanner } from '@quasar/art'
 
 import utils from './utils.js'
 
 export async function createProjectFolder(scope) {
-  // display banner
-  console.log()
-  console.log(readFileSync(new URL('assets/logo.art', import.meta.url), 'utf8'))
+  showCliBanner()
 
   // should error out if already inside of a Quasar project
   utils.ensureOutsideProject()

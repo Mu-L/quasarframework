@@ -10,6 +10,7 @@ packages:
   - ui/testing
   - create-quasar
   - cli
+  - utils/art
   - utils/render-ssr-error
   - utils/ssl-certificate
   - docs

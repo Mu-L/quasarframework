@@ -84,15 +84,11 @@ if (argv.help) {
   process.exit(0)
 }
 
+const { showCliBanner } = await import('@quasar/art')
+showCliBanner()
+
 const { ensureArgv } = await import('../utils/ensure-argv.js')
 ensureArgv(argv, 'build')
-
-const path = await import('node:path')
-const { readFileSync } = await import('node:fs')
-
-console.log(
-  readFileSync(new URL('../../assets/logo.art', import.meta.url), 'utf8')
-)
 
 const { getCtx } = await import('../utils/get-ctx.js')
 const ctx = getCtx({
@@ -171,7 +167,8 @@ appBuilder
     }
 
     if (argv.mode === 'cordova') {
-      outputFolder = path.join(outputFolder, '..')
+      const { join } = await import('node:path')
+      outputFolder = join(outputFolder, '..')
     }
 
     await displayBanner({

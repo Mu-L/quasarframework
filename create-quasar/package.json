@@ -28,6 +28,8 @@
   },
   "dependencies": {
     "@clack/prompts": "^1.4.0",
+    "@quasar/art": "workspace:^",
+    "ci-info": "^4.4.0",
     "cross-spawn": "^7.0.6",
     "fs-extra": "^11.3.5",
     "kolorist": "^1.8.0",

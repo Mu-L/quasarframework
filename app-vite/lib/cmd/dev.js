@@ -61,14 +61,11 @@ if (argv.help) {
   process.exit(0)
 }
 
+const { showCliBanner } = await import('@quasar/art')
+showCliBanner()
+
 const { ensureArgv } = await import('../utils/ensure-argv.js')
 ensureArgv(argv, 'dev')
-
-const { readFileSync } = await import('node:fs')
-
-console.log(
-  readFileSync(new URL('../../assets/logo.art', import.meta.url), 'utf8')
-)
 
 async function startVueDevtools(ctx, devtoolsPort) {
   const {

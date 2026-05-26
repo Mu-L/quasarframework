@@ -46,6 +46,7 @@
     "access": "public"
   },
   "dependencies": {
+    "@quasar/art": "^1.0.0",
     "ci-info": "^4.4.0",
     "cross-spawn": "^7.0.6",
     "elementtree": "^0.1.7",
