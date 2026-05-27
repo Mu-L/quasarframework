@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "@quasar/extras": "workspace:*",
-    "quasar": "workspace:^",
+    "quasar": "workspace:*",
     "vue": "catalog:"
   },
   "devDependencies": {

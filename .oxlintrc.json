@@ -98,6 +98,7 @@
     "unicorn/filename-case": "off",
     "unicorn/prefer-global-this": "off",
     "unicorn/number-literal-case": "off", // conflicts with oxfmt
+    "unicorn/import-style": "off",
 
     /** Performance rule overrides */
     "no-await-in-loop": "off",
@@ -188,7 +189,8 @@
       "plugins": ["node"],
       "rules": {
         "import/first": "off",
-        "node/no-process-env": "off"
+        "node/no-process-env": "off",
+        "node/callback-return": "off"
       }
     },
 
