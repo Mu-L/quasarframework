@@ -724,8 +724,13 @@ export class QuasarConfigFile {
           vitePlugins: [],
           define: {},
           defineEnv: {},
-          env: {},
-          resolve: {},
+          env: {
+            file: [],
+            folder: [],
+            ignoreType: []
+          },
+          alias: {},
+          typescript: {},
           htmlMinifyOptions: {}
         },
 
@@ -994,10 +999,7 @@ export class QuasarConfigFile {
 
         env: {
           clientPrefix: defaultClientAppEnvPrefix,
-          backendPrefix: defaultBackendAppEnvPrefix,
-          file: [],
-          folder: [],
-          ignoreType: []
+          backendPrefix: defaultBackendAppEnvPrefix
         },
 
         alias: {
