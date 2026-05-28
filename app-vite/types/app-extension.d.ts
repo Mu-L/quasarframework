@@ -19,8 +19,6 @@ type GetPersistentConfHandler = () => Record<string, unknown>;
 type HasExtensionHandler = (extId: string) => boolean;
 
 interface BaseAPI {
-  readonly engine: "@quasar/app-vite";
-
   /**
    * Quasar ctx (context) object.
    * @type ctx {@link QuasarContext}
@@ -33,9 +31,6 @@ interface BaseAPI {
    */
   readonly resolve: QuasarAppPathsResolve;
   readonly appDir: string;
-
-  readonly hasVite: true;
-  readonly hasWebpack: false;
 
   /**
    * Does the host app have TypeScript support?

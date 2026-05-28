@@ -1,12 +1,6 @@
-import { cliPkg } from '../../utils/cli-runtime.js'
 import { getPackagePath } from '../../utils/get-package-path.js'
 
 export class BaseAPI {
-  engine = cliPkg.name
-
-  hasWebpack = false
-  hasVite = true
-
   ctx
   extId
   resolve

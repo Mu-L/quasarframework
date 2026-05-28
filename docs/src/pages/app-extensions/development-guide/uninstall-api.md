@@ -17,7 +17,7 @@ export default defineUninstallScript((/* api */) => {})
 ::: warning
 You may be used to importing defineX() functions from `#q-app`. When writing an App Extension, import from `@quasar/app-vite` instead. This is not a mistake and is actually required.<br><br>
 
-On a Quasar CLI project's own code, the `#q-app` is just an alias to `@quasar/app-vite` (or legacy `@quasar/app-webpack`, depending on the project). However, since the AE scripts are imported as-is from within the Node.js context, no such alias can be registered.
+On a Quasar CLI project's own code, the `#q-app` is just an alias to `@quasar/app-vite`. However, since the AE scripts are imported as-is from within the Node.js context, no such alias can be registered.
 :::
 
 ## The API param
@@ -56,18 +56,6 @@ Same as the `ctx` from the `/quasar.config` file.
   }
 }
 ```
-
-### api.engine
-
-Contains the Quasar CLI engine (as String) being used. Example: `@quasar/app-vite` (or legacy `@quasar/app-webpack`).
-
-### api.hasVite
-
-Boolean - is running on `@quasar/app-vite` or not.
-
-### api.hasWebpack <q-badge label="legacy" />
-
-Boolean - is running on `@quasar/app-webpack` or not.
 
 ### api.extId
 

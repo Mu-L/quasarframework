@@ -10,7 +10,7 @@ For older versions, please refer to [https://legacy-app.quasar.dev](https://lega
 
 ## A note to App Extensions owners
 
-You might want to release new versions of your Quasar App Extensions with support for the new @quasar/app-vite. If you are not touching the quasar.config configuration, then it will be as easy as just changing the following:
+You might want to release new versions of your Quasar App Extensions with support for the new `@quasar/app-vite`. If you are not touching the quasar.config configuration, then it will be as easy as just changing the following:
 
 ```diff
 api.compatibleWith(
@@ -20,7 +20,11 @@ api.compatibleWith(
 )
 ```
 
-Removed `api.hasLint()`.
+::: warning
+The changes to the engine behind App Extensions will only be compatible with @quasar/app-vite v3+ going forward. You will have to drop support for @quasar/app-vite v2 and @quasar/app-webpack (any version).
+:::
+
+Removed `api.engine`, `api.hasVite`, `api.hasWebpack` and `api.hasLint`.
 
 All `api.extendX(fn, api)` methods can now be async and optionally return a (Rolldown/etc) config that will be merged with the default one.
 
