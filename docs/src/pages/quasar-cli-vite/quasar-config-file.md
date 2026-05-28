@@ -620,10 +620,23 @@ interface QuasarStaticBuildConfiguration {
   /**
    * @see https://v2.quasar.dev/quasar-cli-vite/handling-vite#folder-aliases
    *
+   * Quasar CLI automatically injects the following aliases:
+   *   - `#q-app` to the Quasar CLI itself
+   *   - `@/` to the /src directory
+   *
+   * Use only absolute paths. You can use ctx.appPaths for it,
+   * for example: `ctx.appPaths.srcDir` or `ctx.appPaths.resolve.app('src/locales')`.
+   *
    * @example
    * {
    *   // import { ... } from 'locales/...'
-   *   locales: path.join(__dirname, 'src/locales')
+   *   locales: ctx.appPaths.resolve.app('src/locales')
+   * }
+   *
+   * @example
+   * {
+   *   // import { ... } from 'locales/...'
+   *   locales: path.join(import.meta.dirname, 'src/locales')
    * }
    */
   alias?: { [key: string]: string }

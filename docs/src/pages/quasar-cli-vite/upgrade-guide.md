@@ -251,6 +251,45 @@ Make sure you also have Vue Router v5+ too, which is now the minimum version req
 
 Do a global search for `#q-app/wrappers` and replace with `#q-app`.
 
+In an effort to better align with the Vue ecosystem, Quasar CLI now injects only one alias: `@/`. So please do a global search and replace in your code on your `import` statements like below. Alternatively, you can inject the old aliases yourself (take a look below the table to find out how).
+
+| Alias         | Status   | Description                                                                                                             |
+| ------------- | -------- | ----------------------------------------------------------------------------------------------------------------------- |
+| `@/`          | **New!** | Points to `/src` and replaces the old `src` alias.                                                                      |
+| `app/`        | Removed  | Replace import to `@/../`                                                                                               |
+| `src/`        | Removed  | Replace import to `@/`                                                                                                  |
+| `components/` | Removed  | Replace import to `@/components/`                                                                                       |
+| `layouts/`    | Removed  | Replace import to `@/layouts/`                                                                                          |
+| `pages/`      | Removed  | Replace import to `@/pages/`                                                                                            |
+| `assets/`     | Removed  | Replace import to `@/assets/`. Replace `~assets/...` in your .vue files in `<template>` section to `~@/assets/...` too! |
+| `boot/`       | Removed  | Replace code using it by `@/boot/`                                                                                      |
+| `stores/`     | Removed  | Replace code using it by `@/stores/`                                                                                    |
+
+::: tip Alternative to alias changes
+Should you want, you can inject the old aliases yourself and avoid the necessary changes above:
+<br><br>
+
+```js /quasar.config file
+import { defineConfig } from '#q-app'
+
+export default defineConfig(ctx => ({
+  build: {
+    alias: {
+      src: ctx.appPaths.srcDir,
+      app: ctx.appPaths.appDir,
+      components: ctx.appPaths.resolve.src('components'),
+      layouts: ctx.appPaths.resolve.src('layouts'),
+      pages: ctx.appPaths.resolve.src('pages'),
+      assets: ctx.appPaths.resolve.src('assets'),
+      boot: ctx.appPaths.resolve.src('boot'),
+      stores: ctx.appPaths.resolve.src('stores')
+    }
+  }
+}))
+```
+
+:::
+
 Do a global search for `process.env` and replace with `import.meta.env`. For the Quasar supplied constants, you will need to prefix them with `QUASAR_` too. Here's a list:
 
 ```diff process.env -> import.meta.env
@@ -581,7 +620,7 @@ You can read about [Handling import.meta.env](/quasar-cli-vite/handling-import-m
 
 ### Install new deps
 
-Then yarn/npm/pnpm/bun install in root folder and each `/src-<mode>` one and run `quasar prepare` in the root folder. Restart your IDE to make sure the new dependencies have been correctly picked up.
+Then yarn/npm/pnpm/bun install in the root folder and run `quasar prepare`. Restart your IDE to make sure the new dependencies have been correctly picked up.
 
 Make sure to update your `/quasar.config` file with the newest specs in order to satisfy the types. Check all following sections.
 

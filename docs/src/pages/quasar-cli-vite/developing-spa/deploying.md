@@ -243,6 +243,7 @@ $ bun add express serve-static connect-history-api-fallback
 Now that we have installed the required dependencies, we can add our server. Create a file called `server.js` in the root directory of your project.
 
 ```js
+import path from 'node:path'
 import express from 'express'
 import serveStatic from 'serve-static'
 import history from 'connect-history-api-fallback'
@@ -251,7 +252,7 @@ const port = process.env.PORT || 5000
 const app = express()
 
 app.use(history())
-app.use(serveStatic(__dirname + '/dist/spa'))
+app.use(serveStatic(path.join(import.meta.dirname, '/dist/spa')))
 app.listen(port)
 ```
 
