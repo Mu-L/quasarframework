@@ -268,7 +268,7 @@ importers:
   docs:
     dependencies:
       '@quasar/extras':
-        specifier: ^2.0.0-beta.1
+        specifier: ^2.0.0
         version: link:../extras
       prismjs:
         specifier: ^1.29.0
