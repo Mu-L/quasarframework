@@ -32,7 +32,8 @@ Works great along with [QTabPanels](/vue-components/tab-panels), a component whi
 - On a desktop you will see chevrons on either side that can be clicked.
 - On a mobile, you can pan the tabs with your finger.
 - If you want to force arrows to be visible on mobile use `mobile-arrows` prop.
-  :::
+
+:::
 
 ::: warning
 QRouteTab won't and cannot work with the UMD version if you don't also install Vue Router.

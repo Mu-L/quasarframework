@@ -247,7 +247,8 @@ Notice the infinite scroll in place which renders additional options as the user
 
 - (Composition API) To get the best performance while using lots of options, do not wrap the array that you are passing in the `options` prop with ref()/computed()/reactive()/etc. This allows Vue to skip making the list "responsive" to changes.
 - (Options API) To get the best performance while using lots of options, freeze the array that you are passing in the `options` prop using `Object.freeze(items)`. This allows Vue to skip making the list "responsive" to changes.
-  :::
+
+:::
 
 <DocExample title="100k options" file="RenderPerf" />
 

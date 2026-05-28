@@ -14,7 +14,8 @@ We will be using `client code` and `backend code` on this page:
 
 - The backend code refers to the /quasar.config file and the code that your client users don't have access to, like the SSR Webserver or SSR Server code.
 - The client code refers to code that is being shipped to your client, like /src, /src-pwa, /src-electron, SSR Client etc.
-  :::
+
+:::
 
 ## Values provided by Quasar CLI
 

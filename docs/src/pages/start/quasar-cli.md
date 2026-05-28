@@ -27,7 +27,8 @@ You will also be able to use the command line, so it will be almost identical to
 
 - Node.js v22+
 - Yarn v1 (classic), PNPM, NPM or Bun
-  :::
+
+:::
 
 ```tabs
 <<| bash PNPM |>>
@@ -54,7 +55,8 @@ Pick `App with Quasar CLI`.
 
 - Node.js v22+ for Quasar CLI.
 - Yarn v1 (classic), PNPM, NPM or Bun.
-  :::
+
+:::
 
 1. Let's create a Quasar app:
 

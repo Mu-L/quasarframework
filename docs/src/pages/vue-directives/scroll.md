@@ -13,7 +13,8 @@ This is a Vue directive which takes one parameter (a Function) and fires when us
 
 - One alternative to using this directive is to place a [QScrollObserver](/vue-components/scroll-observer) component on your page.
 - There is one more scrolling-related directive available called [Scroll Fire](/vue-directives/scroll-fire).
-  :::
+
+:::
 
 <DocApi file="Scroll" />
 

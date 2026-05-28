@@ -248,7 +248,8 @@ When NOT to use InjectManifest:
 
 - If you want to use this mode, you will have to write the service worker (`/src-pwa/custom-sw.js`) file by yourself.
 - Please check the available workboxOptions for this mode on [Workbox website](https://developers.google.com/web/tools/workbox/reference-docs/latest/module-workbox-build#.injectManifest).
-  :::
+
+:::
 
 The following snippet is the default code for a custom service worker (`/src-pwa/custom-sw.js`) which mimics the behavior of `generateSW` mode:
 
