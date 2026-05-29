@@ -4,8 +4,6 @@ import spawn from 'cross-spawn'
 function run(webfont) {
   const runner = spawn.sync('bash', [`./${webfont}.update.sh`], {
     stdio: 'inherit',
-    stdout: 'inherit',
-    stderr: 'inherit',
     cwd: import.meta.dirname
   })
 

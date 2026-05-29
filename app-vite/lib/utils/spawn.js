@@ -29,15 +29,12 @@ export async function spawnSync(cmd, params, opts, onFail) {
   enterAlternateScreen(message)
 
   const runner = crossSpawn.sync(cmd, params, {
-    // Inherit stdin and stdout (shows live), pipe stderr (captures errors)
-    stdio: ['inherit', 'inherit', 'pipe'],
+    stdio: 'inherit',
     ...opts,
     env: { ...process.env, ...extraEnvParams, ...opts.env }
   })
 
   if (runner.error || runner.status || runner.status === null) {
-    if (runner.error) console.error(runner.error)
-
     const errorMessage =
       runner.status === null || runner.error?.code === 'ENOENT'
         ? `Command "${cmd}" not found! Please install it globally.`
@@ -81,8 +78,6 @@ export function spawn(cmd, params, opts, onClose) {
 
   const runner = crossSpawn(cmd, params, {
     stdio: 'inherit',
-    stdout: 'inherit',
-    stderr: 'inherit',
     ...opts,
     env: { ...process.env, ...opts.env, ...extraEnvParams }
   })

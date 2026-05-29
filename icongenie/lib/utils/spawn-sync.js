@@ -7,8 +7,6 @@ export function spawnSync(cmd, params, opts, onFail) {
 
   const runner = crossSpawn.sync(cmd, params, {
     stdio: 'inherit',
-    stdout: 'inherit',
-    stderr: 'inherit',
     ...opts
   })
 
