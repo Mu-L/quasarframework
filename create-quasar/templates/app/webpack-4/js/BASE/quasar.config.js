@@ -5,7 +5,7 @@ import { defineConfig } from '#q-app/wrappers'
 
 export default defineConfig((ctx) => {
   return {
-<% if (scope.preset.eslint) { %>
+<% if (scope.linter === 'eslint') { %>
     eslint: {
       // fix: true,
       // include: [],

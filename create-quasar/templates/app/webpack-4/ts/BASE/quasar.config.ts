@@ -1,14 +1,14 @@
 // Configuration for your app
 // https://legacy-app.quasar.dev/quasar-cli-webpack-v4/quasar-config-file
 
-<% if (scope.preset.eslint) { %>
+<% if (scope.linter === 'eslint') { %>
 /* eslint-disable @typescript-eslint/no-var-requires */
 <% } %>
 import { defineConfig } from '#q-app/wrappers';
 
 export default defineConfig((/* ctx */) => {
   return {
-<% if (scope.preset.eslint) { %>
+<% if (scope.linter === 'eslint') { %>
     eslint: {
       // fix: true,
       // include: [],

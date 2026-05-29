@@ -6,7 +6,7 @@
 - Notice /package.json scripts:
 
 ```bash
-<% if (scope.preset.oxlint) { %>
+<% if (scope.linter === 'oxlint') { %>
 # Lint & format
 $ pnpm run lint
 $ pnpm run lint:check

@@ -12,7 +12,7 @@ pnpm install
 ```bash
 quasar dev
 ```
-<% if (scope.linter === 'oxlint') { %>
+<% if (scope.preset.linter) { %>
 
 ### Format & Lint the files
 
@@ -26,21 +26,6 @@ pnpm run lint
 ```bash
 pnpm run lint:check
 # or: yarn/npm/bun run lint:check
-```
-<% } else if (scope.linter === 'eslint') { %>
-
-### Lint the files
-
-```bash
-pnpm run lint
-# or: yarn/npm/bun run lint
-```
-
-### Format the files
-
-```bash
-pnpm run format
-# or: yarn/npm/bun run format
 ```
 <% } %>
 

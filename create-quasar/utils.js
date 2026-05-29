@@ -267,15 +267,12 @@ async function runCommand({
   const runner = spawnSync(cmd, args, {
     cwd,
     args,
-    // Inherit stdin and stdout (shows live), pipe stderr (captures errors)
-    stdio: ['inherit', 'inherit', 'pipe'],
+    stdio: 'inherit',
     // Force colors so the captured error formatting isn't lost
     env: { ...process.env, FORCE_COLOR: '1' }
   })
 
   if (runner.error || runner.status) {
-    if (runner.error?.length > 0) console.error(runner.error.toString())
-
     const msg = `⚠️  ⚠️  ⚠️  ${errorMessage} ⚠️  ⚠️  ⚠️ `
 
     console.log()
@@ -316,30 +313,13 @@ async function installDeps(scope) {
 
 // returns a Promise!
 function lintFolder(scope) {
-  const hasOxlint = scope.linter === 'oxlint' || scope.preset.oxlint
   return runCommand({
     cmd: scope.packageManager,
-    args: hasOxlint
-      ? ['run', 'lint']
-      : scope.packageManager === 'npm'
-        ? ['run', 'lint', '--', '--fix']
-        : ['run', 'lint', '--fix'],
+    args: ['run', 'lint'],
     cwd: scope.projectFolder,
-    message: `${hasOxlint ? 'Linting & Formatting' : 'Linting'} the project folder...`,
-    successMessage: `Project ${hasOxlint ? 'linted & formatted' : 'linted'} successfully!`,
-    errorMessage: `Could not auto ${hasOxlint ? 'lint & format' : 'lint'} the project folder.`
-  })
-}
-
-// returns a Promise!
-function formatFolder(scope) {
-  return runCommand({
-    cmd: scope.packageManager,
-    args: ['run', 'format'],
-    cwd: scope.projectFolder,
-    message: 'Formatting the project...',
-    successMessage: 'Project formatted successfully!',
-    errorMessage: 'Could not auto format the project.'
+    message: 'Linting & Formatting the project folder...',
+    successMessage: 'Project linted & formatted successfully!',
+    errorMessage: 'Could not auto lint & format the project folder.'
   })
 }
 
@@ -470,7 +450,6 @@ export default {
 
   installDeps,
   lintFolder,
-  formatFolder,
   ensureOutsideProject,
   initializeGit,
 

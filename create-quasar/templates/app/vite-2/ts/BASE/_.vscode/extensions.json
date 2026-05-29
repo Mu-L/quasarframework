@@ -1,7 +1,9 @@
 {
   "recommendations": [
-    <% if (scope.preset.eslint) { %>"dbaeumer.vscode-eslint",<% } %>
-    <% if (scope.prettier) { %>"esbenp.prettier-vscode",<% } %>
+    <% if (scope.linter === 'eslint') { %>
+    "dbaeumer.vscode-eslint",
+    "esbenp.prettier-vscode",
+    <% } %>
     "editorconfig.editorconfig",
     "vue.volar",
     "wayou.vscode-todo-highlight"

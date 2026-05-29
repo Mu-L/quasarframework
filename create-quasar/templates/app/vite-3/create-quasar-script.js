@@ -14,7 +14,7 @@ export async function createQuasarScript({ scope, utils }) {
             value: 'sass'
           },
           {
-            label: 'Linting & Formatting (oxlint + oxfmt or ESLint + prettier)',
+            label: 'Linting & Formatting (oxlint + oxfmt or ESLint + Prettier)',
             value: 'linting',
             hint: 'recommended'
           },
@@ -40,6 +40,10 @@ export async function createQuasarScript({ scope, utils }) {
   scope.preset = utils.convertArrayToObject(scope.preset)
 
   if (scope.preset.linting) {
+    const eslintTSBanner = scope.preset.typescript
+      ? ' (TS6 required instead of TS7)'
+      : ''
+
     await utils.promptUser(scope, {
       linter: () =>
         utils.prompts.select({
@@ -51,7 +55,7 @@ export async function createQuasarScript({ scope, utils }) {
               hint: 'recommended, but full .vue support is still in progress'
             },
             {
-              label: 'ESLint + vite-plugin-checker + prettier',
+              label: `ESLint + vite-plugin-checker + Prettier${eslintTSBanner}`,
               value: 'eslint'
             }
           ]

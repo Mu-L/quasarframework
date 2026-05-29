@@ -28,23 +28,17 @@ export async function createProject({
     overwrite: true,
     packageManager,
 
-    preset: scriptType === "ts" ? ["typescript"] : [],
-    linter: "",
-    prettier: false, // legacy, vite-2 only
+    preset:
+      scriptType === "ts"
+        ? ["typescript", "sass", "linting"]
+        : ["sass", "linting"],
+    linter: appEngine === "vite-3" ? "oxlint" : "eslint",
     engine: appEngine,
 
     name: "test-project",
     productName: "Test Project",
     author: "Quasar Team (info@quasar.dev)"
   };
-
-  if (appEngine === "vite-3") {
-    scope.preset.push("sass", "linting");
-    scope.linter = "oxlint";
-  } else if (appEngine === "vite-2") {
-    scope.preset.push("sass", "eslint");
-    scope.prettier = true;
-  }
 
   const { createProjectFolder } = await import("../create-project-folder.js");
   await createProjectFolder(scope);

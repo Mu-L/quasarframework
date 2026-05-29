@@ -1,8 +1,11 @@
 {
   "recommendations": [
-    <% if (scope.linter === 'oxlint') { %>"oxc.oxc-vscode",
-    <% } else if (scope.linter === 'eslint') { %>"dbaeumer.vscode-eslint",
-    "esbenp.prettier-vscode",<% } %>
+    <% if (scope.linter === 'oxlint') { %>
+    "oxc.oxc-vscode",
+    <% } else if (scope.linter === 'eslint') { %>
+    "dbaeumer.vscode-eslint",
+    "esbenp.prettier-vscode",
+    <% } %>
     "editorconfig.editorconfig",
     "vue.volar",
     "wayou.vscode-todo-highlight"

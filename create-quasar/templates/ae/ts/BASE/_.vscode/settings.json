@@ -1,4 +1,12 @@
 {
+  <% if (scope.linter === 'oxlint') { %>
+  "editor.codeActionsOnSave": {
+    "source.fixAll.oxc": "always"
+  },
+  "oxc.fmt.configPath": "oxfmt.config.ts",
+  "editor.defaultFormatter": "oxc.oxc-vscode",
+  "editor.formatOnSave": true,
+  <% } %>
   "editor.bracketPairColorization.enabled": true,
   "editor.guides.bracketPairs": true,
   "js/ts.tsdk.path": "node_modules/typescript/lib",
@@ -6,12 +14,5 @@
     "playground/dist/": true,
     "playground/.quasar/": true,
     "playground/quasar.config.js.temporary.*": true
-  }<% if (scope.preset.oxlint) { %>,
-  "editor.codeActionsOnSave": {
-    "source.fixAll.oxc": "always"
-  },
-  "oxc.fmt.configPath": "oxfmt.config.ts",
-  "editor.defaultFormatter": "oxc.oxc-vscode",
-  "editor.formatOnSave": true
-<% } %>
+  }
 }

@@ -895,6 +895,10 @@ As of writing these lines, the support for `.vue` files is not yet fully ready, 
 
 ### Typescript 7
 
+::: warning
+Not compatible with ESLint because Typescript 7 does not yet ship with js bindings. This will come with TS 7.1. Alternatively, use Oxlint instead.
+:::
+
 You may also want to upgrade to Typescript 7 (the default spawned projects use it already), which is written in Go for extra speed! As of writing these lines and per Microsoft's own upgrade guide, you need to install:
 
 ```tabs /package.json

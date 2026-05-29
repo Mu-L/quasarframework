@@ -6,7 +6,7 @@
   "author": "<%= scope.author %>",
   "type": "module",
   "scripts": {
-<% if (scope.preset.oxlint) { %>
+<% if (scope.linter === 'oxlint') { %>
     "lint": "oxfmt && oxlint --fix",
     "lint:check": "oxfmt --check && oxlint",
 <% } %>
@@ -16,7 +16,7 @@
     "postinstall": "pnpm --filter playground prepare"
   },
   "devDependencies": {
-<% if (scope.preset.oxlint) { %>
+<% if (scope.linter === 'oxlint') { %>
     "oxfmt": "^0.x",
     "oxlint": "^1.63.0",
     "oxlint-tsgolint": "^0.x",

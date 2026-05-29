@@ -63,7 +63,7 @@ export default defineConfig((<% if (scope.preset.i18n) { %>ctx<% } else { %>/* c
       // extendViteConf (viteConf) {},
       // viteVuePluginOptions: {},
 
-<% if (scope.preset.i18n || scope.preset.eslint) { %>
+<% if (scope.preset.i18n || scope.linter  === 'eslint') { %>
       vitePlugins: [
 <% if (scope.preset.i18n) { %>
         ['@intlify/unplugin-vue-i18n/vite', {
@@ -78,10 +78,10 @@ export default defineConfig((<% if (scope.preset.i18n) { %>ctx<% } else { %>/* c
 
           // you need to set i18n resource including paths !
           include: [ join(import.meta.dirname, 'src/i18n') ]
-        }]<% if (scope.preset.eslint) { %>,<% } %>
+        }]<% if (scope.linter === 'eslint') { %>,<% } %>
 
 <% } %>
-<% if (scope.preset.eslint) { %>
+<% if (scope.linter === 'eslint') { %>
         ['vite-plugin-checker', {
           eslint: {
             lintCommand: 'eslint -c ./eslint.config.js "./src*/**/*.{js,mjs,cjs,vue}"',

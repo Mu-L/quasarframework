@@ -7,9 +7,10 @@
   "type": "module",
   "private": true,
   "scripts": {
-    <% if (scope.preset.eslint) { %>"lint": "eslint -c ./eslint.config.js \"./src*/**/*.{ts,js,cjs,mjs,vue}\"",<% } %>
-    <% if (scope.prettier) { %>"format": "prettier --write \"**/*.{js,ts,vue,css<% if (scope.preset.sass) { %>,scss<% } %>,html,md,json}\" --ignore-path .gitignore",<% } %>
-    "test": "echo \"No test specified\" && exit 0",
+    <% if (scope.linter === 'eslint') { %>
+    "lint": "prettier --write \"**/*.{js,ts,vue,css<% if (scope.preset.sass) { %>,scss<% } %>,html,md,json}\" --ignore-path .gitignore && eslint --fix -c ./eslint.config.js \"./src*/**/*.{ts,js,cjs,mjs,vue}\"",
+    "lint:check": "prettier \"**/*.{js,ts,vue,css<% if (scope.preset.sass) { %>,scss<% } %>,html,md,json}\" --ignore-path .gitignore && eslint -c ./eslint.config.js \"./src*/**/*.{ts,js,cjs,mjs,vue}\"",
+    <% } %>
     "dev": "quasar dev",
     "build": "quasar build",
     "postinstall": "quasar prepare --silent"
@@ -23,7 +24,7 @@
     "vue-router": "^5.0.3"
   },
   "devDependencies": {
-    <% if (scope.preset.eslint) { %>
+    <% if (scope.linter === 'eslint') { %>
     "@eslint/js": "^9.39.4",
     "eslint": "^9.39.4",
     "eslint-plugin-vue": "^10.8.0",
@@ -32,8 +33,6 @@
     "@vue/eslint-config-typescript": "^14.7.0",
     "vite-plugin-checker": "^0.12.0",
     "vue-eslint-parser": "^10.4.0",
-    <% } %>
-    <% if (scope.prettier) { %>
     "@vue/eslint-config-prettier": "^10.2.0",
     "prettier": "^3.8.1",
     <% } %>

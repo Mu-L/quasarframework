@@ -3,7 +3,7 @@ export async function createQuasarScript({ scope, utils }) {
     preset: () =>
       utils.prompts.multiselect({
         message: 'Check the features needed for your project:',
-        initialValues: ['sass', 'eslint'],
+        initialValues: ['sass', 'linting'],
         options: [
           {
             label: 'Typescript support',
@@ -14,8 +14,9 @@ export async function createQuasarScript({ scope, utils }) {
             value: 'sass'
           },
           {
-            label: 'Linting (ESLint + vite-plugin-checker + vue-tsc)',
-            value: 'eslint',
+            label:
+              'Linting & Formatting (ESLint + vite-plugin-checker + vue-tsc + Prettier)',
+            value: 'linting',
             hint: 'recommended'
           },
           {
@@ -33,17 +34,7 @@ export async function createQuasarScript({ scope, utils }) {
   })
 
   scope.preset = utils.convertArrayToObject(scope.preset)
-
-  if (scope.preset.eslint) {
-    await utils.promptUser(scope, {
-      prettier: () =>
-        utils.prompts.confirm({
-          message: 'Add Prettier for code formatting?'
-        })
-    })
-  } else {
-    scope.prettier = false
-  }
+  if (scope.preset.linting) scope.linter = 'eslint'
 
   const log = utils.prompts.taskLog({
     title: 'Scaffolding Quasar App...'
@@ -57,11 +48,8 @@ export async function createQuasarScript({ scope, utils }) {
   utils.renderTemplate(`${dir}/${css}`, scope)
 
   if (scope.preset.i18n) utils.renderTemplate(`${dir}/i18n`, scope)
-  if (scope.preset.eslint) {
+  if (scope.linter === 'eslint') {
     utils.renderTemplate(`${dir}/eslint`, scope)
-  }
-  if (scope.prettier) {
-    utils.renderTemplate(`${dir}/prettier`, scope)
   }
   if (scope.preset.pinia) {
     utils.renderTemplate(`${dir}/pinia`, scope)

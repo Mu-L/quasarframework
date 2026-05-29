@@ -2,9 +2,7 @@ import js from '@eslint/js'
 import globals from 'globals'
 import pluginVue from 'eslint-plugin-vue'
 import pluginQuasar from '@quasar/app-vite/eslint'
-<% if (scope.prettier) { %>
 import prettierSkipFormatting from '@vue/eslint-config-prettier/skip-formatting'
-<% } %>
 
 export default [
   {
@@ -69,10 +67,7 @@ export default [
         ...globals.serviceworker
       }
     }
-  }<% if (scope.prettier) { %>,<% } %>
-
-<% if (scope.prettier) { %>
+  },
 
   prettierSkipFormatting
-<% } %>
 ]

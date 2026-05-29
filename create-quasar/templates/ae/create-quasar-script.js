@@ -26,7 +26,7 @@ export async function createQuasarScript({ scope, utils }) {
     preset: () =>
       utils.prompts.groupMultiselect({
         message: 'Pick features:',
-        initialValues: ['prompts', 'install', 'uninstall', 'oxlint'],
+        initialValues: ['prompts', 'install', 'uninstall', 'linting'],
         options: {
           Tooling: [
             {
@@ -34,8 +34,9 @@ export async function createQuasarScript({ scope, utils }) {
               value: 'typescript'
             },
             {
-              label: 'oxlint + oxfmt',
-              value: 'oxlint'
+              label: 'Linting & Formatting (oxlint + oxfmt)',
+              value: 'linting',
+              hint: 'recommended'
             }
           ],
           'Additional AE Scripts': [
@@ -61,11 +62,11 @@ export async function createQuasarScript({ scope, utils }) {
   })
 
   scope.preset = utils.convertArrayToObject(scope.preset)
+  if (scope.preset.linting) scope.linter = 'oxlint'
 
   const { org, name } = parsePackageName(scope.name)
   scope.aeShortName = `${org}${name}`
   scope.aeFullName = `${org}quasar-app-extension-${name}`
-  scope.linter = scope.preset.oxlint ? 'oxlint' : null
 
   const dir = scope.preset.typescript ? 'ts' : 'js'
   utils.createTargetDir(scope)
@@ -81,7 +82,7 @@ export async function createQuasarScript({ scope, utils }) {
     utils.renderTemplate(`${dir}/uninstall`, scope)
   }
 
-  if (scope.preset.oxlint) {
+  if (scope.linter === 'oxlint') {
     utils.renderTemplate(`${dir}/oxlint`, scope)
   }
 

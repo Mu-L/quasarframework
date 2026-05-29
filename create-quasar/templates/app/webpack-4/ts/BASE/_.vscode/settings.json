@@ -1,11 +1,13 @@
 {
-  "editor.bracketPairColorization.enabled": true,
-  "editor.guides.bracketPairs": true,<% if (scope.preset.eslint) { %>
+  <% if (scope.linter === 'eslint') { %>
   "editor.formatOnSave": true,
-  "editor.defaultFormatter": <% if (scope.prettier) { %>"esbenp.prettier-vscode"<% } else { %>"dbaeumer.vscode-eslint"<% } %>,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
   "editor.codeActionsOnSave": [
     "source.fixAll.eslint"
   ],
-  "eslint.validate": ["javascript", "javascriptreact", "typescript", "vue"],<% } %>
+  "eslint.validate": ["javascript", "javascriptreact", "typescript", "vue"],
+  <% } %>
+  "editor.bracketPairColorization.enabled": true,
+  "editor.guides.bracketPairs": true,
   "js/ts.tsdk.path": "node_modules/typescript/lib"
 }

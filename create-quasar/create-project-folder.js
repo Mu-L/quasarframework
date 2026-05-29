@@ -40,7 +40,7 @@ export async function createProjectFolder(scope) {
           },
           {
             label: 'AppExtension for Quasar CLI',
-            value: 'app-extension',
+            value: 'ae',
             hint: isPnpm
               ? 'with PNPM only'
               : 'PNPM only, run "pnpm create quasar@latest" instead',
@@ -110,17 +110,8 @@ export async function createProjectFolder(scope) {
     if (hasInstalled) {
       scope.meta.hasInstalledDeps = true
 
-      if (
-        scope.linter === 'oxlint' ||
-        scope.preset.oxlint ||
-        scope.preset.eslint // legacy eslint
-      ) {
+      if (scope.preset.linting) {
         await utils.lintFolder(scope)
-      }
-
-      // legacy eslint + prettier
-      if (scope.prettier) {
-        await utils.formatFolder(scope)
       }
     }
   }
@@ -129,11 +120,7 @@ export async function createProjectFolder(scope) {
   if (!scope.meta.hasInstalledDeps) {
     scope.meta.installDepsCmd = `${pkgManager} install`
 
-    if (
-      scope.linter === 'oxlint' ||
-      scope.preset.oxlint ||
-      scope.preset.eslint // legacy eslint
-    ) {
+    if (scope.preset.linting) {
       scope.meta.lintCmd =
         `${pkgManager} run lint` +
         // legacy eslint:
