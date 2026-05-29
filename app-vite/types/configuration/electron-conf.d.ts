@@ -4,12 +4,12 @@ import * as ElectronPackager from "@electron/packager";
 import { LiteralUnion } from "quasar";
 import { RolldownOptions } from "rolldown";
 
-export type QuasarElectronBundlersInternal = "builder" | "packager";
+export type QuasarElectronBundlers = "builder" | "packager";
 
 type ElectronBuilderConfiguration = ElectronBuilder.Configuration;
 type ElectronPackagerOptions = ElectronPackager.Options;
 
-interface QuasarBaseElectronConfiguration {
+interface QuasarElectronConfiguration {
   /**
    * The list of content scripts (js/ts) that you want embedded.
    * Each entry in the list should be a filename (WITHOUT its extension) from /src-electron/
@@ -55,7 +55,7 @@ interface QuasarBaseElectronConfiguration {
   ) => void | RolldownOptions | Promise<void | RolldownOptions>;
 
   /**
-   * You have to choose to use either packager or builder.
+   * You have to choose to use either "packager" or "builder".
    * They are both excellent open-source projects,
    *  however they serve slightly different needs.
    * With packager you will be able to build unsigned projects
@@ -65,13 +65,26 @@ interface QuasarBaseElectronConfiguration {
    * Cross-compiling your binaries from one computer doesn’t really work with builder,
    *  or we haven’t found the recipe yet.
    *
-   * @type options {@link QuasarElectronBundlersInternal}
+   * Use along with either the `packager` or `builder` property to
+   * configure the options for the chosen bundler.
+   *
+   * @type options {@link QuasarElectronBundlers}
+   * @default "packager"
    */
-  // This property definition is here merely to avoid duplicating the TSDoc
-  // It should not be optional, as TS cannot infer the discriminated union based on the absence of a field
-  // Futhermore, making it optional here won't change the exported interface which is the union
-  // of the two derivate interfaces where `bundler` is set without optionality
-  bundler: QuasarElectronBundlersInternal;
+  bundler?: QuasarElectronBundlers;
+
+  /**
+   * Electron-packager options.
+   * `dir` and `out` properties are overwritten by Quasar CLI to ensure the best results.
+   * @type options {@link ElectronPackagerOptions}
+   */
+  packager?: Omit<ElectronPackagerOptions, "dir" | "out">;
+
+  /**
+   * Electron-builder options
+   * @type options {@link ElectronBuilderConfiguration}
+   */
+  builder?: ElectronBuilderConfiguration;
 
   /**
    * Specify additional parameters when installing dependencies in
@@ -87,29 +100,6 @@ interface QuasarBaseElectronConfiguration {
    */
   inspectPort?: number;
 }
-
-interface QuasarElectronPackagerConfiguration extends QuasarBaseElectronConfiguration {
-  bundler: "packager";
-
-  /**
-   * Electron-packager options.
-   * `dir` and `out` properties are overwritten by Quasar CLI to ensure the best results.
-   * @type options {@link ElectronPackagerOptions}
-   */
-  packager?: Omit<ElectronPackagerOptions, "dir" | "out">;
-}
-
-interface QuasarElectronBuilderConfiguration extends QuasarBaseElectronConfiguration {
-  bundler: "builder";
-
-  /**
-   * Electron-builder options
-   * @type options {@link ElectronBuilderConfiguration}
-   */
-  builder?: ElectronBuilderConfiguration;
-}
-
-export type QuasarElectronBundlers = QuasarElectronBundlersInternal;
 
 export type ElectronBuilderArchs = ElectronBuilderUtil.Arch;
 // ElectronBuilder doesn't export exact types for the target option
@@ -127,7 +117,3 @@ export type ElectronPackagerArchs = LiteralUnion<
 export type ElectronPackagerTargets = LiteralUnion<
   ElectronPackager.OfficialPlatform | "all"
 >;
-
-export type QuasarElectronConfiguration =
-  | QuasarElectronPackagerConfiguration
-  | QuasarElectronBuilderConfiguration;
