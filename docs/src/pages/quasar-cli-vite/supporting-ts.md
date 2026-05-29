@@ -16,13 +16,13 @@ If you selected TypeScript support when creating your project, you can skip this
 
 ```tabs Typescript 7
 <<| bash PNPM |>>
-$ pnpm add -D npm:@typescript/native-preview@beta
+$ pnpm add -D @typescript/native-preview@beta npm:@typescript/typescript6@^6
 <<| bash Yarn |>>
-$ yarn add --dev npm:@typescript/native-preview@beta
+$ yarn add --dev @typescript/native-preview@beta npm:@typescript/typescript6@^6
 <<| bash NPM |>>
-$ npm install --save-dev npm:@typescript/native-preview@beta
+$ npm install --save-dev @typescript/native-preview@beta npm:@typescript/typescript6@^6
 <<| bash Bun |>>
-$ bun add --dev npm:@typescript/native-preview@beta
+$ bun add --dev @typescript/native-preview@beta npm:@typescript/typescript6@^6
 ```
 
 ::: tip

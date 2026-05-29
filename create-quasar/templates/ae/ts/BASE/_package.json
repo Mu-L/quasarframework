@@ -21,10 +21,8 @@
     "oxlint": "^1.63.0",
     "oxlint-tsgolint": "^0.x",
 <% } %>
-    "typescript": "npm:@typescript/native-preview@beta"
-  },
-  "overrides": {
-    "typescript": "npm:@typescript/native-preview@beta"
+    "@typescript/native-preview": "^7.0.0-dev.0",
+    "typescript": "npm:@typescript/typescript6@^6"
   },
   "engines": {
     "node": ">= 26 || ^24 || ^22.12",

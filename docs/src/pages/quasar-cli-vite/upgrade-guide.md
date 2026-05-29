@@ -901,20 +901,12 @@ Not compatible with ESLint because Typescript 7 does not yet ship with js bindin
 
 You may also want to upgrade to Typescript 7 (the default spawned projects use it already), which is written in Go for extra speed! As of writing these lines and per Microsoft's own upgrade guide, you need to install:
 
-```tabs /package.json
-<<| diff PNPM/Yarn/Bun |>>
+```json /package.json
 "devDependencies": {
 -  "typescript": "...",
-+  "typescript": "npm:@typescript/native-preview@beta"
++  "@typescript/native-preview": "^7.0.0-dev.0",
++  "typescript": "npm:@typescript/typescript6@^6"
 }
-<<| diff NPM |>>
-"devDependencies": {
--  "typescript": "...",
-+  "typescript": "npm:@typescript/native-preview@beta"
-},
-"overrides": {
-+  "typescript": "npm:@typescript/native-preview@beta"
-},
 ```
 
 Once the TS team releases TS 7 directly under the `typescript` package, this is what you may want to use.
