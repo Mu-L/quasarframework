@@ -78,7 +78,7 @@ import { readFile } from 'node:fs/promises'
 import { join, isAbsolute } from 'node:path'
 
 import { cliPkg } from '../cli-pkg.js'
-import { log, fatal } from '../logger.js'
+import { log, warn, fatal } from '../logger.js'
 
 const root = getAbsolutePath(argv._[0] || '.')
 const resolve = path => join(root, path)
