@@ -74,7 +74,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        install: [yarn, npm, pnpm]
+        install: [pnpm]
         template: [app, ae]
         script: [js, ts]
         linter: [oxlint]
@@ -90,9 +90,19 @@ jobs:
           - fbr: true
             template: app
             engine: vite-3
+          - fbr: false
+            template: app
+            engine: vite-3
           - allPresets: true
             template: app
             engine: vite-3
+          - allPresets: false
+            template: app
+            engine: vite-3
+          - install: yarn
+            template: app
+          - install: npm
+            template: app
 
     name: Test ${{ matrix.install }}-${{ matrix.template }}-${{ matrix.script }}${{ matrix.engine && format('-{0}', matrix.engine) || '' }}-${{ matrix.linter }}${{ matrix.fbr == true && '-fbr' || '' }}${{ matrix.allPresets == true && '-allPresets' || '' }}
 
