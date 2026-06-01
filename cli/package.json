@@ -1,6 +1,6 @@
 {
   "name": "@quasar/cli",
-  "version": "5.0.0",
+  "version": "5.0.1",
   "description": "Quasar Framework - the Global CLI",
   "keywords": [
     "cli",
