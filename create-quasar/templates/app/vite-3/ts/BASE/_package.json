@@ -47,7 +47,7 @@
     <% } %>
     "@types/node": "^22.19.11",
     <% if (scope.preset.i18n) { %>"@intlify/unplugin-vue-i18n": "^11.0.0",<% } %>
-    "@quasar/app-vite": "^3.0.0-beta.33",
+    "@quasar/app-vite": "^3.0.0-beta.34",
     "autoprefixer": "^10.4.27",
     "@typescript/native-preview": "^7.0.0-dev.0",
     "typescript": "npm:@typescript/typescript6@^6"
