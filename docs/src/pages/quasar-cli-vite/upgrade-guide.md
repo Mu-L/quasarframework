@@ -151,6 +151,8 @@ api.extendBexManifestJson: (
 ) => void | object | Promise<void | object>;
 ```
 
+A new `api.logger` (available on all four scripts: Index, Install, Uninstall, Prompts) prints in the Quasar CLI's own output style and tags every line with your extension id. See [api.logger](/app-extensions/development-guide/index-api#api-logger).
+
 There's also new wrappers that `@quasar/app-vite` now supplies for the Index/Prompts/Install/Uninstall scripts. IDE auto-completion, here we come.
 
 The short form of running CLI commands provided by an App Extension has been removed:
@@ -580,6 +582,8 @@ export default defineConfig(ctx => {
   }
 })
 ```
+
+The `ctx` object now includes a logger that prints in the Quasar CLI's own output style. See [Logging via ctx](/quasar-cli-vite/quasar-config-file#logging-via-ctx).
 
 ### Typescript changes
 
