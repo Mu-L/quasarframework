@@ -9,7 +9,7 @@ desc: (@quasar/app-vite) How to configure a code linter and a formatter in a Qua
 
 ### Installation
 
-```tabs
+```tabs Javascript projects
 <<| bash PNPM |>>
 $ pnpm add -D oxlint oxfmt
 <<| bash Yarn |>>
@@ -20,16 +20,15 @@ $ npm install --save-dev oxlint oxfmt
 $ bun add --dev oxlint oxfmt
 ```
 
-For Typescript projects, you will need to use Typescript 7 and install additional dependencies:
-
-```json Typescript only: /package.json
-{
-  "devDependencies": {
-    "oxlint-tsgolint": "^0.x",
-    "@typescript/native-preview": "^7.0.0-dev.0",
-    "typescript": "npm:@typescript/typescript6@^6"
-  }
-}
+```tabs Typescript projects
+<<| bash PNPM |>>
+$ pnpm add -D oxlint oxfmt oxlint-tsgolint typescript@^6
+<<| bash Yarn |>>
+$ yarn add --dev oxlint oxfmt oxlint-tsgolint typescript@^6
+<<| bash NPM |>>
+$ npm install --save-dev oxlint oxfmt oxlint-tsgolint typescript@^6
+<<| bash Bun |>>
+$ bun add --dev oxlint oxfmt oxlint-tsgolint typescript@^6
 ```
 
 ### Package.json scripts

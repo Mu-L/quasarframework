@@ -31,7 +31,7 @@
   "devDependencies": {
     <% if (scope.linter === 'oxlint') { %>
     "oxfmt": "^0.x",
-    "oxlint": "^1.63.0",
+    "oxlint": "^1.x",
     "oxlint-tsgolint": "^0.x",
     <% } else if (scope.linter === 'eslint') { %>
     "@eslint/js": "^9.39.4",
@@ -49,8 +49,7 @@
     <% if (scope.preset.i18n) { %>"@intlify/unplugin-vue-i18n": "^11.0.0",<% } %>
     "@quasar/app-vite": "^3.0.0-beta.34",
     "autoprefixer": "^10.4.27",
-    "@typescript/native-preview": "^7.0.0-dev.0",
-    "typescript": "npm:@typescript/typescript6@^6"
+    "typescript": "^6.0.0"
   },
   "keywords": [
     "quasar",

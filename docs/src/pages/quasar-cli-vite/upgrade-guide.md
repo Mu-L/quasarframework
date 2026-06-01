@@ -897,24 +897,6 @@ As of writing these lines, the support for `.vue` files is not yet fully ready, 
 
 [More info](/quasar-cli-vite/lint-and-format-code#oxlint-oxfmt)
 
-### Typescript 7
-
-::: warning
-Not compatible with ESLint because Typescript 7 does not yet ship with js bindings. This will come with TS 7.1. Alternatively, use Oxlint instead.
-:::
-
-You may also want to upgrade to Typescript 7 (the default spawned projects use it already), which is written in Go for extra speed! As of writing these lines and per Microsoft's own upgrade guide, you need to install:
-
-```json /package.json
-"devDependencies": {
--  "typescript": "...",
-+  "@typescript/native-preview": "^7.0.0-dev.0",
-+  "typescript": "npm:@typescript/typescript6@^6"
-}
-```
-
-Once the TS team releases TS 7 directly under the `typescript` package, this is what you may want to use.
-
 ### Filename-based routing with Vue Router v5+
 
 We now have first-class support for Vue Router's filename-based routing. You might want to [give it a try](/quasar-cli-vite/page-routing-with-vue-router#filename-based-routing).

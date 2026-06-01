@@ -20,11 +20,10 @@
   "devDependencies": {
 <% if (scope.linter === 'oxlint') { %>
     "oxfmt": "^0.x",
-    "oxlint": "^1.63.0",
+    "oxlint": "^1.x",
     "oxlint-tsgolint": "^0.x",
 <% } %>
-    "@typescript/native-preview": "^7.0.0-dev.0",
-    "typescript": "npm:@typescript/typescript6@^6"
+    "typescript": "^6.0.0"
   },
   "engines": {
     "node": ">= 26 || ^24 || ^22.12",
