@@ -32,14 +32,16 @@ export async function createProject({
         ? ["typescript", "sass", "linting"]
         : ["sass", "linting"],
     linter: appEngine === "vite-3" ? "oxlint" : "eslint",
-    type: appEngine,
+    engine: appEngine,
 
     name: "test-project",
     product: "Test Project",
     author: "Quasar Team (info@quasar.dev)"
   };
 
-  const { createProjectFolder } = await import("../create-project-folder.js");
+  const { createProjectFolder } =
+    await import("../lib/create-project-folder.js");
+
   await createProjectFolder(scope);
 }
 

@@ -260,6 +260,9 @@ importers:
       tinyglobby:
         specifier: ^0.2.16
         version: 0.2.16
+      update-notifier:
+        specifier: ^7.3.1
+        version: 7.3.1
     devDependencies:
       tsx:
         specifier: ^4.22.3
@@ -9032,7 +9035,7 @@ snapshots:
       es6-error: 4.1.1
       matcher: 3.0.0
       roarr: 2.15.4
-      semver: 7.8.0
+      semver: 7.8.1
       serialize-error: 7.0.1
     optional: true
 
@@ -9784,7 +9787,7 @@ snapshots:
 
   node-abi@4.31.0:
     dependencies:
-      semver: 7.8.0
+      semver: 7.8.1
 
   node-addon-api@1.7.2:
     optional: true
@@ -9794,7 +9797,7 @@ snapshots:
 
   node-api-version@0.2.1:
     dependencies:
-      semver: 7.8.0
+      semver: 7.8.1
 
   node-fetch@2.7.0:
     dependencies:
@@ -9807,7 +9810,7 @@ snapshots:
       graceful-fs: 4.2.11
       nopt: 9.0.0
       proc-log: 6.1.0
-      semver: 7.8.0
+      semver: 7.8.1
       tar: 7.5.15
       tinyglobby: 0.2.16
       undici: 6.25.0
@@ -10679,7 +10682,7 @@ snapshots:
 
   simple-update-notifier@2.0.0:
     dependencies:
-      semver: 7.8.0
+      semver: 7.8.1
 
   sirv@3.0.2:
     dependencies:

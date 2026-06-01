@@ -3,6 +3,12 @@
 import { join } from 'node:path'
 import { parseArgs } from 'node:util'
 
+if (process.argv.includes('--version') || process.argv.includes('-v')) {
+  const { cliPkg } = await import('../lib/cli-pkg.js')
+  console.log(cliPkg.version)
+  process.exit(0)
+}
+
 if (
   process.argv.includes('--no-color') ||
   (await import('ci-info').then(({ isCI }) => isCI))
@@ -10,26 +16,57 @@ if (
   process.env.FORCE_COLOR = '0'
 }
 
+const { cliPkg } = await import('../lib/cli-pkg.js')
+const { showCliBanner } = await import('@quasar/art')
+
+const runningPackageManager = process.env.npm_config_user_agent
+if (!runningPackageManager) {
+  const { default: updateNotifier } = await import('update-notifier')
+  updateNotifier({ pkg: cliPkg }).notify()
+}
+
+showCliBanner()
+
 function showHelp(warn) {
+  const cmdMap = {
+    pnpm: 'pnpm create quasar@latest',
+    yarn: 'yarn create quasar',
+    npm: 'npm init quasar@latest',
+    bun: 'bun create quasar@latest'
+  }
+  const createCommand = cmdMap[runningPackageManager] || 'create-quasar'
+
   console.log(`
   Description
     Scaffolds Quasar Apps & App Extensions
+    Version ${cliPkg.version}
+
+  Usage
+    $ ${createCommand} [dir] [options]
+
+    # examples:
+    $ ${createCommand} my-app --template app --engine vite-3 --defaults
+    $ ${createCommand} my-ae --template ae --preset prompts --preset oxlint --defaults
 
   Options
     --template, -t  Type of project to create: app | ae
-    --overwrite, -o Overwrite existing folder if it exists
+    --overwrite, -o Overwrite existing dir if it exists
     --preset        Preset to apply (can be used multiple times)
                     - template "app" presets:
                       typescript, sass, oxlint, eslint, filenameBasedRouting, i18n, pinia
                     - template "ae" presets:
-                      prompts, install, uninstall, oxlint, typescript
+                      typescript, oxlint, prompts, install, uninstall
     --name          Name of the project for package.json (must be a valid npm package name)
     --author        Author name for package.json
     --no-git        Do not initialize a git repository
     --install, -i   When invoked through a package manager it's a boolean (eg. --install)
-                    Otherwise, the package manager to auto-install with (pnpm, yarn, npm, bun)
+                    Otherwise, the package manager to auto-install with:
+                      --install pnpm
+                      --install yarn
+                      --install npm
+                      --install bun
 
-    --type          (ONLY for template "app") Quasar App Local CLI to use:
+    --engine, -e    (ONLY for template "app") Quasar App Local CLI to use:
                       vite-3, vite-2, webpack-4
     --product       (ONLY for template "app") Product name for the app
 
@@ -46,11 +83,21 @@ if (process.argv.includes('--help') || process.argv.includes('-h')) {
   showHelp()
 }
 
+const { isInsideQuasarProject } =
+  await import('../lib/ensure-outside-project.js')
+
+if (isInsideQuasarProject()) {
+  console.error(
+    'Error ⚠️  This command must NOT be executed inside of a Quasar project folder.'
+  )
+  process.exit(1)
+}
+
 function argvError(errorMessage) {
   return {
     help: true,
     __warn() {
-      console.warn('Error ⚠️  ' + errorMessage)
+      console.error('Error ⚠️  ' + errorMessage)
       console.log()
       process.exit(1)
     }
@@ -58,7 +105,6 @@ function argvError(errorMessage) {
 }
 
 async function getArgv() {
-  const runningPackageManager = process.env.npm_config_user_agent
   let scope, positionals
 
   try {
@@ -67,7 +113,7 @@ async function getArgv() {
         'no-git': { type: 'boolean' },
         overwrite: { type: 'boolean', short: 'o' },
         template: { type: 'string', short: 't' },
-        type: { type: 'string' },
+        engine: { type: 'string', short: 'e' },
         preset: { type: 'string', short: 'p', multiple: true },
         linter: { type: 'string', short: 'l' },
         name: { type: 'string' },
@@ -102,7 +148,7 @@ async function getArgv() {
     )
   }
 
-  const { default: utils } = await import('./utils.js')
+  const { default: utils } = await import('../lib/utils.js')
   if (scope.defaults) {
     if (scope.overwrite === void 0) scope.overwrite = true
     if (!scope.template) {
@@ -118,9 +164,9 @@ async function getArgv() {
 
   if (template) {
     if (template === 'ae') {
-      if (scope.type) {
+      if (scope.engine) {
         return argvError(
-          'The --type option is not applicable for template "ae". Please remove it.'
+          'The --engine option is not applicable for template "ae". Please remove it.'
         )
       }
       if (scope.product) {
@@ -174,9 +220,9 @@ async function getArgv() {
     } else if (template === 'app') {
       if (scope.defaults) {
         if (scope.install === void 0) scope.install = 'pnpm'
-        if (!scope.type) scope.type = utils.definitions.type.default
+        if (!scope.engine) scope.engine = utils.definitions.engine.default
       }
-      const { type, install } = scope
+      const { engine, install } = scope
 
       if (install) {
         if (runningPackageManager) {
@@ -200,12 +246,12 @@ async function getArgv() {
         }
       }
 
-      if (type) {
+      if (engine) {
         if (scope.defaults && !scope.product) {
           scope.product = utils.definitions.product.default
         }
 
-        if (type === 'vite-3') {
+        if (engine === 'vite-3') {
           if (scope.defaults && !scope.preset) {
             scope.preset = ['sass', 'oxlint']
           }
@@ -249,7 +295,7 @@ async function getArgv() {
               scope.linter = 'eslint'
             }
           }
-        } else if (type === 'vite-2' || type === 'webpack-4') {
+        } else if (engine === 'vite-2' || engine === 'webpack-4') {
           if (scope.defaults && !scope.preset) {
             scope.preset = ['sass', 'eslint']
           }
@@ -273,8 +319,8 @@ async function getArgv() {
           }
         } else {
           return argvError(
-            'Invalid type specified: ' +
-              type +
+            'Invalid engine specified: ' +
+              engine +
               '. Allowed values are "vite-3", "vite-2", "webpack-4".'
           )
         }
@@ -316,5 +362,5 @@ const argv = await getArgv()
 
 if (argv.help) showHelp(argv.__warn)
 
-const { createProjectFolder } = await import('./create-project-folder.js')
+const { createProjectFolder } = await import('../lib/create-project-folder.js')
 await createProjectFolder(argv)

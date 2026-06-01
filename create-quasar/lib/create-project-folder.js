@@ -1,15 +1,9 @@
 import { existsSync, readdirSync } from 'node:fs'
 import { join } from 'node:path'
-import { showCliBanner } from '@quasar/art'
 
 import utils from './utils.js'
 
 export async function createProjectFolder(scope) {
-  showCliBanner()
-
-  // should error out if already inside of a Quasar project
-  utils.ensureOutsideProject()
-
   scope.meta = {
     hasInstalledDeps: false,
     installDepsCmd: null,
@@ -85,7 +79,7 @@ export async function createProjectFolder(scope) {
   }
 
   const { createQuasarScript } = await import(
-    `./templates/${scope.template}/create-quasar-script.js`
+    `../templates/${scope.template}/create-quasar-script.js`
   )
   await createQuasarScript({ scope, utils })
 

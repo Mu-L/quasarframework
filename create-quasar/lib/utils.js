@@ -1,7 +1,7 @@
-import { existsSync, readFileSync, writeFileSync } from 'node:fs'
+import { readFileSync, writeFileSync } from 'node:fs'
 import { styleText } from 'node:util'
 import { fileURLToPath } from 'node:url'
-import { dirname, extname, join, normalize, resolve, sep } from 'node:path'
+import { dirname, extname, join, resolve } from 'node:path'
 import { execSync as exec } from 'node:child_process'
 import { sync as spawnSync } from 'cross-spawn'
 import {
@@ -368,33 +368,6 @@ async function getGitUser() {
   )
 }
 
-const quasarConfigFilenameList = [
-  'quasar.config.js',
-  'quasar.config.mjs',
-  'quasar.config.ts',
-  'quasar.config.cjs',
-  'quasar.conf.js' // legacy
-]
-
-function ensureOutsideProject() {
-  let dir = process.cwd()
-
-  while (dir.length !== 0 && dir.at(-1) !== sep) {
-    for (const name of quasarConfigFilenameList) {
-      const filename = join(dir, name)
-      if (existsSync(filename)) {
-        // TODO: proper message
-        log.error(
-          'Error. This command must NOT be executed inside of a Quasar project folder.'
-        )
-        process.exit(1)
-      }
-    }
-
-    dir = normalize(join(dir, '..'))
-  }
-}
-
 const definitions = {
   projectFolder: {
     default: 'quasar-project'
@@ -421,7 +394,7 @@ const definitions = {
     default: 'app'
   },
 
-  type: {
+  engine: {
     default: 'vite-3'
   }
 }
@@ -440,7 +413,6 @@ export default {
 
   installDeps,
   lintFolder,
-  ensureOutsideProject,
   initializeGit,
   getGitUser
 }

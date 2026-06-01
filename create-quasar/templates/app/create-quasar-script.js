@@ -1,9 +1,9 @@
 export async function createQuasarScript({ scope, utils }) {
   await utils.promptUser(scope, {
-    type: () =>
+    engine: () =>
       utils.prompts.select({
         message: 'Pick Quasar App CLI variant:',
-        initialValue: utils.definitions.type.default,
+        initialValue: utils.definitions.engine.default,
         options: [
           {
             label: '@quasar/app-vite v3 beta (recommended)',
@@ -49,7 +49,7 @@ export async function createQuasarScript({ scope, utils }) {
   })
 
   const { createQuasarScript: create } = await import(
-    `./${scope.type}/create-quasar-script.js`
+    `./${scope.engine}/create-quasar-script.js`
   )
   await create({ scope, utils })
 
