@@ -305,23 +305,7 @@ function getStrDefineType(value) {
   if (value === 'null') return 'null'
 
   const trimmed = value.trim()
-  if (trimmed !== '') {
-    if (!Number.isNaN(Number(trimmed))) return 'number'
-
-    if (
-      (trimmed.startsWith('[') && trimmed.endsWith(']')) ||
-      (trimmed.startsWith('Array(') && trimmed.endsWith(')')) ||
-      (trimmed.startsWith('new Array(') && trimmed.endsWith(')'))
-    ) {
-      return 'unknown[]'
-    }
-
-    if (trimmed.startsWith('{') && trimmed.endsWith('}')) {
-      return 'Record<string, unknown>'
-    }
-  }
-
-  return 'string'
+  return trimmed !== '' && !Number.isNaN(Number(trimmed)) ? 'number' : 'string'
 }
 
 function getImportMetaEnvDeclaration(quasarConf) {
