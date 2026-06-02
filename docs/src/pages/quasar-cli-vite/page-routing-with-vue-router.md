@@ -102,10 +102,10 @@ export default defineRouter((/* { store, ssrContext } */) => {
     // the rest....
   })
 
-+  // enable HMR for it
-+  if (import.meta.hot) {
-+    handleHotUpdate(Router)
-+  }
++ // enable HMR for it
++ if (import.meta.hot) {
++   handleHotUpdate(Router)
++ }
 
   return Router
 })

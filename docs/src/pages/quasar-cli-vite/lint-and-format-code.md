@@ -241,15 +241,20 @@ $ bun add --dev prettier@3 @vue/eslint-config-prettier
 
 #### The quasar.config file settings
 
-```diff [highlight=3-8] /quasar.config file
+```js [highlight=3-13] /quasar.config file
 build: {
   vitePlugins: [
-    ['vite-plugin-checker', {
-      eslint: {
-        lintCommand: 'eslint -c ./eslint.config.js "./src*/**/*.{js,mjs,cjs,vue}"',
-        useFlatConfig: true
-      }
-    }, { server: false }]
+    [
+      'vite-plugin-checker',
+      {
+        eslint: {
+          lintCommand:
+            'eslint -c ./eslint.config.js "./src*/**/*.{js,mjs,cjs,vue}"',
+          useFlatConfig: true
+        }
+      },
+      { server: false }
+    ]
   ]
 }
 ```

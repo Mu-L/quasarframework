@@ -89,8 +89,8 @@ import { createPinia } from 'pinia'
  */
 declare module 'pinia' {
   export interface PiniaCustomProperties {
--    readonly router: Router;
-+    // add your custom properties here, if any
+-   readonly router: Router;
++   // add your custom properties here, if any
   }
 }
 ```
@@ -177,15 +177,15 @@ rules: {
 You can use `quasar.config file > build > typescript` to control the TypeScript-related behavior. Add this section into your configuration:
 
 ```diff /quasar.config.ts
-  build: {
-+  typescript: {
-+    strict: true, // (recommended) enables strict settings for TypeScript
-+    vueShim: true, // required when using ESLint with type-checked rules, will generate a shim file for `*.vue` files
-+    extendTsConfig (tsConfig) {
-+      // You can use this hook to extend tsConfig dynamically
-+      // For basic use cases, you can still update the usual tsconfig.json file to override some settings
-+    },
-+  }
+build: {
++ typescript: {
++   strict: true, // (recommended) enables strict settings for TypeScript
++   vueShim: true, // required when using ESLint with type-checked rules, will generate a shim file for `*.vue` files
++   extendTsConfig (tsConfig) {
++     // You can use this hook to extend tsConfig dynamically
++     // For basic use cases, you can still update the usual tsconfig.json file to override some settings
++   },
++ }
 }
 ```
 
@@ -196,7 +196,7 @@ If you are using ESLint with type-check rules, enable the `vueShim` option to pr
 ```diff /quasar.config.ts
 build: {
   typescript: {
-+    vueShim: true // required when using ESLint with type-checked rules, will generate a shim file for `*.vue` files
++   vueShim: true // required when using ESLint with type-checked rules, will generate a shim file for `*.vue` files
   }
 }
 ```

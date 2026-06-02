@@ -441,91 +441,91 @@ Edit your `/quasar.config` file. These are just the important changes that you n
 
 ```diff /quasar.config file
 build: {
--  rawDefine: {}
-+  define: {} // values need to be JSON.stringify()
+- rawDefine: {}
++ define: {} // values need to be JSON.stringify()
 
--  env: {},
-+  defineEnv: {} // or long form "define" with 'import.meta.env.' prefix in key
+- env: {},
++ defineEnv: {} // or long form "define" with 'import.meta.env.' prefix in key
 
-+  vueOptionsAPI // change to "true" if needed; defaults to "false" now!
--  polyfillModulePreload // deferring to Vite's default
++ vueOptionsAPI // change to "true" if needed; defaults to "false" now!
+- polyfillModulePreload // deferring to Vite's default
 
-+  // new! Vue Router v5+ filename-based routing
-+  filenameBasedRouting: boolean | VueRouterVitePluginOptions
++ // new! Vue Router v5+ filename-based routing
++ filenameBasedRouting: boolean | VueRouterVitePluginOptions
 
--  // removed; add your preferred analyzer yourself;
--  // example available below
--  analyze
+- // removed; add your preferred analyzer yourself;
+- // example available below
+- analyze
 },
 
 sourceFiles: {
-   // defaults to: 'src-pwa/register-sw' now!
-   // change file name or set to your current one:
-+  pwaRegisterServiceWorker: 'src-pwa/register-service-worker',
+  // defaults to: 'src-pwa/register-sw' now!
+  // change file name or set to your current one:
++ pwaRegisterServiceWorker: 'src-pwa/register-service-worker',
 
-   // defaults to 'src-pwa/custom-sw' now!
-   // change file name or set to your current one:
-+  pwaServiceWorker: 'src-pwa/custom-service-worker',
+  // defaults to 'src-pwa/custom-sw' now!
+  // change file name or set to your current one:
++ pwaServiceWorker: 'src-pwa/custom-service-worker',
 },
 
 cordova: {
--  noIosLegacyBuildFlag: true, // no longer available; only modern build system
+- noIosLegacyBuildFlag: true, // no longer available; only modern build system
 },
 
 ssr: {
--  extendPackageJson (pkgJson) {},
-+  // can now be async and optionally return object to be merged with default one
-+  extendSSRPackageJson (pkgJson) {},
+- extendPackageJson (pkgJson) {},
++ // can now be async and optionally return object to be merged with default one
++ extendSSRPackageJson (pkgJson) {},
 
--  extendSSRWebserverConf (esbuildConf) {},
-+  // can now be async and optionally return object to be merged with default one
-+  extendSSRWebserverConf (rolldownConf) {},
+- extendSSRWebserverConf (esbuildConf) {},
++ // can now be async and optionally return object to be merged with default one
++ extendSSRWebserverConf (rolldownConf) {},
 
--  pwaExtendGenerateSWOptions (conf) {},
--  pwaExtendInjectManifestOptions (conf) {},
-+  // can now be async and optionally return object to be merged with default one
-+  extendSSRGenerateSWOptions (conf) {},
-+  // can now be async and optionally return object to be merged with default one
-+  extendSSRInjectManifestOptions (conf) {},
+- pwaExtendGenerateSWOptions (conf) {},
+- pwaExtendInjectManifestOptions (conf) {},
++ // can now be async and optionally return object to be merged with default one
++ extendSSRGenerateSWOptions (conf) {},
++ // can now be async and optionally return object to be merged with default one
++ extendSSRInjectManifestOptions (conf) {},
 },
 
 pwa: {
--  extendManifestJson (json) {},
-+  // can now be async and optionally return object to be merged with default one
-+  extendPWAManifestJson (json) {},
+- extendManifestJson (json) {},
++ // can now be async and optionally return object to be merged with default one
++ extendPWAManifestJson (json) {},
 
--  injectPwaMetaTags: boolean
-+  injectPWAMetaTags: boolean
+- injectPwaMetaTags: boolean
++ injectPWAMetaTags: boolean
 
--  extendGenerateSWOptions (conf) {},
--  extendInjectManifestOptions (conf) {},
-+  // can now be async and optionally return object to be merged with default one
-+  extendPWAGenerateSWOptions (conf) {},
-+  // can now be async and optionally return object to be merged with default one
-+  extendPWAInjectManifestOptions (conf) {},
+- extendGenerateSWOptions (conf) {},
+- extendInjectManifestOptions (conf) {},
++ // can now be async and optionally return object to be merged with default one
++ extendPWAGenerateSWOptions (conf) {},
++ // can now be async and optionally return object to be merged with default one
++ extendPWAInjectManifestOptions (conf) {},
 
--  extendPWACustomSWConf (esbuildConf) {},
-+  // can now be async and optionally return object to be merged with default one
-+  extendPWACustomSWConf (rolldownConf) {},
+- extendPWACustomSWConf (esbuildConf) {},
++ // can now be async and optionally return object to be merged with default one
++ extendPWACustomSWConf (rolldownConf) {},
 },
 
 electron: {
--  extendPackageJson (pkgJson) {},
-+  // can now be async and optionally return object to be merged with default one
-+  extendElectronPackageJson (pkgJson) {},
+- extendPackageJson (pkgJson) {},
++ // can now be async and optionally return object to be merged with default one
++ extendElectronPackageJson (pkgJson) {},
 
--  extendElectronMainConf (esbuildConf) {},
--  extendElectronPreloadConf (esbuildConf) {},
-+  // can now be async and optionally return object to be merged with default one
-+  extendElectronMainConf (rolldownConf) {},
-+  // can now be async and optionally return object to be merged with default one
-+  extendElectronPreloadConf (rolldownConf) {},
+- extendElectronMainConf (esbuildConf) {},
+- extendElectronPreloadConf (esbuildConf) {},
++ // can now be async and optionally return object to be merged with default one
++ extendElectronMainConf (rolldownConf) {},
++ // can now be async and optionally return object to be merged with default one
++ extendElectronPreloadConf (rolldownConf) {},
 },
 
 bex: {
--  extendBexScriptsConf (esbuildConf) {},
-+  // can now be async and optionally return object to be merged with default one
-+  extendBexScriptsConf (rolldownConf) {},
+- extendBexScriptsConf (esbuildConf) {},
++ // can now be async and optionally return object to be merged with default one
++ extendBexScriptsConf (rolldownConf) {},
 }
 ```
 
