@@ -84,10 +84,7 @@ function generateTsConfig(quasarConf, fsUtils) {
 
   // TypeScript's auto-import suggester picks the first matching alias in declaration order, so order matters here.
   // `build.alias` is already ordered user-first by quasar-config-file.js, so nothing special to do here.
-  // We use rawAlias for Windows hosts
-  const aliasMap = {
-    ...(quasarConf.metaConf.rawAlias || quasarConf.build.alias)
-  }
+  const aliasMap = { ...quasarConf.build.alias }
 
   // TS aliases doesn't play well with package.json#exports: https://github.com/microsoft/TypeScript/issues/60460
   // So, we had to specify each entry point separately here

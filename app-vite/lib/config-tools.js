@@ -254,10 +254,7 @@ export async function createViteConfig(
     // are installed in /src-{modeName} and not in root
     // so it breaks Vite
     Object.keys(deps).forEach(depName => {
-      viteConf.resolve.alias[depName] = join(target, depName).replaceAll(
-        '\\', // windows
-        '/'
-      )
+      viteConf.resolve.alias[depName] = join(target, depName)
     })
   })
 
@@ -324,6 +321,12 @@ export function createNodeRolldownConfig(
           : ['.cjs', '.js', '.ts', '.json', '.jsx', '.tsx']
     },
 
+    /**
+     * Required for Windows host, otherwise Node.js will complain
+     * about importing with absolute paths and will fail with
+     * ESM error ("ERR_UNSUPPORTED_ESM_URL_SCHEME"):
+     */
+    makeAbsoluteExternalsRelative: true,
     external: quasarConf.ctx.dev ? [/node_modules/] : [],
 
     transform: {

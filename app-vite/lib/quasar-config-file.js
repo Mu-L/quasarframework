@@ -265,6 +265,12 @@ export class QuasarConfigFile {
         banner: quasarConfigBanner
       },
 
+      /**
+       * Required for Windows host, otherwise Node.js will complain
+       * about importing with absolute paths and will fail with
+       * ESM error ("ERR_UNSUPPORTED_ESM_URL_SCHEME"):
+       */
+      makeAbsoluteExternalsRelative: true,
       external: /node_modules/,
 
       resolve: {
@@ -1021,12 +1027,6 @@ export class QuasarConfigFile {
     for (const aliasKey in defaultAliases) {
       if (!(aliasKey in alias)) {
         alias[aliasKey] = defaultAliases[aliasKey]
-      }
-    }
-    if (process.platform === 'win32') {
-      cfg.metaConf.rawAlias = { ...alias }
-      for (const aliasKey in alias) {
-        alias[aliasKey] = alias[aliasKey].replaceAll('\\', '/')
       }
     }
 
