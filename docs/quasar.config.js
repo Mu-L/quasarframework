@@ -40,7 +40,7 @@ export default defineConfig(ctx => ({
       if (ctx.prod && isClient) {
         return {
           build: {
-            chunkSizeWarningLimit: 650,
+            chunkSizeWarningLimit: 700,
             rolldownOptions: {
               output: {
                 codeSplitting
