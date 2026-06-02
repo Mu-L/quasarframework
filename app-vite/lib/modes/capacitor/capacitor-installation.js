@@ -34,16 +34,6 @@ export async function addMode({
     return
   }
 
-  const appName = appPkg.productName || appPkg.name || 'Quasar App'
-
-  if (/^[0-9]/.test(appName)) {
-    warn(
-      'App product name cannot start with a number. ' +
-        'Please change the "productName" prop in your /package.json then try again.'
-    )
-    return
-  }
-
   const promptSession = await createPromptSession(
     'Installing Capacitor Mode...'
   )
@@ -56,6 +46,19 @@ export async function addMode({
         validate: val => {
           if (!val) return 'Please fill in a value'
         }
+      }),
+    appName: () =>
+      promptSession.text({
+        message: 'What is the Capacitor app display name?',
+        initialValue: appPkg.productName || appPkg.name || 'Quasar App',
+        validate: val => {
+          if (!val) {
+            return 'Please fill in a value'
+          }
+          if (/^[0-9]/.test(val)) {
+            return 'Display name cannot start with a number'
+          }
+        }
       })
   })
 
@@ -66,9 +69,8 @@ export async function addMode({
 
   const nodePackager = await cacheProxy.getModule('nodePackager')
   const scope = {
-    appName,
+    appName: answer.appName,
     appId: answer.appId,
-    pkg: appPkg,
     nodePackager: nodePackager.name
   }
 

@@ -21,9 +21,6 @@ export class CapacitorConfigFile {
 
     const { appPaths, cacheProxy } = quasarConf.ctx
 
-    this.#updateCapPkg(quasarConf)
-    log('Updated src-capacitor/package.json')
-
     this.#tamperedFiles = []
 
     // TODO: support other formats: .js and .ts
@@ -63,13 +60,7 @@ export class CapacitorConfigFile {
   }
 
   #updateCapJson(quasarConf, originalCapCfg, capVersion, target) {
-    const capJson = {
-      ...originalCapCfg,
-      appName:
-        quasarConf.capacitor.appName ||
-        this.#ctx.pkg.appPkg.productName ||
-        'Quasar App'
-    }
+    const capJson = { ...originalCapCfg }
 
     if (quasarConf.ctx.dev) {
       capJson.server ||= {}
@@ -88,25 +79,6 @@ export class CapacitorConfigFile {
     }
 
     return stringifyJSON(capJson)
-  }
-
-  #updateCapPkg(quasarConf) {
-    const {
-      appPaths,
-      pkg: { appPkg, capacitorPkg }
-    } = this.#ctx
-
-    const capPkgPath = appPaths.resolve.capacitor('package.json')
-    const capPkg = structuredClone(capacitorPkg)
-
-    Object.assign(capPkg, {
-      name: quasarConf.capacitor.appName || appPkg.name,
-      version: quasarConf.capacitor.version || appPkg.version,
-      description: quasarConf.capacitor.description || appPkg.description,
-      author: appPkg.author
-    })
-
-    fs.writeFileSync(capPkgPath, stringifyJSON(capPkg), 'utf8')
   }
 
   async #updateSSL(quasarConf, target, capVersion) {
