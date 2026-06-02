@@ -136,7 +136,7 @@ $ cordova plugin add cordova-plugin-ionic-webview
 
 3. Consult Ionic Docs for caveats on WkWebViewPlugin
 
-- [https://beta.ionicframework.com/docs/building/webview](https://beta.ionicframework.com/docs/building/webview)
+- [https://ionicframework.com/docs/core-concepts/webview](https://ionicframework.com/docs/core-concepts/webview)
 - [https://github.com/ionic-team/cordova-plugin-ionic-webview](https://github.com/ionic-team/cordova-plugin-ionic-webview)
 
 #### Option 2: Cordova WkWebviewEngine Plugin

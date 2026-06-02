@@ -11,7 +11,7 @@ There are two configuration files of great importance to your mobile apps. We'll
 
 ## capacitor.config.json
 
-The most important config file for your mobile app is `/src-capacitor/capacitor.config.json`. The `/src-capacitor` folder is a Capacitor project, so please refer to [Capacitor documentation](https://capacitor.ionicframework.com) in order to understand what each file from there does. But for now, have a few moments to read about [capacitor.config.json](https://capacitor.ionicframework.com/docs/basics/configuring-your-app/).
+The most important config file for your mobile app is `/src-capacitor/capacitor.config.json`. The `/src-capacitor` folder is a Capacitor project, so please refer to [Capacitor documentation](https://capacitorjs.com) in order to understand what each file from there does. But for now, have a few moments to read about [capacitor.config.json](https://capacitorjs.com/docs/basics/configuring-your-app).
 
 The `appId` and `appName` fields are captured once via prompts when you run `quasar mode add capacitor`. They're applied to the native projects at platform-add time (`cap add android` / `cap add ios`). Due to how Capacitor works, changing them later in `capacitor.config.json` won't propagate to existing native projects. Edit `ios/App/App/Info.plist > CFBundleDisplayName` and `android/app/src/main/res/values/strings.xml > app_name` directly.
 

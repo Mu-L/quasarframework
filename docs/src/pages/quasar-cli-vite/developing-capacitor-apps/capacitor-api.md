@@ -3,7 +3,7 @@ title: Capacitor APIs
 desc: (@quasar/app-vite) How to use the Capacitor plugins in a Quasar app.
 ---
 
-You can hook into the native device APIs by using [Capacitor APIs](https://capacitor.ionicframework.com/docs/apis).
+You can hook into the native device APIs by using [Capacitor APIs](https://capacitorjs.com/docs/apis).
 
 ## Capacitor APIs
 
@@ -28,7 +28,7 @@ Let's learn by taking some examples, assuming you've added Capacitor mode to you
 
 ### Example: Geolocation
 
-First step is to read the documentation of the Capacitor API that we want to use. We look at Capacitor's [Geolocation API](https://capacitor.ionicframework.com/docs/apis/geolocation).
+First step is to read the documentation of the Capacitor API that we want to use. We look at Capacitor's [Geolocation API](https://capacitorjs.com/docs/apis/geolocation).
 
 Now let's put this plugin to some good use. In one of your Quasar project's pages/layouts/components Vue file, we write:
 
@@ -75,7 +75,7 @@ importance
 
 ### Example: Camera
 
-First step is to read the documentation of the Capacitor API that we want to use. We look at Capacitor's [Camera API](https://capacitor.ionicframework.com/docs/apis/camera).
+First step is to read the documentation of the Capacitor API that we want to use. We look at Capacitor's [Camera API](https://capacitorjs.com/docs/apis/camera).
 
 Now let's put this API to some good use. In one of your Quasar project's pages/layouts/components Vue file, we write:
 
@@ -140,7 +140,7 @@ Now you are able to use the Camera API not just in native Android or iOS, but al
 
 ### Example: Device
 
-First step is to read the documentation of the Capacitor API that we want to use. Look at the Capacitor's [Device API](https://capacitor.ionicframework.com/docs/apis/device).
+First step is to read the documentation of the Capacitor API that we want to use. Look at the Capacitor's [Device API](https://capacitorjs.com/docs/apis/device).
 
 Now let's put this API to some good use. In one of your Quasar project's pages/layouts/components Vue file, we write:
 
