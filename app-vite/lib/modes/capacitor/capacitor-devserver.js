@@ -86,15 +86,20 @@ export class QuasarModeDevserver extends AppDevserver {
 
   #runCapacitorCommand(args, cwd, capBin) {
     const { promise, resolve } = Promise.withResolvers()
-    this.#pid = spawn(capBin, args, { cwd }, code => {
-      this.#cleanup()
+    this.#pid = spawn(
+      capBin,
+      args,
+      { cwd, env: this.#capacitorConfigFile.runtimeEnv },
+      code => {
+        this.#cleanup()
 
-      if (code) {
-        fatal('Capacitor CLI has failed', 'FAIL')
+        if (code) {
+          fatal('Capacitor CLI has failed', 'FAIL')
+        }
+
+        resolve()
       }
-
-      resolve()
-    })
+    )
 
     return promise
   }

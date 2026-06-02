@@ -1,5 +1,0 @@
-{
-  "appId": "<%= scope.appId %>",
-  "appName": "<%= scope.appName %>",
-  "webDir": "www"
-}

@@ -84,6 +84,12 @@
     "./testing": {
       "types": "./exports/testing/testing.d.ts",
       "import": "./exports/testing/testing.js"
+    },
+    "./capacitor": {
+      "types": "./exports/capacitor/capacitor.d.ts",
+      "require": "./exports/capacitor/capacitor.cjs",
+      "node": "./exports/capacitor/capacitor.js",
+      "import": "./exports/capacitor/capacitor.js"
     }
   },
   "publishConfig": {
@@ -128,6 +134,7 @@
     "webpack-merge": "^6.0.1"
   },
   "devDependencies": {
+    "@capacitor/cli": "^8.0.0",
     "@quasar/extras": "workspace:*",
     "pinia": "^3.0.4",
     "quasar": "workspace:^",
@@ -135,6 +142,7 @@
     "vue-router": "^5.1.0"
   },
   "peerDependencies": {
+    "@capacitor/cli": ">= 5",
     "@electron/packager": ">= 19",
     "builder-util": ">= 26",
     "electron-builder": ">= 22",
@@ -146,6 +154,9 @@
     "workbox-build": ">= 7"
   },
   "peerDependenciesMeta": {
+    "@capacitor/cli": {
+      "optional": true
+    },
     "typescript": {
       "optional": true
     },

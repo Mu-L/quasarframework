@@ -74,30 +74,26 @@ export async function addMode({
     nodePackager: nodePackager.name
   }
 
-  globSync(['**/*'], {
-    cwd: appPaths.resolve.cli('templates/capacitor')
-  }).forEach(filePath => {
-    const dest = appPaths.resolve.capacitor(filePath)
-    const content = fse.readFileSync(
-      appPaths.resolve.cli('templates/capacitor/' + filePath),
-      'utf8'
-    )
-    fse.ensureFileSync(dest)
-    fse.writeFileSync(dest, renderTemplate(content, scope), 'utf8')
-  })
+  const hasTypescript = await cacheProxy.getModule('hasTypescript')
+  const format = hasTypescript ? 'ts' : 'js'
+
+  for (const subdir of ['common', format]) {
+    const cwd = appPaths.resolve.cli(`templates/capacitor/${subdir}`)
+    globSync(['**/*'], { cwd }).forEach(filePath => {
+      const dest = appPaths.resolve.capacitor(filePath)
+      const content = fse.readFileSync(`${cwd}/${filePath}`, 'utf8')
+      fse.ensureFileSync(dest)
+      fse.writeFileSync(dest, renderTemplate(content, scope), 'utf8')
+    })
+  }
 
   copyTask.success('Created /src-capacitor')
 
   await ensureDeps({ appPaths, cacheProxy })
 
-  const { capBin } = await cacheProxy.getModule('capCli')
-  await spawnSync(
-    capBin,
-    ['init', '--web-dir', 'www', scope.appName, scope.appId],
-    {
-      cwd: appPaths.capacitorDir
-    }
-  )
+  // `cap init` refuses to run when a non-JSON config exists (e.g., js or ts).
+  // The scaffolded capacitor.config.{ts,js} already declares appId / appName,
+  // which is the only thing `cap init` would write. So, we don't run `cap init`.
 
   if (target) {
     await addPlatform(target, appPaths, cacheProxy)

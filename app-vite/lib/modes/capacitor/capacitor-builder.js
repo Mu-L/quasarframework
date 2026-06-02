@@ -68,15 +68,23 @@ export class QuasarModeBuilder extends AppBuilder {
 
   #runCapacitorCommand(args, capBin) {
     const { promise, resolve } = Promise.withResolvers()
-    spawn(capBin, args, { cwd: this.ctx.appPaths.capacitorDir }, code => {
-      this.#cleanup()
+    spawn(
+      capBin,
+      args,
+      {
+        cwd: this.ctx.appPaths.capacitorDir,
+        env: this.#capacitorConfigFile.runtimeEnv
+      },
+      code => {
+        this.#cleanup()
 
-      if (code) {
-        fatal('Capacitor CLI has failed', 'FAIL')
+        if (code) {
+          fatal('Capacitor CLI has failed', 'FAIL')
+        }
+
+        resolve()
       }
-
-      resolve()
-    })
+    )
 
     return promise
   }

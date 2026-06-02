@@ -4,6 +4,9 @@ import { parseJSON, stringifyJSON } from 'confbox'
 import { log } from '../../utils/logger.js'
 import { getPackageJson } from '../../utils/get-package-json.js'
 
+// Match @capacitor/cli's loadExtConfig lookup order: .ts -> .js -> .json.
+const SOURCE_EXTENSIONS = ['ts', 'js', 'json']
+
 const sslSkipVersion = {
   5: '^0.3.0',
   6: '^0.4.0',
@@ -13,24 +16,36 @@ const sslSkipVersion = {
 }
 
 export class CapacitorConfigFile {
+  runtimeEnv = null
+
   #ctx
   #tamperedFiles = []
 
   async prepare(quasarConf, target) {
     this.#ctx = quasarConf.ctx
 
-    const { appPaths, cacheProxy } = quasarConf.ctx
+    const { cacheProxy } = quasarConf.ctx
 
     this.#tamperedFiles = []
+    this.runtimeEnv = this.#buildRuntimeEnv(quasarConf)
 
-    // TODO: support other formats: .js and .ts
-    const capJsonPath = appPaths.resolve.capacitor('capacitor.config.json')
-    const capJson = parseJSON(fs.readFileSync(capJsonPath, 'utf8'))
-
+    const source = this.#resolveSource()
     const { capVersion } = await cacheProxy.getModule('capCli')
 
+    // .ts/.js path: user's source is the authoritative config. Quasar passes its
+    // runtime info to the Capacitor CLI process via env. The user's config file reads
+    // it via defineCapacitorConfig and applies dev-time defaults at config-load time.
+    if (source.ext !== 'json') {
+      log(`Using capacitor.config.${source.ext}`)
+      await this.#updateSSL(quasarConf, target, capVersion)
+      return
+    }
+
+    // Legacy .json path: mutate-and-restore. Kept for backwards compatibility.
+    const capJson = parseJSON(fs.readFileSync(source.path, 'utf8'))
+
     this.#tamperedFiles.push({
-      path: capJsonPath,
+      path: source.path,
       name: 'capacitor.config.json',
       content: this.#updateCapJson(quasarConf, capJson, capVersion, target),
       originalContent: stringifyJSON(capJson)
@@ -39,6 +54,56 @@ export class CapacitorConfigFile {
     this.#save()
 
     await this.#updateSSL(quasarConf, target, capVersion)
+  }
+
+  #resolveSource() {
+    const { appPaths } = this.#ctx
+    for (const ext of SOURCE_EXTENSIONS) {
+      const path = appPaths.resolve.capacitor(`capacitor.config.${ext}`)
+      if (fs.existsSync(path)) {
+        return { ext, path }
+      }
+    }
+
+    // No source file present. Fall back to the .json path so existing error
+    // messages (e.g. "ENOENT capacitor.config.json") remain familiar.
+    return {
+      ext: 'json',
+      path: appPaths.resolve.capacitor('capacitor.config.json')
+    }
+  }
+
+  #buildRuntimeEnv(quasarConf) {
+    const env = {}
+
+    // Values in backendEnvDefineList / build.define are Vite-define-encoded
+    // (bool/number/null as-is, strings JSON-quoted), so unwrap and coerce to plain strings.
+    const addFromDefines = defines => {
+      for (const key in defines) {
+        const envKey = key.replace(/^import\.meta\.env\./, '')
+        const raw = defines[key]
+        try {
+          const parsed = JSON.parse(raw)
+          env[envKey] = typeof parsed === 'string' ? parsed : String(parsed)
+        } catch {
+          env[envKey] = raw
+        }
+      }
+    }
+
+    // Forward user-defined env vars (.env files + quasar.config.build.env) so
+    // they're readable as process.env.X inside capacitor.config.{ts,js}.
+    addFromDefines(quasarConf.metaConf.backendEnvDefineList)
+
+    // Forward Quasar's own QUASAR_* defines (e.g., QUASAR_DEV)
+    const quasarDefines = Object.fromEntries(
+      Object.entries(quasarConf.build.define).filter(([key]) =>
+        key.startsWith('import.meta.env.QUASAR_')
+      )
+    )
+    addFromDefines(quasarDefines)
+
+    return env
   }
 
   reset() {
