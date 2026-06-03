@@ -8,7 +8,6 @@ import { fatal, log, warn } from '../../utils/logger.js'
 import { CapacitorConfigFile } from './config-file.js'
 import { spawn, spawnSync } from '../../utils/spawn.js'
 import { openIDE } from '../../utils/open-ide.js'
-import { onShutdown } from '../../utils/on-shutdown.js'
 import { SIGNALS } from '../../utils/signals.js'
 
 export class QuasarModeBuilder extends AppBuilder {
@@ -32,10 +31,6 @@ export class QuasarModeBuilder extends AppBuilder {
   async #packageFiles() {
     const target = this.ctx.targetName
     const { appPaths, cacheProxy } = this.ctx
-
-    onShutdown(() => {
-      this.#cleanup()
-    })
 
     await this.#capacitorConfigFile.prepare(this.quasarConf, target)
 
@@ -62,10 +57,6 @@ export class QuasarModeBuilder extends AppBuilder {
     }
   }
 
-  #cleanup() {
-    this.#capacitorConfigFile.reset()
-  }
-
   #runCapacitorCommand(args, capBin) {
     const { promise, resolve } = Promise.withResolvers()
     spawn(
@@ -76,8 +67,6 @@ export class QuasarModeBuilder extends AppBuilder {
         env: this.#capacitorConfigFile.runtimeEnv
       },
       code => {
-        this.#cleanup()
-
         if (code) {
           fatal('Capacitor CLI has failed', 'FAIL')
         }

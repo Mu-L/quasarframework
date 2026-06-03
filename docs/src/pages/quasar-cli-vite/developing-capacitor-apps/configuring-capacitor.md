@@ -5,21 +5,20 @@ related:
   - /quasar-cli-vite/quasar-config-file
 ---
 
-A Quasar Capacitor app has two configuration surfaces, each with a distinct job. The native Capacitor project lives under `/src-capacitor` and is configured by `capacitor.config.{ts,js,json}`. Quasar's own build/dev behavior is configured by the top-level `/quasar.config` file. We'll go over each.
+A Quasar Capacitor app has two configuration surfaces, each with a distinct job. The native Capacitor project lives under `/src-capacitor` and is configured by `capacitor.config.{ts,js}`. Quasar's own build/dev behavior is configured by the top-level `/quasar.config` file. We'll go over each.
 
 ## The capacitor.config file
 
-`capacitor.config.{ts,js,json}` is Capacitor's own config file. The `/src-capacitor` folder is a Capacitor project, so for the schema itself and what each field does, see Capacitor's [Configuring your app](https://capacitorjs.com/docs/basics/configuring-your-app) docs.
+`capacitor.config.{ts,js}` is Capacitor's own config file. The `/src-capacitor` folder is a Capacitor project, so for the schema itself and what each field does, see Capacitor's [Configuring your app](https://capacitorjs.com/docs/basics/configuring-your-app) docs.
 
-The important mental model: this file is loaded by the Capacitor CLI process, not bundled by Vite. When Quasar runs `cap sync` (or similar) on your behalf, the cap CLI is a separate Node process that reads `capacitor.config.*` directly with `require()` (`.js`) or its TypeScript loader (`.ts`), or parses the file as JSON. Once that's in your head, the rest of the page is just consequences.
+The important mental model: this file is loaded by the Capacitor CLI process, not bundled by Vite. When Quasar runs `cap sync` (or similar) on your behalf, the cap CLI is a separate Node process that reads `capacitor.config.*` directly with `require()` (`.js`) or its TypeScript loader (`.ts`). Once that's in your head, the rest of the page is just consequences.
 
 ### File format
 
-Capacitor's CLI looks for `capacitor.config.ts`, then `.js`, then `.json`. Quasar matches that order. When you run `quasar mode add capacitor`, the scaffolded format depends on whether your project uses TypeScript:
+Quasar CLI looks for `capacitor.config.ts`, then `.js`. When you run `quasar mode add capacitor`, the scaffolded format depends on whether your project uses TypeScript:
 
 - TS projects get `capacitor.config.ts`.
 - JS projects get `capacitor.config.js` in CommonJS form.
-- Existing projects with `capacitor.config.json` keep working unchanged.
 
 Capacitor's `.js` config loader doesn't yet handle ESM exports correctly, so we have to stick with `module.exports` in JS projects.
 
@@ -143,30 +142,6 @@ If you run cap CLI yourself from `/src-capacitor` (`npx cap sync`, `cap doctor`,
 `appId` and the app display name are captured once via prompts when you run `quasar mode add capacitor`, and written into the scaffolded `capacitor.config.*`. The Capacitor CLI then bakes them into the native projects at platform-add time (`cap add android` / `cap add ios`). It writes `appName` into `ios/App/App/Info.plist > CFBundleDisplayName` and `android/app/src/main/res/values/strings.xml > app_name`.
 
 `cap sync` and `cap copy` don't re-run that step. So changing `appId` or `appName` in `capacitor.config.*` after the platforms exist doesn't propagate to existing native projects. To rename the installed app, edit Info.plist and strings.xml directly, or remove and re-add the platform. This is how Capacitor works in general, not a Quasar-specific quirk.
-
-### The legacy capacitor.config.json path
-
-The `.json` path is still supported. If a project was scaffolded before the `.ts` / `.js` formats, or you've kept it on purpose, nothing breaks.
-
-That said, the `.ts` / `.js` path does things JSON can't: branching on `process.env.QUASAR_DEV` / `QUASAR_TARGET`, reading your `.env`, `fetch()`-ing remote config, and getting real `CapacitorConfig` types in TS. It's also quieter in git. The JSON path uses mutate-and-restore: while the cap CLI runs, Quasar writes `appName`, `server.url`, `server.cleartext`, and `webDir` into the file, then restores the original contents on exit. During that window, `git status` briefly shows the file as modified. The `.ts` / `.js` path skips all of that, because the helper applies the same adjustments in-memory at load time.
-
-Migration is mechanical. Copy the JSON fields into a `defineCapacitorConfig({...})` call. `webDir` can be dropped (the helper defaults it). `appId` and `appName` stay the same.
-
-```tabs Migrating from JSON
-<<| json capacitor.config.json (before) |>>
-{
-  "appId": "org.example.app",
-  "appName": "My App",
-  "webDir": "www"
-}
-<<| ts capacitor.config.ts (after) |>>
-import { defineCapacitorConfig } from '@quasar/app-vite/capacitor';
-
-export default defineCapacitorConfig({
-  appId: 'org.example.app',
-  appName: 'My App'
-});
-```
 
 ## quasar.config file
 

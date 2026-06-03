@@ -1,11 +1,11 @@
 import fs from 'node:fs'
-import { parseJSON, stringifyJSON } from 'confbox'
 
-import { log } from '../../utils/logger.js'
+import { fatal, log } from '../../utils/logger.js'
 import { getPackageJson } from '../../utils/get-package-json.js'
 
-// Match @capacitor/cli's loadExtConfig lookup order: .ts -> .js -> .json.
-const SOURCE_EXTENSIONS = ['ts', 'js', 'json']
+// Quasar supports only .ts and .js. The Capacitor CLI itself also accepts
+// .json, but Quasar refuses to load it (see #resolveSource).
+const SOURCE_EXTENSIONS = ['ts', 'js']
 
 const sslSkipVersion = {
   5: '^0.3.0',
@@ -19,40 +19,21 @@ export class CapacitorConfigFile {
   runtimeEnv = null
 
   #ctx
-  #tamperedFiles = []
 
   async prepare(quasarConf, target) {
     this.#ctx = quasarConf.ctx
 
     const { cacheProxy } = quasarConf.ctx
 
-    this.#tamperedFiles = []
     this.runtimeEnv = this.#buildRuntimeEnv(quasarConf)
 
     const source = this.#resolveSource()
     const { capVersion } = await cacheProxy.getModule('capCli')
 
-    // .ts/.js path: user's source is the authoritative config. Quasar passes its
-    // runtime info to the Capacitor CLI process via env. The user's config file reads
-    // it via defineCapacitorConfig and applies dev-time defaults at config-load time.
-    if (source.ext !== 'json') {
-      log(`Using capacitor.config.${source.ext}`)
-      await this.#updateSSL(quasarConf, target, capVersion)
-      return
-    }
-
-    // Legacy .json path: mutate-and-restore. Kept for backwards compatibility.
-    const capJson = parseJSON(fs.readFileSync(source.path, 'utf8'))
-
-    this.#tamperedFiles.push({
-      path: source.path,
-      name: 'capacitor.config.json',
-      content: this.#updateCapJson(quasarConf, capJson, capVersion, target),
-      originalContent: stringifyJSON(capJson)
-    })
-
-    this.#save()
-
+    // The user's source is the authoritative config. Quasar passes its runtime info
+    // to the Capacitor CLI process via env. The user's config file reads it via
+    // defineCapacitorConfig and applies dev-time defaults at config-load time.
+    log(`Using capacitor.config.${source.ext}`)
     await this.#updateSSL(quasarConf, target, capVersion)
   }
 
@@ -65,12 +46,18 @@ export class CapacitorConfigFile {
       }
     }
 
-    // No source file present. Fall back to the .json path so existing error
-    // messages (e.g. "ENOENT capacitor.config.json") remain familiar.
-    return {
-      ext: 'json',
-      path: appPaths.resolve.capacitor('capacitor.config.json')
+    const jsonPath = appPaths.resolve.capacitor('capacitor.config.json')
+    if (fs.existsSync(jsonPath)) {
+      fatal(
+        'Found capacitor.config.json, which is no longer supported as of @quasar/app-vite v3.\n' +
+          'See: https://v2.quasar.dev/quasar-cli-vite/upgrade-guide#-js-ts-capacitor-config'
+      )
     }
+
+    fatal(
+      'Capacitor mode requires capacitor.config.ts or capacitor.config.js.\n' +
+        'See: https://v2.quasar.dev/quasar-cli-vite/developing-capacitor-apps/configuring-capacitor#file-format'
+    )
   }
 
   #buildRuntimeEnv(quasarConf) {
@@ -104,46 +91,6 @@ export class CapacitorConfigFile {
     addFromDefines(quasarDefines)
 
     return env
-  }
-
-  reset() {
-    if (this.#tamperedFiles.length === 0) return
-
-    this.#tamperedFiles.forEach(file => {
-      file.content = file.originalContent
-    })
-
-    this.#save()
-    this.#tamperedFiles = []
-  }
-
-  #save() {
-    this.#tamperedFiles.forEach(file => {
-      fs.writeFileSync(file.path, file.content, 'utf8')
-      log(`Updated ${file.name}`)
-    })
-  }
-
-  #updateCapJson(quasarConf, originalCapCfg, capVersion, target) {
-    const capJson = { ...originalCapCfg }
-
-    if (quasarConf.ctx.dev) {
-      capJson.server ||= {}
-      capJson.server.url = quasarConf.metaConf.APP_URL
-      if (target === 'android') {
-        capJson.server.cleartext = true
-      }
-    } else {
-      capJson.webDir = 'www'
-
-      // ensure we don't run from a remote server
-      if (capJson.server) {
-        delete capJson.server.url
-        delete capJson.server.cleartext
-      }
-    }
-
-    return stringifyJSON(capJson)
   }
 
   async #updateSSL(quasarConf, target, capVersion) {

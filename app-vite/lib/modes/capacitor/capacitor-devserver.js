@@ -106,6 +106,5 @@ export class QuasarModeDevserver extends AppDevserver {
 
   #cleanup() {
     this.#pid = 0
-    this.#capacitorConfigFile.reset()
   }
 }

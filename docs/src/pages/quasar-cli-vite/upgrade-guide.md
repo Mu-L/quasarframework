@@ -891,11 +891,9 @@ Instead of diffing here, you might want to check the next pages (even if you sti
 
 ### `.js` / `.ts` capacitor.config
 
-`quasar mode add capacitor` now scaffolds `capacitor.config.js` for JS projects, or a `capacitor.config.ts` for TypeScript projects. Existing `capacitor.config.json` projects keep working with no changes required, but we highly recommend migrating when you get the chance. See [Configuring Capacitor](/quasar-cli-vite/developing-capacitor-apps/configuring-capacitor) for more information.
+`@quasar/app-vite` adds support for `capacitor.config.js` and `capacitor.config.ts` files, and drops support for `capacitor.config.json`. `.js` and `.ts` variants are much more flexible and do not have the git noise of the `.json` one, which was being rewritten on every `quasar dev` / `quasar build` with relevant fields. You must migrate to `capacitor.config.ts` (for TypeScript projects) or `capacitor.config.js` (for JS projects) before upgrading, more details below.
 
-`.js` and `.ts` variants do not have the git noise of the `.json` one, which would be rewritten on every `quasar dev` / `quasar build` with relevant fields.
-
-Scaffolded files use the new `defineCapacitorConfig` helper from `@quasar/app-vite/capacitor`:
+`quasar mode add capacitor` now scaffolds `capacitor.config.js` for JS projects, or a `capacitor.config.ts` for TypeScript projects. See [Configuring Capacitor](/quasar-cli-vite/developing-capacitor-apps/configuring-capacitor) for more information. Config files use the new `defineCapacitorConfig` helper from `@quasar/app-vite/capacitor`:
 
 ```tabs
 <<| ts /src-capacitor/capacitor.config.ts |>>
