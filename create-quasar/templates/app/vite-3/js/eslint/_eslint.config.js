@@ -64,7 +64,7 @@ export default [
   },
 
   {
-    files: [ 'src-pwa/custom-service-worker.js' ],
+    files: [ 'src-pwa/sw/**/*.js' ],
     languageOptions: {
       globals: {
         ...globals.serviceworker

@@ -326,7 +326,7 @@ export default [
   },
 
   {
-    files: ['src-pwa/custom-sw.js'],
+    files: ['src-pwa/sw/**/*.js'],
     languageOptions: {
       globals: {
         ...globals.serviceworker
@@ -465,7 +465,7 @@ export default defineConfigWithVueTs(
   },
 
   {
-    files: ['src-pwa/custom-sw.ts'],
+    files: ['src-pwa/sw/**/*.ts'],
     languageOptions: {
       globals: {
         ...globals.serviceworker

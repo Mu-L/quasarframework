@@ -1148,7 +1148,7 @@ export class QuasarConfigFile {
         router: 'src/router/index',
         store: `src/${this.#storeProvider.pathKey}/index`,
         pwaRegisterServiceWorker: 'src-pwa/register-sw',
-        pwaServiceWorker: 'src-pwa/custom-sw',
+        pwaServiceWorker: 'src-pwa/sw/custom-sw',
         pwaManifestFile: 'src-pwa/manifest.json',
         electronMain: 'src-electron/electron-main',
         bexManifestFile: 'src-bex/manifest.json'

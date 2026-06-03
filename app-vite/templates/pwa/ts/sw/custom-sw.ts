@@ -12,8 +12,7 @@ import {
   precacheAndRoute
 } from "workbox-precaching";
 
-declare const self: ServiceWorkerGlobalScope &
-  typeof globalThis & { skipWaiting: () => void };
+declare const self: ServiceWorkerGlobalScope & typeof globalThis;
 
 void self.skipWaiting();
 clientsClaim();

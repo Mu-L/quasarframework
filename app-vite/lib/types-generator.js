@@ -200,6 +200,18 @@ function generateTsConfig(quasarConf, fsUtils) {
     ]
   }
 
+  // The service worker runs in a WebWorker context (no DOM) and has its own
+  // tsconfig.json under src-pwa/sw/. Nested tsconfigs are not picked up by
+  // tsc/vue-tsc when type-checking from the project root, so we exclude the
+  // folder here and rely on the nested tsconfig (handled by the IDE language
+  // server) plus a separate tsc invocation in vite-plugin-checker or a
+  // package.json script for type-checking the service worker.
+  // Excluding it from here doesn't have any downside since it's only for
+  // type-checking, not for transpilation.
+  if (isModeInstalled(appPaths, 'pwa')) {
+    tsConfig.exclude.push('./../src-pwa/sw')
+  }
+
   if (quasarConf.build.filenameBasedRouting) {
     tsConfig.compilerOptions.moduleResolution = 'Bundler'
     tsConfig.vueCompilerOptions = {

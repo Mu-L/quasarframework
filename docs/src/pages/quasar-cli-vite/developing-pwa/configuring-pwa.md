@@ -8,17 +8,18 @@ scope:
     l: src-pwa
     c:
       - l: register-sw.js
-        e: '(or .ts) UI code *managing* service worker'
+        e: '(or .ts) UI code *managing* service worker (main thread)'
       - l: manifest.json
         e: Your PWA manifest file
-      - l: custom-sw.js
-        e: '(or .ts) Optional custom service worker file (InjectManifest mode ONLY)'
       - l: package.json
         e: 'helps install PWA only deps directly under /src-pwa'
-      - l: pwa-end.d.ts
-        e: 'TypeScript only'
-      - l: tsconfig.json
-        e: 'TypeScript only'
+      - l: sw
+        e: 'Service worker context (WebWorker)'
+        c:
+          - l: custom-sw.js
+            e: '(or .ts) Optional custom service worker file (InjectManifest mode ONLY)'
+          - l: tsconfig.json
+            e: 'TypeScript only - WebWorker lib, scoped to /src-pwa/sw/'
 ---
 
 ## Service Worker
@@ -30,7 +31,7 @@ Adding PWA mode to a Quasar project means a new folder will be created: `/src-pw
 You can freely edit these files. Notice a few things:
 
 1. `register-sw.js` is automatically imported into your app (like any other /src file). It registers the service worker (created by Workbox or your custom one, depending on workbox plugin mode -- quasar.config file > pwa > workboxPluginMode) and you can listen for Service Worker's events.
-2. `custom-sw.js` will be your service worker file ONLY if workbox plugin mode is set to "InjectManifest" (quasar.config file > pwa > workboxMode: 'InjectManifest'). Otherwise, Quasar and Workbox will create a service-worker file for you.
+2. `sw/custom-sw.js` will be your service worker file ONLY if workbox plugin mode is set to "InjectManifest" (quasar.config file > pwa > workboxMode: 'InjectManifest'). Otherwise, Quasar and Workbox will create a service-worker file for you. The `/src-pwa/sw/` folder is the WebWorker context. Anything inside it runs in the service worker, not the main thread.
 3. It makes sense to run [Lighthouse](https://developers.google.com/web/tools/lighthouse/) tests on production builds only.
 
 ::: tip
@@ -110,7 +111,7 @@ pwa: {
 
 sourceFiles: {
   pwaRegisterServiceWorker: 'src-pwa/register-sw',
-  pwaServiceWorker: 'src-pwa/custom-sw',
+  pwaServiceWorker: 'src-pwa/sw/custom-sw',
   pwaManifestFile: 'src-pwa/manifest.json',
 }
 ```
@@ -246,14 +247,14 @@ When NOT to use InjectManifest:
 
 ::: tip TIPS
 
-- If you want to use this mode, you will have to write the service worker (`/src-pwa/custom-sw.js`) file by yourself.
+- If you want to use this mode, you will have to write the service worker (`/src-pwa/sw/custom-sw.js`) file by yourself.
 - Please check the available workboxOptions for this mode on [Workbox website](https://developers.google.com/web/tools/workbox/reference-docs/latest/module-workbox-build#.injectManifest).
 
 :::
 
-The following snippet is the default code for a custom service worker (`/src-pwa/custom-sw.js`) which mimics the behavior of `generateSW` mode:
+The following snippet is the default code for a custom service worker (`/src-pwa/sw/custom-sw.js`) which mimics the behavior of `generateSW` mode:
 
-```tabs /src-pwa/custom-sw file
+```tabs /src-pwa/sw/custom-sw file
 <<| js custom-sw.js |>>
 /*
  * This file (which will be your service worker)
@@ -307,8 +308,7 @@ import {
   precacheAndRoute
 } from "workbox-precaching";
 
-declare const self: ServiceWorkerGlobalScope &
-  typeof globalThis & { skipWaiting: () => void };
+declare const self: ServiceWorkerGlobalScope & typeof globalThis;
 
 void self.skipWaiting();
 clientsClaim();
