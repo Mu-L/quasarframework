@@ -887,6 +887,87 @@ Instead of diffing here, you might want to check the next pages (even if you sti
 - You might also want to use thew new `/src-ssr/server-assets` folder (create it). This is copied as-is to dist and can be used in dev too, through `resolve.serverAssets()` or `folders.serverAssets`.
 - One more thing to note, for SSR middlewares: `serve.error()` has been changed to `serve.devError()` (with new params).
 
+## Capacitor mode changes
+
+### `.js` / `.ts` capacitor.config
+
+`quasar mode add capacitor` now scaffolds `capacitor.config.js` for JS projects, or a `capacitor.config.ts` for TypeScript projects. Existing `capacitor.config.json` projects keep working with no changes required, but we highly recommend migrating when you get the chance. See [Configuring Capacitor](/quasar-cli-vite/developing-capacitor-apps/configuring-capacitor) for more information.
+
+`.js` and `.ts` variants do not have the git noise of the `.json` one, which would be rewritten on every `quasar dev` / `quasar build` with relevant fields.
+
+Scaffolded files use the new `defineCapacitorConfig` helper from `@quasar/app-vite/capacitor`:
+
+```tabs
+<<| ts /src-capacitor/capacitor.config.ts |>>
+import { defineCapacitorConfig } from '@quasar/app-vite/capacitor';
+
+export default defineCapacitorConfig({
+  appId: 'org.example.app',
+  appName: 'My App'
+});
+<<| js /src-capacitor/capacitor.config.js |>>
+const { defineCapacitorConfig } = require('@quasar/app-vite/capacitor');
+
+module.exports = defineCapacitorConfig({
+  appId: 'org.example.app',
+  appName: 'My App'
+});
+```
+
+The helper defaults `webDir` to `'www'`, injects `server.url` (and `server.cleartext: true` on Android) in dev mode, and types your input against `CapacitorConfig` from `@capacitor/cli`. Your own values always win, and the source file isn't mutated. Inside the config, `process.env.QUASAR_DEV`, `QUASAR_TARGET`, `QUASAR_APP_URL`, and your own `.env` / `build.env` values are available. Read [Configuring Capacitor](/quasar-cli-vite/developing-capacitor-apps/configuring-capacitor#reading-env-values) for more information.
+
+To migrate from `.json`, replace the file with a `defineCapacitorConfig({...})` call carrying the same fields. `webDir` can be dropped:
+
+```tabs Migrating from capacitor.config.json
+<<| diff capacitor.config.js (JS projects) |>>
+-{
+-  "appId": "org.example.app",
+-  "appName": "My App",
+-  "webDir": "www"
+-}
++const { defineCapacitorConfig } = require('@quasar/app-vite/capacitor');
++
++module.exports = defineCapacitorConfig({
++  appId: 'org.example.app',
++  appName: 'My App'
++});
+<<| diff capacitor.config.ts (TS projects) |>>
+-{
+-  "appId": "org.example.app",
+-  "appName": "My App",
+-  "webDir": "www"
+-}
++import { defineCapacitorConfig } from '@quasar/app-vite/capacitor';
++
++export default defineCapacitorConfig({
++  appId: 'org.example.app',
++  appName: 'My App'
++});
+```
+
+### Removed: `quasar.config > capacitor.{appName, version, description}`
+
+Three fields under `quasar.config > capacitor` are gone. None of them did what they appeared to.
+
+`version` and `description` were never read by the Capacitor CLI, neither from `capacitor.config.*` nor from `src-capacitor/package.json`. iOS and Android take their versions from `android/app/build.gradle` (`versionName` / `versionCode`) and `ios/App/App/Info.plist` (`CFBundleShortVersionString` / `CFBundleVersion`). Edit those directly when bumping for a store release. See [Publishing to Store](/quasar-cli-vite/developing-capacitor-apps/publishing-to-store).
+
+`appName` had some effect, but it was limited. Capacitor writes it into Info.plist's `CFBundleDisplayName` (iOS) and `strings.xml`'s `app_name` (Android), but only at `cap add` time. `cap sync` and `cap copy` don't re-run that step, so a `quasar.config` field suggested a live setting it wasn't. It's now captured via a prompt during `quasar mode add capacitor`, written into the scaffolded `capacitor.config.*`, and applied to the native projects when you add the platform. Later renames happen by editing `Info.plist` and `strings.xml` directly, or by removing and re-adding the platform.
+
+If you were setting any of these, remove them:
+
+```diff /quasar.config file
+  capacitor: {
+-   appName: 'My App',
+-   version: '1.2.0',
+-   description: 'My great app'
+    // hideSplashscreen, capacitorCliPreparationParams remain
+  }
+```
+
+### `src-capacitor/package.json` no longer rewritten
+
+Quasar used to overwrite `name`, `version`, `description`, and `author` in `src-capacitor/package.json` on every `quasar dev` / `quasar build`. Capacitor's CLI doesn't read most of that, so the rewrites were churn for no benefit (and noise in git). New projects scaffold a static `quasar-capacitor-app` / `1.0.0` template. Existing projects can update theirs to match, or leave it alone. Quasar won't touch it either way.
+
 ## Other considerations
 
 ### Switching to Oxlint and Oxfmt
