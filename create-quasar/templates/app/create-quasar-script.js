@@ -6,17 +6,12 @@ export async function createQuasarScript({ scope, utils }) {
         initialValue: utils.definitions.engine.default,
         options: [
           {
-            label: '@quasar/app-vite v3 beta (recommended)',
+            label: '@quasar/app-vite v3 rc (recommended)',
             value: 'vite-3'
           },
           {
             label: '@quasar/app-vite v2',
             value: 'vite-2',
-            hint: 'deprecated'
-          },
-          {
-            label: '@quasar/app-webpack v4',
-            value: 'webpack-4',
             hint: 'deprecated'
           }
         ]

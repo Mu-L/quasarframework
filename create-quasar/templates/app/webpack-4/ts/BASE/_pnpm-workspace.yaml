@@ -1,6 +1,0 @@
-# https://pnpm.io/settings
-shamefullyHoist: true
-
-allowBuilds:
-  core-js: true
-  esbuild: true

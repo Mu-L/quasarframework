@@ -76,7 +76,7 @@ jobs:
       matrix:
         install: [pnpm, npm, yarn]
         script: [js, ts]
-        engine: [vite-3, vite-2, webpack-4]
+        engine: [vite-3, vite-2]
         linter: [oxlint, eslint]
         fbr: [true, false]
         allPresets: [true, false]
@@ -84,12 +84,8 @@ jobs:
         exclude:
           - linter: oxlint
             engine: vite-2
-          - linter: oxlint
-            engine: webpack-4
           - fbr: true
             engine: vite-2
-          - fbr: true
-            engine: webpack-4
 
     name: Test ${{ matrix.install }}-app-${{ matrix.script }}${{ matrix.engine && format('-{0}', matrix.engine) || '' }}-${{ matrix.linter }}${{ matrix.fbr == true && '-fbr' || '' }}${{ matrix.allPresets == true && '-allPresets' || '' }}
 
@@ -182,15 +178,8 @@ jobs:
         # wait-on is pinned for stability and safety reasons, it can be updated manually after testing a new version
         run: |
           ${{ matrix.install }} run dev &
-
-          if [[ '${{ matrix.engine }}' == vite* ]]; then
             echo $WAIT_ON_CONFIG > wait-on.json
             npx wait-on@7.2.0 --config wait-on.json --timeout 5000 http-get://127.0.0.1:9000
-          else
-            PORT=$([[ '${{ matrix.engine }}' == 'webpack-4' ]] && echo '9000' || echo '8080')
-            # 15s is almost enough, but due to possible fluctuations in the CI environment, we set it higher than that
-            npx wait-on@7.2.0 --timeout 20000 http-get://127.0.0.1:$PORT
-          fi
 
           kill $!
 

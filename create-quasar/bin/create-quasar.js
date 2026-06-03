@@ -66,10 +66,10 @@ function showHelp(warn) {
                       --install npm
                       --install bun
 
-    --engine, -e    (ONLY for template "app") Quasar App Local CLI to use (and please note
-                      that these do NOT refer to the version of Vite or Webpack, but rather
-                      to the @quasar/app-* version to use):
-                      vite-3, vite-2, webpack-4
+    --engine, -e    (ONLY for template "app") Quasar App Local CLI to use
+                      Please note that these do NOT refer to the version of
+                      Vite, but rather to the @quasar/app-vite version to use:
+                        vite-3 or vite-2
     --product       (ONLY for template "app") Product name for the app
 
     --defaults, -d  Use default values for the remaining non-specified options
@@ -297,7 +297,7 @@ async function getArgv() {
               scope.linter = 'eslint'
             }
           }
-        } else if (engine === 'vite-2' || engine === 'webpack-4') {
+        } else if (engine === 'vite-2') {
           if (scope.defaults && !scope.preset) {
             scope.preset = ['sass', 'eslint']
           }
@@ -323,7 +323,7 @@ async function getArgv() {
           return argvError(
             'Invalid engine specified: ' +
               engine +
-              '. Allowed values are "vite-3", "vite-2", "webpack-4".'
+              '. Allowed values are "vite-3" and "vite-2".'
           )
         }
       }
