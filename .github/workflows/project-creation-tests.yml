@@ -87,7 +87,7 @@ jobs:
           - fbr: true
             engine: vite-2
 
-    name: Test ${{ matrix.install }}-app-${{ matrix.script }}${{ matrix.engine && format('-{0}', matrix.engine) || '' }}-${{ matrix.linter }}${{ matrix.fbr == true && '-fbr' || '' }}${{ matrix.allPresets == true && '-allPresets' || '' }}
+    name: ${{ matrix.install }}-app-${{ matrix.script }}${{ matrix.engine && format('-{0}', matrix.engine) || '' }}-${{ matrix.linter }}${{ matrix.fbr == true && '-fbr' || '' }}${{ matrix.allPresets == true && '-allPresets' || '' }}
 
     steps:
       - name: Checkout code
@@ -205,7 +205,7 @@ jobs:
         script: [js, ts]
         lint: [true, false]
 
-    name: Test ae-${{ matrix.script }}${{ matrix.lint == true && '-lint' || '' }}
+    name: ae-${{ matrix.script }}${{ matrix.lint == true && '-lint' || '' }}
 
     steps:
       - name: Checkout code
@@ -237,6 +237,7 @@ jobs:
         run: node bin/create-quasar.js test-project --template ae --install pnpm${{ matrix.script == 'ts' && ' --preset typescript' || '' }}${{ matrix.lint == true && ' --preset oxlint' || '' }} --preset prompts --preset install --preset uninstall --defaults
 
       - name: Lint the project
+        if: ${{ matrix.lint === true }}
         working-directory: create-quasar/test-project
         run: pnpm run lint
 
