@@ -87,7 +87,7 @@ jobs:
           - fbr: true
             engine: vite-2
 
-    name: ${{ matrix.install }}-app-${{ matrix.script }}${{ matrix.engine && format('-{0}', matrix.engine) || '' }}-${{ matrix.linter }}${{ matrix.fbr == true && '-fbr' || '' }}${{ matrix.allPresets == true && '-allPresets' || '' }}
+    name: app-${{ matrix.script }}-${{ matrix.install }}${{ matrix.engine && format('-{0}', matrix.engine) || '' }}-${{ matrix.linter }}${{ matrix.fbr == true && '-fbr' || '' }}${{ matrix.allPresets == true && '-allPresets' || '' }}
 
     steps:
       - name: Checkout code
