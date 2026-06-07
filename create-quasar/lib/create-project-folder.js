@@ -2,6 +2,7 @@ import { existsSync, readdirSync } from 'node:fs'
 import { join } from 'node:path'
 
 import utils from './utils.js'
+import { runningPackageManager } from './running-pm.js'
 
 export async function createProjectFolder(scope) {
   scope.meta = {
@@ -18,9 +19,9 @@ export async function createProjectFolder(scope) {
       const isPnpm =
         scope.install === 'pnpm' ||
         // invoked directly, not through a package manager's "create" command
-        !process.env.npm_config_user_agent ||
+        !runningPackageManager ||
         // invoked through "pnpm create quasar@latest"
-        process.env.npm_config_user_agent === 'pnpm'
+        runningPackageManager === 'pnpm'
 
       return utils.prompts.select({
         initialValue: utils.definitions.template.default,

@@ -19,7 +19,7 @@ if (
 const { cliPkg } = await import('../lib/cli-pkg.js')
 const { showCliBanner } = await import('@quasar/art')
 
-const runningPackageManager = process.env.npm_config_user_agent
+const { runningPackageManager } = await import('../lib/running-pm.js')
 if (!runningPackageManager) {
   const { default: updateNotifier } = await import('update-notifier')
   updateNotifier({ pkg: cliPkg }).notify()
