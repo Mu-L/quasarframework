@@ -64,23 +64,21 @@ export default {
 
       if (hasHeader.value) acc.push(h(QSeparator))
 
-      acc.push(
-        props.tabs !== void 0
-          ? h(
-              QTabPanels,
-              {
-                class: 'copybtn-hover',
-                animated: true,
-                modelValue: currentTab.value
-              },
-              slots.default
-            )
-          : h(
-              'div',
-              { class: 'copybtn-hover relative-position' },
-              slots.default()
-            )
-      )
+      if (props.tabs !== void 0) {
+        acc.push(
+          h(
+            QTabPanels,
+            {
+              animated: true,
+              modelValue: currentTab.value,
+              keepAlive: true
+            },
+            slots.default
+          )
+        )
+      } else {
+        acc.push(...slots.default())
+      }
 
       return acc
     }

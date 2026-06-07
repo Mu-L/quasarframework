@@ -7,7 +7,7 @@ import { slugify } from '../utils.js'
 const titleRE = /<\/?[^>]+(>|$)/g
 const apiRE = /^<DocApi /
 const apiNameRE = /file="([^"]+)"/
-const installationRE = /^<DocInstallation(?:\s+title="([^"]*)")?\s*/
+const docInstallRE = /^<DocInstall(?:\s+title="([^"]*)")?\s*/
 
 function parseContent(str) {
   const title = String(str).replace(titleRE, '').trim()
@@ -56,7 +56,7 @@ export default function mdPluginHeading(md) {
       }
     }
 
-    const match = token.content.match(installationRE)
+    const match = token.content.match(docInstallRE)
     if (match !== null) {
       const title = match[1] ?? 'Installation'
       md.$frontMatter.toc.push({ id: slugify(title), title, deep: true })

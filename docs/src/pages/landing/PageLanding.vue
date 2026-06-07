@@ -1,6 +1,6 @@
 <template>
   <div class="landing-page q-px-lg doc-brand">
-    <doc-stars />
+    <DocStars />
 
     <div>
       <div class="column items-center intro-section letter-spacing-300">

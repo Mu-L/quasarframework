@@ -42,7 +42,7 @@
           Most Used
         </div>
 
-        <doc-card-link
+        <DocCardLink
           v-for="(entry, pageIndex) in mostUsedPages"
           :key="pageIndex"
           :to="entry.path"
@@ -56,7 +56,7 @@
               {{ entry.name }}
             </div>
           </q-card>
-        </doc-card-link>
+        </DocCardLink>
       </div>
 
       <div class="gt-sm q-px-md row justify-center">
@@ -72,7 +72,7 @@
           Discover Also
         </div>
 
-        <doc-card-link
+        <DocCardLink
           v-for="(entry, pageIndex) in pagesToDiscover"
           :key="pageIndex"
           :to="entry.path"
@@ -88,7 +88,7 @@
               {{ entry.name }}
             </div>
           </q-card>
-        </doc-card-link>
+        </DocCardLink>
       </div>
     </div>
   </div>

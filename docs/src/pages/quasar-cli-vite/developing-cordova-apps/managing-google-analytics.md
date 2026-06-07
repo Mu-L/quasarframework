@@ -28,7 +28,7 @@ Before we can start implementing Google Analytics into your application, you'll 
 
 Place the Tag Manager snippet into head of your `index.html` file (if you've followed the [Multiminds article](http://www.multiminds.eu/2016/12/06/google-analytics-tag-manager-ionic-cordova/), you already have this.) Create a new file in your codebase called `analytics.js` with the following contents:
 
-```javascript
+```js
 export default {
   logEvent(category, action, label, sessionId = null) {
     window.dataLayer.push({
@@ -54,7 +54,7 @@ export default {
 To make sure all the pages in your application are automatically posted to Google Analytics, we create an app boot file:
 
 ```bash
-$ quasar new boot google-analytics [--format ts]
+quasar new boot google-analytics [--format ts]
 ```
 
 Then we edit the newly created file: `/src/boot/google-analytics.js`:

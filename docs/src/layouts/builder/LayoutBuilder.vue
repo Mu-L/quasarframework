@@ -407,7 +407,7 @@
         <q-dialog v-model="exportDialog">
           <q-card class="layout-builder__export-card">
             <div class="export-code">
-              <doc-code lang="html" :code="layoutExport" />
+              <DocCode lang="html" :code="layoutExport" />
             </div>
 
             <q-separator />
@@ -702,42 +702,24 @@ const layoutExport = computed(() => {
     pick.left || pick.right
       ? `
 
-<${'script'}>
+<${'script'} setup>
 import { ref } from 'vue'
 
-export default {
-  setup () {${
-            pick.left
-              ? `
-    const leftDrawerOpen = ref(false)`
-              : ''
-          }${
-            pick.right
-              ? `
-    const rightDrawerOpen = ref(false)`
-              : ''
-          }
-
-    return {${
-              pick.left
-                ? `
-      leftDrawerOpen,
-      toggleLeftDrawer () {
-        leftDrawerOpen.value = !leftDrawerOpen.value
-      }${pick.right ? ',\n' : ''}`
-                : ''
-            }${
-              pick.right
-                ? `
-      rightDrawerOpen,
-      toggleRightDrawer () {
-        rightDrawerOpen.value = !rightDrawerOpen.value
-      }`
-                : ''
-            }
-    }
-  }
-}
+${
+          pick.left
+            ? `const leftDrawerOpen = ref(false)
+toggleLeftDrawer () {
+  leftDrawerOpen.value = !leftDrawerOpen.value
+}${pick.right ? '\n\n' : ''}`
+            : ''
+        }${
+          pick.right
+            ? `const rightDrawerOpen = ref(false)
+toggleRightDrawer () {
+  rightDrawerOpen.value = !rightDrawerOpen.value
+}`
+            : ''
+        }
 </${'script'}>`
       : ''
   }`

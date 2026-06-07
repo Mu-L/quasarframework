@@ -37,7 +37,7 @@
           round
           :icon="fabCodepen"
           @click="openCodepen"
-          :disable="isBusy"
+          :loading="source.isLoading"
         >
           <q-tooltip>Edit in Codepen</q-tooltip>
         </q-btn>
@@ -48,7 +48,7 @@
           round
           icon="code"
           @click="toggleExpand"
-          :disable="isBusy"
+          :loading="source.isLoading"
         >
           <q-tooltip>View Source</q-tooltip>
         </q-btn>
@@ -68,12 +68,12 @@
           :breakpoint="0"
         >
           <q-tab
-            v-for="tab in def.tabs"
-            :key="`tab-${tab}`"
-            :name="tab"
+            v-for="tab in source.tabs"
+            :key="`tab-${tab.name}`"
+            :name="tab.name"
             class="header-btn"
           >
-            {{ tab }}
+            {{ tab.name }}
           </q-tab>
         </q-tabs>
 
@@ -83,37 +83,38 @@
           class="text-grey-3 text-weight-regular"
           v-model="currentTab"
           animated
+          keep-alive
         >
           <q-tab-panel
             class="q-pa-none"
-            v-for="tab in def.tabs"
-            :key="`pane-${tab}`"
-            :name="tab"
+            v-for="tab in source.tabs"
+            :key="`pane-${tab.name}`"
+            :name="tab.name"
           >
-            <DocCode lang="vue" :code="def.parts[tab]" />
+            <DocCode :lang="tab.lang" :code="tab.content" />
           </q-tab-panel>
         </q-tab-panels>
       </div>
     </q-slide-transition>
 
-    <DocCodepen v-if="!isBusy" ref="codepenRef" :title="props.title" />
+    <DocCodepen v-if="component" ref="codepenRef" :title="props.title" />
 
     <q-separator />
 
     <div class="row overflow-hidden">
-      <q-linear-progress v-if="isBusy" color="brand-primary" indeterminate />
       <component
+        v-if="component"
         class="col doc-example__content doc-example-typography"
-        v-else
         :is="component"
         :class="componentClass"
       />
+      <q-linear-progress v-else color="brand-primary" indeterminate />
     </div>
   </q-card>
 </template>
 
 <script setup>
-import { computed, inject, markRaw, onMounted, reactive, ref } from 'vue'
+import { computed, inject, markRaw, onMounted, ref } from 'vue'
 import { openURL } from 'quasar'
 
 import { fabCodepen, fabGithub } from '@quasar/extras/fontawesome-v7'
@@ -137,15 +138,15 @@ const docStore = useDocStore()
 const examples = inject('_q_ex')
 
 const codepenRef = ref(null)
-const isBusy = ref(true)
-
 const component = ref(null)
-const def = reactive({
+const currentTab = ref('Template')
+const expanded = ref(false)
+const source = ref({
+  hasLoaded: false,
+  isLoading: false,
   tabs: [],
   parts: {}
 })
-const currentTab = ref('Template')
-const expanded = ref(false)
 
 const componentClass = computed(() =>
   props.scrollable
@@ -155,29 +156,77 @@ const componentClass = computed(() =>
       : ''
 )
 
-function parseTemplate(target, template) {
-  const string = `(<${target}(.*)?>[\\w\\W]*<\\/${target}>)`,
-    regex = new RegExp(string, 'g'),
-    parsed = regex.exec(template) || []
+const templateRE = /<template(.*)?>\n([\w\W]*)\n<\/template>/g
+const scriptRE = /<script(.*)?>\n([\w\W]*)\n<\/script>/g
+const styleRE = /<style(.*)?>\n([\w\W]*)\n<\/style>/g
 
-  return parsed[1] || ''
+function parseTemplate(regex, code) {
+  const match = regex.exec(code)
+  return match
+    ? {
+        attrs: match[1],
+        content: match[2]
+      }
+    : null
 }
 
-function parseComponent(comp) {
-  def.parts = {
-    Template: parseTemplate('template', comp),
-    Script: parseTemplate('script', comp),
-    Style: parseTemplate('style', comp)
+function parseComponent(code) {
+  const tabs = []
+
+  const template = parseTemplate(templateRE, code)
+  if (template) {
+    const content = template.content
+      .split('\n')
+      .map(line => line.slice(2))
+      .join('\n')
+
+    tabs.push({
+      codepen: 'html',
+      name: 'Template',
+      content,
+      lang: 'html'
+    })
   }
 
-  const tabs = ['Template', 'Script', 'Style'].filter(type => def.parts[type])
+  const script = parseTemplate(scriptRE, code)
+  if (script) {
+    tabs.push({
+      codepen: 'js',
+      name: 'Script',
+      content: script.content,
+      lang: 'js'
+    })
+  }
+
+  const style = parseTemplate(styleRE, code)
+  if (style) {
+    const lang = style.attrs.includes('lang="sass"')
+      ? 'Sass'
+      : style.attrs.includes('lang="scss"')
+        ? 'SCSS'
+        : 'CSS'
+
+    tabs.push({
+      codepen: 'style',
+      name: lang,
+      content: style.content,
+      lang: lang.toLowerCase()
+    })
+  }
 
   if (tabs.length > 1) {
-    def.parts.All = comp
-    tabs.push('All')
+    tabs.push({
+      name: 'All',
+      content: code,
+      lang: 'html'
+    })
   }
 
-  def.tabs = tabs
+  source.value = {
+    hasLoaded: true,
+    isLoading: false,
+    tabs
+  }
 }
 
 function openGitHub() {
@@ -186,32 +235,48 @@ function openGitHub() {
   )
 }
 
-function openCodepen() {
-  codepenRef.value.open(def.parts)
+function loadSource() {
+  source.value.isLoading = true
+
+  if (import.meta.env.QUASAR_DEV) {
+    const glob = import.meta.glob('../examples/*/*.vue', {
+      query: '?raw',
+      import: 'default'
+    })
+
+    return glob[`../examples/${examples.name}/${props.file}.vue`]().then(
+      parseComponent
+    )
+  }
+
+  return examples.source().then(glob => parseComponent(glob[props.file]))
 }
 
-function toggleExpand() {
-  expanded.value = expanded.value === false
+async function openCodepen() {
+  if (!source.value.hasLoaded) await loadSource()
+  codepenRef.value.open(source.value.tabs)
+}
+
+async function toggleExpand() {
+  if (!source.value.hasLoaded) await loadSource()
+  expanded.value = !expanded.value
 }
 
 if (import.meta.env.QUASAR_CLIENT) {
   onMounted(() => {
-    examples.list.then(list => {
-      component.value = markRaw(
-        import.meta.env.QUASAR_DEV
-          ? list.code[`/src/examples/${examples.name}/${props.file}.vue`]
-              .default
-          : list[props.file]
-      )
+    if (import.meta.env.QUASAR_DEV) {
+      const glob = import.meta.glob('../examples/*/*.vue', {
+        import: 'default'
+      })
 
-      parseComponent(
-        import.meta.env.QUASAR_DEV
-          ? list.source[`/src/examples/${examples.name}/${props.file}.vue`]
-          : list[`Raw${props.file}`]
-      )
-
-      isBusy.value = false
-    })
+      glob[`../examples/${examples.name}/${props.file}.vue`]().then(comp => {
+        component.value = markRaw(comp)
+      })
+    } else {
+      examples.runtime.then(glob => {
+        component.value = markRaw(glob[props.file])
+      })
+    }
   })
 }
 </script>

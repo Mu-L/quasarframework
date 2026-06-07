@@ -19,10 +19,6 @@
 import { getCurrentInstance, ref } from 'vue'
 import { copyToClipboard } from 'quasar'
 
-const props = defineProps({
-  lang: String
-})
-
 const { proxy } = getCurrentInstance()
 
 let timer
@@ -36,7 +32,6 @@ const SKIP_LINE_SELECTOR = [
 
 // Skip these subtrees inside lines we keep.
 const SKIP_INLINE_SELECTOR = [
-  '.c-lpref', // line number / diff marker prefix
   '.twoslash-popup-container', // hover popup
   '.twoslash-error-line',
   '.twoslash-tag-line',
@@ -48,10 +43,6 @@ const SKIP_INLINE_SELECTOR = [
 
 // Empty `//` lines authors add to make room for Twoslash autocomplete.
 const FILLER_LINE_RE = /^\s*\/\/\s*$/
-// In diff blocks, we write `+ content` (one space less than the aimed indent, as + takes a space)
-// Swapping the + for a space restores the real indent. Remove-lines are already dropped elsewhere.
-const LEADING_PLUS_RE = /^\+/
-const BASH_PROMPT_RE = /^\$ /
 
 function lineText(line) {
   const clone = line.cloneNode(true)
@@ -59,20 +50,15 @@ function lineText(line) {
   return clone.textContent
 }
 
-function extractCode(root, lang) {
+function extractCode(root) {
   const out = []
   for (const line of root.querySelectorAll('.line')) {
     if (line.matches(SKIP_LINE_SELECTOR)) continue
 
-    let text = lineText(line)
-    if (lang === 'diff') {
-      text = text.replace(LEADING_PLUS_RE, ' ')
-    } else if (lang === 'bash') {
-      text = text.replace(BASH_PROMPT_RE, '')
+    const text = lineText(line)
+    if (!FILLER_LINE_RE.test(text)) {
+      out.push(text)
     }
-    if (FILLER_LINE_RE.test(text)) continue
-
-    out.push(text)
   }
   return out.join('\n')
 }
@@ -87,7 +73,7 @@ function copy() {
     fold.open = true
   })
 
-  const text = extractCode(target, props.lang)
+  const text = extractCode(target)
 
   folds.forEach((fold, index) => {
     fold.open = previousOpen[index]

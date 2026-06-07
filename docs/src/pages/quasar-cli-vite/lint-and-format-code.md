@@ -11,24 +11,24 @@ desc: (@quasar/app-vite) How to configure a code linter and a formatter in a Qua
 
 ```tabs Javascript projects
 <<| bash PNPM |>>
-$ pnpm add -D oxlint oxfmt
+pnpm add -D oxlint oxfmt
 <<| bash Yarn |>>
-$ yarn add --dev oxlint oxfmt
+yarn add --dev oxlint oxfmt
 <<| bash NPM |>>
-$ npm install --save-dev oxlint oxfmt
+npm install --save-dev oxlint oxfmt
 <<| bash Bun |>>
-$ bun add --dev oxlint oxfmt
+bun add --dev oxlint oxfmt
 ```
 
 ```tabs TypeScript projects
 <<| bash PNPM |>>
-$ pnpm add -D oxlint oxfmt oxlint-tsgolint typescript
+pnpm add -D oxlint oxfmt oxlint-tsgolint typescript
 <<| bash Yarn |>>
-$ yarn add --dev oxlint oxfmt oxlint-tsgolint typescript
+yarn add --dev oxlint oxfmt oxlint-tsgolint typescript
 <<| bash NPM |>>
-$ npm install --save-dev oxlint oxfmt oxlint-tsgolint typescript
+npm install --save-dev oxlint oxfmt oxlint-tsgolint typescript
 <<| bash Bun |>>
-$ bun add --dev oxlint oxfmt oxlint-tsgolint typescript
+bun add --dev oxlint oxfmt oxlint-tsgolint typescript
 ```
 
 ### Package.json scripts
@@ -217,31 +217,31 @@ When you scaffold a Quasar project folder it will ask you if you want ESLint (al
 
 ```tabs
 <<| bash PNPM |>>
-$ pnpm add -D @eslint/js eslint@9 eslint-plugin-vue vue-eslint-parser globals vite-plugin-checker
+pnpm add -D @eslint/js eslint@9 eslint-plugin-vue vue-eslint-parser globals vite-plugin-checker
 <<| bash Yarn |>>
-$ yarn add --dev @eslint/js eslint@9 eslint-plugin-vue vue-eslint-parser globals vite-plugin-checker
+yarn add --dev @eslint/js eslint@9 eslint-plugin-vue vue-eslint-parser globals vite-plugin-checker
 <<| bash NPM |>>
-$ npm install --save-dev @eslint/js eslint@9 eslint-plugin-vue vue-eslint-parser globals vite-plugin-checker
+npm install --save-dev @eslint/js eslint@9 eslint-plugin-vue vue-eslint-parser globals vite-plugin-checker
 <<| bash Bun |>>
-$ bun add --dev @eslint/js eslint@9 eslint-plugin-vue vue-eslint-parser globals vite-plugin-checker
+bun add --dev @eslint/js eslint@9 eslint-plugin-vue vue-eslint-parser globals vite-plugin-checker
 ```
 
 If you want `prettier` as a code formatter, then install these too:
 
 ```tabs
 <<| bash PNPM |>>
-$ pnpm add -D prettier@3 @vue/eslint-config-prettier
+pnpm add -D prettier@3 @vue/eslint-config-prettier
 <<| bash Yarn |>>
-$ yarn add --dev prettier@3 @vue/eslint-config-prettier
+yarn add --dev prettier@3 @vue/eslint-config-prettier
 <<| bash NPM |>>
-$ npm install --save-dev prettier@3 @vue/eslint-config-prettier
+npm install --save-dev prettier@3 @vue/eslint-config-prettier
 <<| bash Bun |>>
-$ bun add --dev prettier@3 @vue/eslint-config-prettier
+bun add --dev prettier@3 @vue/eslint-config-prettier
 ```
 
 #### The quasar.config file settings
 
-```js [highlight=3-13] /quasar.config file
+```js /quasar.config file
 build: {
   vitePlugins: [
     [
@@ -344,40 +344,45 @@ export default [
 
 ```tabs
 <<| bash PNPM |>>
-$ pnpm add -D vue-tsc @vue/eslint-config-typescript @eslint/js eslint@9 eslint-plugin-vue globals vite-plugin-checker
+pnpm add -D vue-tsc @vue/eslint-config-typescript @eslint/js eslint@9 eslint-plugin-vue globals vite-plugin-checker
 <<| bash Yarn |>>
-$ yarn add --dev vue-tsc @vue/eslint-config-typescript @eslint/js eslint@9 eslint-plugin-vue globals vite-plugin-checker
+yarn add --dev vue-tsc @vue/eslint-config-typescript @eslint/js eslint@9 eslint-plugin-vue globals vite-plugin-checker
 <<| bash NPM |>>
-$ npm install --save-dev vue-tsc @vue/eslint-config-typescript @eslint/js eslint@9 eslint-plugin-vue globals vite-plugin-checker
+npm install --save-dev vue-tsc @vue/eslint-config-typescript @eslint/js eslint@9 eslint-plugin-vue globals vite-plugin-checker
 <<| bash Bun |>>
-$ bun add --dev vue-tsc @vue/eslint-config-typescript @eslint/js eslint@9 eslint-plugin-vue globals vite-plugin-checker
+bun add --dev vue-tsc @vue/eslint-config-typescript @eslint/js eslint@9 eslint-plugin-vue globals vite-plugin-checker
 ```
 
 If you want `prettier` as a code formatter, then install these too:
 
 ```tabs
 <<| bash PNPM |>>
-$ pnpm add -D prettier@3 @vue/eslint-config-prettier
+pnpm add -D prettier@3 @vue/eslint-config-prettier
 <<| bash Yarn |>>
-$ yarn add --dev prettier@3 @vue/eslint-config-prettier
+yarn add --dev prettier@3 @vue/eslint-config-prettier
 <<| bash NPM |>>
-$ npm install --save-dev prettier@3 @vue/eslint-config-prettier
+npm install --save-dev prettier@3 @vue/eslint-config-prettier
 <<| bash Bun |>>
-$ bun add --dev prettier@3 @vue/eslint-config-prettier
+bun add --dev prettier@3 @vue/eslint-config-prettier
 ```
 
 #### The quasar.config settings
 
-```diff [highlight=3-9] /quasar.config file
+```js /quasar.config file
 build: {
   vitePlugins: [
-    ['vite-plugin-checker', {
-      vueTsc: true,
-      eslint: {
-        lintCommand: 'eslint -c ./eslint.config.js "./src*/**/*.{ts,js,mjs,cjs,vue}"',
-        useFlatConfig: true
-      }
-    }, { server: false }]
+    [
+      'vite-plugin-checker',
+      {
+        vueTsc: true,
+        eslint: {
+          lintCommand:
+            'eslint -c ./eslint.config.js "./src*/**/*.{ts,js,mjs,cjs,vue}"',
+          useFlatConfig: true
+        }
+      },
+      { server: false }
+    ]
   ]
 }
 ```

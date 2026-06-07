@@ -25,13 +25,13 @@ We’ll be using Quasar CLI to develop and build a SSR website. The difference b
 In order to develop or build a SSR website, we first need to add the SSR mode to our Quasar project:
 
 ```bash
-$ quasar mode add ssr
+quasar mode add ssr
 ```
 
 If you want to jump right in and start developing, you can skip the "quasar mode" command and issue:
 
 ```bash
-$ quasar dev -m ssr
+quasar dev -m ssr
 ```
 
 This will add SSR mode automatically, if it is missing.

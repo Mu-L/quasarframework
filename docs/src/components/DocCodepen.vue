@@ -13,7 +13,7 @@
 
 <script setup>
 import { Quasar } from 'quasar'
-import { computed, nextTick, reactive, ref } from 'vue'
+import { computed, nextTick, ref } from 'vue'
 
 import { slugify } from '@/assets/page-utils.js'
 
@@ -48,30 +48,29 @@ const props = defineProps({ title: String })
 
 const active = ref(false)
 const formRef = ref(null)
-const def = reactive({ parts: {} })
+const parts = ref({})
 
-const css = computed(() =>
-  (def.parts.Style || '').replaceAll(/(<style.*?>|<\/style>)/g, '').trim()
-)
+const css = computed(() => parts.value.style?.content.trim() || '')
 
 const cssPreprocessor = computed(() => {
-  const lang = /<style.*lang=["'](.*)["'].*>/.exec(def.parts.Style || '')
-
-  return lang ? lang[1] : 'none'
+  const lang = parts.value.style?.lang || ''
+  return lang === 'css' ? 'none' : lang || 'none'
 })
 
 const js = computed(() => {
   const quasarImports = /import\s+{([^}'\n]+)}\s+from\s+'quasar'/g
   const vueImports = /import\s+{([^}'\n]+)}\s+from\s+'vue'/g
   const otherImports = /import ([^'\n]*) from ([^\n]*)/g
-  let component = /export default {([\s\S]*)}/g.exec(def.parts.Script || '')
+  let component = /export default {([\s\S]*)}/g.exec(
+    parts.value.js?.content || ''
+  )
 
   component = ((component && component[1]) || '').trim()
   if (component.length !== 0) {
     component = '\n  ' + component + '\n'
   }
 
-  let script = /<script>([\s\S]*)export default {/g.exec(def.parts.Script || '')
+  let script = /([\s\S]*)export default {/g.exec(parts.value.js?.content || '')
   script = ((script && script[1]) || '')
     .replace(quasarImports, replace('Quasar'))
     .replace(vueImports, replace('Vue'))
@@ -90,7 +89,7 @@ app.mount('#q-app')
 })
 
 const html = computed(() =>
-  (def.parts.Template || '')
+  (parts.value.html?.content || '')
     .replaceAll(/(<template>|<\/template>$)/g, '')
     .replaceAll('\n', '\n  ')
     .replaceAll(
@@ -131,6 +130,7 @@ const html = computed(() =>
 const editors = computed(() => {
   const flag =
     (html.value && 0b100) | (css.value && 0b010) | (js.value && 0b001)
+
   return flag.toString(2)
 })
 
@@ -161,7 +161,7 @@ ${html.value}
     css_pre_processor: cssPreprocessor.value,
     css_external: cssResources,
     js: js.value,
-    js_pre_processor: 'babel',
+    js_pre_processor: 'none',
     js_external: jsResources,
     editors: editors.value
   }
@@ -177,11 +177,15 @@ const REGION_LINE_RE =
 const stripRegions = text => (text ?? '').replace(REGION_LINE_RE, '')
 
 function open(whichParts) {
-  const stripped = {}
-  for (const key in whichParts) {
-    stripped[key] = stripRegions(whichParts[key])
-  }
-  def.parts = stripped
+  parts.value = whichParts.reduce((acc, item) => {
+    if (item.codepen) {
+      acc[item.codepen] = {
+        content: stripRegions(item.content),
+        lang: item.lang
+      }
+    }
+    return acc
+  }, {})
 
   if (active.value) {
     formRef.value.submit()

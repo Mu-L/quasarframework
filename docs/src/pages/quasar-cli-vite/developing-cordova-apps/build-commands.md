@@ -6,22 +6,22 @@ desc: (@quasar/app-vite) The Quasar CLI list of commands when developing or buil
 Before we dive in, make sure you got the Cordova CLI installed.
 
 ```bash
-$ npm install -g cordova
+npm install -g cordova
 ```
 
 ## Developing
 
 ```bash
-$ quasar dev -m cordova -T [ios|android]
+quasar dev -m cordova -T [ios|android]
 
 # ..or the longer form:
-$ quasar dev --mode cordova --target [ios|android]
+quasar dev --mode cordova --target [ios|android]
 
 # passing extra parameters and/or options to
 # underlying "cordova" executable:
-$ quasar dev -m cordova -T ios -- some params --and options --here
+quasar dev -m cordova -T ios -- some params --and options --here
 # when on Windows and using Powershell:
-$ quasar dev -m cordova -T ios '--' some params --and options --here
+quasar dev -m cordova -T ios '--' some params --and options --here
 ```
 
 It will open the IDE (Android Studio / Xcode) and from there you can manually select the emulator (or multiple ones simultaneously!) and install the dev app on it/them. You can also run the dev app on a real mobile/tablet device.
@@ -53,17 +53,17 @@ If developing on a mobile phone/tablet, it is very important that the external I
 ## Building for Production
 
 ```bash
-$ quasar build -m cordova -T [android|ios]
+quasar build -m cordova -T [android|ios]
 
 # ..or the longer form:
-$ quasar build --mode cordova --target [ios|android]
+quasar build --mode cordova --target [ios|android]
 
 # this skips .app or .apk creation and just fills in /src-cordova/www
-$ quasar build -m cordova -T [ios|android] --skip-pkg
+quasar build -m cordova -T [ios|android] --skip-pkg
 
 # passing extra parameters and/or options to
 # underlying "cordova" executable:
-$ quasar build -m cordova -T ios -- some params --and options --here
+quasar build -m cordova -T ios -- some params --and options --here
 ```
 
 - These commands parse and build your `/src` folder then overwrite `/src-cordova/www` then defer to Cordova CLI to trigger the actual native app creation.
@@ -73,13 +73,13 @@ $ quasar build -m cordova -T ios -- some params --and options --here
 - If you wish to skip the Cordova CLI packaging step and only fill `/src-cordova/www` folder:
 
 ```bash
-$ quasar build -m cordova -T [ios|android] --skip-pkg
+quasar build -m cordova -T [ios|android] --skip-pkg
 ```
 
 - Should you wish to manually build the final assets using the IDE (Android Studio / Xcode) instead of doing a terminal build, then:
 
 ```bash
-$ quasar build -m cordova -T [ios|android] --ide
+quasar build -m cordova -T [ios|android] --ide
 ```
 
 ::: warning
@@ -96,10 +96,10 @@ If you encounter any IDE errors then click on File > Invalidate caches and resta
 If you want a production build with debugging enabled for the UI code:
 
 ```bash
-$ quasar build -m cordova -T [ios|android] -d
+quasar build -m cordova -T [ios|android] -d
 
 # ..or the longer form
-$ quasar build -m cordova -T [ios|android] --debug
+quasar build -m cordova -T [ios|android] --debug
 ```
 
 ::: tip

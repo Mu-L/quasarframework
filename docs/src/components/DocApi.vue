@@ -156,14 +156,23 @@ import { mdiClose, mdiMagnify } from '@quasar/extras/mdi-v7'
 import DocCardTitle from './DocCardTitle.vue'
 import DocApiEntry from './DocApiEntry.js'
 
+const props = defineProps({
+  file: {
+    type: String,
+    required: true
+  },
+
+  pageLink: Boolean
+})
+
 const defaultInnerTabName = '__default'
 
-function getPropsCategories(props) {
+function getPropsCategories(localProps) {
   const acc = new Set()
 
-  for (const key in props) {
-    if (props[key] !== void 0) {
-      const value = props[key]
+  for (const key in localProps) {
+    if (localProps[key] !== void 0) {
+      const value = localProps[key]
 
       value.category.split('|').forEach(groupKey => {
         acc.add(groupKey)
@@ -344,15 +353,6 @@ function getApiCount(parsedApi, tabs, innerTabs) {
   return acc
 }
 
-const props = defineProps({
-  file: {
-    type: String,
-    required: true
-  },
-
-  pageLink: Boolean
-})
-
 const inputRef = ref(null)
 
 const loading = ref(true)
@@ -418,13 +418,11 @@ function onFilterClick() {
 }
 
 if (import.meta.env.QUASAR_CLIENT) {
-  onMounted(() => {
-    fetch(`/quasar-api/${props.file}.json`)
-      .then(response => response.json())
-      .then(json => {
-        parseApiFile(props.file, json)
-        loading.value = false
-      })
+  onMounted(async () => {
+    const loaders = await import('quasar:api')
+    const { default: json } = await loaders[props.file]()
+    parseApiFile(props.file, json)
+    loading.value = false
   })
 }
 </script>

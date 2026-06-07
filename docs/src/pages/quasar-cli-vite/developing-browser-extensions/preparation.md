@@ -41,13 +41,13 @@ The difference between building a SPA, Mobile App, Electron App, BEX or SSR is s
 In order to build a BEX, we first need to add the BEX mode to our Quasar project:
 
 ```bash
-$ quasar mode add bex
+quasar mode add bex
 ```
 
 If you want to jump right in and start developing, you can skip the "quasar mode" command and issue:
 
 ```bash
-$ quasar dev -m bex -T [chrome|firefox]
+quasar dev -m bex -T [chrome|firefox]
 # default target is "chrome" and -T can be ommitted
 ```
 

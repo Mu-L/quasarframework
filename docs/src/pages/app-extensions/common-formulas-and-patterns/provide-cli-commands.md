@@ -24,7 +24,7 @@ export default defineIndexScript(api => {
     // do something here
     // this registers the "start" command
     // and this handler is executed when running
-    // $ quasar run <ext-id> start
+    // quasar run <ext-id> start
   })
 })
 ```

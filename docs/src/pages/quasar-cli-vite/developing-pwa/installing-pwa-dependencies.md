@@ -32,26 +32,26 @@ Installing PWA specific packages:
 ```tabs
 <<| bash PNPM |>>
 # run in /src-pwa for deps used by /src-pwa/register-sw file:
-$ pnpm add <deps>
+pnpm add <deps>
 
 # run in /src-pwa for deps used by the build system (eg. workbox-* suite)
-$ pnpm add -D <dev-deps>
+pnpm add -D <dev-deps>
 <<| bash Yarn |>>
 # run in /src-pwa for deps used by /src-pwa/register-sw file:
-$ yarn add <deps>
+yarn add <deps>
 
 # run in /src-pwa for deps used by the build system (eg. workbox-* suite)
-$ yarn add -D <dev-deps>
+yarn add -D <dev-deps>
 <<| bash NPM |>>
 # run in /src-pwa for deps used by /src-pwa/register-sw file:
-$ npm install --save <deps>
+npm install --save <deps>
 
 # run in /src-pwa for deps used by the build system (eg. workbox-* suite)
-$ npm install --save-dev <dev-deps>
+npm install --save-dev <dev-deps>
 <<| bash Bun |>>
 # run in /src-pwa for deps used by /src-pwa/register-sw file:
-$ bun add <deps>
+bun add <deps>
 
 # run in /src-pwa for deps used by the build system (eg. workbox-* suite)
-$ bun add --dev <dev-deps>
+bun add --dev <dev-deps>
 ```

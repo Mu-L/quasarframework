@@ -7,7 +7,7 @@ import { parseFrontMatter } from './md/md-parse-utils.js'
 import { capitalize, slugify } from './utils.js'
 
 const apiRE = /<DocApi .*file="([^"]+)".*\n/
-const installationRE = /<DocInstallation /
+const docInstallRE = /<DocInstall /
 const hiddenPageRE = /__[a-zA-Z0-9_-]+\.md$/
 const thisFolder = import.meta.dirname
 
@@ -245,7 +245,7 @@ function processPage(page, entries) {
   }
 
   // handle Installation card (deep heading)
-  if (installationRE.test(contents)) {
+  if (docInstallRE.test(contents)) {
     addItem(entries, {
       ...entryItem,
       l1: 'Installation',

@@ -27,13 +27,13 @@ We'll be using Quasar CLI to develop and build a PWA. The difference between bui
 In order to build a PWA, we first need to add the PWA mode to our Quasar project:
 
 ```bash
-$ quasar mode add pwa
+quasar mode add pwa
 ```
 
 If you want to jump right in and start developing, you can skip the "quasar mode" command and issue:
 
 ```bash
-$ quasar dev -m pwa
+quasar dev -m pwa
 ```
 
 This will add PWA mode automatically, if it is missing.

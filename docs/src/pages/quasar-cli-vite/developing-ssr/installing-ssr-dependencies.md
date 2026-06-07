@@ -87,26 +87,26 @@ Installing SSR specific packages, like the actual webserver & middlewares & plug
 ```tabs
 <<| bash PNPM |>>
 # run in /src-ssr for runtime deps (will be embedded into /dist):
-$ pnpm add <deps>
+pnpm add <deps>
 
 # run in /src-ssr for deps used by the build system (if any)
-$ pnpm add -D <dev-deps>
+pnpm add -D <dev-deps>
 <<| bash Yarn |>>
 # run in /src-ssr for runtime deps (will be embedded into /dist):
-$ yarn add <deps>
+yarn add <deps>
 
 # run in /src-ssr for deps used by the build system (if any)
-$ yarn add -D <dev-deps>
+yarn add -D <dev-deps>
 <<| bash NPM |>>
 # run in /src-ssr for runtime deps (will be embedded into /dist):
-$ npm install --save <deps>
+npm install --save <deps>
 
 # run in /src-ssr for deps used by the build system (if any)
-$ npm install --save-dev <dev-deps>
+npm install --save-dev <dev-deps>
 <<| bash Bun |>>
 # run in /src-ssr for runtime deps (will be embedded into /dist):
-$ bun add <deps>
+bun add <deps>
 
 # run in /src-ssr for deps used by the build system (if any)
-$ bun add --dev <dev-deps>
+bun add --dev <dev-deps>
 ```

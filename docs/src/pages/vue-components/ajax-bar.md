@@ -40,16 +40,10 @@ Should you want QAjaxBar to trigger only for some URLs (and not for all, like in
   <q-ajax-bar :hijack-filter="myFilterFn" />
 </template>
 
-<script>
-  export default {
-    setup() {
-      return {
-        myFilterFn(url) {
-          // example (only https://my-service.com/* should trigger)
-          return /^https:\/\/my-service\.com/.test(url)
-        }
-      }
-    }
+<script setup>
+  function myFilterFn(url) {
+    // example (only https://my-service.com/* should trigger)
+    return /^https:\/\/my-service\.com/.test(url)
   }
 </script>
 ```

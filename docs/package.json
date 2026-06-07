@@ -7,10 +7,10 @@
   "type": "module",
   "scripts": {
     "prepare:types": "quasar prepare --silent",
-    "prepare:docs": "node build/copy-quasar-api.js",
-    "dev": "pnpm prepare:docs && quasar dev",
-    "dev:ssr": "pnpm prepare:docs && quasar dev -m ssr",
-    "build": "quasar clean && pnpm prepare:docs && node build/search.js && quasar build -m ssr --no-summary && node build/fix-ssr-manifest.js && mkdir -p dist/quasar.dev/client/examples/ && cp -R src/examples/* dist/quasar.dev/client/examples/ && cp src-ssr/pnpm-workspace.yaml dist/quasar.dev/ && pnpm i --dir dist/quasar.dev && node build/ssg.js",
+    "dev": "quasar dev",
+    "dev:ssr": "quasar dev -m ssr",
+    "preview": "quasar clean && DOCS_PREVIEW=true quasar build -m ssr && cp src-ssr/pnpm-workspace.yaml dist/quasar.dev/ && pnpm i --dir dist/quasar.dev && du -sh dist/quasar.dev/client && du -sh dist/quasar.dev/server && node dist/quasar.dev",
+    "build": "quasar clean && node build/search.js && quasar build -m ssr && du -sh dist/quasar.dev/client && node build/fix-ssr-manifest.js && cp src-ssr/pnpm-workspace.yaml dist/quasar.dev/ && pnpm i --dir dist/quasar.dev && node build/ssg.js && du -sh dist/quasar.dev/client && du -sh dist/quasar.dev/server && du -h dist/quasar.dev/client/service-worker.js",
     "relnotes": "node build/release-notes/index.js",
     "test": "echo \"No test specified\" && exit 0"
   },

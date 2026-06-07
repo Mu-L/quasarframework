@@ -173,7 +173,7 @@ Detailing the Object:
 The first step is always to generate a new SSR middleware file using Quasar CLI:
 
 ```bash
-$ quasar new ssrmiddleware <name>
+quasar new ssrmiddleware <name>
 ```
 
 Where `<name>` should be exchanged by a suitable name for your SSR middleware file.

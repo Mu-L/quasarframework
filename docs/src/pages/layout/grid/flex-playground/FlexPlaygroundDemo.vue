@@ -103,7 +103,7 @@
         :class="resultClasses"
       >
         <div class="text-subtitle2">{{ classes }}</div>
-        <copy-button />
+        <DocCopyBtn />
       </div>
     </div>
 
@@ -173,7 +173,7 @@
               :class="resultClasses"
             >
               <div class="text-subtitle2">{{ classes }}</div>
-              <copy-button />
+              <DocCopyBtn />
             </div>
           </td>
         </tr>
@@ -188,7 +188,7 @@
               <div class="text-subtitle2">{{
                 group.childClasses || '* none *'
               }}</div>
-              <copy-button v-if="group.childClasses" />
+              <DocCopyBtn v-if="group.childClasses" />
             </div>
           </td>
         </tr>
@@ -203,14 +203,14 @@
               <div class="text-subtitle2">{{
                 group.childStyles || '* none *'
               }}</div>
-              <copy-button v-if="group.childStyles" />
+              <DocCopyBtn v-if="group.childStyles" />
             </div>
           </td>
         </tr>
       </tbody>
     </q-markup-table>
 
-    <doc-codepen ref="codepenRef" title="Flex example" />
+    <DocCodepen ref="codepenRef" title="Flex example" />
   </div>
 </template>
 
@@ -223,7 +223,7 @@ import { mdiPlus, mdiShareVariant } from '@quasar/extras/mdi-v7'
 
 import FlexChild from './FlexChild.vue'
 import DocCodepen from '@/components/DocCodepen.vue'
-import CopyButton from '@/components/CopyButton.vue'
+import DocCopyBtn from '@/components/DocCopyBtn.vue'
 
 const queryParams = {
   containerGroup: 'string',
@@ -397,17 +397,17 @@ function editInCodepen() {
     </div>`
   })
 
-  const Template = `
-    <div class="flex flex-center column">
-      <div class="text-h6">Flex playground example</div>
-      <div class="row bg-blue-grey-2" style="min-height: 400px; width: 80%; padding: 24px;">
-        <div id="parent" class="${classes.value}" style="overflow: hidden;">
-          ${children.join('')}
-        </div>
-      </div>
+  const content = `
+<div class="flex flex-center column">
+  <div class="text-h6">Flex playground example</div>
+  <div class="row bg-blue-grey-2" style="min-height: 400px; width: 80%; padding: 24px;">
+    <div id="parent" class="${classes.value}" style="overflow: hidden;">
+      ${children.join('')}
     </div>
+  </div>
+</div>
   `
-  codepenRef.value.open({ Template })
+  codepenRef.value.open([{ codepen: 'html', content }])
 }
 
 onMounted(checkQueryParams)

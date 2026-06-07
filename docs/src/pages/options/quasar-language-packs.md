@@ -11,7 +11,7 @@ A Quasar Language Pack refers to the internationalization of Quasar's own compon
 
 <DocApi file="Lang" />
 
-<DocInstallation title="Configuration" config="lang" />
+<DocInstall title="Configuration" config="lang" />
 
 ::: warning
 It should be noted that what is described below is the internationalization of Quasar components only. If you need to internationalize your own components, read [App Internationalization](/options/app-internationalization) documentation page.
@@ -65,7 +65,7 @@ For **Quasar UMD**, check what tags you may still need to include in your HTML f
 
 ### Dynamical (non-SSR)
 
-Quasar CLI: If your desired Quasar Language Pack must be dynamically selected (example: depends on a cookie), then you need to create a boot file: `$ quasar new boot quasar-lang-pack [--format ts]`. This will create `/src/boot/quasar-lang-pack.js` file. Edit it to:
+Quasar CLI: If your desired Quasar Language Pack must be dynamically selected (example: depends on a cookie), then you need to create a boot file: `quasar new boot quasar-lang-pack [--format ts]`. This will create `/src/boot/quasar-lang-pack.js` file. Edit it to:
 
 ```js With @quasar/app-vite
 import { defineBoot } from '#q-app'
@@ -150,7 +150,7 @@ Example with a QSelect to dynamically change the Quasar components language:
   <div>{{ $q.lang.label.close }}</div>
 </template>
 
-<script>
+<script setup>
   import { useQuasar } from 'quasar'
   import languages from 'quasar/lang/index.json'
   import { ref, watch } from 'vue'
@@ -165,23 +165,14 @@ Example with a QSelect to dynamically change the Quasar components language:
     label: lang.nativeName, value: lang.isoName
   }))
 
-  export default {
-    setup () {
-      const $q = useQuasar()
-      const lang = ref($q.lang.isoName)
+  const $q = useQuasar()
+  const lang = ref($q.lang.isoName)
 
-      watch(lang, val => {
-        modules[`../../node_modules/quasar/lang/${val}.js`]().then(lang => {
-          $q.lang.set(lang.default)
-        })
-      })
-
-      return {
-        lang,
-        langOptions
-      }
-    }
-  }
+  watch(lang, val => {
+    modules[`../../node_modules/quasar/lang/${val}.js`]().then(lang => {
+      $q.lang.set(lang.default)
+    })
+  })
 </script>
 ```
 

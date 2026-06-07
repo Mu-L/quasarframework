@@ -313,7 +313,7 @@ api.registerCommand('start', processArgv => {
   // do something here
   // this registers the "start" command
   // and this handler is executed when running
-  // $ quasar run <ext-id> start
+  // quasar run <ext-id> start
 })
 ```
 
@@ -342,7 +342,7 @@ api.registerCommand('fun', () => {
 
 ### api.registerDescribeApi
 
-Register an API file for `$ quasar describe` command.
+Register an API file for `quasar describe` command.
 
 ```js
 /**
@@ -356,7 +356,7 @@ api.registerDescribeApi(
 )
 ```
 
-The above will then respond to `$ quasar describe MyComponent`.
+The above will then respond to `quasar describe MyComponent`.
 
 For syntax of such a JSON file, look into `/node_modules/quasar/dist/api` (in your project folder). Be aware that your JSON must contain a `type` property ("component", "directive", "plugin"). For instance:
 
@@ -416,7 +416,7 @@ api.mergePersistentConf({
 
 ### api.beforeDev
 
-Prepare external services before `$ quasar dev` command runs, like starting some backend or any other service that the app relies on.
+Prepare external services before `quasar dev` command runs, like starting some backend or any other service that the app relies on.
 
 Can use async/await or directly return a Promise.
 
@@ -432,7 +432,7 @@ api.beforeDev((api, { quasarConf }) => {
 
 ### api.afterDev
 
-Run hook after Quasar dev server is started (`$ quasar build`). At this point, the dev server has been started and is available should you wish to do something with it.
+Run hook after Quasar dev server is started (`quasar build`). At this point, the dev server has been started and is available should you wish to do something with it.
 
 Can use async/await or directly return a Promise.
 
@@ -448,7 +448,7 @@ api.afterDev((api, { quasarConf }) => {
 
 ### api.beforeBuild
 
-Run hook before Quasar builds app for production (`$ quasar build`). At this point, the distributables folder hasn't been created yet.
+Run hook before Quasar builds app for production (`quasar build`). At this point, the distributables folder hasn't been created yet.
 
 Can use async/await or directly return a Promise.
 
@@ -464,7 +464,7 @@ api.beforeBuild((api, { quasarConf }) => {
 
 ### api.afterBuild
 
-Run hook after Quasar built app for production (`$ quasar build`). At this point, the distributables folder has been created and is available should you wish to do something with it.
+Run hook after Quasar built app for production (`quasar build`). At this point, the distributables folder has been created and is available should you wish to do something with it.
 
 Can use async/await or directly return a Promise.
 
@@ -480,7 +480,7 @@ api.afterBuild((api, { quasarConf }) => {
 
 ### api.onPublish
 
-Run hook if publishing was requested (`$ quasar build -P`), after Quasar built app for production and the afterBuild hook (if specified) was executed.
+Run hook if publishing was requested (`quasar build -P`), after Quasar built app for production and the afterBuild hook (if specified) was executed.
 
 Can use async/await or directly return a Promise.
 

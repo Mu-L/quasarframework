@@ -1,10 +1,9 @@
 import { defineConfig } from '#q-app'
 
-import mdPlugin from './build/md/index.js'
-import examplesPlugin from './build/examples.js'
-import highlightRawPlugin from './build/highlight-raw.js'
+import { mdVitePlugin } from './build/md/md-vite-plugin.js'
 import shikiCssStashPlugin from './build/shiki-css-stash.js'
-import { codeSplitting } from './build/chunks.js'
+import { quasarApiVitePlugin } from './build/quasar-api.js'
+import { codeSplitting, examplesVitePlugin } from './build/prod-chunks.js'
 
 export default defineConfig(ctx => ({
   boot: [{ path: 'gdpr', server: false }],
@@ -30,17 +29,17 @@ export default defineConfig(ctx => ({
     },
 
     vitePlugins: [
-      mdPlugin,
-      examplesPlugin(ctx.prod),
-      shikiCssStashPlugin(),
-      highlightRawPlugin()
+      quasarApiVitePlugin(),
+      mdVitePlugin(ctx.prod),
+      examplesVitePlugin(ctx.prod),
+      shikiCssStashPlugin()
     ],
 
     extendViteConf(_viteConf, { isClient }) {
       if (ctx.prod && isClient) {
         return {
           build: {
-            chunkSizeWarningLimit: 700,
+            assetsDir: 'a',
             rolldownOptions: {
               output: {
                 codeSplitting
@@ -94,7 +93,7 @@ export default defineConfig(ctx => ({
   animations: ['fadeIn', 'fadeOut'],
 
   ssr: {
-    pwa: ctx.prod,
+    pwa: ctx.prod && !import.meta.env.DOCS_PREVIEW,
     middlewares: ['render'],
     prodScriptNamedExport: 'renderSsrContext'
   },

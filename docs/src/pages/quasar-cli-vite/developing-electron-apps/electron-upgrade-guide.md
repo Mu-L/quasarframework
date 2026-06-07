@@ -12,14 +12,14 @@ Before upgrading Electron, please consult its release notes. Are there breaking 
 ```tabs
 <<| bash PNPM |>>
 # from /src-electron:
-$ pnpm add electron@latest
+pnpm add electron@latest
 <<| bash Yarn |>>
 # from /src-electron:
-$ yarn upgrade electron@latest
+yarn upgrade electron@latest
 <<| bash NPM |>>
 # from /src-electron:
-$ npm install electron@latest
+npm install electron@latest
 <<| bash Bun |>>
 # from /src-electron:
-$ bun add electron@latest
+bun add electron@latest
 ```

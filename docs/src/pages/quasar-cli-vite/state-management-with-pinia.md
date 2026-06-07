@@ -62,15 +62,15 @@ export default defineStore((/* { ssrContext } */) => {
 
 ## Adding a Pinia store
 
-Adding a Pinia store is easy with Quasar CLI through the `$ quasar new` command.
+Adding a Pinia store is easy with Quasar CLI through the `quasar new` command.
 
 ```bash
-$ quasar new store <store_name> [--format ts]
+quasar new store <store_name> [--format ts]
 ```
 
 It will create a folder in `/src/stores` named by "store_name" from the command above. It will contain all the boilerplate that you need.
 
-Let's say that you want to create a "counter" Pinia store. You issue `$ quasar new store counter`. You then notice the newly created `/src/stores/counter.js` file:
+Let's say that you want to create a "counter" Pinia store. You issue `quasar new store counter`. You then notice the newly created `/src/stores/counter.js` file:
 
 <DocTree :def="scope.newStore" />
 

@@ -16,13 +16,13 @@ If you selected TypeScript support when creating your project, you can skip this
 
 ```tabs
 <<| bash PNPM |>>
-$ pnpm add -D typescript
+pnpm add -D typescript
 <<| bash Yarn |>>
-$ yarn add --dev typescript
+yarn add --dev typescript
 <<| bash NPM |>>
-$ npm install --save-dev typescript
+npm install --save-dev typescript
 <<| bash Bun |>>
-$ bun add --dev typescript
+bun add --dev typescript
 ```
 
 Then, create `/tsconfig.json` file at the root of you project with this content:
@@ -33,7 +33,7 @@ Then, create `/tsconfig.json` file at the root of you project with this content:
 }
 ```
 
-Run `$ quasar prepare` in the root of your project folder.
+Run `quasar prepare` in the root of your project folder.
 
 Now you can start using TypeScript into your project. Note that some IDEs might require a restart for the new setup to fully kick in.
 
@@ -77,10 +77,10 @@ See the following sections for the features and build modes you are using.
 
 If you are using Pinia, Quasar CLI augments the `router` property inside `.quasar/pinia.d.ts` automatically. So, don't manually add the `router` property from the `PiniaCustomProperties` interface in the `/src/stores/index.ts` file.
 
-```diff /src/stores/index.ts
+```ts /src/stores/index.ts
 import { defineStore } from '#q-app'
 import { createPinia } from 'pinia'
-- import { type Router } from 'vue-router';
+import { type Router } from 'vue-router' // [!code --]
 
 /*
  * When adding new properties to stores, you should also
@@ -89,8 +89,8 @@ import { createPinia } from 'pinia'
  */
 declare module 'pinia' {
   export interface PiniaCustomProperties {
--   readonly router: Router;
-+   // add your custom properties here, if any
+    readonly router: Router // [!code --]
+    // add your custom properties here, if any
   }
 }
 ```
@@ -144,7 +144,7 @@ For reviewing purposes, here is an example of the generated tsconfig (non strict
 Properly running typechecking and linting requires the `.quasar/tsconfig.json` to be present. The file will be auto-generated when running `quasar dev` or `quasar build` commands. But, as a lightweight alternative, there is the CLI command `quasar prepare` that will generate the `.quasar/tsconfig.json` file and some types files. It is especially useful for CI/CD pipelines.
 
 ```bash
-$ quasar prepare
+quasar prepare
 ```
 
 You can add it as a `postinstall` script to make sure it's run after installing the dependencies. This would be helpful when someone is pulling the project for the first time.
@@ -176,16 +176,22 @@ rules: {
 
 You can use `quasar.config file > build > typescript` to control the TypeScript-related behavior. Add this section into your configuration:
 
-```diff /quasar.config.ts
+```js /quasar.config.ts
 build: {
-+ typescript: {
-+   strict: true, // (recommended) enables strict settings for TypeScript
-+   vueShim: true, // required when using ESLint with type-checked rules, will generate a shim file for `*.vue` files
-+   extendTsConfig (tsConfig) {
-+     // You can use this hook to extend tsConfig dynamically
-+     // For basic use cases, you can still update the usual tsconfig.json file to override some settings
-+   },
-+ }
+  typescript: {
+    /** recommended; enables strict settings for TypeScript */
+    strict: true,
+    /**
+     * Required when using ESLint with type-checked rules,
+     * will generate a shim file for `*.vue` files
+     */
+    vueShim: true,
+    extendTsConfig (tsConfig) {
+      // You can use this hook to extend tsConfig dynamically
+      // For basic use cases, you can still update
+      // the usual tsconfig.json file to override some settings
+    },
+  }
 }
 ```
 
@@ -193,10 +199,14 @@ Should you want, you should be able to set the `strict` option to `true` without
 
 If you are using ESLint with type-check rules, enable the `vueShim` option to preserve the previous behavior with the shim file. If your project is working fine without that option, you don't need to enable it.
 
-```diff /quasar.config.ts
+```js /quasar.config.ts
 build: {
   typescript: {
-+   vueShim: true // required when using ESLint with type-checked rules, will generate a shim file for `*.vue` files
+    /**
+     * Required when using ESLint with type-checked rules,
+     * will generate a shim file for `*.vue` files
+     */
+    vueShim: true // [!code highlight]
   }
 }
 ```

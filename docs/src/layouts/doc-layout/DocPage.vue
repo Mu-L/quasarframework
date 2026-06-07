@@ -72,8 +72,8 @@
 
       <div class="q-mb-md">
         <span>Caught a mistake?</span>
-        <doc-link class="q-ml-xs" :to="editHref"
-          >Edit this page in browser</doc-link
+        <DocLink class="q-ml-xs" :to="editHref"
+          >Edit this page in browser</DocLink
         >
       </div>
     </div>
@@ -84,7 +84,7 @@
     :class="tocClass"
   >
     <q-scroll-area class="doc-page__toc-area">
-      <doc-page-toc />
+      <DocPageToc />
     </q-scroll-area>
   </div>
 </template>

@@ -16,7 +16,7 @@ In addition to the standard way of dealing with cookies, with Cookie Plugin you 
 With Electron version >= v1.12.2 the Cookie Plugin isn't functional in the Electron Enviroment. You may want to look up the [Electron Cookies](https://www.electronjs.org/docs/api/cookies) documentation.
 :::
 
-<DocInstallation plugins="Cookies" />
+<DocInstall plugins="Cookies" />
 
 ## Notes on SSR
 

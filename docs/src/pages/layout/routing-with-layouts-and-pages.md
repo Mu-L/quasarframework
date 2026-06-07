@@ -30,11 +30,11 @@ To make it more clear, let's take an example. We have one layout ('user') and tw
 Let's create the layout and page files. You can use a helper command of Quasar CLI or simply create them yourself.
 
 ```bash
-$ quasar new layout User
+quasar new layout User
  app:new Generated layout: src/layouts/User.vue +0ms
  app:new Make sure to reference it in src/router/routes.js +2ms
 
-$ quasar new page Profile Posts
+quasar new page Profile Posts
  app:new Generated page: src/pages/Profile.vue +0ms
  app:new Make sure to reference it in src/router/routes.js +2ms
 

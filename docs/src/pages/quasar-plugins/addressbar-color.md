@@ -17,11 +17,11 @@ Newer mobile browsers have the ability to specify a color for the addressbar, li
 
 <DocApi file="AddressbarColor" />
 
-<DocInstallation plugins="AddressbarColor" />
+<DocInstall plugins="AddressbarColor" />
 
 ## Usage
 
-We create boot file to initialize its usage: `$ quasar new boot addressbar-color [--format ts]`. A file is created (`/src/boot/addressbar-color.js`). We edit it:
+We create boot file to initialize its usage: `quasar new boot addressbar-color [--format ts]`. A file is created (`/src/boot/addressbar-color.js`). We edit it:
 
 ```js /src/boot/addressbar-color.js
 import { AddressbarColor } from 'quasar'

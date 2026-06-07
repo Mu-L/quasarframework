@@ -64,9 +64,7 @@ export default function shikiCssStashPlugin() {
     },
 
     generateBundle(_options, bundle) {
-      if (activeTransformer === null) {
-        return
-      }
+      if (activeTransformer === null) return
 
       const css = activeTransformer.getCSS()
 

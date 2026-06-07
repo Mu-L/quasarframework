@@ -1,10 +1,9 @@
 import md from './md.js'
 import { convertToRelated, flatMenu } from './flat-menu.js'
 import { getVueComponent, parseFrontMatter } from './md-parse-utils.js'
-import { preprocessDocInstallation } from '../doc-installation/preprocess.js'
 
 const docApiRE = /<DocApi /
-const docInstallationRE = /<DocInstallation /
+const docInstallationRE = /<DocInstall /
 const docTreeRE = /<DocTree /
 const scriptRE = /<script doc>\n((.|\n)*?)\n<\/script>/g
 
@@ -22,9 +21,8 @@ function splitRenderedContent(mdPageContent) {
   return { mdContent, userScripts }
 }
 
-export default function mdParse(code, id) {
-  const { data: frontMatter, content: rawContent } = parseFrontMatter(code)
-  const content = preprocessDocInstallation(rawContent)
+export default function mdParse(code, id, isProd) {
+  const { data: frontMatter, content } = parseFrontMatter(code)
 
   frontMatter.id = id
   frontMatter.title ||= 'Generic Page'
@@ -52,7 +50,7 @@ export default function mdParse(code, id) {
   }
   if (docInstallationRE.test(code)) {
     frontMatter.pageScripts.add(
-      "import DocInstallation from '@/components/DocInstallation.vue'"
+      "import DocInstall from '@/components/DocInstall.vue'"
     )
   }
   if (docTreeRE.test(code)) {
@@ -95,6 +93,7 @@ export default function mdParse(code, id) {
   const { mdContent, userScripts } = splitRenderedContent(mdRenderedContent)
 
   return getVueComponent({
+    isProd,
     frontMatter,
     mdContent,
     pageScripts: [...frontMatter.pageScripts, ...userScripts].join('\n')

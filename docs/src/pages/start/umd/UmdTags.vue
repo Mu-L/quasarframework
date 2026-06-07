@@ -83,7 +83,7 @@
 
     <q-separator />
 
-    <doc-code class="relative-position" lang="html" :code="output" />
+    <DocCode class="relative-position" lang="html" :code="output" />
   </q-card>
 </template>
 

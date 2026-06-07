@@ -181,21 +181,17 @@ If your server requires authentication such as a JWT token, use QUploader's fact
   <q-uploader label="Upload" :factory="factoryFn" style="max-width: 300px" />
 </template>
 
-<script>
-  export default {
-    methods: {
-      factoryFn(file) {
-        return new Promise((resolve, reject) => {
-          // Retrieve JWT token from your store.
-          const token = 'myToken'
-          resolve({
-            url: 'http://localhost:4444/fileuploader/upload',
-            method: 'POST',
-            headers: [{ name: 'Authorization', value: `Bearer ${token}` }]
-          })
-        })
-      }
-    }
+<script setup>
+  function factoryFn(file) {
+    return new Promise((resolve, reject) => {
+      // Retrieve JWT token from your store.
+      const token = 'myToken'
+      resolve({
+        url: 'http://localhost:4444/fileuploader/upload',
+        method: 'POST',
+        headers: [{ name: 'Authorization', value: `Bearer ${token}` }]
+      })
+    })
   }
 </script>
 ```

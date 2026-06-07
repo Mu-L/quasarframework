@@ -160,7 +160,7 @@ export default function (ctx) { // can be async too
 
   // Example output on console:
   {
-    dev: true,
+    dev: true, // [!code highlight]
     prod: false // [!code highlight]
   }
 
@@ -172,50 +172,24 @@ export default function (ctx) { // can be async too
 }
 ```
 
-```js [highlight=2,5]
-export default function (ctx) { // can be async too
-  console.log(ctx)
+No lang (implicit "text"):
 
-  // Example output on console:
-  {
-    dev: true,
-    prod: false
-  }
-
-  const { FOO } = process.env // ❌ It doesn't allow destructuring or similar
-  process.env.FOO             // ✅ It can only replace direct usage like this
-
-  // context gets generated based on the parameters
-  // with which you run "quasar dev" or "quasar build"
+```
+{
+  "min": 0,
+  "super": false,
+  "max": 100
 }
 ```
 
-```js [highlight=2,5,9,10 numbered add=3,6-7]
+```js Using !code focus
 export default function (ctx) { // can be async too
-  console.log(ctx)
+  console.log(ctx) // [!code focus]
 
   // Example output on console:
   {
-    dev: true,
-    prod: false
-  }
-
-  const { FOO } = process.env // ❌ It doesn't allow destructuring or similar
-  process.env.FOO             // ✅ It can only replace direct usage like this
-
-  // context gets generated based on the parameters
-  // with which you run "quasar dev" or "quasar build"
-}
-```
-
-```js Titled code
-export default function (ctx) { // can be async too
-  console.log(ctx)
-
-  // Example output on console:
-  {
-    dev: true,
-    prod: false
+    dev: true, // [!code highlight]
+    prod: false // [!code highlight]
   }
 
   const { FOO } = process.env // ❌ It doesn't allow destructuring or similar
@@ -230,32 +204,7 @@ export default function (ctx) { // can be async too
 /home/your_user/bin:/home/your_user/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/home/your_user/Android/Sdk/tools:/home/your_user/Android/Sdk/platform-tools
 ```
 
-```js [numbered]
-export default function (ctx) { // can be async too
-  console.log(ctx)
-
-  // Example output on console:
-  {
-    dev: true,
-    prod: false,
-    mode: { spa: true },
-    modeName: 'spa',
-    target: {},
-    targetName: undefined,
-    arch: {},
-    archName: undefined,
-    debug: undefined
-  }
-
-  const { FOO } = process.env // ❌ It doesn't allow destructuring or similar
-  process.env.FOO             // ✅ It can only replace direct usage like this
-
-  // context gets generated based on the parameters
-  // with which you run "quasar dev" or "quasar build"
-}
-```
-
-```json
+```json Json
 {
   "min": 0,
   "super": false,
@@ -263,96 +212,27 @@ export default function (ctx) { // can be async too
 }
 ```
 
-```json [rem=1,3 add=4]
+```json Using !code++/--
 {
   "min": 0,
-  "super": false,
-  "super": true,
-  "max": 100
+  "super": false, // [!code --]
+  "super": true, // [!code ++]
+  "max": 100 // [!code ++]
 }
 ```
 
-```json [numbered rem=3 add=4]
+```json Using !code highlight
 {
   "min": 0,
   "super": false,
-  "super": true,
-  "max": 100
+  "max": 100 // [!code highlight]
 }
-```
-
-```json [numbered highlight=3]
-{
-  "min": 0,
-  "super": false,
-  "max": 100
-}
-```
-
-```diff
-@@ -13,6 +13,8 @@ const langList = [
-   { name: 'xml' },
-   { name: 'nginx' },
-   { name: 'html' },
-+
-+  // special grammars:
-   { name: 'diff' }
- ]
-
-@@ -20,6 +22,12 @@ loadLanguages(langList.map(l => l.name))
-
- const langMatch = langList.map(l => l.aliases || l.name).join('|')
-
-+/**
-+ * lang -> one of the supported languages (langList)
-+ * attrs -> optional attributes:
-+ *    * numbered - lines are numbered
-+ * title -> optional card title
-+ */
- const definitionLineRE = new RegExp(
-   '^' +
-   `(?<lang>(tabs|${ langMatch }))` + // then a language name
-@@ -28,6 +36,10 @@ const definitionLineRE = new RegExp(
-   '$'
- )
-
-+/**
-+ * <<| lang [attrs] [title] |>>
-+ * ...content...
-+ */
- const tabsLineRE = new RegExp(
-   '^<<\\|\\s+' + // starts with "<<|" + at least one space char
-   `(?<lang>${ langMatch })` + // then a language name
-@@ -72,29 +84,65 @@ function extractTabs (content) {
-       const props = tabMap[ tabName ]
-       return (
-         `<q-tab-panel class="q-pa-none" name="${ tabName }">` +
--        `<pre v-pre class="doc-code">${ highlight(props.content.join('\n'), props.attrs) }</pre>` +
--        '<copy-button />' +
-+        highlight(props.content.join('\n'), props.attrs) +
-         '</q-tab-panel>'
-       )
-     }).join('\n')
-   }
- }
-
--function highlight (content, attrs) {
--  const { lang, numbered } = attrs
--  const highlightedText = prism.highlight(content, prism.languages[ lang ], lang)
-+const magicCommentRE = / *\/\/\[! (?<klass>[\w-]+)\] */
-+const magicCommentGlobalRE = new RegExp(magicCommentRE, 'g')
-
--  if (numbered === true) {
--    const lines = highlightedText.split('\n')
--    const lineCount = ('' + highlightedText.length).length
-+function getLineClasses (content, highlightedLines) {
-+  const lines = content.split('\n')
 ```
 
 ```tabs
-<<| js [numbered] Config file |>>
+<<| js Using !code highlight |>>
 export default function (ctx) { // can be async too
-  console.log(ctx)
+  console.log(ctx) // [!code highlight]
 
   // Example output on console:
   {
@@ -366,15 +246,15 @@ export default function (ctx) { // can be async too
   // context gets generated based on the parameters
   // with which you run "quasar dev" or "quasar build"
 }
-<<| js Other file |>>
-const x = {
-  dev: true,
-  prod: false
+<<| json Json |>>
+{
+  "dev": false,
+  "prod": "yeah"
 }
 ```
 
 ```tabs quasar.config file
-<<| js One |>>
+<<| js Basic |>>
 export default function (ctx) { // can be async too
   console.log(ctx)
 
@@ -390,17 +270,15 @@ export default function (ctx) { // can be async too
   // context gets generated based on the parameters
   // with which you run "quasar dev" or "quasar build"
 }
-<<| js [numbered] Two (numbered) |>>
+<<| js !code highlight |>>
 const x = {
   dev: true,
-  prod: false
+  prod: false // [!code highlight]
 }
-<<| diff Three (with diff) |>>
-{
-  min: 0
-- super: false
-+ super: true
-  max: 100
+<<| js !code -- & !code ++ |>>
+const x = {
+  dev: true, // [!code --]
+  prod: false // [!code ++]
 }
 ```
 
@@ -434,7 +312,7 @@ Using `^?` and `^|` will create an overlay. It can cover important code below, o
 Imports from `quasar` and `#q-app` resolve. Bare Vue `setup () {}` won't compile, wrap it in `defineComponent({ setup() {} })`.
 
 <!-- prettier-ignore -->
-```ts [twoslash]
+```ts [twoslash] Twoslash
 // @errors: 2561
 import { Notify } from 'quasar'
 
@@ -494,7 +372,7 @@ Lorem ipsum dolor sit amet, **consectetur adipiscing** elit, sed do _eiusmod_ te
 
 Lorem ipsum dolor sit amet, **consectetur adipiscing** elit, sed do _eiusmod_ tempor incididunt ut labore et dolore magna aliqua.
 
-<DocInstallation plugins="AppFullscreen" />
+<DocInstall plugins="AppFullscreen" />
 
 <DocApi file="QSelect" />
 

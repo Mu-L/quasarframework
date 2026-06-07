@@ -32,17 +32,17 @@ You will also be able to use the command line, so it will be almost identical to
 
 ```tabs
 <<| bash PNPM |>>
-$ pnpm add -g @quasar/cli
-$ pnpm create quasar@latest
+pnpm add -g @quasar/cli
+pnpm create quasar@latest
 <<| bash Yarn |>>
-$ yarn global add @quasar/cli
-$ yarn create quasar
+yarn global add @quasar/cli
+yarn create quasar
 <<| bash NPM |>>
-$ npm i -g @quasar/cli
-$ npm init quasar@latest
+npm i -g @quasar/cli
+npm init quasar@latest
 <<| bash Bun |>>
-$ bun install -g @quasar/cli
-$ bun create quasar@latest
+bun install -g @quasar/cli
+bun create quasar@latest
 ```
 
 Pick `App with Quasar CLI`.
@@ -62,13 +62,13 @@ Pick `App with Quasar CLI`.
 
    ```tabs
    <<| bash PNPM |>>
-   $ pnpm create quasar@latest
+   pnpm create quasar@latest
    <<| bash Yarn |>>
-   $ yarn create quasar
+   yarn create quasar
    <<| bash NPM |>>
-   $ npm init quasar@latest
+   npm init quasar@latest
    <<| bash Bun |>>
-   $ bun create quasar@latest
+   bun create quasar@latest
    ```
 
    ::: tip
@@ -79,19 +79,19 @@ Pick `App with Quasar CLI`.
 
 3. Answer the rest of the questions and you're almost done.
 
-4. Now, do you want to be able to run Quasar CLI commands directly (eg. `$ quasar dev/build`) or through your package manager (`$ pnpm quasar dev/build` or `npx quasar dev/build`, etc)?
+4. Now, do you want to be able to run Quasar CLI commands directly (eg. `quasar dev/build`) or through your package manager (`pnpm quasar dev/build` or `npx quasar dev/build`, etc)?
 
    We strongly recommend to pick the first choice and be able to run commands directly. Actually, you'll be able to do even more than just this (eg. "quasar upgrade" or "quasar serve" commands). For this, you'll need to globally install the `@quasar/cli` package:
 
    ```tabs
    <<| bash PNPM |>>
-   $ pnpm add -g @quasar/cli
+   pnpm add -g @quasar/cli
    <<| bash Yarn |>>
-   $ yarn global add @quasar/cli
+   yarn global add @quasar/cli
    <<| bash NPM |>>
-   $ npm i -g @quasar/cli
+   npm i -g @quasar/cli
    <<| bash Bun |>>
-   $ bun install -g @quasar/cli
+   bun install -g @quasar/cli
    ```
 
    ::: tip
@@ -155,20 +155,20 @@ Here are the options:
 
    ```tabs Running scripts
    <<| bash PNPM |>>
-   $ pnpm run dev
-   $ pnpm run build
+   pnpm run dev
+   pnpm run build
    # ..etc
    <<| bash Yarn |>>
-   $ yarn run dev
-   $ yarn run build
+   yarn run dev
+   yarn run build
    # ..etc
    <<| bash NPM |>>
-   $ npm run dev
-   $ npm run build
+   npm run dev
+   npm run build
    # ..etc
    <<| bash Bun |>>
-   $ bun run dev
-   $ bun run build
+   bun run dev
+   bun run build
    # ..etc
    ```
 
@@ -178,20 +178,20 @@ Here are the options:
 
    ```tabs
    <<| bash PNPM |>>
-   $ pnpm quasar dev
-   $ pnpm quasar inspect
+   pnpm quasar dev
+   pnpm quasar inspect
    # ..etc
    <<| bash Yarn |>>
-   $ yarn quasar dev
-   $ yarn quasar inspect
+   yarn quasar dev
+   yarn quasar inspect
    # ..etc
    <<| bash NPM |>>
-   $ npx quasar dev
-   $ npx quasar inspect
+   npx quasar dev
+   npx quasar inspect
    # ..etc
    <<| bash Bun |>>
-   $ bun quasar dev
-   $ bun quasar inspect
+   bun quasar dev
+   bun quasar inspect
    # ..etc
    ```
 

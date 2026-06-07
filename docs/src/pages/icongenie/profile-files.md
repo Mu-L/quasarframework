@@ -149,4 +149,4 @@ Some examples for `assets` from which you can extract the syntax for every type 
 
 Icon Genie also offers the [profile command](/icongenie/command-list#profile) which can bootstrap JSON profile files for you. It can help you create one or more such files that you can then run in batch through the [generate command](/icongenie/command-list#generate) with `--profile` param (or short `-p`).
 
-The most handy use case is to generate multiple profile files into one specific folder, each with their own parameters, and then run all of them through `$ icongenie generate -p /path/to/folder`.
+The most handy use case is to generate multiple profile files into one specific folder, each with their own parameters, and then run all of them through `icongenie generate -p /path/to/folder`.

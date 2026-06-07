@@ -3,40 +3,38 @@ import { langMatch } from './highlight/build-langs.js'
 import { buildFenceTransformers, themeOptions } from './highlight/shared.js'
 import { getFenceBuildOnlyTransformers } from './highlight/twoslash.js'
 import { getSharedStyleToClasses } from '../shiki-css-stash.js'
+import { encodeForAttr } from './md-parse-utils.js'
 
 /**
  * lang -> one of the supported languages
- * attrs -> optional attributes:
- *    * numbered - lines are numbered
- *    * highlight="1,2-4,6" - lines are highlighted
- *    * add="1,2-4,6" - lines are marked as added (diff gutter)
- *    * rem="1,2-4,6" - lines are marked as removed (diff gutter)
+ * [modifier] -> optional modifier, e.g. "twoslash"
  * title -> optional card title
  */
 const definitionLineRE = new RegExp(
   '^' +
     `(?<lang>(tabs|${langMatch}))` + // then a language name
-    String.raw`(\s+\[(?<attrs>.*)\])?` + // then optional attributes
+    String.raw`(\s+\[(?<modifier>[^\]]+)\])?` + // then optional modifier
     String.raw`(\s+(?<title>.+))?` + // then optional title
     '$'
 )
 
 /**
- * <<| lang [attrs] [title] |>>
+ * <<| lang [modifier] title |>>
  * ...content...
  */
 const tabsLineRE = new RegExp(
   String.raw`^<<\|\s+` + // starts with "<<|" + at least one space char
     `(?<lang>${langMatch})` + // then a language name
-    String.raw`(\s+\[(?<attrs>.*)\])?` + // then optional attributes
+    String.raw`(\s+\[(?<modifier>[^\]]+)\])?` + // then optional modifier
     String.raw`(\s+(?<title>.+))?` + // then optional title
     String.raw`\s*\|>>$` // then any number of space chars + the ending "|>>"
 )
 
-// Langs the CopyButton needs to know about so it can post-process the text:
-//   - bash: strip the leading `$ ` shell prompt
-//   - diff: strip the leading `+ ` from add-lines (remove-lines are already dropped by the line walker)
-const customCopyLangs = new Set(['bash', 'diff'])
+function renderSection(tabContent, attrs) {
+  return attrs.twoslash
+    ? getHighlightedContent(tabContent, attrs)
+    : getDocCode(tabContent, attrs)
+}
 
 function extractTabs(content) {
   const list = []
@@ -49,17 +47,14 @@ function extractTabs(content) {
 
     if (tabsMatch !== null) {
       const {
-        groups: { lang, attrs, title }
+        groups: { lang, modifier, title }
       } = tabsMatch
 
       currentTabName = title?.trim() || `Tab ${list.length + 1}`
 
       list.push(currentTabName)
       tabMap[currentTabName] = {
-        attrs: {
-          ...parseAttrs(attrs?.trim() || null),
-          lang
-        },
+        attrs: { lang, ...parseModifier(modifier) },
         content: []
       }
     } else if (currentTabName !== null) {
@@ -74,9 +69,10 @@ function extractTabs(content) {
     content: list
       .map(tabName => {
         const props = tabMap[tabName]
+        const tabContent = props.content.join('\n')
         return (
           `<q-tab-panel class="q-pa-none" name="${tabName}">` +
-          getHighlightedContent(props.content.join('\n'), props.attrs) +
+          renderSection(tabContent, props.attrs) +
           '</q-tab-panel>'
         )
       })
@@ -93,29 +89,17 @@ function getHighlightedContent(rawContent, attrs) {
       lang,
       ...themeOptions,
       transformers: [
-        ...buildFenceTransformers(attrs, getFenceBuildOnlyTransformers(attrs)),
+        ...buildFenceTransformers(getFenceBuildOnlyTransformers(attrs)),
         ...getSharedStyleToClasses()
       ]
     })
     .replace('<pre ', '<pre v-pre ')
 
-  const langProp = customCopyLangs.has(lang) ? ` lang="${lang}"` : ''
-
-  return `${html}<copy-button${langProp} />`
+  return `<div class="relative-position copybtn-hover">${html}<DocCopyBtn /></div>`
 }
 
-function parseAttrs(rawAttrs) {
-  if (rawAttrs === null) return {}
-
-  const acc = {}
-  const attrList = rawAttrs.split(/\s+/)
-
-  for (const attr of attrList) {
-    const [key, value] = attr.split('=')
-    acc[key.trim()] = value?.trim() || true
-  }
-
-  return acc
+function parseModifier(modifierStr) {
+  return modifierStr ? { [modifierStr.trim()]: true } : {}
 }
 
 export function parseDefinitionLine(token) {
@@ -123,25 +107,25 @@ export function parseDefinitionLine(token) {
 
   if (match === null) {
     return {
-      lang: 'html',
+      lang: 'text',
       title: null
     }
   }
 
   const {
-    groups: { lang, attrs, title }
+    groups: { lang, modifier, title }
   } = match
-  const acc = {
-    ...parseAttrs(attrs?.trim() || null),
+
+  return {
     lang,
-    title: title?.trim() || null
+    title: title?.trim() || null,
+    ...parseModifier(modifier),
+    ...(lang === 'tabs' ? { tabs: extractTabs(token.content) } : {})
   }
+}
 
-  if (acc.lang === 'tabs') {
-    acc.tabs = extractTabs(token.content)
-  }
-
-  return acc
+function getDocCode(content, attrs) {
+  return `<DocCode lang="${attrs.lang}" :code="${encodeForAttr(content.trim())}" />`
 }
 
 export default function mdPluginCodeblock(md) {
@@ -153,15 +137,19 @@ export default function mdPluginCodeblock(md) {
       "import DocPrerender from '@/components/DocPrerender.js'"
     )
     md.$frontMatter.pageScripts.add(
-      "import CopyButton from '@/components/CopyButton.vue'"
+      "import DocCopyBtn from '@/components/DocCopyBtn.vue'"
+    )
+    md.$frontMatter.pageScripts.add(
+      "import DocCode from '@/components/DocCode.vue'"
     )
 
     return (
-      `<doc-prerender${attrs.title !== null ? ` title="${attrs.title}"` : ''}${attrs.tabs !== void 0 ? ` :tabs="${attrs.tabs.param}"` : ''}>` +
+      `<DocPrerender${attrs.title !== null ? ` title="${attrs.title}"` : ''}` +
+      `${attrs.tabs !== void 0 ? ` :tabs="${attrs.tabs.param}"` : ''}>` +
       (attrs.tabs !== void 0
         ? attrs.tabs.content
-        : getHighlightedContent(token.content, attrs)) +
-      '</doc-prerender>'
+        : renderSection(token.content, attrs)) +
+      '</DocPrerender>'
     )
   }
 }

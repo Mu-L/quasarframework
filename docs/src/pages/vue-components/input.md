@@ -243,7 +243,7 @@ You can use v-money directive:
 </q-field>
 ```
 
-```javascript
+```js
 moneyFormatForDirective: {
   decimal: '.',
   thousands: ',',
@@ -276,7 +276,7 @@ Or you can use money component:
 </q-field>
 ```
 
-```javascript
+```js
 moneyFormatForComponent: {
   decimal: '.',
   thousands: ',',

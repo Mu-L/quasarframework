@@ -16,7 +16,7 @@ RTL is referring to "right to left" UI for languages that need it.
 - PNPM/Yarn/NPM/Bun install the `postcss-rtlcss` package (to `devDependencies`).
 - If you are already running "quasar dev" command, restart it.
 
-```js [highlight=2,25] /postcss.config.js
+```js /postcss.config.js
 import autoprefixer from 'autoprefixer'
 import rtlcss from 'postcss-rtlcss'
 
@@ -52,13 +52,13 @@ You first need to install `postcss-rtlcss` package:
 
 ```tabs
 <<| bash PNPM |>>
-$ pnpm add -D postcss-rtlcss
+pnpm add -D postcss-rtlcss
 <<| bash Yarn |>>
-$ yarn add --dev postcss-rtlcss
+yarn add --dev postcss-rtlcss
 <<| bash NPM |>>
-$ npm install --save-dev postcss-rtlcss
+npm install --save-dev postcss-rtlcss
 <<| bash Bun |>>
-$ bun add --dev postcss-rtlcss
+bun add --dev postcss-rtlcss
 ```
 
 Then create `/postcss.config.js` file if you don't have it already, and add this to it:

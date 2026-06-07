@@ -131,7 +131,7 @@
 
     <q-separator />
 
-    <doc-code lang="html" :code="tooltipExport" />
+    <DocCode lang="html" :code="tooltipExport" />
   </q-card>
 </template>
 

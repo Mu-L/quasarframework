@@ -92,20 +92,21 @@ build: {
 
 You also need to edit:
 
-```diff /src/router/index file
-- import routes from './routes'
-+ import { routes, handleHotUpdate } from 'vue-router/auto-routes'
+<!-- prettier-ignore -->
+```js /src/router/index file
+import routes from './routes' // [!code --]
+import { routes, handleHotUpdate } from 'vue-router/auto-routes' // [!code ++]
 
 export default defineRouter((/* { store, ssrContext } */) => {
   const Router = createRouter({
-    routes,
+    routes
     // the rest....
   })
 
-+ // enable HMR for it
-+ if (import.meta.hot) {
-+   handleHotUpdate(Router)
-+ }
+  // enable HMR for it // [!code ++]
+  if (import.meta.hot) { // [!code ++]
+    handleHotUpdate(Router) // [!code ++]
+  } // [!code ++]
 
   return Router
 })

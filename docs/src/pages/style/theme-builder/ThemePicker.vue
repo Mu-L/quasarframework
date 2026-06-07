@@ -141,16 +141,16 @@
 
         <q-tab-panels v-model="exportTab" animated>
           <q-tab-panel class="q-pa-none" name="sass">
-            <doc-code copy :code="sassExport" />
+            <DocCode copy lang="sass" :code="sassExport" />
           </q-tab-panel>
           <q-tab-panel class="q-pa-none" name="scss">
-            <doc-code copy :code="scssExport" />
+            <DocCode copy lang="sass" :code="scssExport" />
           </q-tab-panel>
           <q-tab-panel class="q-pa-none" name="quasar-cli">
-            <doc-code copy :code="quasarCliExport" />
+            <DocCode copy lang="js" :code="quasarCliExport" />
           </q-tab-panel>
           <q-tab-panel class="q-pa-none" name="umd">
-            <doc-code copy :code="umdExport" />
+            <DocCode copy lang="js" :code="umdExport" />
           </q-tab-panel>
         </q-tab-panels>
 

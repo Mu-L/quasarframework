@@ -9,9 +9,17 @@ import json from '@shikijs/langs/json'
 import xml from '@shikijs/langs/xml'
 import nginx from '@shikijs/langs/nginx'
 import html from '@shikijs/langs/html'
-import vue from '@shikijs/langs/vue'
-import diff from '@shikijs/langs/diff'
 
+/**
+ * Use "html" lang instead. The "vue" lang imports
+ * a lot of other languages that we don't need, and
+ * the highlighting is mostly the same!
+ */
+// import vue from '@shikijs/langs/vue'
+
+/**
+ * !! Keep in sync with `client-runtime.js` loaderMap
+ */
 const userLangs = {
   bash,
   javascript,
@@ -23,19 +31,14 @@ const userLangs = {
   json,
   xml,
   nginx,
-  html,
-  vue,
-  diff
+  html
 }
 
 export const langs = Object.values(userLangs)
 
 export const langAlias = {
   js: 'javascript',
-  ts: 'typescript',
-  markup: 'html',
-  shell: 'bash',
-  sh: 'bash'
+  ts: 'typescript'
 }
 
 export const supportedLangs = [

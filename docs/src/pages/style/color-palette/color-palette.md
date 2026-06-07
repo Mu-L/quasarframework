@@ -9,7 +9,7 @@ Quasar Framework offers a wide selection of colors out of the box. You can use t
 
 <DocApi file="Brand" />
 
-<DocInstallation title="Configuration" config="brand" />
+<DocInstall title="Configuration" config="brand" />
 
 ## Brand Colors
 

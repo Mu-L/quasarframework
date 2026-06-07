@@ -32,9 +32,14 @@ function parseToc(toc) {
   return JSON.stringify(list)
 }
 
-export function getVueComponent({ frontMatter, mdContent, pageScripts }) {
+export function getVueComponent({
+  isProd,
+  frontMatter,
+  mdContent,
+  pageScripts
+}) {
   return `<template>
-  <doc-page
+  <DocPage
     title="${frontMatter.title}"
     ${frontMatter.desc !== void 0 ? `desc="${frontMatter.desc}"` : ''}
     ${frontMatter.overline !== void 0 ? `overline="${frontMatter.overline}"` : ''}
@@ -43,7 +48,7 @@ export function getVueComponent({ frontMatter, mdContent, pageScripts }) {
     ${frontMatter.editLink !== false ? `edit-link="${frontMatter.editLink}"` : ''}
     ${frontMatter.toc.length !== 0 ? ':toc="toc"' : ''}
     ${frontMatter.related !== void 0 ? ':related="related"' : ''}
-    ${frontMatter.nav !== void 0 ? ':nav="nav"' : ''}>${mdContent}</doc-page>
+    ${frontMatter.nav !== void 0 ? ':nav="nav"' : ''}>${mdContent}</DocPage>
 </template>
 <script setup>
 import { copyHeading } from '@/assets/page-utils'
@@ -52,7 +57,16 @@ ${
     ? `
 import { provide } from 'vue'
 provide('_q_ex', import.meta.env.QUASAR_CLIENT
-  ? { name: '${frontMatter.examples}', list: import('examples:${frontMatter.examples}') }
+  ? { name: '${frontMatter.examples}'${
+    /**
+     * Can't use import.meta.env.QUASAR_PROD since on
+     * dev, Vite tries to import the prod only modules
+     * regardless of the condition.
+     */
+    isProd
+      ? `, runtime: import('examples:runtime:${frontMatter.examples}'), source: () => import('examples:source:${frontMatter.examples}')`
+      : ''
+  } }
   : { name: '${frontMatter.examples}' })
 `
     : ''
@@ -73,4 +87,22 @@ export function parseFrontMatter(content) {
       excerpt: false
     }
   })
+}
+
+/**
+ * Encode a value for use in a Vue `:prop="..."` binding.
+ * Escape the characters that would break out of
+ * the attribute or the JS expression.
+ */
+export function encodeForAttr(value) {
+  return (
+    JSON.stringify(value)
+      .replaceAll('&', '&amp;')
+      .replaceAll('"', '&quot;')
+      .replaceAll('<', '&lt;')
+      /**
+       * Avoid @quasar/vite-plugin's transformation.
+       */
+      .replaceAll("from 'quasar'", String.raw`from \'quasar'`)
+  )
 }

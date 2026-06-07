@@ -69,19 +69,19 @@ If you have a Fontawesome v6 Pro license and want to use it instead of the Fonta
 
 ```tabs
 <<| bash PNPM |>>
-$ pnpm add @fortawesome/fontawesome-pro
+pnpm add @fortawesome/fontawesome-pro
 <<| bash Yarn |>>
-$ yarn add @fortawesome/fontawesome-pro
+yarn add @fortawesome/fontawesome-pro
 <<| bash NPM |>>
-$ npm install --save @fortawesome/fontawesome-pro
+npm install --save @fortawesome/fontawesome-pro
 <<| bash Bun |>>
-$ bun add @fortawesome/fontawesome-pro
+bun add @fortawesome/fontawesome-pro
 ```
 
 4. Create new boot file:
 
 ```bash
-$ quasar new boot fontawesome-pro [--format ts]
+quasar new boot fontawesome-pro [--format ts]
 ```
 
 5. Edit the `/quasar.config` file:

@@ -94,15 +94,13 @@ The hook is defined as a custom static function called `preFetch` on our route c
 Example below is when using Pinia:
 
 ```html Some .vue component used as route
-<template>
-  <div>{{ item.title }}</div>
-</template>
-
-<script>
-  import { useRoute } from 'vue-router'
-  import { useMyStore } from '@/stores/myStore.js'
-
-  export default {
+<script setup>
+  /**
+   * The defineOptions is a macro.
+   * The options will be hoisted to module scope and cannot access local
+   * variables in <script setup> that are not literal constants.
+   */
+  defineOptions({
     // our hook here
     preFetch({
       store,
@@ -123,9 +121,42 @@ Example below is when using Pinia:
       // Example:
       const myStore = useMyStore() // useMyStore(store) for SSR
       return myStore.fetchItem(currentRoute.params.id) // assumes it is async
+    }
+  })
+
+  const myStore = useMyStore()
+  const $route = useRoute()
+
+  // display the item from store state.
+  const item = computed(() => myStore.items[$route.params.id])
+</script>
+```
+
+Alternatively, with Composition API and `<script>`:
+
+```html Some .vue component used as route
+<template>
+  <div>{{ item.title }}</div>
+</template>
+
+<script>
+  import { useRoute } from 'vue-router'
+  import { useMyStore } from '@/stores/myStore.js'
+
+  export default {
+    preFetch() {
+      console.log('Running preFetch')
     },
 
-    setup() {
+    setup({
+      store,
+      currentRoute,
+      previousRoute,
+      redirect,
+      ssrContext,
+      urlPath,
+      publicPath
+    }) {
       const myStore = useMyStore()
       const $route = useRoute()
 
@@ -135,23 +166,6 @@ Example below is when using Pinia:
       return { item }
     }
   }
-</script>
-```
-
-If you are using `<script setup>` (and Vue 3.3+):
-
-```html
-<script setup>
-  /**
-   * The defineOptions is a macro.
-   * The options will be hoisted to module scope and cannot access local
-   * variables in <script setup> that are not literal constants.
-   */
-  defineOptions({
-    preFetch() {
-      console.log('running preFetch')
-    }
-  })
 </script>
 ```
 
@@ -309,8 +323,7 @@ There's also the possibility to use Quasar [Loading](/quasar-plugins/loading) pl
 ```js A route .vue component
 import { Loading } from 'quasar'
 
-export default {
-  // ...
+defineOptions({
   preFetch(
     {
       /* ... */
@@ -325,5 +338,5 @@ export default {
       Loading.hide()
     })
   }
-}
+})
 ```

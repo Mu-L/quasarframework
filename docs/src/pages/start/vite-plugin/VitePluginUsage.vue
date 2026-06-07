@@ -97,15 +97,19 @@
 
     <q-separator />
 
-    <doc-code class="relative-position" lang="js" :code="fileMainJs" />
+    <DocCode class="relative-position" lang="js" :code="fileMainJs" />
 
     <q-separator />
 
-    <doc-code class="relative-position" lang="js" :code="fileViteConfigJs" />
+    <DocCode class="relative-position" lang="js" :code="fileViteConfigJs" />
 
     <template v-if="useSassVariables">
       <q-separator />
-      <doc-code class="relative-position" :code="fileSassVariables" />
+      <DocCode
+        class="relative-position"
+        lang="sass"
+        :code="fileSassVariables"
+      />
     </template>
   </q-card>
 </template>
@@ -300,7 +304,7 @@ const configInstantiation = computed(() => {
 
 const fileMainJs = computed(
   () =>
-    `// FILE: main.js
+    `// main.js
 
 import { createApp } from 'vue'
 import { Quasar } from '` +
@@ -318,8 +322,7 @@ const myApp = createApp(App)
 myApp.use(Quasar${configInstantiation.value})
 
 // Assumes you have a <div id="app"></div> in your index.html
-myApp.mount('#app')
-`
+myApp.mount('#app')`
 )
 
 const extraImports = computed(() =>
@@ -343,13 +346,12 @@ const vitePluginOptions = computed(() => {
 })
 
 const fileViteConfigJs = computed(
-  () => `// FILE: vite.config.js
+  () => `// vite.config.js
 
 ${extraImports.value}import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import { quasar, transformAssetUrls } from '@quasar/vite-plugin'
 
-// https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
     vue({
@@ -360,12 +362,11 @@ export default defineConfig({
     // https://github.com/quasarframework/quasar/blob/dev/vite-plugin/index.d.ts
     quasar(${vitePluginOptions.value})
   ]
-})
-`
+})`
 )
 
 const fileSassVariables = computed(
-  () => `// FILE (create it): src/quasar-variables.sass
+  () => `// Create: src/quasar-variables.sass
 
 $primary   : #1976D2
 $secondary : #26A69A
@@ -376,7 +377,6 @@ $dark      : #1D1D1D
 $positive  : #21BA45
 $negative  : #C10015
 $info      : #31CCEC
-$warning   : #F2C037
-`
+$warning   : #F2C037`
 )
 </script>

@@ -178,7 +178,7 @@ build: {
 We can set variables from the terminal.
 
 ```bash
-$ MY_API=api.com QCLI_MY_API=api.com  quasar build
+MY_API=api.com QCLI_MY_API=api.com  quasar build
 ```
 
 ```js
@@ -195,8 +195,8 @@ We can combine it with values coming from the terminal:
 
 ```bash
 # we set an env variable in terminal
-$ MY_API=api.com quasar build
-$ MY_API=api.com quasar dev
+MY_API=api.com quasar build
+MY_API=api.com quasar dev
 ```
 
 ```js /quasar.config file
@@ -299,7 +299,7 @@ Here is an example with the input/config and output (your code):
 ```tabs Input/config
 <<| bash Terminal |>>
 # we declare some process env variables when invoking a quasar cmd:
-$ FLAG_BOOL=true FLAG_STR=HelloWorld FLAG_NULL=null FLAG_ARR=[1,2,3] FLAG_OBJ={key:'val'} quasar dev
+FLAG_BOOL=true FLAG_STR=HelloWorld FLAG_NULL=null FLAG_ARR=[1,2,3] FLAG_OBJ={key:'val'} quasar dev
 <<| js /quasar.config file |>>
 build: {
   define: {

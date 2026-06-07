@@ -24,13 +24,13 @@ If you missed enabling i18n during `yarn create quasar` (or `npm init quasar@lat
 
 ```tabs
 <<| bash PNPM |>>
-$ pnpm add vue-i18n
+pnpm add vue-i18n
 <<| bash Yarn |>>
-$ yarn add vue-i18n
+yarn add vue-i18n
 <<| bash NPM |>>
-$ npm install --save vue-i18n
+npm install --save vue-i18n
 <<| bash Bun |>>
-$ bun add vue-i18n
+bun add vue-i18n
 ```
 
 2. Create a file `/src/boot/i18n.js` with following content:
@@ -116,13 +116,13 @@ We first install the `@intlify/unplugin-vue-i18n` package:
 
 ```tabs
 <<| bash PNPM |>>
-$ pnpm add -D @intlify/unplugin-vue-i18n
+pnpm add -D @intlify/unplugin-vue-i18n
 <<| bash Yarn |>>
-$ yarn add --dev @intlify/unplugin-vue-i18n
+yarn add --dev @intlify/unplugin-vue-i18n
 <<| bash NPM |>>
-$ npm install --save-dev @intlify/unplugin-vue-i18n
+npm install --save-dev @intlify/unplugin-vue-i18n
 <<| bash Bun |>>
-$ bun add --dev @intlify/unplugin-vue-i18n
+bun add --dev @intlify/unplugin-vue-i18n
 ```
 
 Then we edit the /quasar.config file:

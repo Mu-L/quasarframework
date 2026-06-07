@@ -19,13 +19,13 @@ What our Vite plugin offers out of the box is tree-shaking for Quasar and also Q
 
 ```tabs
 <<| bash PNPM |>>
-$ pnpm create vite my-vue-app -- --template vue
+pnpm create vite my-vue-app -- --template vue
 <<| bash Yarn |>>
-$ yarn create vite my-vue-app --template vue
+yarn create vite my-vue-app --template vue
 <<| bash NPM |>>
-$ npm init vite my-vue-app -- --template vue
+npm init vite my-vue-app -- --template vue
 <<| bash Bun |>>
-$ bun create vite my-vue-app
+bun create vite my-vue-app
 # then select "Vue"
 ```
 
@@ -46,17 +46,17 @@ Navigate to your Vite project folder and install the necessary packages.
 
 ```tabs
 <<| bash PNPM |>>
-$ pnpm add quasar @quasar/extras
-$ pnpm add -D @quasar/vite-plugin sass-embedded@^1.93.2
+pnpm add quasar @quasar/extras
+pnpm add -D @quasar/vite-plugin sass-embedded@^1.93.2
 <<| bash Yarn |>>
-$ yarn add quasar @quasar/extras
-$ yarn add --dev @quasar/vite-plugin sass-embedded@^1.93.2
+yarn add quasar @quasar/extras
+yarn add --dev @quasar/vite-plugin sass-embedded@^1.93.2
 <<| bash NPM |>>
-$ npm install --save quasar @quasar/extras
-$ npm install --save-dev @quasar/vite-plugin sass-embedded@^1.93.2
+npm install --save quasar @quasar/extras
+npm install --save-dev @quasar/vite-plugin sass-embedded@^1.93.2
 <<| bash Bun |>>
-$ bun add quasar @quasar/extras
-$ bun add --dev @quasar/vite-plugin sass-embedded@^1.93.2
+bun add quasar @quasar/extras
+bun add --dev @quasar/vite-plugin sass-embedded@^1.93.2
 ```
 
 ## Using Quasar

@@ -21,13 +21,13 @@ Enter the following command:
 
 ```tabs
 <<| bash PNPM |>>
-$ pnpm create quasar@latest
+pnpm create quasar@latest
 <<| bash Yarn |>>
-$ yarn create quasar
+yarn create quasar
 <<| bash NPM |>>
-$ npm init quasar@latest
+npm init quasar@latest
 <<| bash Bun |>>
-$ bun create quasar@latest
+bun create quasar@latest
 ```
 
 As the command above runs, you'll be prompted with some options. Depending on your needs, you can add things like TypeScript support or a different CSS preprocessor. If you are unsure about any of the options, just take the defaults (hit enter) and you'll be good to go. You can change the options, except for the CLI type, later if you wish.
@@ -38,13 +38,13 @@ For doing more with Quasar, you should also install the global CLI. With it you 
 
 ```tabs
 <<| bash PNPM |>>
-$ pnpm add -g @quasar/cli
+pnpm add -g @quasar/cli
 <<| bash Yarn |>>
-$ yarn global add @quasar/cli
+yarn global add @quasar/cli
 <<| bash NPM |>>
-$ npm i -g @quasar/cli
+npm i -g @quasar/cli
 <<| bash Bun |>>
-$ bun install -g @quasar/cli
+bun install -g @quasar/cli
 ```
 
 ## Step 2: Start developing
@@ -54,40 +54,40 @@ For the second and last step, navigate into the newly created project folder and
 ```tabs
 <<| bash PNPM |>>
 # if you have the global CLI:
-$ quasar dev
+quasar dev
 
 # otherwise:
 
-$ pnpm run dev
+pnpm run dev
 # to run a local Quasar CLI command:
-$ pnpm quasar dev
+pnpm quasar dev
 <<| bash Yarn |>>
 # if you have the global CLI:
-$ quasar dev
+quasar dev
 
 # otherwise:
 
-$ yarn run dev
+yarn run dev
 # to run a local Quasar CLI command:
-$ yarn quasar dev
+yarn quasar dev
 <<| bash NPM |>>
 # if you have the global CLI:
-$ quasar dev
+quasar dev
 
 # otherwise:
 
-$ npm run dev
+npm run dev
 # to run a local Quasar CLI command:
-$ npx quasar dev
+npx quasar dev
 <<| bash Bun |>>
 # if you have the global CLI:
-$ quasar dev
+quasar dev
 
 # otherwise:
 
-$ bun run dev
+bun run dev
 # to run a local Quasar CLI command:
-$ bun quasar dev
+bun quasar dev
 ```
 
 You'll see the dev server compiling your new application and once it is finished, your new app should open up in your browser. That's it! You can now develop your app with your favorite IDE / Code Editor.

@@ -1,5 +1,3 @@
-/public/examples/
-/public/quasar-api
 /quasar.config.*.temporary.compiled*
 .env*
 /pnpm-lock.yaml

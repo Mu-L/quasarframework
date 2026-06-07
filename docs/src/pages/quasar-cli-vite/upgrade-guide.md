@@ -12,11 +12,11 @@ For older versions, please refer to [https://legacy-app.quasar.dev](https://lega
 
 You might want to release new versions of your Quasar App Extensions with support for the new `@quasar/app-vite`. If you are not touching the quasar.config configuration, then it will be as easy as just changing the following:
 
-```diff
+```js
 api.compatibleWith(
   '@quasar/app-vite',
-- '^2.0.0'
-+ '^3.0.0-rc.1'
+  '^2.0.0' // [!code --]
+  '^3.0.0-rc.1' // [!code ++]
 )
 ```
 
@@ -159,10 +159,10 @@ The short form of running CLI commands provided by an App Extension has been rem
 
 ```bash
 # works, still good; the way to go!
-$ quasar run <ext-id> <cmd> [...args]
+quasar run <ext-id> <cmd> [...args]
 
 # this will NO LONGER WORK:
-$ quasar <ext-id> <cmd> [...args]
+quasar <ext-id> <cmd> [...args]
 ```
 
 And the params for [api.registerCommand()](/app-extensions/common-formulas-and-patterns/provide-cli-commands) have changed.
@@ -199,13 +199,13 @@ If you are unsure that you won't skip by mistake any of the recommended changes,
 
 ```tabs
 <<| bash PNPM |>>
-$ pnpm create quasar@latest
+pnpm create quasar@latest
 <<| bash Yarn |>>
-$ yarn create quasar
+yarn create quasar
 <<| bash NPM |>>
-$ npm init quasar@latest
+npm init quasar@latest
 <<| bash Bun |>>
-$ bun create quasar@latest
+bun create quasar@latest
 ```
 
 :::
@@ -238,10 +238,10 @@ Also, create a `pnpm-workspace.yaml` file inside `/src-<bex|pwa|electron|ssr>` w
 
 Edit your `/package.json` on the `@quasar/app-vite` entry:
 
-```diff /package.json
+```json /package.json
 "devDependencies": {
-- "@quasar/app-vite": "^2.0.0",
-+ "@quasar/app-vite": "^3.0.0-rc.1"
+  "@quasar/app-vite": "^2.0.0", // [!code --]
+  "@quasar/app-vite": "^3.0.0-rc.1" // [!code ++]
 }
 ```
 
@@ -298,48 +298,49 @@ export default defineConfig(ctx => ({
 
 Do a global search for `process.env` and replace with `import.meta.env`. For the Quasar supplied constants, you will need to prefix them with `QUASAR_` too. Here's a list:
 
-```diff process.env -> import.meta.env
-- process.env.DEV
-- process.env.PROD
-+ import.meta.env.QUASAR_DEV
-+ import.meta.env.QUASAR_PROD
+```js process.env -> import.meta.env
+process.env.DEV // [!code --]
+process.env.PROD // [!code --]
+import.meta.env.QUASAR_DEV
+import.meta.env.QUASAR_PROD
 
 // notice the DEBUGGING -> DEBUG change!
-- process.env.DEBUGGING
-+ import.meta.env.QUASAR_DEBUG
+process.env.DEBUGGING // [!code --]
+import.meta.env.QUASAR_DEBUG
 
-- process.env.MODE
-- process.env.TARGET
-+ import.meta.env.QUASAR_MODE
-+ import.meta.env.QUASAR_TARGET
+process.env.MODE // [!code --]
+process.env.TARGET // [!code --]
+import.meta.env.QUASAR_MODE
+import.meta.env.QUASAR_TARGET
 
-- process.env.CLIENT
-- process.env.SERVER
-+ import.meta.env.QUASAR_CLIENT
-+ import.meta.env.QUASAR_SERVER
+process.env.CLIENT // [!code --]
+process.env.SERVER // [!code --]
+import.meta.env.QUASAR_CLIENT
+import.meta.env.QUASAR_SERVER
 
-- process.env.SERVICE_WORKER_FILE
-- process.env.PWA_FALLBACK_HTML
-- process.env.PWA_SERVICE_WORKER_REGEX
-+ import.meta.env.QUASAR_SERVICE_WORKER_FILE
-+ import.meta.env.QUASAR_PWA_FALLBACK_HTML
-+ import.meta.env.QUASAR_PWA_SERVICE_WORKER_REGEX
+process.env.SERVICE_WORKER_FILE // [!code --]
+process.env.PWA_FALLBACK_HTML // [!code --]
+process.env.PWA_SERVICE_WORKER_REGEX // [!code --]
+import.meta.env.QUASAR_SERVICE_WORKER_FILE
+import.meta.env.QUASAR_PWA_FALLBACK_HTML
+import.meta.env.QUASAR_PWA_SERVICE_WORKER_REGEX
 
-- process.env.QUASAR_ELECTRON_PRELOAD_FOLDER
-- process.env.APP_URL
-+ import.meta.env.QUASAR_ELECTRON_PRELOAD_FOLDER
-+ import.meta.env.QUASAR_APP_URL
-- // removed; use ".cjs" instead:
-- process.env.QUASAR_ELECTRON_PRELOAD_EXTENSION
+process.env.QUASAR_ELECTRON_PRELOAD_FOLDER // [!code --]
+process.env.APP_URL // [!code --]
+import.meta.env.QUASAR_ELECTRON_PRELOAD_FOLDER
+import.meta.env.QUASAR_APP_URL
+
+// removed; use ".cjs" instead: // [!code --]
+process.env.QUASAR_ELECTRON_PRELOAD_EXTENSION // [!code --]
 
 // new boolean ones!
-+ import.meta.env.QUASAR_SPA_MODE
-+ import.meta.env.QUASAR_PWA_MODE
-+ import.meta.env.QUASAR_SSR_MODE
-+ import.meta.env.QUASAR_ELECTRON_MODE
-+ import.meta.env.QUASAR_BEX_MODE
-+ import.meta.env.QUASAR_CAPACITOR_MODE
-+ import.meta.env.QUASAR_CORDOVA_MODE
+import.meta.env.QUASAR_SPA_MODE
+import.meta.env.QUASAR_PWA_MODE
+import.meta.env.QUASAR_SSR_MODE
+import.meta.env.QUASAR_ELECTRON_MODE
+import.meta.env.QUASAR_BEX_MODE
+import.meta.env.QUASAR_CAPACITOR_MODE
+import.meta.env.QUASAR_CORDOVA_MODE
 ```
 
 ### Quasar mode package.json
@@ -439,93 +440,97 @@ Edit your /package.json file to remove Quasar mode specific dependencies and mov
 
 Edit your `/quasar.config` file. These are just the important changes that you need to be aware of:
 
-```diff /quasar.config file
+```js /quasar.config file
 build: {
-- rawDefine: {}
-+ define: {} // values need to be JSON.stringify()
+  rawDefine: {}, // [!code --]
+  define: {}, // values need to be JSON.stringify()
 
-- env: {},
-+ defineEnv: {} // or long form "define" with 'import.meta.env.' prefix in key
+  env: {}, // [!code --]
+  defineEnv: {}, // or long form "define" with 'import.meta.env.' prefix in key
 
-+ vueOptionsAPI // change to "true" if needed; defaults to "false" now!
-- polyfillModulePreload // deferring to Vite's default
+  // change to "true" if needed; defaults to "false" now!
+  vueOptionsAPI,
 
-+ // new! Vue Router v5+ filename-based routing
-+ filenameBasedRouting: boolean | VueRouterVitePluginOptions
+  // removed; deferring to Vite's default // [!code --]
+  polyfillModulePreload, // [!code --]
 
-- // removed; add your preferred analyzer yourself;
-- // example available below
-- analyze
+  // new! Vue Router v5+ filename-based routing
+  filenameBasedRouting: boolean | VueRouterVitePluginOptions,
+
+  // removed; add your preferred analyzer yourself; // [!code --]
+  // example available below // [!code --]
+  analyze, // [!code --]
 },
 
 sourceFiles: {
   // defaults to: 'src-pwa/register-sw' now!
   // change file name or set to your current one:
-+ pwaRegisterServiceWorker: 'src-pwa/register-service-worker',
+  pwaRegisterServiceWorker: 'src-pwa/register-service-worker',
 
   // defaults to 'src-pwa/custom-sw' now!
   // change file name or set to your current one:
-+ pwaServiceWorker: 'src-pwa/custom-service-worker',
+  pwaServiceWorker: 'src-pwa/custom-service-worker',
 },
 
 cordova: {
-- noIosLegacyBuildFlag: true, // no longer available; only modern build system
+  // no longer available; only modern build system
+  noIosLegacyBuildFlag: true,  // [!code --]
 },
 
 ssr: {
-- extendPackageJson (pkgJson) {},
-+ // can now be async and optionally return object to be merged with default one
-+ extendSSRPackageJson (pkgJson) {},
+  extendPackageJson (pkgJson) {}, // [!code --]
+  // can now be async and optionally return object to be merged with default one
+  extendSSRPackageJson (pkgJson) {},
 
-- extendSSRWebserverConf (esbuildConf) {},
-+ // can now be async and optionally return object to be merged with default one
-+ extendSSRWebserverConf (rolldownConf) {},
+  extendSSRWebserverConf (esbuildConf) {}, // [!code --]
+  // can now be async and optionally return object to be merged with default one
+  extendSSRWebserverConf (rolldownConf) {},
 
-- pwaExtendGenerateSWOptions (conf) {},
-- pwaExtendInjectManifestOptions (conf) {},
-+ // can now be async and optionally return object to be merged with default one
-+ extendSSRGenerateSWOptions (conf) {},
-+ // can now be async and optionally return object to be merged with default one
-+ extendSSRInjectManifestOptions (conf) {},
+  pwaExtendGenerateSWOptions (conf) {}, // [!code --]
+  pwaExtendInjectManifestOptions (conf) {}, // [!code --]
+  // can now be async and optionally return object to be merged with default one
+  extendSSRGenerateSWOptions (conf) {},
+  // can now be async and optionally return object to be merged with default one
+  extendSSRInjectManifestOptions (conf) {},
 },
 
 pwa: {
-- extendManifestJson (json) {},
-+ // can now be async and optionally return object to be merged with default one
-+ extendPWAManifestJson (json) {},
+  extendManifestJson (json) {}, // [!code --]
+  // can now be async and optionally return object to be merged with default one
+  extendPWAManifestJson (json) {},
 
-- injectPwaMetaTags: boolean
-+ injectPWAMetaTags: boolean
+  injectPwaMetaTags: boolean, // [!code --]
+  injectPWAMetaTags: boolean,
 
-- extendGenerateSWOptions (conf) {},
-- extendInjectManifestOptions (conf) {},
-+ // can now be async and optionally return object to be merged with default one
-+ extendPWAGenerateSWOptions (conf) {},
-+ // can now be async and optionally return object to be merged with default one
-+ extendPWAInjectManifestOptions (conf) {},
+  extendGenerateSWOptions (conf) {}, // [!code --]
+  extendInjectManifestOptions (conf) {}, // [!code --]
+  // can now be async and optionally return object to be merged with default one
+  extendPWAGenerateSWOptions (conf) {},
+  // can now be async and optionally return object to be merged with default one
+  extendPWAInjectManifestOptions (conf) {},
 
-- extendPWACustomSWConf (esbuildConf) {},
-+ // can now be async and optionally return object to be merged with default one
-+ extendPWACustomSWConf (rolldownConf) {},
+  extendPWACustomSWConf (esbuildConf) {}, // [!code --]
+  // can now be async and optionally return object to be merged with default one
+  extendPWACustomSWConf (rolldownConf) {},
 },
 
 electron: {
-- extendPackageJson (pkgJson) {},
-+ // can now be async and optionally return object to be merged with default one
-+ extendElectronPackageJson (pkgJson) {},
+  extendPackageJson (pkgJson) {}, // [!code --]
+  // can now be async and optionally return object to be merged with default one
+  extendElectronPackageJson (pkgJson) {},
 
-- extendElectronMainConf (esbuildConf) {},
-- extendElectronPreloadConf (esbuildConf) {},
-+ // can now be async and optionally return object to be merged with default one
-+ extendElectronMainConf (rolldownConf) {},
-+ // can now be async and optionally return object to be merged with default one
-+ extendElectronPreloadConf (rolldownConf) {},
+  extendElectronMainConf (esbuildConf) {}, // [!code --]
+  extendElectronPreloadConf (esbuildConf) {}, // [!code --]
+  // can now be async and optionally return object to be merged with default one
+  extendElectronMainConf (rolldownConf) {},
+  // can now be async and optionally return object to be merged with default one
+  extendElectronPreloadConf (rolldownConf) {},
 },
 
 bex: {
-- extendBexScriptsConf (esbuildConf) {},
-+ // can now be async and optionally return object to be merged with default one
-+ extendBexScriptsConf (rolldownConf) {},
+  extendBexScriptsConf (esbuildConf) {}, // [!code --]
+  // can now be async and optionally return object to be merged with default one
+  extendBexScriptsConf (rolldownConf) {},
 }
 ```
 
@@ -679,69 +684,69 @@ contextBridge.exposeInMainWorld('quasarRuntime', quasarRuntime)
 And you might also want to update your `/src-electron/electron-main` script:
 
 ```tabs /src-electron/electron-main
-<<| diff Diff |>>
-- import { fileURLToPath } from 'url'
-- const currentDir = fileURLToPath(new URL('.', import.meta.url));
+<<| js Diff |>>
+import { fileURLToPath } from 'url' // [!code --]
+const currentDir = fileURLToPath(new URL('.', import.meta.url)) // [!code --]
 
-+ import {
-+  registerQuasarRuntime,
-+  resolveElectronAssetsPath
-+ } from "#q-app/electron/main";
+import {
+  registerQuasarRuntime,
+  resolveElectronAssetsPath
+} from "#q-app/electron/main"
 
-- let mainWindow: BrowserWindow | undefined;
-- async function createWindow() {
--  mainWindow = new BrowserWindow({
--    icon: path.resolve(currentDir, 'icons/icon.png'), // tray icon
--    webPreferences: {
--      preload: path.resolve(
--        currentDir,
--        path.join(process.env.QUASAR_ELECTRON_PRELOAD_FOLDER, 'electron-preload' + process.env.QUASAR_ELECTRON_PRELOAD_EXTENSION)
--      ),
--    },
-+ async function createWindow() {
-+  const mainWindow = new BrowserWindow({
-+    icon: resolveElectronAssetsPath("icons/icon.png"), // linux
-+    webPreferences: {
-+      preload: path.join(import.meta.dirname, "electron-preload.cjs")
-+    },
+let mainWindow: BrowserWindow | undefined; // [!code --]
+async function createWindow() { // [!code --]
+  mainWindow = new BrowserWindow({ // [!code --]
+    icon: path.resolve(currentDir, 'icons/icon.png'), // tray icon // [!code --]
+    webPreferences: { // [!code --]
+      preload: path.resolve( // [!code --]
+        currentDir, // [!code --]
+        path.join(process.env.QUASAR_ELECTRON_PRELOAD_FOLDER, 'electron-preload' + process.env.QUASAR_ELECTRON_PRELOAD_EXTENSION) // [!code --]
+      ), // [!code --]
+    }, // [!code --]
+async function createWindow() {
+  const mainWindow = new BrowserWindow({
+    icon: resolveElectronAssetsPath("icons/icon.png"), // linux
+    webPreferences: {
+      preload: path.join(import.meta.dirname, "electron-preload.cjs")
+    },
 
--  if (process.env.DEV) {
--    await mainWindow.loadURL(process.env.APP_URL);
--  }
-+  if (import.meta.env.QUASAR_DEV) {
-+    await mainWindow.loadURL(import.meta.env.QUASAR_APP_URL);
-+  }
+   if (process.env.DEV) { // [!code --]
+     await mainWindow.loadURL(process.env.APP_URL); // [!code --]
+   } // [!code --]
+   if (import.meta.env.QUASAR_DEV) {
+     await mainWindow.loadURL(import.meta.env.QUASAR_APP_URL);
+   }
 
--  mainWindow.on('closed', () => {
--    mainWindow = undefined;
--  });
+   mainWindow.on('closed', () => { // [!code --]
+     mainWindow = undefined; // [!code --]
+   }); // [!code --]
 }
 
-- void app.whenReady().then(createWindow);
-- app.on('window-all-closed', () => {
--  if (platform !== 'darwin') {
--    app.quit();
--  }
-- });
-- app.on('activate', () => {
--  if (mainWindow === undefined) {
--    void createWindow();
--  }
-- });
-+ void app.whenReady().then(async () => {
-+   await registerQuasarRuntime();
-+   void createWindow();
-+   app.on("activate", () => {
-+     if (BrowserWindow.getAllWindows().length === 0) {
-+       void createWindow();
-+     }
-+   });
-+ });
-+ app.on("window-all-closed", () => {
-+   if (platform !== "darwin") {
-+     app.quit();
-+   }
-+ });
+void app.whenReady().then(createWindow); // [!code --]
+app.on('window-all-closed', () => { // [!code --]
+  if (platform !== 'darwin') { // [!code --]
+    app.quit(); // [!code --]
+  } // [!code --]
+}); // [!code --]
+app.on('activate', () => { // [!code --]
+  if (mainWindow === undefined) { // [!code --]
+    void createWindow(); // [!code --]
+  } // [!code --]
+}); // [!code --]
+void app.whenReady().then(async () => {
+  await registerQuasarRuntime();
+  void createWindow();
+  app.on("activate", () => {
+    if (BrowserWindow.getAllWindows().length === 0) {
+      void createWindow();
+    }
+  });
+});
+app.on("window-all-closed", () => {
+  if (platform !== "darwin") {
+    app.quit();
+  }
+});
 <<| js Full (JS) |>>
 import { app, BrowserWindow } from 'electron'
 import path from 'node:path'
@@ -956,24 +961,24 @@ Migration steps:
 
 ## Capacitor mode changes
 
-### `.js` / `.ts` capacitor.config
+### capacitor.config in js/ts form
 
 `@quasar/app-vite` adds support for `capacitor.config.js` and `capacitor.config.ts` files, and drops support for `capacitor.config.json`. `.js` and `.ts` variants are much more flexible and do not have the git noise of the `.json` one, which was being rewritten on every `quasar dev` / `quasar build` with relevant fields. You must migrate to `capacitor.config.ts` (for TypeScript projects) or `capacitor.config.js` (for JS projects) before upgrading, more details below.
 
 `quasar mode add capacitor` now scaffolds `capacitor.config.js` for JS projects, or a `capacitor.config.ts` for TypeScript projects. See [Configuring Capacitor](/quasar-cli-vite/developing-capacitor-apps/configuring-capacitor) for more information. Config files use the new `defineCapacitorConfig` helper from `@quasar/app-vite/capacitor`:
 
 ```tabs
+<<| js /src-capacitor/capacitor.config.js |>>
+const { defineCapacitorConfig } = require('@quasar/app-vite/capacitor')
+
+module.exports = defineCapacitorConfig({
+  appId: 'org.example.app',
+  appName: 'My App'
+})
 <<| ts /src-capacitor/capacitor.config.ts |>>
 import { defineCapacitorConfig } from '@quasar/app-vite/capacitor';
 
 export default defineCapacitorConfig({
-  appId: 'org.example.app',
-  appName: 'My App'
-});
-<<| js /src-capacitor/capacitor.config.js |>>
-const { defineCapacitorConfig } = require('@quasar/app-vite/capacitor');
-
-module.exports = defineCapacitorConfig({
   appId: 'org.example.app',
   appName: 'My App'
 });
@@ -984,30 +989,30 @@ The helper defaults `webDir` to `'www'`, injects `server.url` (and `server.clear
 To migrate from `.json`, replace the file with a `defineCapacitorConfig({...})` call carrying the same fields. `webDir` can be dropped:
 
 ```tabs Migrating from capacitor.config.json
-<<| diff capacitor.config.js (JS projects) |>>
--{
--  "appId": "org.example.app",
--  "appName": "My App",
--  "webDir": "www"
--}
-+const { defineCapacitorConfig } = require('@quasar/app-vite/capacitor');
-+
-+module.exports = defineCapacitorConfig({
-+  appId: 'org.example.app',
-+  appName: 'My App'
-+});
-<<| diff capacitor.config.ts (TS projects) |>>
--{
--  "appId": "org.example.app",
--  "appName": "My App",
--  "webDir": "www"
--}
-+import { defineCapacitorConfig } from '@quasar/app-vite/capacitor';
-+
-+export default defineCapacitorConfig({
-+  appId: 'org.example.app',
-+  appName: 'My App'
-+});
+<<| json capacitor.config.js (JS projects) |>>
+{ // [!code --]
+  "appId": "org.example.app", // [!code --]
+  "appName": "My App", // [!code --]
+  "webDir": "www" // [!code --]
+} // [!code --]
+const { defineCapacitorConfig } = require('@quasar/app-vite/capacitor');
+
+module.exports = defineCapacitorConfig({
+  appId: 'org.example.app',
+  appName: 'My App'
+});
+<<| ts capacitor.config.ts (TS projects) |>>
+{ // [!code --]
+  "appId": "org.example.app", // [!code --]
+  "appName": "My App", // [!code --]
+  "webDir": "www" // [!code --]
+} // [!code --]
+import { defineCapacitorConfig } from '@quasar/app-vite/capacitor';
+
+export default defineCapacitorConfig({
+  appId: 'org.example.app',
+  appName: 'My App'
+});
 ```
 
 ### Removed: `quasar.config > capacitor.{appName, version, description}`
@@ -1020,13 +1025,13 @@ Three fields under `quasar.config > capacitor` are gone. None of them did what t
 
 If you were setting any of these, remove them:
 
-```diff /quasar.config file
-  capacitor: {
--   appName: 'My App',
--   version: '1.2.0',
--   description: 'My great app'
-    // hideSplashscreen, capacitorCliPreparationParams remain
-  }
+```js /quasar.config file
+capacitor: {
+  appName: 'My App', // [!code --]
+  version: '1.2.0', // [!code --]
+  description: 'My great app' // [!code --]
+  // hideSplashscreen, capacitorCliPreparationParams remain
+}
 ```
 
 ### `src-capacitor/package.json` no longer rewritten
@@ -1062,7 +1067,7 @@ By default, all CLI commands output colored text in the terminal (when not runni
 Should you want your build to skip printing the build summary (and thus being slightly faster) after building your app:
 
 ```bash
-$ quasar build --no-summary
+quasar build --no-summary
 ```
 
 ### Running AE commands
@@ -1071,10 +1076,10 @@ The short form of running CLI commands provided by an App Extension has been rem
 
 ```bash
 # works, still good; the way to go!
-$ quasar run <ext-id> <cmd> [...args]
+quasar run <ext-id> <cmd> [...args]
 
 # this will NO LONGER WORK:
-$ quasar <ext-id> <cmd> [...args]
+quasar <ext-id> <cmd> [...args]
 ```
 
 ### CSP (Content Security Policy)

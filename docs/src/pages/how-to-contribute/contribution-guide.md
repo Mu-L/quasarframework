@@ -87,14 +87,14 @@ Anything you can do to make bug reports more succinct or easier to reproduce hel
 You can also help out by examining pull requests that have been submitted to Quasar via GitHub. In order to apply someone's changes, you need to first create a dedicated branch:
 
 ```bash
-$ git checkout -b testing_branch
+git checkout -b testing_branch
 ```
 
 Then, you can use their remote branch to update your codebase. For example, let's say the GitHub user JohnSmith has forked and pushed to a topic branch "orange" located at https://github.com/JohnSmith/quasar.
 
 ```bash
-$ git remote add JohnSmith https://github.com/JohnSmith/quasar.git
-$ git pull JohnSmith orange
+git remote add JohnSmith https://github.com/JohnSmith/quasar.git
+git pull JohnSmith orange
 ```
 
 After applying their branch, test it out! Here are some things to think about:
@@ -147,9 +147,9 @@ Make sure you have `dev` branch selected and this is where all the work is done.
 To be able to change the documentation, you need to clone forked repository:
 
 ```bash
-$ git clone https://github.com/your-user-name/quasar.git
-$ cd quasar
-$ git checkout dev
+git clone https://github.com/your-user-name/quasar.git
+cd quasar
+git checkout dev
 ```
 
 #### Install dependencies
@@ -157,14 +157,14 @@ $ git checkout dev
 Install the required dependencies.
 
 ```bash
-$ pnpm i
+pnpm i
 ```
 
 #### Running documentation against your local repository
 
 ```bash
-$ cd docs
-$ pnpm dev
+cd docs
+pnpm dev
 ```
 
 The documentation runs against your local cloned repository.
@@ -176,7 +176,7 @@ The documentation runs against your local cloned repository.
 When you're happy with the change on your computer, you need to commit the changes to Git:
 
 ```bash
-$ git commit -a
+git commit -a
 ```
 
 This should fire up your editor to write a commit message. When you have finished, save and close to continue.
@@ -188,26 +188,26 @@ It's pretty likely that other changes to master have happened while you were wor
 1. Add a remote Quasar repository as an upstream
 
 ```bash
-$ git remote add upstream https://github.com/quasarframework/quasar.git
+git remote add upstream https://github.com/quasarframework/quasar.git
 ```
 
 2. Fetch all remote branches
 
 ```bash
-$ git fetch upstream
+git fetch upstream
 ```
 
 3. Check out your fork's local `dev` branch.
 
 ```bash
-$ git checkout dev
-> Switched to branch 'dev'
+git checkout dev
+# > Switched to branch 'dev'
 ```
 
 4. Merge the changes from `upstream/dev` into your local `dev` branch. This brings your fork's `dev` branch into sync with the upstream repository, without losing your local changes.
 
 ```bash
-$ git merge upstream/dev
+git merge upstream/dev
 ```
 
 No conflicts? Tests still pass? Change still seems reasonable to you? Then move on and open a pull request to apply your changes to the dev branch in main Quasar repository.
@@ -259,7 +259,7 @@ You will need [Node.js](http://nodejs.org) version **v22+** along [pnpm v11+](ht
 After cloning the repo, run:
 
 ```bash
-$ pnpm i
+pnpm i
 ```
 
 #### Commonly used NPM scripts
@@ -267,19 +267,20 @@ $ pnpm i
 ```bash
 # Start dev server with a demo app. This app has Quasar source code linked directly so any change will trigger HMR (Hot Module Reload) on the dev server.
 # There's a section for each feature where tests are made.
-$ pnpm dev
+pnpm dev
 
 # build all dist files, including npm packages
-$ pnpm build
+pnpm build
 # build only js dist files
-$ pnpm build js
+pnpm build js
 # build only type related files
-$ pnpm build js types
+pnpm build js types
 # build only css dist files
-$ pnpm build css
+pnpm build css
 
-# lint sources
-$ pnpm lint
+# format & lint sources
+# !! call this from the root of the repo
+pnpm lint
 ```
 
 #### Project Structure (/ui)

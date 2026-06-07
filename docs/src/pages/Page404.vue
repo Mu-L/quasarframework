@@ -1,5 +1,5 @@
 <template>
-  <doc-stars />
+  <DocStars />
   <div class="page404 flex flex-center text-center relative-position doc-brand">
     <div>
       <div

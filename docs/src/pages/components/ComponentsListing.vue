@@ -1,6 +1,6 @@
 <template>
   <div class="page-all fit column doc-brand">
-    <doc-stars />
+    <DocStars />
 
     <div
       class="page-all__search q-py-md q-px-xl q-pa-md row no-wrap items-center justify-center"
@@ -56,7 +56,7 @@
       class="q-py-xl text-size-16 row items-center justify-center q-gutter-lg relative-position"
     >
       <transition-group name="page-all-transition">
-        <doc-card-link
+        <DocCardLink
           v-for="entry in searchResults"
           :key="entry.key"
           :to="entry.to"
@@ -76,7 +76,7 @@
               {{ entry.description }}
             </q-card-section>
           </q-card>
-        </doc-card-link>
+        </DocCardLink>
       </transition-group>
     </div>
   </div>

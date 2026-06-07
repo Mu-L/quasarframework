@@ -9,7 +9,7 @@ Notify is a Quasar plugin that can display animated messages (floating above eve
 
 <DocApi file="Notify" />
 
-<DocInstallation plugins="Notify" config="notify" />
+<DocInstall plugins="Notify" config="notify" />
 
 ## Usage
 
@@ -171,7 +171,7 @@ We'll describe setting the defaults through a [@quasar/app-vite Boot File](/quas
 First we create the boot file. Let's name it "notify-defaults.js".
 
 ```bash
-$ quasar new boot notify-defaults [--format ts]
+quasar new boot notify-defaults [--format ts]
 ```
 
 Add the created notify-defaults.js file to the boot array in the `/quasar.config` file:

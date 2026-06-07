@@ -59,7 +59,7 @@ You may notice in some dev environments, that Workbox will not load your service
 
 Here is a tunnelmole example (install it first with `yarn global add tunnelmole` or `npm i -g tunnelmole`):
 
-```bash
+```
 $ tmole 80
 http://b8ootd-ip-157-211-195-182.tunnelmole.com is forwarding to localhost:80
 https://b8ootd-ip-157-211-195-182.tunnelmole.com is forwarding to localhost:80

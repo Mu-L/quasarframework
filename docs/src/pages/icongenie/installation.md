@@ -14,16 +14,16 @@ You will be installing the Icon Genie CLI globally. You don't need to install it
 ```tabs
 <<| bash PNPM |>>
 # Node.js >=18 is required.
-$ pnpm add -g @quasar/icongenie
+pnpm add -g @quasar/icongenie
 <<| bash Yarn |>>
 # Node.js >=18 is required.
-$ yarn global add @quasar/icongenie
+yarn global add @quasar/icongenie
 <<| bash NPM |>>
 # Node.js >=18 is required.
-$ npm i -g @quasar/icongenie
+npm i -g @quasar/icongenie
 <<| bash Bun |>>
 # Node.js >=18 is required.
-$ bun install -g @quasar/icongenie
+bun install -g @quasar/icongenie
 ```
 
 This will install the `icongenie` command line tool.
@@ -55,7 +55,7 @@ As a consequence, please uninstall Icon Genie v1 from your project folder:
 
 ```bash
 # from your Quasar CLI project folder:
-$ quasar ext remove @quasar/icon-genie
+quasar ext remove @quasar/icon-genie
 ```
 
 ### Input files

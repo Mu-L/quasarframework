@@ -17,13 +17,13 @@ Then, install the plugin:
 
 ```tabs
 <<| bash PNPM |>>
-$ pnpm add @capawesome/capacitor-live-update
+pnpm add @capawesome/capacitor-live-update
 <<| bash Yarn |>>
-$ yarn add @capawesome/capacitor-live-update
+yarn add @capawesome/capacitor-live-update
 <<| bash NPM |>>
-$ npm install --save @capawesome/capacitor-live-update
+npm install --save @capawesome/capacitor-live-update
 <<| bash Bun |>>
-$ bun add @capawesome/capacitor-live-update
+bun add @capawesome/capacitor-live-update
 ```
 
 After that, you need to sync the changes with your native projects:
@@ -86,13 +86,13 @@ To install the Capawesome CLI, run the following command:
 
 ```tabs
 <<| bash PNPM |>>
-$ pnpm add -g @capawesome/cli
+pnpm add -g @capawesome/cli
 <<| bash Yarn |>>
-$ yarn global add @capawesome/cli
+yarn global add @capawesome/cli
 <<| bash NPM |>>
-$ npm i -g @capawesome/cli
+npm i -g @capawesome/cli
 <<| bash Bun |>>
-$ bun install -g @capawesome/cli
+bun install -g @capawesome/cli
 ```
 
 After installing the Capawesome CLI, you need to log in to your Capawesome Cloud account. Run the following command and follow the instructions:

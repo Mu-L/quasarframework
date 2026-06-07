@@ -65,7 +65,7 @@ We see instructions on how to install this plugin. It's always a Cordova command
 
 ```bash
 # from /src-cordova:
-$ cordova plugin add cordova-plugin-battery-status
+cordova plugin add cordova-plugin-battery-status
 ```
 
 Now let's put this plugin to some good use. In one of your Quasar project's pages/layouts/components Vue file, we write:
@@ -108,7 +108,7 @@ We read the instructions on how to install this plugin. It's always a Cordova co
 
 ```bash
 # from /src-cordova:
-$ cordova plugin add cordova-plugin-camera
+cordova plugin add cordova-plugin-camera
 ```
 
 Now let's put this plugin to some good use. In one of your Quasar project's pages/layouts/components Vue file, we write:
@@ -161,7 +161,7 @@ Read the instructions on how to install this plugin on its cordova doc page. It'
 
 ```bash
 # from /src-cordova:
-$ cordova plugin add cordova-plugin-device
+cordova plugin add cordova-plugin-device
 ```
 
 Now let's put this plugin to some good use. If you need the information of your device when starting the application, you will have to capture the created event. In one of your Quasar project's pages/layouts/components Vue file, we write:

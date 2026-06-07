@@ -34,9 +34,6 @@ function isLine(node) {
 function readLineText(lineNode) {
   let text = ''
   const walk = node => {
-    if (node.type === 'element' && hasClass(node, 'c-lpref')) {
-      return
-    }
     if (node.type === 'text') {
       text += node.value
     } else if (node.children !== void 0) {
@@ -47,21 +44,12 @@ function readLineText(lineNode) {
   return text
 }
 
-function buildSummaryLine(markerNode, indent, label) {
-  // Carry over the line-number prefix (if any) so numbering stays consistent
-  // with the source even when the marker text itself is hidden.
-  const firstChild = markerNode.children[0]
-  const hasLineNumber =
-    firstChild !== void 0 &&
-    firstChild.type === 'element' &&
-    hasClass(firstChild, 'c-lpref')
-
+function buildSummaryLine(_markerNode, indent, label) {
   return {
     type: 'element',
     tagName: 'span',
     properties: { class: 'line doc-code-fold__placeholder' },
     children: [
-      ...(hasLineNumber ? [firstChild] : []),
       { type: 'text', value: indent },
       {
         type: 'element',

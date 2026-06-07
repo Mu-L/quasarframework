@@ -41,7 +41,7 @@ If you want to add some Vite plugins, see the [Adding Vite plugins](#adding-vite
 
 Quasar CLI offers a useful command for this:
 
-```bash
+```
 $ quasar inspect -h
 
   Description

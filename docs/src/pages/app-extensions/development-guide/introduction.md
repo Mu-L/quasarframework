@@ -37,7 +37,7 @@ An App Extension is essentially just an npm package that Quasar CLI loads to pro
 ## Creating the App Extension
 
 ```bash PNPM v11+ only!
-$ pnpm create quasar@latest
+pnpm create quasar@latest
 # then pick the AppExtension option
 ```
 
@@ -79,23 +79,23 @@ Notice `/package.json` scripts that you can use:
 ```bash Run from root folder
 # Lint & format
 # (if you selected oxlint + oxfmt option)
-$ pnpm run lint
-$ pnpm run lint:check
+pnpm run lint
+pnpm run lint:check
 
 # Use playground to develop;
 # Helps you test the Index script as well
-$ pnpm run dev
-$ pnpm run dev -m ssr
+pnpm run dev
+pnpm run dev -m ssr
 # ...etc
 
 # Invokes the AE into /playground when needed
 # (like when changing the scripts themselves);
 # Helps you run the Install & Prompts scripts
-$ pnpm run invoke
+pnpm run invoke
 
 # Uninstall & re-install AE;
 # Helps you mainly to run the Uninstall script
-$ pnpm run cycle
+pnpm run cycle
 ```
 
 ### Install and Prompts scripts
@@ -107,9 +107,9 @@ Learn more about what you can do with the [Prompts API](/app-extensions/developm
 You will notice mentions of `invoking` an AE. The invoking procedure, as opposed to the "adding" one, assumes that the App Extension's package is already pnpm/yarn/npm/bun installed into the host app (and so, Quasar CLI skips that step).
 
 ```bash End-user commands using Index script
-$ quasar ext add <ext-id>
+quasar ext add <ext-id>
 # or:
-$ quasar ext invoke <ext-id>
+quasar ext invoke <ext-id>
 ```
 
 ### Uninstall script
@@ -121,9 +121,9 @@ Learn more about what you can do with the [Uninstall API](/app-extensions/develo
 You will notice mentions of `uninvoking` an AE. The un-invoking procedure, as opposed to the "remove" one, un-registers the App Extension from the host app, but does NOT uninstalls its npm package.
 
 ```bash End-user commands using Uninstall script
-$ quasar ext remove <ext-id>
+quasar ext remove <ext-id>
 # or:
-$ quasar ext uninvoke <ext-id>
+quasar ext uninvoke <ext-id>
 ```
 
 ### Index script
@@ -133,8 +133,8 @@ The Index script is the heart of your App Extension.
 This is where you can tamper with all `quasar.config` file options, extend the Vite configuration, register Quasar CLI commands, start up external services required for developing your app and many more.
 
 ```bash End-user commands using Index script
-$ quasar dev
-$ quasar build
+quasar dev
+quasar build
 ```
 
 ::: tip

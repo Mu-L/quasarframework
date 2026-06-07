@@ -1,9 +1,8 @@
 // Build-side only: spins up the TS compiler via @shikijs/twoslash. Keep
 // Node-only imports (fs paths, etc.) out of shared.js so the browser
-// bundle for DocCodeHighlight stays clean.
+// bundle for DocCode stays clean.
 
 import { resolve } from 'node:path'
-
 import { rendererRich, transformerTwoslash } from '@shikijs/twoslash'
 
 const docsRoot = resolve(import.meta.dirname, '../../..')

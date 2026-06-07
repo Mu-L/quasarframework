@@ -5,7 +5,7 @@ desc: (@quasar/app-vite) The entire list of Quasar CLI commands.
 
 Familiarize yourself with the list of available commands inside a Quasar project:
 
-```bash
+```
 $ quasar -h
 
   Running @quasar/cli v<...>
@@ -52,14 +52,14 @@ $ quasar -h
 See help for any command:
 
 ```bash
-$ quasar [command-name] --help
+quasar [command-name] --help
 ```
 
 ## Upgrade
 
 Helper command to upgrade Quasar packages from a Quasar project folder:
 
-```bash
+```
 $ quasar upgrade -h
 
   Description
@@ -105,15 +105,11 @@ If you're using a code editor terminal instead of the real one, you run `quasar 
 
 The Quasar CLI is equipped with a stable combination of multiple NPM build packages (Vite, Vue, etc) which gets updated frequently after heavy testing.
 
-In order for you to see what versions of Node, Quasar CLI, Quasar, Vue (and many others) you are using, issue this command in a Quasar project folder:
-
-```bash
-$ quasar info
-```
+In order for you to see what versions of Node, Quasar CLI, Quasar, Vue (and many others) you are using, issue this command in a Quasar project folder: `quasar info`.
 
 ## Dev
 
-```bash
+```
 $ quasar dev -h
 
   Description
@@ -163,7 +159,7 @@ The Quasar development server allows you to develop your App by compiling and ma
 
 Based on what you want to develop, you can start the development server by using "quasar dev" command as follows:
 
-```bash
+```
 $ quasar dev -h
 
   Description
@@ -216,27 +212,18 @@ If you wish to change the hostname or port serving your App you have 3 options:
 - Through '-H' (hostname) and '-p' (port) command options.
 - If this is a one time thing, specify the hostname and/or port as an environment variable:
   ```bash
-  $ PORT=3000 quasar dev
-  $ HOSTNAME=1.1.1.14 quasar dev
+  PORT=3000 quasar dev
+  HOSTNAME=1.1.1.14 quasar dev
   ```
 
 If there appears to be an issue with hot reload, you can try two fixes:
 
-- Change the permissions for the project folder with
-
-  ```bash
-  sudo chown -R username: .
-  ```
-
-- or run the dev server with root privileges
-
-  ```bash
-  sudo quasar dev
-  ```
+- Change the permissions for the project folder with: `sudo chown -R username: .`
+- or run the dev server with root privileges: `sudo quasar dev`
 
 ## Build
 
-```bash
+```
 $ quasar build -h
 
   Description
@@ -302,36 +289,36 @@ The Quasar CLI can pack everything together and optimize your App for production
 
 ```bash
 # Build a SPA for production
-$ quasar build
+quasar build
 # ...or
-$ quasar build -m spa
+quasar build -m spa
 
 # Build a SSR for production
-$ quasar build -m ssr
+quasar build -m ssr
 
 # Build a PWA for production
-$ quasar build -m pwa
+quasar build -m pwa
 
 # Build a BEX for production
-$ quasar build -m bex -T [chrome|firefox]
+quasar build -m bex -T [chrome|firefox]
 
 # Build a Mobile App (through Capacitor)
-$ quasar build -m capacitor -T [android|ios]
+quasar build -m capacitor -T [android|ios]
 # or the short form:
-$ quasar build -m [android|ios]
+quasar build -m [android|ios]
 
 # Build an Electron App for production
-$ quasar build -m electron
+quasar build -m electron
 
 # passing extra parameters and/or options to
 # underlying "cordova" executable:
-$ quasar build -m cordova -T ios -- some params --and options --here
+quasar build -m cordova -T ios -- some params --and options --here
 # when on Windows and using Powershell:
-$ quasar build -m cordova -T ios '--' some params --and options --here
+quasar build -m cordova -T ios '--' some params --and options --here
 
 # Create a production build with ability to debug it
 # (has source-maps and code is NOT minified)
-$ quasar build -d [-m <mode>]
+quasar build -d [-m <mode>]
 ```
 
 ## Prepare
@@ -339,11 +326,11 @@ $ quasar build -d [-m <mode>]
 Prepares your project folder for the IDE, making autocompletion and other IDE features work correctly.
 
 ```bash
-$ quasar prepare
+quasar prepare
 
 # silent (no terminal output)
-$ quasar prepare --silent
-$ quasar prepare -s
+quasar prepare --silent
+quasar prepare -s
 ```
 
 ## Clean
@@ -351,7 +338,7 @@ $ quasar prepare -s
 Cleans up all the build assets:
 
 ```bash
-$ quasar clean
+quasar clean
 # requires "quasar prepare" to be called again
 ```
 
@@ -363,7 +350,7 @@ Generates Components, Pages, Layouts, Pinia Store.
 This command is simply a helper in order to quickly scaffold a page/layout/component/pinia store module. You are not required to use it, but can help you when you don't know how to start.
 :::
 
-```bash
+```
 $ quasar new -h
 
   Description
@@ -406,7 +393,7 @@ $ quasar new -h
 
 ## Mode
 
-```bash
+```
 $ quasar mode -h
 
   Description
@@ -440,16 +427,16 @@ These modes will add a "src-\*" folder into your project with very specific code
 If for some reason you decide you don't need a mode, you can remove it. **This will permanently delete** the respective "src-\*" folder.
 
 ```bash
-$ quasar mode remove pwa
+quasar mode remove pwa
 ```
 
 ## Describe
 
 This command is useful to describe the API of any Quasar components/directives/plugins that your project is using. **It is specific to your Quasar version installed in your project folder.**
 
-Examples: `$ quasar describe QIcon`, `$ quasar describe TouchPan`, `$ quasar describe Cookies`.
+Examples: `quasar describe QIcon`, `quasar describe TouchPan`, `quasar describe Cookies`.
 
-```bash
+```
 $ quasar describe -h
 
   Description
@@ -495,7 +482,7 @@ $ quasar describe -h
     --help, -h            Displays this message
 ```
 
-```bash
+```
 $ quasar describe QIcon
 
  Describing QIcon component API
@@ -549,7 +536,7 @@ $ quasar describe QIcon
 
 This command can be used to inspect the Vite config generated by Quasar CLI.
 
-```bash
+```
 $ quasar inspect -h
 
   Description
@@ -577,7 +564,7 @@ $ quasar inspect -h
 
 This command is used to manage [App Extensions](/app-extensions/introduction).
 
-```bash
+```
 $ quasar ext -h
 
   Description
@@ -611,7 +598,7 @@ $ quasar ext -h
 
 This command is used to run commands supplied by the [App Extensions](/app-extensions/introduction) that you've installed into your project folder.
 
-```bash
+```
 $ quasar run -h
 
   Description
@@ -638,7 +625,7 @@ $ quasar run -h
 
 This command should NOT be used in production. It is rather a quick convenience way to test things out and it is being supplied by the global installation of `@quasar/cli` package.
 
-```bash
+```
 $ quasar serve -h
 
   Description
@@ -731,8 +718,4 @@ app.use(
 // then app.listen(...)
 ```
 
-Finally, run one of these files:
-
-```bash
-$ node my-server.js
-```
+Finally, run one of these files: `node my-server.js`

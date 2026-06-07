@@ -117,7 +117,7 @@ importance
 Some Capacitor plugins, such as Camera, have a web-based UI available when not running natively but in a standard web browser. To enable these controls, add @ionic/pwa-elements to your project:
 
 ```bash
-$ npm install @ionic/pwa-elements
+npm install @ionic/pwa-elements
 ```
 
 Then create a boot file to initialize them, for example `/src/boot/capacitor.js`:

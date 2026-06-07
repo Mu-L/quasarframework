@@ -165,7 +165,7 @@
 
     <q-separator />
 
-    <doc-code lang="html" :code="menuExport" />
+    <DocCode lang="html" :code="menuExport" />
   </q-card>
 </template>
 

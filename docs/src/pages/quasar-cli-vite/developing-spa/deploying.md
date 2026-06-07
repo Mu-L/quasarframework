@@ -15,7 +15,7 @@ The first step in deploying your Quasar SPA is always to build a production-read
 To produce such a build use Quasar CLI with the following command:
 
 ```bash
-$ quasar build
+quasar build
 ```
 
 This command will build your project in SPA mode and output your production ready bundle to a newly created folder `/dist/spa`.
@@ -101,13 +101,13 @@ First, install the required dependencies:
 
 ```tabs
 <<| bash PNPM |>>
-$ pnpm add -D @cloudflare/vite-plugin wrangler
+pnpm add -D @cloudflare/vite-plugin wrangler
 <<| bash Yarn |>>
-$ yarn add -D @cloudflare/vite-plugin wrangler
+yarn add -D @cloudflare/vite-plugin wrangler
 <<| bash NPM |>>
-$ npm install -D @cloudflare/vite-plugin wrangler
+npm install -D @cloudflare/vite-plugin wrangler
 <<| bash Bun |>>
-$ bun add -D @cloudflare/vite-plugin wrangler
+bun add -D @cloudflare/vite-plugin wrangler
 ```
 
 Next, modify your `/quasar.config` file to include the Cloudflare Vite plugin:
@@ -149,25 +149,25 @@ Now you can build and deploy your application using:
 
 ```tabs
 <<| bash PNPM |>>
-$ pnpm run build
-$ pnpm run deploy
+pnpm run build
+pnpm run deploy
 <<| bash Yarn |>>
-$ yarn build
-$ yarn deploy
+yarn build
+yarn deploy
 <<| bash NPM |>>
-$ npm run build
-$ npm run deploy
+npm run build
+npm run deploy
 <<| bash Bun |>>
-$ bun run build
-$ bun run deploy
+bun run build
+bun run deploy
 ```
 
 For existing Git repositories, you can set up continuous deployment by connecting your repository to Cloudflare Pages:
 
 ```bash
-$ wrangler pages project create my-quasar-app
-$ git remote add cloudflare https://github.com/your-username/your-repo.git
-$ git push cloudflare main
+wrangler pages project create my-quasar-app
+git remote add cloudflare https://github.com/your-username/your-repo.git
+git push cloudflare main
 ```
 
 Configure your build settings in the Cloudflare Pages dashboard:
@@ -184,7 +184,7 @@ Deploying your Quasar application with [Vercel](https://vercel.com/) is really e
 All you have to do is to download the [vercel-cli](https://vercel.com/download#now-cli) and log in by running:
 
 ```bash
-$ vercel login
+vercel login
 ```
 
 Then proceed to build your Quasar application using the steps described in "General deployment" section.
@@ -193,7 +193,7 @@ After the build is finished, change directory into your deploy root (example: `/
 
 ```bash
 # from /dist/spa (or your distDir)
-$ vercel
+vercel
 ```
 
 The Vercel CLI should now display information regarding your deployment, like the URL. That's it. You're done.
@@ -231,13 +231,13 @@ First, we need to install the required dependencies to our project:
 
 ```tabs
 <<| bash PNPM |>>
-$ pnpm add express serve-static connect-history-api-fallback
+pnpm add express serve-static connect-history-api-fallback
 <<| bash Yarn |>>
-$ yarn add express serve-static connect-history-api-fallback
+yarn add express serve-static connect-history-api-fallback
 <<| bash NPM |>>
-$ npm install --save express serve-static connect-history-api-fallback
+npm install --save express serve-static connect-history-api-fallback
 <<| bash Bun |>>
-$ bun add express serve-static connect-history-api-fallback
+bun add express serve-static connect-history-api-fallback
 ```
 
 Now that we have installed the required dependencies, we can add our server. Create a file called `server.js` in the root directory of your project.
@@ -269,24 +269,24 @@ Heroku assumes a set of npm scripts to be available, so we have to alter our `pa
 Now it is time to create an app on Heroku by running:
 
 ```bash
-$ heroku create
+heroku create
 ```
 
 and deploy to Heroku using:
 
 ```bash
-$ git init
-$ heroku git:remote -a <heroku app name>
+git init
+heroku git:remote -a <heroku app name>
 
-$ git add .
-$ git commit -am "make it better"
-$ git push heroku master
+git add .
+git commit -am "make it better"
+git push heroku master
 ```
 
 For existing Git repositories, simply add the heroku remote:
 
 ```bash
-$ heroku git:remote -a <heroku app name>
+heroku git:remote -a <heroku app name>
 ```
 
 ## Deploying with Surge
@@ -296,19 +296,19 @@ $ heroku git:remote -a <heroku app name>
 If you want to deploy your application with Surge you first need to install the Surge CLI tool:
 
 ```bash
-$ npm install -g surge
+npm install -g surge
 ```
 
 Next, we will use Quasar CLI to build our app:
 
 ```bash
-$ quasar build
+quasar build
 ```
 
 Now we can deploy our application using Surge by calling:
 
 ```bash
-$ surge dist/spa
+surge dist/spa
 ```
 
 Now your application should be successfully deployed using Surge. You should be able to adapt this guide to any other static site deployment tool.
@@ -333,13 +333,13 @@ First, install the package with:
 
 ```tabs
 <<| bash PNPM |>>
-$ pnpm add -D push-dir
+pnpm add -D push-dir
 <<| bash Yarn |>>
-$ yarn add --dev push-dir
+yarn add --dev push-dir
 <<| bash NPM |>>
-$ npm install --save-dev push-dir
+npm install --save-dev push-dir
 <<| bash Bun |>>
-$ bun add --dev push-dir
+bun add --dev push-dir
 ```
 
 Then add a `deploy` script command to your `package.json`:
@@ -353,14 +353,14 @@ Then add a `deploy` script command to your `package.json`:
 Add your GitHub Pages repository as a remote named `gh-pages`:
 
 ```bash
-$ git remote add gh-pages git@github.com:<username>/<username>.github.io.git
+git remote add gh-pages git@github.com:<username>/<username>.github.io.git
 ```
 
 Now you can build and deploy your application using:
 
 ```bash
-$ quasar build
-$ yarn deploy # or npm/pnpm/bun equivalents
+quasar build
+yarn deploy # or npm/pnpm/bun equivalents
 ```
 
 which will push the content of your build directory to your master branch on your GitHub Pages repository.

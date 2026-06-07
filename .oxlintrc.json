@@ -280,6 +280,13 @@
       "rules": {
         "no-alert": "off"
       }
+    },
+
+    {
+      "files": ["**/*.vue"],
+      "rules": {
+        "unicorn/prefer-top-level-await": "off"
+      }
     }
   ]
 }

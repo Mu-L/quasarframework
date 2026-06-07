@@ -1,23 +1,17 @@
 import { addClassToHast } from 'shiki/core'
 
 import {
-  transformerMetaHighlight,
   transformerNotationDiff,
-  transformerNotationErrorLevel,
   transformerNotationFocus,
-  transformerNotationHighlight,
-  transformerNotationWordHighlight
+  transformerNotationHighlight
 } from '@shikijs/transformers'
 
 import quasarLight from './themes/quasar-light.json' with { type: 'json' }
 import quasarDark from './themes/quasar-dark.json' with { type: 'json' }
 
-import { bashPromptTransformer } from './bash-prompt-transformer.js'
-import { lineDecorTransformer } from './line-decor-transformer.js'
 import { regionFoldTransformer } from './region-fold-transformer.js'
 
 export const themes = [quasarLight, quasarDark]
-
 export const themeOptions = {
   themes: { light: 'quasar-light', dark: 'quasar-dark' },
   defaultColor: false
@@ -30,27 +24,16 @@ const docCodePreTransformer = {
   }
 }
 
-function notationTransformers() {
-  return [
-    transformerNotationHighlight(),
-    transformerNotationDiff(),
-    transformerNotationFocus(),
-    transformerNotationErrorLevel(),
-    transformerNotationWordHighlight(),
-    transformerMetaHighlight()
-  ]
-}
-
-// Build-only transformers (twoslash, etc.) are injected via this hook so
+// Build-only transformers (twoslash) are injected via this hook so
 // they don't leak Node imports into the browser bundle. `md-plugin-codeblock.js`
-// passes them in but `DocCodeHighlight.js` does not.
-export function buildFenceTransformers(attrs = {}, buildOnly = []) {
+// passes them in but `DocCode` does not.
+export function buildFenceTransformers(buildOnly = []) {
   return [
     docCodePreTransformer,
     ...buildOnly,
-    ...notationTransformers(),
-    bashPromptTransformer(),
-    lineDecorTransformer(attrs),
+    transformerNotationHighlight(),
+    transformerNotationFocus(),
+    transformerNotationDiff(),
     regionFoldTransformer()
   ]
 }
@@ -58,11 +41,16 @@ export function buildFenceTransformers(attrs = {}, buildOnly = []) {
 // Used by the release-notes pipeline (build-only). Includes bash-prompt
 // since release notes show CLI commands.
 export function buildBareTransformers() {
-  return [docCodePreTransformer, bashPromptTransformer()]
+  return [docCodePreTransformer]
 }
 
-// Used by `DocCodeHighlight.js` at runtime (in-browser) for DocExample's
-// "view source" tabs and DocInstallation snippets. Keep it minimal.
-export function buildBrowserTransformers() {
-  return [docCodePreTransformer, regionFoldTransformer()]
+// Used exclusively the the client runtime through DocCode.vue.
+export function buildClientTransformers() {
+  return [
+    docCodePreTransformer,
+    transformerNotationHighlight(),
+    transformerNotationFocus(),
+    transformerNotationDiff(),
+    regionFoldTransformer()
+  ]
 }
