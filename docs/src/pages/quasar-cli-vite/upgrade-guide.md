@@ -916,10 +916,10 @@ Migration steps:
 
 4. Update your ESLint config glob:
 
-   ```diff
+   ```js
    {
-   - files: ['src-pwa/custom-service-worker.ts'],
-   + files: ['src-pwa/sw/**/*.ts'],
+     files: ['src-pwa/custom-service-worker.ts'], // [!code --]
+     files: ['src-pwa/sw/**/*.ts'], // [!code ++]
      languageOptions: {
        globals: {
          ...globals.serviceworker
@@ -930,31 +930,38 @@ Migration steps:
 
 5. If you set `sourceFiles.pwaServiceWorker` explicitly in `quasar.config`, update it:
 
-   ```diff
+   ```js
    sourceFiles: {
-   - pwaServiceWorker: 'src-pwa/custom-service-worker',
-   + pwaServiceWorker: 'src-pwa/sw/custom-sw',
+     pwaServiceWorker: 'src-pwa/custom-service-worker', // [!code --]
+     pwaServiceWorker: 'src-pwa/sw/custom-sw', // [!code ++]
    }
    ```
 
    If you don't set it, the new default kicks in automatically.
 
-6. (Optional) TypeScript only: to type-check the SW during dev/build, add a `typescript` entry to your `vite-plugin-checker` options (alongside `vueTsc: true`):
+6. (Optional) TypeScript + ESLint only: to type-check the SW during dev/build, add a `typescript` entry to your `vite-plugin-checker` options (alongside `vueTsc: true`):
 
-   ```diff /quasar.config.ts
-   ['vite-plugin-checker', {
-     vueTsc: true,
-   + typescript: {
-   +   tsconfigPath: './src-pwa/sw/tsconfig.json'
-   + },
-     // ...
-   }, { server: false }]
-   ```
+<!-- prettier-ignore -->
+```js /quasar.config.ts
+vitePlugins: [
+  [
+    'vite-plugin-checker',
+    {
+      vueTsc: true,
+      typescript: { // [!code ++]
+        tsconfigPath: './src-pwa/sw/tsconfig.json' // [!code ++]
+      } // [!code ++]
+      // ...
+    },
+    { server: false }
+  ]
+]
+```
 
-7. (Optional) TypeScript only: add a `package.json` script to check both root and SW types:
-   ```diff /package.json
+7. (Optional) TypeScript + ESLint only: add a `package.json` script to check both root and SW types:
+   ```json /package.json
    "scripts": {
-   + "typecheck": "vue-tsc --noEmit && tsc --project src-pwa/sw/tsconfig.json --noEmit",
+    "typecheck": "vue-tsc --noEmit && tsc --project src-pwa/sw/tsconfig.json --noEmit", // [!code ++]
      // ...
    }
    ```

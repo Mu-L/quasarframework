@@ -116,8 +116,8 @@ if (import.meta.env.QUASAR_CLIENT) {
     width: 100%
 
 // Line-level decorations from Shiki notation transformers and our line-decor:
-//   .highlighted              -> notation-highlight, fence-meta highlight=
-//   .diff.add / .diff.remove  -> notation-diff, fence-meta add= / rem=
+//   .highlighted              -> notation-highlight
+//   .diff.add / .diff.remove  -> notation-diff
 //   .focused / .has-focused   -> notation-focus
 //   .highlighted.warning      -> notation-error-level (warning)
 //   .highlighted.error        -> notation-error-level (error)

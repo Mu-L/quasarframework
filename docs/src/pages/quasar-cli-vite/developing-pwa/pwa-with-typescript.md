@@ -31,11 +31,11 @@ TypeScript does NOT pick up nested `tsconfig.json` files when running `tsc`/`vue
 
 The IDE language server still applies `/src-pwa/sw/tsconfig.json` to files inside that folder (TS treats a nested tsconfig as a separate project), so you still get correct autocomplete and inline diagnostics there.
 
-## Type-checking the service worker in dev/build
+## (ESLint) Type-checking the service worker in dev/build
 
 Because the SW is excluded from the root project, the `vite-plugin-checker` instance running `vue-tsc` will not check it. To get inline SW diagnostics on `quasar dev`/`quasar build`, add a `typescript` entry to your `vite-plugin-checker` config in `quasar.config.ts`:
 
-```ts [highlight=5-7] /quasar.config.ts
+```ts /quasar.config.ts
 build: {
   vitePlugins: [
     [
