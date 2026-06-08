@@ -11,7 +11,7 @@ One powerful feature of Quasar CLI App Extensions is to provide commands that ca
 
 Let's see how you can register a command that will become available as `quasar run <ext-id> <cmd> [...args]`. We will be editing our [Index script](/app-extensions/development-guide/index-api):
 
-```js File: /ae/src/index.js (or .ts)
+```js /ae/src/index.js (or .ts)
 import { defineIndexScript } from '#q-app'
 
 export default defineIndexScript(api => {
@@ -31,7 +31,7 @@ export default defineIndexScript(api => {
 
 Example with defining and parsing arguments:
 
-```js File: /ae/src/index.js (or .ts)
+```js /ae/src/index.js (or .ts)
 import { defineIndexScript } from '#q-app'
 import { parseArgs } from 'node:util'
 

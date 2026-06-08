@@ -47,7 +47,7 @@ You need to handle registering your component. You do this with the `/index.js` 
 
 Let's break it down.
 
-```js File: /ae/src/index.js (or .ts)
+```js /ae/src/index.js (or .ts)
 import { defineIndexScript } from '#q-app'
 
 export default defineIndexScript(api => {
@@ -73,7 +73,7 @@ Not only can you do a `api.compatibleWith()` to check against Quasar packages, b
 
 The second group tells Quasar to call our custom function when the `extendQuasarConf` CLI life-cycle hook is called. It would look something like this:
 
-```js File: /ae/src/index.js (or .ts)
+```js /ae/src/index.js (or .ts)
 function extendConf(conf, api) {
   return {
     // make sure my-ext boot file is registered
@@ -89,7 +89,7 @@ function extendConf(conf, api) {
 
 Finally, let's see how the boot file would look like. Make sure that you read the [@quasar/app-vite Boot files](/quasar-cli-vite/boot-files) documentation and understand what a Boot file is first.
 
-```js File: /ae/src/runtime/boot.register.js (or .ts)
+```js /ae/src/runtime/boot.register.js (or .ts)
 import { defineBoot } from '#q-app'
 import MyComponent from './MyComponent.vue'
 

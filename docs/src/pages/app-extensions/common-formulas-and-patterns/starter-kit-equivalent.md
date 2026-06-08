@@ -75,7 +75,7 @@ The prompts script below uses [@clack/prompts](https://www.npmjs.com/package/@cl
 
 This script will be called upon AE installation/invoking procedure.
 
-```js File: /ae/src/prompts.js (or .ts)
+```js /ae/src/prompts.js (or .ts)
 /**
  * Quasar App Extension prompts script
  * https://quasar.dev/app-extensions/development-guide/prompts-api
@@ -127,7 +127,7 @@ export default definePromptsScript(async (/* api */) => {
 
 The install script below is only rendering files into the hosted app. Notice the `/src/templates` folder above, where we decided to keep these templates.
 
-```js File: /ae/src/install.js (or .ts)
+```js /ae/src/install.js (or .ts)
 import { defineInstallScript } from '#q-app'
 
 export default defineInstallScript(api => {
@@ -163,7 +163,7 @@ Notice that we use the prompts to decide what to render into the hosting project
 
 We do a few things in the index script, like extending the /quasar.config file, hooking into one of the many Index API hooks (onPublish in this case):
 
-```js File: /ae/src/index.js (or .ts)
+```js /ae/src/index.js (or .ts)
 import { defineIndexScript } from '#q-app'
 
 export default defineIndexScript(api => {

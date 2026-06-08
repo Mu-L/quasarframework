@@ -372,9 +372,7 @@ Examples:
 
 This svg method allows you to store the SVG files as static assets and reference them.
 
-```html
-// File: /public/icons.svg
-
+```html /public/icons.svg
 <svg xmlns="http://www.w3.org/2000/svg">
   <symbol id="icon-1" viewBox="0 0 24 24">
     <path d="..."></path>
