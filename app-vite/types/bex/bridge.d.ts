@@ -107,14 +107,9 @@ export interface BexBridge {
   /**
    * The name of the port where the bridge belongs to.
    *
-   * @example
-   * 'background'
-   *
-   * @example
-   * 'app'
-   *
-   * @example
-   * 'content@sub-folder/my-content-script-1234'
+   * @example 'background'
+   * @example 'app'
+   * @example 'content@sub-folder/my-content-script-1234'
    */
   readonly portName: PortName;
   /**
