@@ -1,9 +1,9 @@
-import { HasSsr } from "quasar";
-import { QSsrContext } from "./context";
+import type { HasSsr } from "quasar";
+import type { QSsrContext } from "./context.d.ts";
 
 export type HasSsrParam = HasSsr<{ ssrContext?: QSsrContext | null }>;
 
-export { SsrDriver } from "./driver";
-export * from "./ssrmiddleware";
+export type { SsrDriver } from "./driver";
+export type * from "./ssrmiddleware.d.ts";
 
-export { QSsrContext };
+export type { QSsrContext };

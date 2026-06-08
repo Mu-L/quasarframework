@@ -1,11 +1,12 @@
-import { IncomingMessage, ServerResponse } from "node:http";
-import { Http2ServerRequest, Http2ServerResponse } from "node:http2";
-import {
+import type { IncomingMessage, ServerResponse } from "node:http";
+import type { Http2ServerRequest, Http2ServerResponse } from "node:http2";
+import type {
   Server as HttpsServer,
   ServerOptions as HttpsServerOptions
 } from "node:https";
-import { SsrDriverTypes } from "./driver";
-import { QSsrContext } from "./context";
+
+import type { SsrDriverTypes } from "./driver.d.ts";
+import type { QSsrContext } from "./context.d.ts";
 
 export interface RenderParams extends Pick<
   QSsrContext,

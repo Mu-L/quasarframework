@@ -203,10 +203,10 @@ function generateTsConfig(quasarConf, fsUtils) {
     // import ... from '@' (resolves to 'src/index')
     paths[alias] = [tsPath]
 
-    if (stats === void 0 || stats.isFile()) return
-
-    // import ... from '@/something' (resolves to 'src/something.ts' or 'src/something/index.ts')
-    paths[`${alias}/*`] = [`${tsPath}/*`]
+    if (stats?.isDirectory()) {
+      // import ... from '@/something' (resolves to 'src/something.ts' or 'src/something/index.ts')
+      paths[`${alias}/*`] = [`${tsPath}/*`]
+    }
   })
 
   // See https://www.totaltypescript.com/tsconfig-cheat-sheet
@@ -220,6 +220,7 @@ function generateTsConfig(quasarConf, fsUtils) {
       allowJs: true,
       resolveJsonModule: true,
       moduleDetection: 'force',
+      moduleResolution: 'bundler',
       isolatedModules: true,
 
       // We are not transpiling with tsc, so leave it to the bundler
@@ -271,7 +272,6 @@ function generateTsConfig(quasarConf, fsUtils) {
   }
 
   if (quasarConf.build.filenameBasedRouting) {
-    tsConfig.compilerOptions.moduleResolution = 'Bundler'
     tsConfig.vueCompilerOptions = {
       plugins: [
         'vue-router/volar/sfc-route-blocks',

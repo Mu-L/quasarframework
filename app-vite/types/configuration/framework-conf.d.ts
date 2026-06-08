@@ -1,4 +1,4 @@
-import {
+import type {
   QuasarComponents,
   QuasarDirectives,
   QuasarIconSets,
@@ -14,7 +14,7 @@ type SerializableConfiguration<T> = {
     : T[K];
 };
 
-interface QuasarFrameworkConfiguration {
+export interface QuasarFrameworkConfiguration {
   /**
    * @see - QuasarConfOptions tab in API cards throughout the docs
    * @type options {@link QuasarUIConfiguration}

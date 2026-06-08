@@ -1,15 +1,16 @@
-import { QuasarAppPaths } from "../app-paths";
-import { QuasarLogger } from "../logger";
-import * as ElectronBuilder from "electron-builder";
-import { QuasarCapacitorTargets } from "./capacitor-conf";
-import {
+import type * as ElectronBuilder from "electron-builder";
+
+import type { QuasarAppPaths } from "../app-paths.d.ts";
+import type { QuasarLogger } from "../logger.d.ts";
+import type { QuasarCapacitorTargets } from "./capacitor-conf.d.ts";
+import type { QuasarCordovaTargets } from "./cordova-conf.d.ts";
+import type {
   ElectronBuilderArchs,
   ElectronBuilderTargets,
   ElectronPackagerArchs,
   ElectronPackagerTargets,
   QuasarElectronBundlers
-} from "./electron-conf";
-import { QuasarCordovaTargets } from "./cordova-conf";
+} from "./electron-conf.d.ts";
 
 export type QuasarMode =
   | "spa"

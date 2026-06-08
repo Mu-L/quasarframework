@@ -1,6 +1,7 @@
-import { RolldownOptions } from "rolldown";
-import { GenerateSWOptions, InjectManifestOptions } from "workbox-build";
-import { TSConfig } from "./build";
+import type { RolldownOptions } from "rolldown";
+import type { GenerateSWOptions, InjectManifestOptions } from "workbox-build";
+
+import type { TSConfig } from "./build.d.ts";
 
 // Derived from https://developer.mozilla.org/en-US/docs/Web/Manifest
 type PwaManifestDirection = "ltr" | "rtl" | "auto";

@@ -1,11 +1,15 @@
 import type { UserConfig as ViteUserConfig } from "vite";
 import type { GenerateSWOptions, InjectManifestOptions } from "workbox-build";
 import type { RolldownOptions } from "rolldown";
-import { QuasarAppPathsResolve } from "./app-paths";
-import { QuasarConf, ResolvedQuasarConfValue } from "./configuration/conf";
-import { QuasarContext } from "./configuration/context";
-import { PwaManifestOptions } from "./configuration/pwa-conf";
-import { QuasarLogger } from "./logger";
+
+import type { QuasarAppPathsResolve } from "./app-paths.d.ts";
+import type {
+  QuasarConf,
+  ResolvedQuasarConfValue
+} from "./configuration/conf.d.ts";
+import type { QuasarContext } from "./configuration/context.d.ts";
+import type { PwaManifestOptions } from "./configuration/pwa-conf.d.ts";
+import type { QuasarLogger } from "./logger.d.ts";
 
 type ExtendViteConfHandler = (
   fn: (

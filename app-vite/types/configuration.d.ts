@@ -1,6 +1,6 @@
-import { QuasarContext } from "./configuration/context";
-import { QuasarConf } from "./configuration/conf";
+import type { QuasarContext } from "./configuration/context.d.ts";
+import type { QuasarConf } from "./configuration/conf.d.ts";
 
-type ConfigureCallback = (
+export type ConfigureCallback = (
   ctx: QuasarContext
 ) => QuasarConf | Promise<QuasarConf>;

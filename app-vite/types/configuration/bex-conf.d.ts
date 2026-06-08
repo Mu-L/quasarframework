@@ -1,6 +1,6 @@
-import { RolldownOptions } from "rolldown";
+import type { RolldownOptions } from "rolldown";
 
-interface QuasarBexConfiguration {
+export interface QuasarBexConfiguration {
   /**
    * The list of extra scripts (js/ts) not in your bex manifest that you want to
    * compile and use in your browser extension. Maybe dynamic use them?

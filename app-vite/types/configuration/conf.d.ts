@@ -1,23 +1,25 @@
-import { DeepNonNullable, DeepRequired } from "ts-essentials";
-import {
+import type { DeepNonNullable, DeepRequired } from "ts-essentials";
+import type { Options as OpenOptions } from "open";
+import type { ServerOptions as ViteServerOptions } from "vite";
+
+import type {
   QuasarAnimations,
   QuasarExtrasIcons,
   QuasarFonts
 } from "@quasar/extras";
-import { QuasarBootConfiguration } from "./boot";
-import { QuasarBuildConfiguration } from "./build";
-import { QuasarCapacitorConfiguration } from "./capacitor-conf";
-import { QuasarCordovaConfiguration } from "./cordova-conf";
-import { QuasarElectronConfiguration } from "./electron-conf";
-import { QuasarFrameworkConfiguration } from "./framework-conf";
-import { QuasarPwaConfiguration } from "./pwa-conf";
-import { QuasarSsrConfiguration } from "./ssr-conf";
-import { QuasarMobileConfiguration } from "./mobile-conf";
-import { QuasarBexConfiguration } from "./bex-conf";
 
-import { Options as OpenOptions } from "open";
-import { ServerOptions as ViteServerOptions } from "vite";
-import { QuasarContext } from "./context";
+import type { QuasarBootConfiguration } from "./boot.d.ts";
+import type { QuasarBuildConfiguration } from "./build.d.ts";
+import type { QuasarCapacitorConfiguration } from "./capacitor-conf.d.ts";
+import type { QuasarCordovaConfiguration } from "./cordova-conf.d.ts";
+import type { QuasarElectronConfiguration } from "./electron-conf.d.ts";
+import type { QuasarFrameworkConfiguration } from "./framework-conf.d.ts";
+import type { QuasarPwaConfiguration } from "./pwa-conf.d.ts";
+import type { QuasarSsrConfiguration } from "./ssr-conf.d.ts";
+import type { QuasarMobileConfiguration } from "./mobile-conf.d.ts";
+import type { QuasarBexConfiguration } from "./bex-conf.d.ts";
+
+import type { QuasarContext } from "./context.d.ts";
 
 type DevServerOptions = Omit<ViteServerOptions, "open" | "https"> & {
   open?: Omit<OpenOptions, "wait"> | boolean;

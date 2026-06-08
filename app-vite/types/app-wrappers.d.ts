@@ -1,9 +1,9 @@
-import type { ConfigureCallback } from "./configuration";
+import type { ConfigureCallback } from "./configuration.d.ts";
 
-import type { BootCallback } from "./boot";
-import type { PrefetchCallback } from "./prefetch";
-import type { RouteCallback } from "./route";
-import type { StoreCallback } from "./store";
+import type { BootCallback } from "./boot.d.ts";
+import type { PrefetchCallback } from "./prefetch.d.ts";
+import type { RouteCallback } from "./route.d.ts";
+import type { StoreCallback } from "./store.d.ts";
 
 import type {
   SsrCloseCallback,
@@ -13,14 +13,14 @@ import type {
   SsrMiddlewareCallback,
   SsrRenderPreloadTagCallback,
   SsrServeStaticContentCallback
-} from "./ssr";
+} from "./ssr/index.d.ts";
 
 import type {
   IndexAPICallback,
   InstallAPICallback,
   PromptsAPICallback,
   UninstallAPICallback
-} from "./app-extension";
+} from "./app-extension.d.ts";
 
 /** Some arguments are available only if you enable the related mode: `store` when using the Store, `ssrContext` when using SSR, etc */
 

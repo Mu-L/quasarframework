@@ -1,4 +1,4 @@
-import { BexBridge, BexBridgeOptions } from "../bridge";
+import type { BexBridge, BexBridgeOptions } from "../bridge.d.ts";
 
 /**
  * Creates a new bridge instance to be used in the script.

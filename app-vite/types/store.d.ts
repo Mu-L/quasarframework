@@ -1,6 +1,6 @@
-import { HasStore } from "quasar";
+import type { HasStore } from "quasar";
 import type { Pinia } from "pinia";
-import { HasSsrParam } from "./ssr";
+import type { HasSsrParam } from "./ssr/index.d.ts";
 
 export type HasStoreParam = HasStore<{
   /**

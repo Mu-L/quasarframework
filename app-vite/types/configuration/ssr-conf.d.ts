@@ -1,5 +1,5 @@
-import { RolldownOptions } from "rolldown";
-import { GenerateSWOptions, InjectManifestOptions } from "workbox-build";
+import type { RolldownOptions } from "rolldown";
+import type { GenerateSWOptions, InjectManifestOptions } from "workbox-build";
 
 export interface QuasarSsrConfiguration {
   /**

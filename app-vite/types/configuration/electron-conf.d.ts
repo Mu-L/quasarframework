@@ -1,8 +1,8 @@
-import * as ElectronBuilderUtil from "builder-util";
-import * as ElectronBuilder from "electron-builder";
-import * as ElectronPackager from "@electron/packager";
-import { LiteralUnion } from "quasar";
-import { RolldownOptions } from "rolldown";
+import type * as ElectronBuilderUtil from "builder-util";
+import type * as ElectronBuilder from "electron-builder";
+import type * as ElectronPackager from "@electron/packager";
+import type { LiteralUnion } from "quasar";
+import type { RolldownOptions } from "rolldown";
 
 export type QuasarElectronBundlers = "builder" | "packager";
 

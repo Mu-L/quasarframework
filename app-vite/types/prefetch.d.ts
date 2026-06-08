@@ -1,6 +1,10 @@
-import { RouteLocationNormalizedLoaded, RouteLocationRaw } from "vue-router";
-import { HasSsrParam, HttpRedirectStatusCode } from "./ssr";
-import { HasStoreParam } from "./store";
+import type {
+  RouteLocationNormalizedLoaded,
+  RouteLocationRaw
+} from "vue-router";
+
+import type { HasSsrParam, HttpRedirectStatusCode } from "./ssr/index.d.ts";
+import type { HasStoreParam } from "./store.d.ts";
 
 interface PreFetchOptions extends HasSsrParam, HasStoreParam {
   readonly currentRoute: RouteLocationNormalizedLoaded;

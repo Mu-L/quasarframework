@@ -1,7 +1,8 @@
-import { App } from "vue";
-import { RouteLocationRaw, Router } from "vue-router";
-import { HasSsrParam, HttpRedirectStatusCode } from "./ssr";
-import { HasStoreParam } from "./store";
+import type { App } from "vue";
+import type { RouteLocationRaw, Router } from "vue-router";
+
+import type { HasSsrParam, HttpRedirectStatusCode } from "./ssr/index.d.ts";
+import type { HasStoreParam } from "./store.d.ts";
 
 interface BootFileParams extends HasSsrParam, HasStoreParam {
   readonly app: App;

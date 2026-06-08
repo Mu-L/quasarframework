@@ -1,6 +1,6 @@
-import { QVueGlobals } from "quasar";
-import { HasStoreParam } from "../store";
-import { SsrDriverTypes } from "./driver";
+import type { QVueGlobals } from "quasar";
+import type { HasStoreParam } from "../store.d.ts";
+import type { SsrDriverTypes } from "./driver.d.ts";
 
 /**
  * Quasar SSR context object.
