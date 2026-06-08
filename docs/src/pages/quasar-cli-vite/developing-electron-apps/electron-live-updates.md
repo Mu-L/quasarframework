@@ -13,25 +13,26 @@ One open-source option is [`@capgo/electron-updater`](https://www.npmjs.com/pack
 
 The updater is used by the Electron main and preload scripts, so install it from your Electron folder:
 
-```bash
-cd src-electron
-```
-
 ```tabs
 <<| bash Yarn |>>
-$ yarn add @capgo/electron-updater
+cd src-electron
+yarn add @capgo/electron-updater
 <<| bash NPM |>>
-$ npm install --save @capgo/electron-updater
+cd src-electron
+npm install --save @capgo/electron-updater
 <<| bash PNPM |>>
-$ pnpm add @capgo/electron-updater
+cd src-electron
+pnpm add @capgo/electron-updater
 <<| bash Bun |>>
-$ bun add @capgo/electron-updater
+cd src-electron
+bun add @capgo/electron-updater
 ```
 
 ## Main process
 
 Create one updater instance in `/src-electron/electron-main.js`, initialize it with the BrowserWindow and use it to load the current production bundle. In development, keep loading the Quasar dev server.
 
+<!-- prettier-ignore -->
 ```js /src-electron/electron-main file
 import { app, BrowserWindow } from 'electron'
 import path from 'node:path'
@@ -39,13 +40,14 @@ import {
   ElectronUpdater,
   setupEventForwarding,
   setupIPCHandlers
-} from '@capgo/electron-updater'
+} from '@capgo/electron-updater' // [!code highlight]
 
-const updater = new ElectronUpdater({
-  appId: 'com.example.desktop',
-  autoUpdate: false,
-  statsUrl: ''
-})
+const updater = new ElectronUpdater({ // [!code highlight]
+  // [!code highlight]
+  appId: 'com.example.desktop', // [!code highlight]
+  autoUpdate: false, // [!code highlight]
+  statsUrl: '' // [!code highlight]
+}) // [!code highlight]
 
 async function createWindow() {
   const mainWindow = new BrowserWindow({
@@ -56,13 +58,13 @@ async function createWindow() {
     }
   })
 
-  await updater.initialize(
-    mainWindow,
-    path.join(import.meta.dirname, 'index.html')
-  )
+  await updater.initialize( // [!code highlight]
+    mainWindow, // [!code highlight]
+    path.join(import.meta.dirname, 'index.html') // [!code highlight]
+  ) // [!code highlight]
 
-  setupIPCHandlers(updater)
-  setupEventForwarding(updater, mainWindow)
+  setupIPCHandlers(updater) // [!code highlight]
+  setupEventForwarding(updater, mainWindow) // [!code highlight]
 
   if (import.meta.env.QUASAR_DEV) {
     await mainWindow.loadURL(import.meta.env.QUASAR_APP_URL)
@@ -85,10 +87,10 @@ Expose the updater API from `/src-electron/electron-preload.js`. Keep any existi
 ```js /src-electron/electron-preload file
 import { contextBridge } from 'electron'
 import { exposeUpdaterAPI } from '@capgo/electron-updater/preload'
-import { quasarRuntime } from '#q-app/electron/preload'
+import { quasarRuntime } from '#q-app/electron/preload' // [!code highlight]
 
 contextBridge.exposeInMainWorld('quasarRuntime', quasarRuntime)
-exposeUpdaterAPI()
+exposeUpdaterAPI() // [!code highlight]
 ```
 
 ## Renderer process
@@ -106,21 +108,14 @@ For a manual self-hosted flow, fetch your own update metadata, download the zip 
 ```js
 const syncUpdate = async () => {
   const updater = window.electronUpdater
-
-  if (!updater) {
-    return
-  }
+  if (!updater) return
 
   const response = await fetch(
     'https://updates.example.com/desktop/latest.json'
   )
-
-  if (!response.ok) {
-    return
-  }
+  if (!response.ok) return
 
   const update = await response.json()
-
   if (!update?.url || !update?.version) {
     return
   }
@@ -156,13 +151,13 @@ await updater.set({ id: bundle.id })
 Build the Electron app without packaging it into an installer:
 
 ```bash
-$ quasar build -m electron --skip-pkg
+quasar build -m electron --skip-pkg
 ```
 
 The renderer files are created in `/dist/electron/UnPackaged`. Stage the files that belong to the web bundle, such as `index.html`, `assets/` and any files copied from `/public`, then create a zip with the CLI:
 
 ```bash
-$ npx @capgo/cli@latest bundle zip --path dist/electron/live-update
+npx @capgo/cli@latest bundle zip --path dist/electron/live-update
 ```
 
 The folder passed to `bundle zip` must contain `index.html` at its root. Upload the generated zip to your own HTTPS storage and update your metadata endpoint to point at it.

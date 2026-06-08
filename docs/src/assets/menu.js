@@ -1059,10 +1059,6 @@ export default [
             path: 'build-commands'
           },
           {
-            name: 'Live Updates',
-            path: 'live-updates'
-          },
-          {
             name: 'Preload Script',
             path: 'electron-preload-script'
           },
@@ -1073,6 +1069,10 @@ export default [
           {
             name: 'Frameless Electron Window',
             path: 'frameless-electron-window'
+          },
+          {
+            name: 'Live Updates',
+            path: 'electron-live-updates'
           },
           {
             name: 'Electron with TypeScript',
