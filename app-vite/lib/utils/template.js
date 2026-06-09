@@ -269,16 +269,27 @@ export function compileTemplateToFn(str, rawOpts = {}) {
   return new Function(opts.varName, body)
 }
 
-export function renderTemplate(str, scope, rawOpts) {
-  const opts = rawOpts
-  if (opts?.varName === false) {
-    opts.varName = defaultParseOptions.varName
+function getRenderTemplateOpts(rawOpts, scope) {
+  if (rawOpts?.varName === false) {
     const keys = Object.keys(scope)
-    if (keys.length !== 0) {
-      opts.header = `const { ${keys.join(', ')} } = ${defaultParseOptions.varName}`
+    return {
+      ...rawOpts,
+      varName: defaultParseOptions.varName,
+      header:
+        keys.length !== 0
+          ? `const { ${keys.join(', ')} } = ${defaultParseOptions.varName}`
+          : ''
     }
   }
 
-  const templateFn = compileTemplateToFn(str, opts)
+  return rawOpts
+}
+
+export function renderTemplate(str, scope, rawOpts) {
+  const templateFn = compileTemplateToFn(
+    str,
+    getRenderTemplateOpts(rawOpts, scope)
+  )
+
   return templateFn(scope)
 }
