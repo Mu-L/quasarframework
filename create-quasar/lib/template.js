@@ -232,6 +232,11 @@ function getAST(str, opts) {
   return ast
 }
 
+const rawContentRE = /[$`\\"]/g
+function parseRawContent(content) {
+  return '"' + content.replaceAll(rawContentRE, String.raw`\$&`) + '"'
+}
+
 // opts: { varName, header }
 function compileBody(ast, opts) {
   let i = 0
@@ -253,8 +258,11 @@ function compileBody(ast, opts) {
       if (type === 'e') {
         // execute
         returnStr += content + '\n'
-      } else if (type === 'r' || type === 'i') {
-        // raw or interpolate
+      } else if (type === 'r') {
+        // raw
+        returnStr += `${fnAccumulator}+=${parseRawContent(content)}\n`
+      } else if (type === 'i') {
+        // interpolate
         returnStr += `${fnAccumulator}+=${content}\n`
       }
     }
