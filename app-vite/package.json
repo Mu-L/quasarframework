@@ -1,6 +1,6 @@
 {
   "name": "@quasar/app-vite",
-  "version": "3.0.0-beta.43",
+  "version": "3.0.0-beta.44",
   "description": "Quasar Framework App CLI with Vite",
   "keywords": [
     "cli",
@@ -126,7 +126,7 @@
     "open": "^11.0.0",
     "rolldown": "^1.0.3",
     "sass-embedded": "^1.100.0",
-    "semver": "^7.8.1",
+    "semver": "^7.8.3",
     "serialize-javascript": "^7.0.5",
     "serve-static": "^2.2.1",
     "tinyglobby": "^0.2.17",

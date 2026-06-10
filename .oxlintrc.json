@@ -99,6 +99,9 @@
     "unicorn/prefer-global-this": "off",
     "unicorn/number-literal-case": "off", // conflicts with oxfmt
     "unicorn/import-style": "off",
+    "prefer-named-capture-group": "off",
+    "vue/require-prop-types": "off",
+    "vue/next-tick-style": ["error", "callback"],
 
     /** Performance rule overrides */
     "no-await-in-loop": "off",
