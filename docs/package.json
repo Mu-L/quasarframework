@@ -18,7 +18,7 @@
     "@quasar/extras": "^2.0.0",
     "@shikijs/langs": "^4.1.0",
     "@shikijs/transformers": "^4.1.0",
-    "quasar": "^2.19.3",
+    "quasar": "^2.20.0",
     "shiki": "^4.1.0",
     "vue": "^3.5.35",
     "vue-router": "^5.1.0"
