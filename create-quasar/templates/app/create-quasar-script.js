@@ -6,7 +6,7 @@ export async function createQuasarScript({ scope, utils }) {
         initialValue: utils.definitions.engine.default,
         options: [
           {
-            label: '@quasar/app-vite v3 rc (recommended)',
+            label: '@quasar/app-vite v3 RC (recommended)',
             value: 'vite-3'
           },
           {
