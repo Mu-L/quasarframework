@@ -53,11 +53,16 @@ export async function addMode({ ctx, silent }) {
 
   const hasTypescript = await cacheProxy.getModule('hasTypescript')
   const format = hasTypescript ? 'ts' : 'js'
+
   fse.copySync(appPaths.resolve.cli(`templates/ssr/common`), appPaths.ssrDir)
-  fse.copySync(
-    appPaths.resolve.cli(`templates/ssr/${answer.webserver}/common`),
-    appPaths.ssrDir
+
+  const webserverCommonPath = appPaths.resolve.cli(
+    `templates/ssr/${answer.webserver}/common`
   )
+  if (fse.existsSync(webserverCommonPath)) {
+    fse.copySync(webserverCommonPath, appPaths.ssrDir)
+  }
+
   fse.copySync(
     appPaths.resolve.cli(`templates/ssr/${answer.webserver}/${format}`),
     appPaths.ssrDir
