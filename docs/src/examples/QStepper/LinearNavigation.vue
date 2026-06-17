@@ -9,7 +9,7 @@
       class="q-mb-md"
     />
 
-    <q-stepper v-model="step" header-nav ref="stepper" color="primary" animated>
+    <q-stepper v-model="step" header-nav color="primary" animated>
       <q-step
         :name="1"
         title="Select campaign settings"

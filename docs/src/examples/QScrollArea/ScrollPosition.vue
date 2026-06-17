@@ -24,16 +24,15 @@
 </template>
 
 <script>
-import { ref } from 'vue'
+import { ref, useTemplateRef } from 'vue'
 
 export default {
   setup() {
     const position = ref(300)
-    const scrollAreaRef = ref(null)
+    const scrollAreaRef = useTemplateRef('scrollAreaRef')
 
     return {
       position,
-      scrollAreaRef,
 
       scroll() {
         scrollAreaRef.value.setScrollPosition('vertical', position.value)

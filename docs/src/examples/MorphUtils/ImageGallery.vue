@@ -15,11 +15,7 @@
       <q-img
         v-for="(src, index) in images"
         :key="index"
-        :ref="
-          el => {
-            thumbRef[index] = el
-          }
-        "
+        ref="thumbRefs"
         class="image-gallery__image"
         :style="index === indexZoomed ? 'opacity: 0.3' : void 0"
         :src="src"
@@ -42,13 +38,13 @@
 </template>
 
 <script>
-import { onBeforeUpdate, ref } from 'vue'
+import { ref, useTemplateRef } from 'vue'
 import { morph } from 'quasar'
 
 export default {
   setup() {
-    const thumbRef = ref([])
-    const fullRef = ref(null)
+    const thumbRefs = useTemplateRef('thumbRefs')
+    const fullRef = useTemplateRef('fullRef')
 
     const indexZoomed = ref(void 0)
     const images = ref(
@@ -95,7 +91,7 @@ export default {
           })
 
           cancel = morph({
-            from: thumbRef.value[index].$el,
+            from: thumbRefs.value[index].$el,
             to: fullRef.value.$el,
             onToggle: () => {
               indexZoomed.value = index
@@ -118,7 +114,7 @@ export default {
       ) {
         morph({
           from: fullRef.value.$el,
-          to: thumbRef.value[indexZoomedState].$el,
+          to: thumbRefs.value[indexZoomedState].$el,
           onToggle: () => {
             indexZoomed.value = void 0
           },
@@ -131,14 +127,7 @@ export default {
       }
     }
 
-    // Make sure to reset the dynamic refs before each update.
-    onBeforeUpdate(() => {
-      thumbRef.value = []
-    })
-
     return {
-      thumbRef,
-      fullRef,
       indexZoomed,
       images,
       zoomImage,

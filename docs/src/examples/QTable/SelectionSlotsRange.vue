@@ -36,7 +36,7 @@
 </template>
 
 <script>
-import { nextTick, ref, toRaw } from 'vue'
+import { nextTick, ref, toRaw, useTemplateRef } from 'vue'
 
 const columns = [
   // #region
@@ -184,12 +184,11 @@ const rows = [
 
 export default {
   setup() {
-    const tableRef = ref()
+    const tableRef = useTemplateRef('tableRef')
     const selected = ref([])
     let storedSelectedRow
 
     return {
-      tableRef,
       selected,
       columns,
       rows,

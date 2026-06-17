@@ -35,12 +35,12 @@
 </template>
 
 <script>
-import { ref } from 'vue'
+import { useTemplateRef } from 'vue'
 
 export default {
   setup() {
-    const firstRef = ref(null)
-    const secondRef = ref(null)
+    const firstRef = useTemplateRef('firstRef')
+    const secondRef = useTemplateRef('secondRef')
 
     let ignoreSource
 
@@ -66,9 +66,6 @@ export default {
     }
 
     return {
-      firstRef,
-      secondRef,
-
       thumbStyle: {
         borderRadius: '7px',
         backgroundColor: '#027be3',

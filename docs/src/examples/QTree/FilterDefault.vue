@@ -21,16 +21,15 @@
 </template>
 
 <script>
-import { ref } from 'vue'
+import { ref, useTemplateRef } from 'vue'
 
 export default {
   setup() {
     const filter = ref('')
-    const filterRef = ref(null)
+    const filterRef = useTemplateRef('filterRef')
 
     return {
       filter,
-      filterRef,
 
       simple: [
         {

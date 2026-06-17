@@ -67,8 +67,8 @@ export default {
 
     return {
       itemsRef,
-      itemsId,
       scrollTargetRef,
+      itemsId,
 
       onLoadRef(index, done) {
         setTimeout(() => {

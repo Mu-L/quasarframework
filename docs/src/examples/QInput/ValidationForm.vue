@@ -43,27 +43,25 @@
 
 <script>
 import { useQuasar } from 'quasar'
-import { ref } from 'vue'
+import { ref, useTemplateRef } from 'vue'
 
 export default {
   setup() {
     const $q = useQuasar()
 
     const name = ref(null)
-    const nameRef = ref(null)
+    const nameRef = useTemplateRef('nameRef')
 
     const age = ref(null)
-    const ageRef = ref(null)
+    const ageRef = useTemplateRef('ageRef')
 
     const accept = ref(false)
 
     return {
       name,
-      nameRef,
       nameRules: [val => (val && val.length !== 0) || 'Please type something'],
 
       age,
-      ageRef,
       ageRules: [
         val => (val !== null && val !== '') || 'Please type your age',
         val => (val > 0 && val < 100) || 'Please type a real age'

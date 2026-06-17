@@ -60,7 +60,7 @@
 </template>
 
 <script>
-import { onMounted, ref } from 'vue'
+import { onMounted, ref, useTemplateRef } from 'vue'
 
 const columns = [
   // #region
@@ -223,15 +223,13 @@ const initialExpanded = rows.filter((r, i) => i % 3 === 0).map(r => r.index)
 
 export default {
   setup() {
-    const tableRef = ref(null)
+    const tableRef = useTemplateRef('tableRef')
 
     onMounted(() => {
       tableRef.value.scrollTo(5000)
     })
 
     return {
-      tableRef,
-
       expanded: ref(initialExpanded),
       columns,
       rows,

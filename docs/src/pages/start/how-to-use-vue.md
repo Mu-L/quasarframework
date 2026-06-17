@@ -362,9 +362,9 @@ In order for you to access these methods, you will need to set a Vue reference o
 </template>
 
 <script setup>
-  import { ref, onMounted } from 'vue'
+  import { useTemplateRef, onMounted } from 'vue'
 
-  const myRef = ref(null)
+  const myRef = useTemplateRef('myRef')
 
   // after the component has mounted into DOM:
   onMounted(() => {

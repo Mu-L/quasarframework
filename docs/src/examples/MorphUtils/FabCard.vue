@@ -2,7 +2,7 @@
   <div class="q-pa-md relative-position" style="min-height: 300px">
     <div class="absolute-bottom-right q-ma-lg">
       <div
-        ref="refFab"
+        ref="fabRef"
         class="absolute-center bg-accent"
         style="border-radius: 50%; width: 50%; height: 50%"
       />
@@ -19,7 +19,7 @@
 
     <q-card
       v-if="toggle"
-      ref="refCard"
+      ref="cardRef"
       class="my-card text-white absolute-center bg-grey-10"
       @click="morph(false)"
     >
@@ -37,21 +37,19 @@
 
 <script>
 import { morph } from 'quasar'
-import { ref } from 'vue'
+import { ref, useTemplateRef } from 'vue'
 
 export default {
   setup() {
     const toggle = ref(false)
-    const refFab = ref(null)
-    const refCard = ref(null)
+    const fabRef = useTemplateRef('fabRef')
+    const cardRef = useTemplateRef('cardRef')
 
-    const getFab = () => refFab.value
-    const getCard = () => refCard.value?.$el
+    const getFab = () => fabRef.value
+    const getCard = () => cardRef.value?.$el
 
     return {
       toggle,
-      refFab,
-      refCard,
       lorem:
         'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
 

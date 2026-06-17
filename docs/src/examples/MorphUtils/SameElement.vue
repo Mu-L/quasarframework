@@ -36,24 +36,21 @@
 
 <script>
 import { morph } from 'quasar'
-import { computed, ref } from 'vue'
+import { computed, ref, useTemplateRef } from 'vue'
 
 export default {
   setup() {
     const toggle1 = ref(false)
     const toggle2 = ref(false)
 
-    const firstMorphRef = ref(null)
-    const secondMorphRef = ref(null)
+    const firstMorphRef = useTemplateRef('firstMorphRef')
+    const secondMorphRef = useTemplateRef('secondMorphRef')
 
     let cancel1, cancel2
 
     return {
       toggle1,
       toggle2,
-
-      firstMorphRef,
-      secondMorphRef,
 
       props1: computed(() =>
         toggle1.value

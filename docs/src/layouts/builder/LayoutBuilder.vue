@@ -53,7 +53,7 @@
           :contracted="isContracted"
           color="secondary"
           v-model="step"
-          ref="stepper"
+          ref="stepperRef"
           style="max-width: 600px"
         >
           <q-step
@@ -387,7 +387,7 @@
                   <q-btn
                     class="full-width"
                     color="brand-primary"
-                    @click="$refs.stepper.next()"
+                    @click="$refs.stepperRef.next()"
                     label="Continue"
                   />
                 </div>

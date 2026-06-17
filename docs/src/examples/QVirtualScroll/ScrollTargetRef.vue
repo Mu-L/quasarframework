@@ -28,7 +28,7 @@
 </template>
 
 <script>
-import { onMounted, ref } from 'vue'
+import { onMounted, ref, useTemplateRef } from 'vue'
 
 const maxSize = 10_000
 const heavyList = []
@@ -43,7 +43,9 @@ Object.freeze(heavyList)
 
 export default {
   setup() {
-    const virtualListScrollTargetRef = ref(null)
+    const virtualListScrollTargetRef = useTemplateRef(
+      'virtualListScrollTargetRef'
+    )
     const scrollTarget = ref(null)
 
     onMounted(() => {
@@ -52,7 +54,6 @@ export default {
 
     return {
       heavyList,
-      virtualListScrollTargetRef,
       scrollTarget
     }
   }

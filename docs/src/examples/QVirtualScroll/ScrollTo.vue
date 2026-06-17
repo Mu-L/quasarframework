@@ -45,7 +45,7 @@
 </template>
 
 <script>
-import { onMounted, ref } from 'vue'
+import { onMounted, ref, useTemplateRef } from 'vue'
 
 const maxSize = 10_000
 const heavyList = []
@@ -58,7 +58,7 @@ for (let i = 0; i < maxSize; i++) {
 
 export default {
   setup() {
-    const virtualListRef = ref(null)
+    const virtualListRef = useTemplateRef('virtualListRef')
     const virtualListIndex = ref(1200)
 
     onMounted(() => {
@@ -67,7 +67,6 @@ export default {
 
     return {
       heavyList,
-      virtualListRef,
       virtualListIndex,
 
       onVirtualScroll({ index }) {

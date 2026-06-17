@@ -20,7 +20,7 @@
 
 <script>
 import { useQuasar } from 'quasar'
-import { ref } from 'vue'
+import { ref, useTemplateRef } from 'vue'
 
 const columns = [
   // #region
@@ -172,12 +172,11 @@ export default {
 
     const selected = ref([])
     const lastIndex = ref(null)
-    const tableRef = ref(null)
+    const tableRef = useTemplateRef('tableRef')
 
     return {
       selected,
       lastIndex,
-      tableRef,
 
       columns,
       rows,

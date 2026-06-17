@@ -1,7 +1,7 @@
 <template>
   <div class="q-pa-md">
     <q-ajax-bar
-      ref="bar"
+      ref="barRef"
       position="bottom"
       color="accent"
       size="10px"
@@ -13,31 +13,26 @@
 </template>
 
 <script>
-import { ref } from 'vue'
+import { useTemplateRef } from 'vue'
 
 export default {
   setup() {
-    const bar = ref(null)
+    const barRef = useTemplateRef('barRef')
 
     // we manually trigger it (this is not needed if we
     // don't skip Ajax calls hijacking)
     function trigger() {
-      const barRef = bar.value
-      barRef.start()
+      barRef.value.start()
 
       setTimeout(
         () => {
-          const refVal = bar.value
-          if (refVal) {
-            refVal.stop()
-          }
+          barRef.value?.stop()
         },
         Math.random() * 3000 + 1000
       )
     }
 
     return {
-      bar,
       trigger
     }
   }

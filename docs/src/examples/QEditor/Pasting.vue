@@ -12,14 +12,13 @@
 </template>
 
 <script>
-import { ref } from 'vue'
+import { ref, useTemplateRef } from 'vue'
 
 export default {
   setup() {
-    const editorRef = ref(null)
+    const editorRef = useTemplateRef('editorRef')
 
     return {
-      editorRef,
       editor: ref(
         'Try pasting some rich text here,' +
           ' such as from Discord or Webstorm.' +

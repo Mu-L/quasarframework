@@ -13,7 +13,7 @@
 
 <script setup>
 import { Quasar } from 'quasar'
-import { computed, nextTick, ref } from 'vue'
+import { computed, nextTick, ref, useTemplateRef } from 'vue'
 
 import { slugify } from '@/assets/page-utils.js'
 
@@ -47,7 +47,7 @@ const replace = name => (_, p1) => {
 const props = defineProps({ title: String })
 
 const active = ref(false)
-const formRef = ref(null)
+const formRef = useTemplateRef('formRef')
 const parts = ref({})
 
 const css = computed(() => parts.value.style?.content.trim() || '')

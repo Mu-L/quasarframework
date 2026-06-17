@@ -13,8 +13,8 @@ function findXcodeWorkspace(folder) {
   // the bare .xcodeproj first, and opening that builds without the Pods,
   // failing with "No such module 'Capacitor'".
   const target =
-    items.find(item => item.endsWith('.xcworkspace'))
-    || items.find(item => item.endsWith('.xcodeproj'))
+    items.find(item => item.endsWith('.xcworkspace')) ||
+    items.find(item => item.endsWith('.xcodeproj'))
 
   if (target) {
     return path.join(folder, target)

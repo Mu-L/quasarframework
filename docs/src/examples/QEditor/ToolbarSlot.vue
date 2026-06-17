@@ -52,16 +52,14 @@
 </template>
 
 <script>
-import { ref } from 'vue'
+import { ref, useTemplateRef } from 'vue'
 
 export default {
   setup() {
-    const editorRef = ref(null)
-    const tokenRef = ref(null)
+    const editorRef = useTemplateRef('editorRef')
+    const tokenRef = useTemplateRef('tokenRef')
 
     return {
-      editorRef,
-      tokenRef,
       editor: ref('Customize it.'),
 
       add(name) {

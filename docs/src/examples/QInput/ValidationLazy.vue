@@ -24,16 +24,14 @@
 </template>
 
 <script>
-import { ref } from 'vue'
+import { ref, useTemplateRef } from 'vue'
 
 export default {
   setup() {
-    const inputRef = ref(null)
+    const inputRef = useTemplateRef('inputRef')
 
     return {
       model: ref(''),
-      inputRef,
-
       reset() {
         inputRef.value.resetValidation()
       }

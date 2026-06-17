@@ -36,7 +36,7 @@
 </template>
 
 <script>
-import { computed, nextTick, ref, toRaw } from 'vue'
+import { computed, nextTick, ref, toRaw, useTemplateRef } from 'vue'
 
 const columns = [
   // #region
@@ -524,15 +524,13 @@ const rows = [
 
 export default {
   setup() {
-    const tableRef = ref(null)
+    const tableRef = useTemplateRef('tableRef')
 
     const navigationActive = ref(false)
     const pagination = ref({})
     const selected = ref([])
 
     return {
-      tableRef,
-
       navigationActive,
       filter: ref(''),
       selected,
@@ -557,7 +555,7 @@ export default {
         if (
           !navigationActive.value ||
           ![33, 34, 35, 36, 38, 40].includes(evt.keyCode) ||
-          tableRef.value === null
+          !tableRef.value
         ) {
           return
         }

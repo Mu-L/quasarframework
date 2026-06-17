@@ -39,7 +39,7 @@
 </template>
 
 <script>
-import { ref } from 'vue'
+import { ref, useTemplateRef } from 'vue'
 
 function clearStack(stack) {
   stack.splice(0)
@@ -52,7 +52,7 @@ export default {
     const redoStack = ref([])
     const undoBlocked = ref(false)
 
-    const editorRef = ref(null)
+    const editorRef = useTemplateRef('editorRef')
 
     function checkStack(stack) {
       if (stack.length > maxStack.value) {
@@ -65,8 +65,6 @@ export default {
       undoStack,
       redoStack,
       undoBlocked,
-
-      editorRef,
 
       undo() {
         // shift the stack

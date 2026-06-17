@@ -30,19 +30,17 @@
 </template>
 
 <script>
-import { ref } from 'vue'
+import { ref, useTemplateRef } from 'vue'
 
 export default {
   setup() {
-    const fieldRef = ref(null)
+    const fieldRef = useTemplateRef('fieldRef')
 
     return {
       slider: ref(10),
-      fieldRef,
 
       myRule(val) {
         // simulating a delay
-
         return new Promise(resolve => {
           setTimeout(() => {
             // call

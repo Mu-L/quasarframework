@@ -5,7 +5,7 @@
       animated
       v-model="slide"
       :autoplay="autoplay"
-      ref="carousel"
+      ref="carouselRef"
       infinite
     >
       <q-carousel-slide
@@ -55,7 +55,7 @@
             color="orange"
             text-color="black"
             icon="arrow_left"
-            @click="$refs.carousel.previous()"
+            @click="$refs.carouselRef.previous()"
           />
           <q-btn
             push
@@ -64,7 +64,7 @@
             color="orange"
             text-color="black"
             icon="arrow_right"
-            @click="$refs.carousel.next()"
+            @click="$refs.carouselRef.next()"
           />
         </q-carousel-control>
       </template>

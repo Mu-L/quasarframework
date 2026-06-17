@@ -83,7 +83,7 @@
 </template>
 
 <script setup>
-import { ref, watch } from 'vue'
+import { ref, useTemplateRef, watch } from 'vue'
 
 import { quasarElements } from '@/assets/links.components.js'
 
@@ -112,7 +112,7 @@ const filterChips = [
 
 const chipColor = ref(filterChips.map(_ => 'brand-primary'))
 
-const inputRef = ref(null)
+const inputRef = useTemplateRef('inputRef')
 const filterTag = ref(null)
 
 const searchTerms = ref('')

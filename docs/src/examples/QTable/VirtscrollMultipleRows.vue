@@ -51,7 +51,7 @@
 </template>
 
 <script>
-import { onMounted, ref } from 'vue'
+import { onMounted, ref, useTemplateRef } from 'vue'
 
 const columns = [
   // #region
@@ -212,15 +212,13 @@ for (let i = 0; i < 1000; i++) {
 
 export default {
   setup() {
-    const tableRef = ref(null)
+    const tableRef = useTemplateRef('tableRef')
 
     onMounted(() => {
       tableRef.value.scrollTo(5000)
     })
 
     return {
-      tableRef,
-
       columns,
       rows,
 

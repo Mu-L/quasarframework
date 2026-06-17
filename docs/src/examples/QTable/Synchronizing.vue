@@ -32,7 +32,7 @@
 </template>
 
 <script>
-import { onMounted, ref } from 'vue'
+import { onMounted, ref, useTemplateRef } from 'vue'
 
 const columns = [
   // #region
@@ -520,7 +520,7 @@ const originalRows = [
 
 export default {
   setup() {
-    const tableRef = ref()
+    const tableRef = useTemplateRef('tableRef')
     const rows = ref([])
     const filter = ref('')
     const loading = ref(false)
@@ -618,7 +618,6 @@ export default {
     })
 
     return {
-      tableRef,
       filter,
       loading,
       pagination,
