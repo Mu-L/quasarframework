@@ -173,8 +173,9 @@ const rows = [
 
 export default {
   setup() {
+    const separator = ref('vertical')
     return {
-      separator: ref('vertical'),
+      separator,
       columns,
       rows
     }

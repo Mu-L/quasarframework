@@ -18,11 +18,8 @@ import { computed, ref } from 'vue'
 export default {
   setup() {
     const model = ref('')
-
-    return {
-      model,
-      isValid: computed(() => model.value.length <= 3)
-    }
+    const isValid = computed(() => model.value.length <= 3)
+    return { model, isValid }
   }
 }
 </script>

@@ -48,10 +48,13 @@ import { ref } from 'vue'
 
 export default {
   setup() {
+    const modelAdd = ref(null)
+    const modelAddUnique = ref(null)
+    const modelToggle = ref(null)
     return {
-      modelAdd: ref(null),
-      modelAddUnique: ref(null),
-      modelToggle: ref(null)
+      modelAdd,
+      modelAddUnique,
+      modelToggle
     }
   }
 }

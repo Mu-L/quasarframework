@@ -60,11 +60,13 @@ export default {
   setup() {
     const morphGroupModel = ref('btn')
 
+    function nextMorph() {
+      morphGroupModel.value = nextMorphStep[morphGroupModel.value]
+    }
+
     return {
       morphGroupModel,
-      nextMorph() {
-        morphGroupModel.value = nextMorphStep[morphGroupModel.value]
-      }
+      nextMorph
     }
   }
 }

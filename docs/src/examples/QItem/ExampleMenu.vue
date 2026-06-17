@@ -83,9 +83,8 @@ import { ref } from 'vue'
 
 export default {
   setup() {
-    return {
-      link: ref('inbox')
-    }
+    const link = ref('inbox')
+    return { link }
   }
 }
 </script>

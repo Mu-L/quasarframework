@@ -19,9 +19,8 @@
 <script>
 export default {
   setup() {
-    return {
-      fitModes: ['cover', 'fill', 'contain', 'none', 'scale-down']
-    }
+    const fitModes = ['cover', 'fill', 'contain', 'none', 'scale-down']
+    return { fitModes }
   }
 }
 </script>

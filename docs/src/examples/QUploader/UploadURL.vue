@@ -6,10 +6,11 @@
 
 <script>
 export default {
-  methods: {
-    getUrl(files) {
+  setup() {
+    function getUrl(files) {
       return `http://localhost:4444/upload?count=${files.length}`
     }
+    return { getUrl }
   }
 }
 </script>

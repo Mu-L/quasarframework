@@ -40,9 +40,8 @@ import { ref } from 'vue'
 
 export default {
   setup() {
-    return {
-      notifications: ref(['friend'])
-    }
+    const notifications = ref(['friend'])
+    return { notifications }
   }
 }
 </script>

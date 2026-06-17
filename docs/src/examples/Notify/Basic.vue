@@ -11,14 +11,14 @@ export default {
   setup() {
     const $q = useQuasar()
 
-    return {
-      showNotif() {
-        $q.notify({
-          message: 'Jim pinged you.',
-          color: 'purple'
-        })
-      }
+    function showNotif() {
+      $q.notify({
+        message: 'Jim pinged you.',
+        color: 'purple'
+      })
     }
+
+    return { showNotif }
   }
 }
 </script>

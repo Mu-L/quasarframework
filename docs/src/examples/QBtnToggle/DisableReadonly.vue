@@ -34,9 +34,8 @@ import { ref } from 'vue'
 
 export default {
   setup() {
-    return {
-      model: ref('two')
-    }
+    const model = ref('two')
+    return { model }
   }
 }
 </script>

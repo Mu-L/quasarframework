@@ -36,13 +36,13 @@ import { ref, useTemplateRef } from 'vue'
 export default {
   setup() {
     const fieldRef = useTemplateRef('fieldRef')
+    const slider = ref(50)
 
-    return {
-      slider: ref(50),
-      reset() {
-        fieldRef.value.resetValidation()
-      }
+    function reset() {
+      fieldRef.value.resetValidation()
     }
+
+    return { slider, reset }
   }
 }
 </script>

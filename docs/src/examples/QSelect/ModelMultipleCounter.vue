@@ -30,11 +30,13 @@ import { ref } from 'vue'
 
 export default {
   setup() {
+    const model = ref(null)
+    const model2 = ref(null)
+    const options = ['Google', 'Facebook', 'Twitter', 'Apple', 'Oracle']
     return {
-      model: ref(null),
-      model2: ref(null),
-
-      options: ['Google', 'Facebook', 'Twitter', 'Apple', 'Oracle']
+      model,
+      model2,
+      options
     }
   }
 }

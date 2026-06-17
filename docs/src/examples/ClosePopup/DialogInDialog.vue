@@ -37,9 +37,11 @@ import { ref } from 'vue'
 
 export default {
   setup() {
+    const dialog = ref(false)
+    const dialog2 = ref(false)
     return {
-      dialog: ref(false),
-      dialog2: ref(false)
+      dialog,
+      dialog2
     }
   }
 }

@@ -35,10 +35,13 @@ import { ref } from 'vue'
 
 export default {
   setup() {
+    const email = ref('')
+    const number = ref(null)
+    const text = ref('')
     return {
-      email: ref(''),
-      number: ref(null),
-      text: ref('')
+      email,
+      number,
+      text
     }
   }
 }

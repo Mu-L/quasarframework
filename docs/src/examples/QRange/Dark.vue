@@ -14,12 +14,11 @@ import { ref } from 'vue'
 
 export default {
   setup() {
-    return {
-      model: ref({
-        min: 10,
-        max: 35
-      })
-    }
+    const model = ref({
+      min: 10,
+      max: 35
+    })
+    return { model }
   }
 }
 </script>

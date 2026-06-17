@@ -19,9 +19,8 @@ import { ref } from 'vue'
 
 export default {
   setup() {
-    return {
-      ratingModel: ref(2)
-    }
+    const ratingModel = ref(2)
+    return { ratingModel }
   }
 }
 </script>

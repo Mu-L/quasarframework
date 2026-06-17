@@ -90,33 +90,42 @@ export default {
     const submitEmpty = ref(false)
     const submitResult = ref([])
 
-    return {
-      acceptAgreement: ref(false),
-      subscribeNewsletter: ref(null),
+    const acceptAgreement = ref(false)
+    const subscribeNewsletter = ref(null)
 
-      genreRock: ref('rock'),
-      genreFunk: ref(false),
-      genrePop: ref('pop'),
+    const genreRock = ref('rock')
+    const genreFunk = ref(false)
+    const genrePop = ref('pop')
+
+    function onSubmit(evt) {
+      const formData = new FormData(evt.target)
+      const data = []
+
+      for (const [name, value] of formData.entries()) {
+        data.push({
+          name,
+          value
+        })
+      }
+
+      submitted.value = true
+      submitResult.value = data
+      submitEmpty.value = data.length === 0
+    }
+
+    return {
+      acceptAgreement,
+      subscribeNewsletter,
+
+      genreRock,
+      genreFunk,
+      genrePop,
 
       submitted,
       submitEmpty,
       submitResult,
 
-      onSubmit(evt) {
-        const formData = new FormData(evt.target)
-        const data = []
-
-        for (const [name, value] of formData.entries()) {
-          data.push({
-            name,
-            value
-          })
-        }
-
-        submitted.value = true
-        submitResult.value = data
-        submitEmpty.value = data.length === 0
-      }
+      onSubmit
     }
   }
 }

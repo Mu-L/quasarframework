@@ -159,15 +159,16 @@ const rows = [
 
 export default {
   setup() {
-    return {
-      initialPagination: {
-        sortBy: 'desc',
-        descending: false,
-        page: 2,
-        rowsPerPage: 3
-        // rowsNumber: xx if getting data from a server
-      },
+    const initialPagination = {
+      sortBy: 'desc',
+      descending: false,
+      page: 2,
+      rowsPerPage: 3
+      // rowsNumber: xx if getting data from a server
+    }
 
+    return {
+      initialPagination,
       columns,
       rows
     }

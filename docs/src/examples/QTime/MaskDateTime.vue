@@ -19,9 +19,8 @@ import { ref } from 'vue'
 
 export default {
   setup() {
-    return {
-      model: ref('2019-02-22 21:02')
-    }
+    const model = ref('2019-02-22 21:02')
+    return { model }
   }
 }
 </script>

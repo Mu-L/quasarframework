@@ -90,33 +90,42 @@ export default {
     const submitEmpty = ref(false)
     const submitResult = ref([])
 
+    const activateMusic = ref(false)
+    const activateLights = ref(null)
+
+    const genreRock = ref('rock')
+    const genreFunk = ref(false)
+    const genrePop = ref('pop')
+
+    function onSubmit(evt) {
+      const formData = new FormData(evt.target)
+      const data = []
+
+      for (const [name, value] of formData.entries()) {
+        data.push({
+          name,
+          value
+        })
+      }
+
+      submitted.value = true
+      submitResult.value = data
+      submitEmpty.value = data.length === 0
+    }
+
     return {
-      activateMusic: ref(false),
-      activateLights: ref(null),
-
-      genreRock: ref('rock'),
-      genreFunk: ref(false),
-      genrePop: ref('pop'),
-
       submitted,
       submitEmpty,
       submitResult,
 
-      onSubmit(evt) {
-        const formData = new FormData(evt.target)
-        const data = []
+      activateMusic,
+      activateLights,
 
-        for (const [name, value] of formData.entries()) {
-          data.push({
-            name,
-            value
-          })
-        }
+      genreRock,
+      genreFunk,
+      genrePop,
 
-        submitted.value = true
-        submitResult.value = data
-        submitEmpty.value = data.length === 0
-      }
+      onSubmit
     }
   }
 }

@@ -20,19 +20,19 @@ export default {
       }
     })
 
-    return {
-      showLoading() {
-        $q.loading.show({
-          message: 'Some important process  is in progress. Hang on...'
-        })
+    function showLoading() {
+      $q.loading.show({
+        message: 'Some important process  is in progress. Hang on...'
+      })
 
-        // hiding in 3s
-        timer = setTimeout(() => {
-          $q.loading.hide()
-          timer = void 0
-        }, 3000)
-      }
+      // hiding in 3s
+      timer = setTimeout(() => {
+        $q.loading.hide()
+        timer = void 0
+      }, 3000)
     }
+
+    return { showLoading }
   }
 }
 </script>

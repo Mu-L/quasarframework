@@ -25,14 +25,16 @@ export default {
   setup() {
     const items = ref([{}, {}, {}, {}, {}, {}, {}])
 
+    function onLoad(index, done) {
+      setTimeout(() => {
+        items.value.push({}, {}, {}, {}, {}, {}, {})
+        done()
+      }, 2000)
+    }
+
     return {
       items,
-      onLoad(index, done) {
-        setTimeout(() => {
-          items.value.push({}, {}, {}, {}, {}, {}, {})
-          done()
-        }, 2000)
-      }
+      onLoad
     }
   }
 }

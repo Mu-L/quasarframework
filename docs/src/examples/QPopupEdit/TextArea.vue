@@ -62,7 +62,7 @@ const columns = [
   { name: 'fat', label: 'Fat (g)', field: 'fat' }
 ]
 
-const rows = [
+const rowsData = [
   // #region
   {
     name: 'Frozen Yogurt',
@@ -139,10 +139,8 @@ Have a section to perfection!`,
 
 export default {
   setup() {
-    return {
-      rows: ref(rows),
-      columns
-    }
+    const rows = ref(rowsData)
+    return { rows, columns }
   }
 }
 </script>

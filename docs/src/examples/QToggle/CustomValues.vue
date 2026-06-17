@@ -36,11 +36,15 @@ import { ref } from 'vue'
 
 export default {
   setup() {
+    const blueModel = ref(true)
+    const pinkModel = ref('Agreed')
+    const greenModel = ref(42)
+    const redModel = ref(true)
     return {
-      blueModel: ref(true),
-      pinkModel: ref('Agreed'),
-      greenModel: ref(42),
-      redModel: ref(true)
+      blueModel,
+      pinkModel,
+      greenModel,
+      redModel
     }
   }
 }

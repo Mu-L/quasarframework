@@ -29,13 +29,13 @@ import { ref, useTemplateRef } from 'vue'
 export default {
   setup() {
     const inputRef = useTemplateRef('inputRef')
+    const model = ref('')
 
-    return {
-      model: ref(''),
-      reset() {
-        inputRef.value.resetValidation()
-      }
+    function reset() {
+      inputRef.value.resetValidation()
     }
+
+    return { model, reset }
   }
 }
 </script>

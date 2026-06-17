@@ -14,9 +14,8 @@ import { ref } from 'vue'
 
 export default {
   setup() {
-    return {
-      model: ref(10)
-    }
+    const model = ref(10)
+    return { model }
   }
 }
 </script>

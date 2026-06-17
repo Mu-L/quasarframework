@@ -96,18 +96,20 @@ export default {
     const done2 = ref(false)
     const done3 = ref(false)
 
+    function reset() {
+      done1.value = false
+      done2.value = false
+      done3.value = false
+      step.value = 1
+    }
+
     return {
       step,
       done1,
       done2,
       done3,
 
-      reset() {
-        done1.value = false
-        done2.value = false
-        done3.value = false
-        step.value = 1
-      }
+      reset
     }
   }
 }

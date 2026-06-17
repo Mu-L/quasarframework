@@ -65,24 +65,27 @@ export default {
     const itemsId = ref([{}, {}, {}, {}, {}, {}, {}])
     const scrollTargetRef = ref(null)
 
+    function onLoadRef(index, done) {
+      setTimeout(() => {
+        itemsRef.value.push({}, {}, {}, {}, {}, {}, {})
+        done()
+      }, 2000)
+    }
+
+    function onLoadId(index, done) {
+      setTimeout(() => {
+        itemsId.value.push({}, {}, {}, {}, {}, {}, {})
+        done()
+      }, 2000)
+    }
+
     return {
       itemsRef,
       scrollTargetRef,
       itemsId,
 
-      onLoadRef(index, done) {
-        setTimeout(() => {
-          itemsRef.value.push({}, {}, {}, {}, {}, {}, {})
-          done()
-        }, 2000)
-      },
-
-      onLoadId(index, done) {
-        setTimeout(() => {
-          itemsId.value.push({}, {}, {}, {}, {}, {}, {})
-          done()
-        }, 2000)
-      }
+      onLoadRef,
+      onLoadId
     }
   }
 }

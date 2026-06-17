@@ -13,9 +13,8 @@ import { ref } from 'vue'
 
 export default {
   setup() {
-    return {
-      color: ref('#ff00ff')
-    }
+    const color = ref('#ff00ff')
+    return { color }
   }
 }
 </script>

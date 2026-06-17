@@ -55,13 +55,11 @@ const img =
 
 export default {
   setup() {
-    return {
-      model: ref({
-        min: 3,
-        max: 7
-      }),
-      img
-    }
+    const model = ref({
+      min: 3,
+      max: 7
+    })
+    return { model, img }
   }
 }
 </script>

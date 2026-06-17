@@ -33,9 +33,8 @@ import { ref } from 'vue'
 
 export default {
   setup() {
-    return {
-      splitterModel: ref(150) // start at 150px
-    }
+    const splitterModel = ref(150) // start at 150px
+    return { splitterModel }
   }
 }
 </script>

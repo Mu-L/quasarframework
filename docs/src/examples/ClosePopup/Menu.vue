@@ -35,16 +35,18 @@ export default {
     const $q = useQuasar()
     const firstItemEnabled = ref(false)
 
+    function onClick(index) {
+      if (index > 1 || firstItemEnabled.value) {
+        $q.notify({
+          message: `Clicked on menu item #${index} and closed QMenu`,
+          color: 'primary'
+        })
+      }
+    }
+
     return {
       firstItemEnabled,
-      onClick(index) {
-        if (index > 1 || firstItemEnabled.value) {
-          $q.notify({
-            message: `Clicked on menu item #${index} and closed QMenu`,
-            color: 'primary'
-          })
-        }
-      }
+      onClick
     }
   }
 }

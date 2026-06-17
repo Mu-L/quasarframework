@@ -139,12 +139,11 @@ import { computed } from 'vue'
 export default {
   setup() {
     const $q = useQuasar()
+    const layout = computed(() =>
+      $q.screen.lt.sm ? 'dense' : $q.screen.lt.md ? 'comfortable' : 'loose'
+    )
 
-    return {
-      layout: computed(() =>
-        $q.screen.lt.sm ? 'dense' : $q.screen.lt.md ? 'comfortable' : 'loose'
-      )
-    }
+    return { layout }
   }
 }
 </script>

@@ -71,17 +71,17 @@ import { ref } from 'vue'
 
 export default {
   setup() {
-    return {
-      model: ref({
-        min: 2,
-        max: 4
-      }),
+    const model = ref({
+      min: 2,
+      max: 4
+    })
 
-      secondModel: ref({
-        min: 3,
-        max: 5
-      })
-    }
+    const secondModel = ref({
+      min: 3,
+      max: 5
+    })
+
+    return { model, secondModel }
   }
 }
 </script>

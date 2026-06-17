@@ -20,21 +20,21 @@ export default {
       }
     })
 
-    return {
-      showLoading() {
-        $q.loading.show({
-          message: 'Doing something. Please wait...',
-          boxClass: 'bg-grey-2 text-grey-9',
-          spinnerColor: 'primary'
-        })
+    function showLoading() {
+      $q.loading.show({
+        message: 'Doing something. Please wait...',
+        boxClass: 'bg-grey-2 text-grey-9',
+        spinnerColor: 'primary'
+      })
 
-        // hiding in 3s
-        timer = setTimeout(() => {
-          $q.loading.hide()
-          timer = void 0
-        }, 3000)
-      }
+      // hiding in 3s
+      timer = setTimeout(() => {
+        $q.loading.hide()
+        timer = void 0
+      }, 3000)
     }
+
+    return { showLoading }
   }
 }
 </script>

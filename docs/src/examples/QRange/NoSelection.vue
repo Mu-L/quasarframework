@@ -25,12 +25,11 @@ import { ref } from 'vue'
 
 export default {
   setup() {
-    return {
-      model: ref({
-        min: 2,
-        max: 6
-      })
-    }
+    const model = ref({
+      min: 2,
+      max: 6
+    })
+    return { model }
   }
 }
 </script>

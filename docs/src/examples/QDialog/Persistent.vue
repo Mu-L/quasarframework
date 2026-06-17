@@ -30,9 +30,8 @@ import { ref } from 'vue'
 
 export default {
   setup() {
-    return {
-      persistent: ref(false)
-    }
+    const persistent = ref(false)
+    return { persistent }
   }
 }
 </script>

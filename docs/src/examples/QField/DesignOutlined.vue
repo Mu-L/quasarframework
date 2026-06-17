@@ -205,10 +205,9 @@ import { ref } from 'vue'
 
 export default {
   setup() {
-    return {
-      text: ref('Field content'),
-      dense: ref(false)
-    }
+    const text = ref('Field content')
+    const dense = ref(false)
+    return { text, dense }
   }
 }
 </script>

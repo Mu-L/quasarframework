@@ -39,10 +39,9 @@ import { ref } from 'vue'
 
 export default {
   setup() {
-    return {
-      model: ref(null),
-      options: ['Google', 'Facebook', 'Twitter', 'Apple', 'Oracle']
-    }
+    const model = ref(null)
+    const options = ['Google', 'Facebook', 'Twitter', 'Apple', 'Oracle']
+    return { model, options }
   }
 }
 </script>

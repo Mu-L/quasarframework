@@ -19,10 +19,9 @@ import { ref } from 'vue'
 
 export default {
   setup() {
-    return {
-      model: ref(null),
-      options: []
-    }
+    const model = ref(null)
+    const options = []
+    return { model, options }
   }
 }
 </script>

@@ -107,17 +107,21 @@ import { ref } from 'vue'
 
 export default {
   setup() {
+    const slider = ref(50)
+    const range = ref({
+      min: 10,
+      max: 30
+    })
+    const knob = ref(50)
+    const time = ref('')
+    const date = ref('')
+
     return {
-      slider: ref(50),
-      range: ref({
-        min: 10,
-        max: 30
-      }),
-
-      knob: ref(50),
-
-      time: ref(''),
-      date: ref('')
+      slider,
+      range,
+      knob,
+      time,
+      date
     }
   }
 }

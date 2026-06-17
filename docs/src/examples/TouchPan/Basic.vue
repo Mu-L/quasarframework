@@ -32,22 +32,23 @@ export default {
     const info = ref(null)
     const panning = ref(false)
 
+    function handlePan({ evt, ...newInfo }) {
+      info.value = newInfo
+
+      // native Javascript event
+      // console.log(evt)
+
+      if (newInfo.isFirst) {
+        panning.value = true
+      } else if (newInfo.isFinal) {
+        panning.value = false
+      }
+    }
+
     return {
       info,
       panning,
-
-      handlePan({ evt, ...newInfo }) {
-        info.value = newInfo
-
-        // native Javascript event
-        // console.log(evt)
-
-        if (newInfo.isFirst) {
-          panning.value = true
-        } else if (newInfo.isFinal) {
-          panning.value = false
-        }
-      }
+      handlePan
     }
   }
 }

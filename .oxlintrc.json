@@ -288,7 +288,8 @@
     {
       "files": ["**/*.vue"],
       "rules": {
-        "unicorn/prefer-top-level-await": "off"
+        "unicorn/prefer-top-level-await": "off",
+        "unicorn/consistent-function-scoping": "off"
       }
     }
   ]

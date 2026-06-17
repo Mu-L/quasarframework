@@ -33,17 +33,17 @@ export default {
       clearInterval(timer)
     }
 
+    function startCounting() {
+      timer = setInterval(() => {
+        counter.value++
+      }, 1000)
+    }
+
     onBeforeUnmount(stopCounting)
 
     return {
       counter,
-
-      startCounting() {
-        timer = setInterval(() => {
-          counter.value++
-        }, 1000)
-      },
-
+      startCounting,
       stopCounting
     }
   }

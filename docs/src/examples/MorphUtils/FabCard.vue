@@ -11,9 +11,9 @@
         direction="up"
         icon="add"
         color="accent"
-        @update:model-value="val => val && morph(false)"
+        @update:model-value="val => val && morphState(false)"
       >
-        <q-fab-action color="primary" @click="morph(true)" icon="alarm" />
+        <q-fab-action color="primary" @click="morphState(true)" icon="alarm" />
       </q-fab>
     </div>
 
@@ -21,7 +21,7 @@
       v-if="toggle"
       ref="cardRef"
       class="my-card text-white absolute-center bg-grey-10"
-      @click="morph(false)"
+      @click="morphState(false)"
     >
       <q-card-section>
         <div class="text-h6">Our Changing Planet</div>
@@ -48,23 +48,26 @@ export default {
     const getFab = () => fabRef.value
     const getCard = () => cardRef.value?.$el
 
+    const lorem =
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.'
+
+    function morphState(state) {
+      if (state === toggle.value) return
+
+      morph({
+        from: toggle.value ? getCard : getFab,
+        to: toggle.value ? getFab : getCard,
+        onToggle: () => {
+          toggle.value = state
+        },
+        duration: 500
+      })
+    }
+
     return {
       toggle,
-      lorem:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
-
-      morph(state) {
-        if (state === toggle.value) return
-
-        morph({
-          from: toggle.value ? getCard : getFab,
-          to: toggle.value ? getFab : getCard,
-          onToggle: () => {
-            toggle.value = state
-          },
-          duration: 500
-        })
-      }
+      lorem,
+      morphState
     }
   }
 }

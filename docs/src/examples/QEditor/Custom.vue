@@ -27,9 +27,8 @@ import { ref } from 'vue'
 
 export default {
   setup() {
-    return {
-      editor: ref('Customize it.')
-    }
+    const editor = ref('Customize it.')
+    return { editor }
   }
 }
 </script>

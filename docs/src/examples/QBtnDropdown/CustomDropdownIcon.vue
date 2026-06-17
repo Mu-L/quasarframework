@@ -31,11 +31,11 @@
 <script>
 export default {
   setup() {
-    return {
-      onItemClick() {
-        // console.log('Clicked on an Item')
-      }
+    function onItemClick() {
+      // console.log('Clicked on an Item')
     }
+
+    return { onItemClick }
   }
 }
 </script>

@@ -30,9 +30,8 @@
 <script>
 export default {
   setup() {
-    return {
-      progress: 0.4
-    }
+    const progress = 0.4
+    return { progress }
   }
 }
 </script>

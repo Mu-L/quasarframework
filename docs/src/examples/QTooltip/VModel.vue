@@ -20,9 +20,8 @@ import { ref } from 'vue'
 
 export default {
   setup() {
-    return {
-      showing: ref(false)
-    }
+    const showing = ref(false)
+    return { showing }
   }
 }
 </script>

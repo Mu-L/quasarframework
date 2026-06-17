@@ -120,14 +120,19 @@ import { ref } from 'vue'
 
 export default {
   setup() {
-    return {
-      fabLeft: ref(true),
-      fabCenter: ref(true),
-      fabRight: ref(true),
+    const fabLeft = ref(true)
+    const fabCenter = ref(true)
+    const fabRight = ref(true)
 
-      onClick() {
-        // console.log('Clicked on a fab action')
-      }
+    function onClick() {
+      // console.log('Clicked on a fab action')
+    }
+
+    return {
+      fabLeft,
+      fabCenter,
+      fabRight,
+      onClick
     }
   }
 }

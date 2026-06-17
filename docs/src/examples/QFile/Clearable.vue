@@ -28,9 +28,8 @@ import { ref } from 'vue'
 
 export default {
   setup() {
-    return {
-      model: ref(null)
-    }
+    const model = ref(null)
+    return { model }
   }
 }
 </script>

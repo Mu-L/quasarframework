@@ -121,7 +121,7 @@ const columns = [
   // #endregion
 ]
 
-const rows = [
+const rowsData = [
   // #region
   {
     name: 'Frozen Yogurt',
@@ -228,10 +228,8 @@ const rows = [
 
 export default {
   setup() {
-    return {
-      columns,
-      rows: ref(rows)
-    }
+    const rows = ref(rowsData)
+    return { rows, columns }
   }
 }
 </script>

@@ -32,9 +32,7 @@ export default {
       )
     }
 
-    return {
-      trigger
-    }
+    return { trigger }
   }
 }
 </script>

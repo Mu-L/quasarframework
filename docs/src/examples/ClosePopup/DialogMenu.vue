@@ -65,9 +65,8 @@ import { ref } from 'vue'
 
 export default {
   setup() {
-    return {
-      dialog: ref(false)
-    }
+    const dialog = ref(false)
+    return { dialog }
   }
 }
 </script>

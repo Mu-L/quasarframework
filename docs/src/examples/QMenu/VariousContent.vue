@@ -37,9 +37,11 @@ import { ref } from 'vue'
 
 export default {
   setup() {
+    const mobileData = ref(true)
+    const bluetooth = ref(false)
     return {
-      mobileData: ref(true),
-      bluetooth: ref(false)
+      mobileData,
+      bluetooth
     }
   }
 }

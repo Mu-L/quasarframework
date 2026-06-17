@@ -77,10 +77,9 @@ import { ref } from 'vue'
 
 export default {
   setup() {
-    return {
-      slide: ref(1),
-      autoplay: ref(false)
-    }
+    const slide = ref(1)
+    const autoplay = ref(false)
+    return { slide, autoplay }
   }
 }
 </script>

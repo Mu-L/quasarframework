@@ -13,12 +13,11 @@ import { ref } from 'vue'
 
 export default {
   setup() {
-    return {
-      range: ref({
-        min: 20,
-        max: 65
-      })
-    }
+    const range = ref({
+      min: 20,
+      max: 65
+    })
+    return { range }
   }
 }
 </script>

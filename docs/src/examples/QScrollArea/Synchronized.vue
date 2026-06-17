@@ -65,28 +65,33 @@ export default {
       areaRef.value.setScrollPosition('vertical', position)
     }
 
+    const thumbStyle = {
+      borderRadius: '7px',
+      backgroundColor: '#027be3',
+      width: '4px',
+      opacity: 0.75
+    }
+
+    const barStyle = {
+      borderRadius: '9px',
+      backgroundColor: '#027be3',
+      width: '8px',
+      opacity: 0.2
+    }
+
+    function onScrollFirst({ verticalPosition }) {
+      scroll('first', verticalPosition)
+    }
+
+    function onScrollSecond({ verticalPosition }) {
+      scroll('second', verticalPosition)
+    }
+
     return {
-      thumbStyle: {
-        borderRadius: '7px',
-        backgroundColor: '#027be3',
-        width: '4px',
-        opacity: 0.75
-      },
-
-      barStyle: {
-        borderRadius: '9px',
-        backgroundColor: '#027be3',
-        width: '8px',
-        opacity: 0.2
-      },
-
-      onScrollFirst({ verticalPosition }) {
-        scroll('first', verticalPosition)
-      },
-
-      onScrollSecond({ verticalPosition }) {
-        scroll('second', verticalPosition)
-      }
+      thumbStyle,
+      barStyle,
+      onScrollFirst,
+      onScrollSecond
     }
   }
 }

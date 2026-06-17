@@ -164,17 +164,19 @@ const rows = [
 
 export default {
   setup() {
+    function rowClassFn(row) {
+      return row.calories % 2 === 0 ? 'bg-brown' : 'bg-primary'
+    }
+
+    function rowStyleFn(row) {
+      return row.calories % 2 === 0 ? 'color:#ccc' : 'color:#fff'
+    }
+
     return {
       columns,
       rows,
-
-      rowClassFn(row) {
-        return row.calories % 2 === 0 ? 'bg-brown' : 'bg-primary'
-      },
-
-      rowStyleFn(row) {
-        return row.calories % 2 === 0 ? 'color:#ccc' : 'color:#fff'
-      }
+      rowClassFn,
+      rowStyleFn
     }
   }
 }

@@ -13,9 +13,8 @@ import { ref } from 'vue'
 
 export default {
   setup() {
-    return {
-      time: ref('10:56')
-    }
+    const time = ref('10:56')
+    return { time }
   }
 }
 </script>

@@ -6,13 +6,14 @@
 
 <script>
 export default {
-  methods: {
-    factoryFn(files) {
+  setup() {
+    function factoryFn(files) {
       return {
         url: 'http://localhost:4444/upload',
         method: 'POST'
       }
     }
+    return { factoryFn }
   }
 }
 </script>

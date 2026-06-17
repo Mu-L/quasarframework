@@ -42,11 +42,10 @@
 <script>
 export default {
   setup() {
-    return {
-      onClick() {
-        // console.log('Clicked on a QChip')
-      }
+    function onClick() {
+      // console.log('Clicked on a QChip')
     }
+    return { onClick }
   }
 }
 </script>

@@ -58,19 +58,19 @@ const cssPreprocessor = computed(() => {
 })
 
 const js = computed(() => {
+  const content = parts.value.js?.content || ''
+
   const quasarImports = /import\s+{([^}'\n]+)}\s+from\s+'quasar'/g
   const vueImports = /import\s+{([^}'\n]+)}\s+from\s+'vue'/g
   const otherImports = /import ([^'\n]*) from ([^\n]*)/g
-  let component = /export default {([\s\S]*)}/g.exec(
-    parts.value.js?.content || ''
-  )
+  let component = /export default {([\s\S]*)}/g.exec(content)
 
   component = ((component && component[1]) || '').trim()
   if (component.length !== 0) {
     component = '\n  ' + component + '\n'
   }
 
-  let script = /([\s\S]*)export default {/g.exec(parts.value.js?.content || '')
+  let script = /([\s\S]*)export default {/g.exec(content)
   script = ((script && script[1]) || '')
     .replace(quasarImports, replace('Quasar'))
     .replace(vueImports, replace('Vue'))
@@ -180,7 +180,7 @@ function open(whichParts) {
   parts.value = whichParts.reduce((acc, item) => {
     if (item.codepen) {
       acc[item.codepen] = {
-        content: stripRegions(item.content),
+        content: stripRegions(item.codepenContent || item.content),
         lang: item.lang
       }
     }

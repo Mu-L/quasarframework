@@ -44,11 +44,13 @@ export default {
   setup() {
     const cells = ref(generateCells())
 
+    function onClick() {
+      cells.value = generateCells()
+    }
+
     return {
       cells,
-      onClick() {
-        cells.value = generateCells()
-      }
+      onClick
     }
   }
 }

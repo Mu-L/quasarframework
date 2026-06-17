@@ -120,8 +120,9 @@ const rows = [
 
 export default {
   setup() {
+    const filter = ref('')
     return {
-      filter: ref(''),
+      filter,
       columns,
       rows
     }

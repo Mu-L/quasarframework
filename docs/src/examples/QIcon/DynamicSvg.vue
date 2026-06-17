@@ -45,7 +45,6 @@ export default {
     return {
       colorFace,
       colorHair,
-
       girlSvg
     }
   }

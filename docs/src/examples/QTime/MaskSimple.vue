@@ -27,10 +27,9 @@ import { ref } from 'vue'
 
 export default {
   setup() {
-    return {
-      model1: ref('01:51 PM'),
-      model2: ref('08*22**10')
-    }
+    const model1 = ref('01:51 PM')
+    const model2 = ref('08*22**10')
+    return { model1, model2 }
   }
 }
 </script>

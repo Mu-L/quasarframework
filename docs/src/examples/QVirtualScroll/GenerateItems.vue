@@ -105,19 +105,17 @@ export default {
   },
 
   setup() {
-    return {
-      size,
+    function getItems(from, curSize) {
+      const items = []
 
-      getItems(from, curSize) {
-        const items = []
-
-        for (let i = 0; i < curSize; i++) {
-          items.push(allItems[from + i])
-        }
-
-        return Object.freeze(items)
+      for (let i = 0; i < curSize; i++) {
+        items.push(allItems[from + i])
       }
+
+      return Object.freeze(items)
     }
+
+    return { size, getItems }
   }
 }
 </script>

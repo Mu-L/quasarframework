@@ -49,10 +49,9 @@ import { ref } from 'vue'
 
 export default {
   setup() {
-    return {
-      slide: ref(1),
-      fullscreen: ref(false)
-    }
+    const slide = ref(1)
+    const fullscreen = ref(false)
+    return { slide, fullscreen }
   }
 }
 </script>

@@ -101,24 +101,40 @@ export default {
   setup() {
     const $q = useQuasar()
 
-    return {
-      showNotif(position) {
-        const { color, textColor, multiLine, icon, message, avatar } =
-          alerts[Math.floor(Math.random(alerts.length) * 10) % alerts.length]
-        const random = Math.random() * 100
+    function showNotif(position) {
+      const { color, textColor, multiLine, icon, message, avatar } =
+        alerts[Math.floor(Math.random(alerts.length) * 10) % alerts.length]
+      const random = Math.random() * 100
 
-        const twoActions = random > 70
-        const buttonColor = color ? 'white' : void 0
+      const twoActions = random > 70
+      const buttonColor = color ? 'white' : void 0
 
-        $q.notify({
-          color,
-          textColor,
-          icon: random > 30 ? icon : null,
-          message,
-          position,
-          avatar,
-          multiLine,
-          actions: twoActions
+      $q.notify({
+        color,
+        textColor,
+        icon: random > 30 ? icon : null,
+        message,
+        position,
+        avatar,
+        multiLine,
+        actions: twoActions
+          ? [
+              {
+                label: 'Reply',
+                color: buttonColor,
+                handler: () => {
+                  /* console.log('wooow') */
+                }
+              },
+              {
+                label: 'Dismiss',
+                color: 'yellow',
+                handler: () => {
+                  /* console.log('wooow') */
+                }
+              }
+            ]
+          : random > 40
             ? [
                 {
                   label: 'Reply',
@@ -126,30 +142,14 @@ export default {
                   handler: () => {
                     /* console.log('wooow') */
                   }
-                },
-                {
-                  label: 'Dismiss',
-                  color: 'yellow',
-                  handler: () => {
-                    /* console.log('wooow') */
-                  }
                 }
               ]
-            : random > 40
-              ? [
-                  {
-                    label: 'Reply',
-                    color: buttonColor,
-                    handler: () => {
-                      /* console.log('wooow') */
-                    }
-                  }
-                ]
-              : null,
-          timeout: Math.random() * 5000 + 3000
-        })
-      }
+            : null,
+        timeout: Math.random() * 5000 + 3000
+      })
     }
+
+    return { showNotif }
   }
 }
 </script>

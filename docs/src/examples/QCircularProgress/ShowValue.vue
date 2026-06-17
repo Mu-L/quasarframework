@@ -68,9 +68,8 @@
 <script>
 export default {
   setup() {
-    return {
-      value: 81
-    }
+    const value = 81
+    return { value }
   }
 }
 </script>

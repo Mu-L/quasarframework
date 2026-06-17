@@ -201,8 +201,9 @@ const rows = [
 
 export default {
   setup() {
+    const onRowClick = row => alert(`${row.name} clicked`)
     return {
-      onRowClick: row => alert(`${row.name} clicked`),
+      onRowClick,
       columns,
       rows
     }

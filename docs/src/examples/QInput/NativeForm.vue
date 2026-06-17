@@ -46,24 +46,26 @@ import { ref } from 'vue'
 export default {
   setup() {
     const submitResult = ref([])
+    const name = ref('Jane Doe')
+
+    function onSubmit(evt) {
+      const formData = new FormData(evt.target)
+      const data = []
+
+      for (const [key, value] of formData.entries()) {
+        data.push({
+          name: key,
+          value
+        })
+      }
+
+      submitResult.value = data
+    }
 
     return {
-      name: ref('Jane Doe'),
+      name,
       submitResult,
-
-      onSubmit(evt) {
-        const formData = new FormData(evt.target)
-        const data = []
-
-        for (const [name, value] of formData.entries()) {
-          data.push({
-            name,
-            value
-          })
-        }
-
-        submitResult.value = data
-      }
+      onSubmit
     }
   }
 }

@@ -35,23 +35,26 @@ export default {
   setup() {
     const percent = ref(0)
 
+    const visibleClass = computed(
+      () => `bg-${percent.value > 0 ? 'positive' : 'negative'}`
+    )
+
+    const options = {
+      handler(entry) {
+        const val = (entry.intersectionRatio * 100).toFixed(0)
+        if (percent.value !== val) {
+          percent.value = val
+        }
+      },
+      cfg: {
+        threshold: thresholds
+      }
+    }
+
     return {
       percent,
-      visibleClass: computed(
-        () => `bg-${percent.value > 0 ? 'positive' : 'negative'}`
-      ),
-
-      options: {
-        handler(entry) {
-          const val = (entry.intersectionRatio * 100).toFixed(0)
-          if (percent.value !== val) {
-            percent.value = val
-          }
-        },
-        cfg: {
-          threshold: thresholds
-        }
-      }
+      visibleClass,
+      options
     }
   }
 }

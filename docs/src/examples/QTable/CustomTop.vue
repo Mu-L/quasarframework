@@ -196,6 +196,40 @@ export default {
     const rowCount = ref(10)
     const rows = ref([...originalRows])
 
+    // emulate fetching data from server
+    function addRow() {
+      loading.value = true
+      setTimeout(() => {
+        const index = Math.floor(Math.random() * (rows.value.length + 1)),
+          row = originalRows[Math.floor(Math.random() * originalRows.length)]
+
+        if (rows.value.length === 0) {
+          rowCount.value = 0
+        }
+
+        row.id = ++rowCount.value
+        const newRow = { ...row } // extend({}, row, { name: `${row.name} (${row.__count})` })
+        rows.value = [
+          ...rows.value.slice(0, index),
+          newRow,
+          ...rows.value.slice(index)
+        ]
+        loading.value = false
+      }, 500)
+    }
+
+    function removeRow() {
+      loading.value = true
+      setTimeout(() => {
+        const index = Math.floor(Math.random() * rows.value.length)
+        rows.value = [
+          ...rows.value.slice(0, index),
+          ...rows.value.slice(index + 1)
+        ]
+        loading.value = false
+      }, 500)
+    }
+
     return {
       columns,
       rows,
@@ -204,39 +238,8 @@ export default {
       filter,
       rowCount,
 
-      // emulate fetching data from server
-      addRow() {
-        loading.value = true
-        setTimeout(() => {
-          const index = Math.floor(Math.random() * (rows.value.length + 1)),
-            row = originalRows[Math.floor(Math.random() * originalRows.length)]
-
-          if (rows.value.length === 0) {
-            rowCount.value = 0
-          }
-
-          row.id = ++rowCount.value
-          const newRow = { ...row } // extend({}, row, { name: `${row.name} (${row.__count})` })
-          rows.value = [
-            ...rows.value.slice(0, index),
-            newRow,
-            ...rows.value.slice(index)
-          ]
-          loading.value = false
-        }, 500)
-      },
-
-      removeRow() {
-        loading.value = true
-        setTimeout(() => {
-          const index = Math.floor(Math.random() * rows.value.length)
-          rows.value = [
-            ...rows.value.slice(0, index),
-            ...rows.value.slice(index + 1)
-          ]
-          loading.value = false
-        }, 500)
-      }
+      addRow,
+      removeRow
     }
   }
 }

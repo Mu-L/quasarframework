@@ -21,15 +21,13 @@ import { ref } from 'vue'
 
 export default {
   setup() {
-    return {
-      model: ref('one'),
-
-      options: [
-        { label: 'One', value: 'one' },
-        { label: 'Two', value: 'two' },
-        { label: 'Three', value: 'three' }
-      ]
-    }
+    const model = ref('one')
+    const options = [
+      { label: 'One', value: 'one' },
+      { label: 'Two', value: 'two' },
+      { label: 'Three', value: 'three' }
+    ]
+    return { model, options }
   }
 }
 </script>

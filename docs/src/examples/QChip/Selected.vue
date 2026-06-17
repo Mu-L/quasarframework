@@ -53,14 +53,13 @@ export default {
       Gingerbread: false
     })
 
-    return {
-      desert,
-      selection: computed(() =>
-        Object.keys(desert)
-          .filter(type => desert[type])
-          .join(', ')
-      )
-    }
+    const selection = computed(() =>
+      Object.keys(desert)
+        .filter(type => desert[type])
+        .join(', ')
+    )
+
+    return { desert, selection }
   }
 }
 </script>

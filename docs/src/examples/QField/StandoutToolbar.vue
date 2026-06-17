@@ -43,9 +43,8 @@ import { ref } from 'vue'
 
 export default {
   setup() {
-    return {
-      value: ref(50)
-    }
+    const value = ref(50)
+    return { value }
   }
 }
 </script>

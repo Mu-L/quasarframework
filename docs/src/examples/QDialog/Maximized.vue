@@ -60,9 +60,11 @@ import { ref } from 'vue'
 
 export default {
   setup() {
+    const dialog = ref(false)
+    const maximizedToggle = ref(true)
     return {
-      dialog: ref(false),
-      maximizedToggle: ref(true)
+      dialog,
+      maximizedToggle
     }
   }
 }

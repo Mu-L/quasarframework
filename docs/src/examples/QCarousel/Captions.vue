@@ -37,9 +37,8 @@ import { ref } from 'vue'
 
 export default {
   setup() {
-    return {
-      slide: ref('first')
-    }
+    const slide = ref('first')
+    return { slide }
   }
 }
 </script>

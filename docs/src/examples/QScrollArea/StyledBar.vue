@@ -17,21 +17,21 @@
 <script>
 export default {
   setup() {
-    return {
-      thumbStyle: {
-        borderRadius: '5px',
-        backgroundColor: '#027be3',
-        width: '5px',
-        opacity: 0.75
-      },
-
-      barStyle: {
-        borderRadius: '9px',
-        backgroundColor: '#027be3',
-        width: '9px',
-        opacity: 0.2
-      }
+    const thumbStyle = {
+      borderRadius: '5px',
+      backgroundColor: '#027be3',
+      width: '5px',
+      opacity: 0.75
     }
+
+    const barStyle = {
+      borderRadius: '9px',
+      backgroundColor: '#027be3',
+      width: '9px',
+      opacity: 0.2
+    }
+
+    return { thumbStyle, barStyle }
   }
 }
 </script>

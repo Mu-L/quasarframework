@@ -18,9 +18,8 @@ import { ref } from 'vue'
 
 export default {
   setup() {
-    return {
-      model: ref(2.3)
-    }
+    const model = ref(2.3)
+    return { model }
   }
 }
 </script>

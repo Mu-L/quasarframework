@@ -15,11 +15,15 @@ import { ref } from 'vue'
 
 export default {
   setup() {
+    const blue = ref(false)
+    const green = ref(true)
+    const yellow = ref(true)
+    const red = ref(false)
     return {
-      blue: ref(false),
-      green: ref(true),
-      yellow: ref(true),
-      red: ref(false)
+      blue,
+      green,
+      yellow,
+      red
     }
   }
 }

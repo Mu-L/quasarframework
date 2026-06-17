@@ -28,9 +28,8 @@ import { ref } from 'vue'
 
 export default {
   setup() {
-    return {
-      myListRef: ref(null)
-    }
+    const myListRef = ref(null)
+    return { myListRef }
   }
 }
 </script>

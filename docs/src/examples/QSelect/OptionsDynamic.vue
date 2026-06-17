@@ -24,38 +24,42 @@ const lastPage = Math.ceil(allOptions.length / pageSize)
 
 export default {
   setup() {
+    const model = ref(null)
     const loading = ref(false)
+
     const nextPage = ref(2)
     const options = computed(() =>
       allOptions.slice(0, pageSize * (nextPage.value - 1))
     )
 
+    function onScroll({ to, ref: compRef }) {
+      const lastIndex = options.value.length - 1
+
+      if (
+        loading.value !== true &&
+        nextPage.value < lastPage &&
+        to === lastIndex
+      ) {
+        loading.value = true
+
+        setTimeout(() => {
+          nextPage.value++
+          nextTick(() => {
+            compRef.refresh()
+            loading.value = false
+          })
+        }, 500)
+      }
+    }
+
     return {
-      model: ref(null),
+      model,
       loading,
 
       nextPage,
       options,
 
-      onScroll({ to, ref: compRef }) {
-        const lastIndex = options.value.length - 1
-
-        if (
-          loading.value !== true &&
-          nextPage.value < lastPage &&
-          to === lastIndex
-        ) {
-          loading.value = true
-
-          setTimeout(() => {
-            nextPage.value++
-            nextTick(() => {
-              compRef.refresh()
-              loading.value = false
-            })
-          }, 500)
-        }
-      }
+      onScroll
     }
   }
 }

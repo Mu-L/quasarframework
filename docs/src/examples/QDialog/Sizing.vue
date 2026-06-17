@@ -76,11 +76,15 @@ import { ref } from 'vue'
 
 export default {
   setup() {
+    const small = ref(false)
+    const medium = ref(false)
+    const fullWidth = ref(false)
+    const fullHeight = ref(false)
     return {
-      small: ref(false),
-      medium: ref(false),
-      fullWidth: ref(false),
-      fullHeight: ref(false)
+      small,
+      medium,
+      fullWidth,
+      fullHeight
     }
   }
 }

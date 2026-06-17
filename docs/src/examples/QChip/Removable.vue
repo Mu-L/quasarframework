@@ -65,22 +65,25 @@ export default {
     const cupcake = ref(true)
     const gingerbread = ref(true)
 
+    function onResetClick() {
+      icecream.value = true
+      eclair.value = true
+      cupcake.value = true
+      gingerbread.value = true
+    }
+
+    function log(desert) {
+      // console.log(`${desert} has been removed`)
+    }
+
     return {
       icecream,
       eclair,
       cupcake,
       gingerbread,
 
-      onResetClick() {
-        icecream.value = true
-        eclair.value = true
-        cupcake.value = true
-        gingerbread.value = true
-      },
-
-      log(desert) {
-        // console.log(`${desert} has been removed`)
-      }
+      onResetClick,
+      log
     }
   }
 }

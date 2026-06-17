@@ -100,29 +100,31 @@ import { ref } from 'vue'
 
 export default {
   setup() {
+    const splitterModel = ref(50)
+    const selected = ref('Food')
+    const simple = [
+      {
+        label: 'Relax Hotel',
+        children: [
+          {
+            label: 'Food',
+            icon: 'restaurant_menu'
+          },
+          {
+            label: 'Room service',
+            icon: 'room_service'
+          },
+          {
+            label: 'Room view',
+            icon: 'photo'
+          }
+        ]
+      }
+    ]
     return {
-      splitterModel: ref(50),
-      selected: ref('Food'),
-
-      simple: [
-        {
-          label: 'Relax Hotel',
-          children: [
-            {
-              label: 'Food',
-              icon: 'restaurant_menu'
-            },
-            {
-              label: 'Room service',
-              icon: 'room_service'
-            },
-            {
-              label: 'Room view',
-              icon: 'photo'
-            }
-          ]
-        }
-      ]
+      splitterModel,
+      selected,
+      simple
     }
   }
 }

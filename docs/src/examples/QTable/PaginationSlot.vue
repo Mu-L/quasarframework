@@ -213,15 +213,17 @@ export default {
       // rowsNumber: xx if getting data from a server
     })
 
+    const pagesNumber = computed(() =>
+      Math.ceil(rows.length / pagination.value.rowsPerPage)
+    )
+
     return {
       pagination,
 
       columns,
       rows,
 
-      pagesNumber: computed(() =>
-        Math.ceil(rows.length / pagination.value.rowsPerPage)
-      )
+      pagesNumber
     }
   }
 }

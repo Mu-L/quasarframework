@@ -20,10 +20,13 @@ import { ref } from 'vue'
 
 export default {
   setup() {
+    const basicModel = ref(50)
+    const redModel = ref(25)
+    const greenModel = ref(2)
     return {
-      basicModel: ref(50),
-      redModel: ref(25),
-      greenModel: ref(2)
+      basicModel,
+      redModel,
+      greenModel
     }
   }
 }

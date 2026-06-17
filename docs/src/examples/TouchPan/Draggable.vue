@@ -51,22 +51,24 @@ export default {
     const fabPos = ref([18, 18])
     const draggingFab = ref(false)
 
+    function onClick() {
+      // console.log('Clicked on a fab action')
+    }
+
+    function moveFab(ev) {
+      draggingFab.value = ev.isFirst !== true && ev.isFinal !== true
+
+      fabPos.value = [
+        fabPos.value[0] - ev.delta.x,
+        fabPos.value[1] - ev.delta.y
+      ]
+    }
+
     return {
       fabPos,
       draggingFab,
-
-      onClick() {
-        // console.log('Clicked on a fab action')
-      },
-
-      moveFab(ev) {
-        draggingFab.value = ev.isFirst !== true && ev.isFinal !== true
-
-        fabPos.value = [
-          fabPos.value[0] - ev.delta.x,
-          fabPos.value[1] - ev.delta.y
-        ]
-      }
+      onClick,
+      moveFab
     }
   }
 }

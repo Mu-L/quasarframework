@@ -59,9 +59,8 @@
 <script>
 export default {
   setup() {
-    return {
-      value: 71
-    }
+    const value = 71
+    return { value }
   }
 }
 </script>

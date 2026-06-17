@@ -86,48 +86,52 @@ export default {
     const listItems = ref([])
     const mutationInfo = ref('')
 
+    function handler(mutationRecords) {
+      const info = []
+
+      for (const index in mutationRecords) {
+        const record = mutationRecords[index]
+
+        info.push(
+          JSON.stringify(
+            record,
+            (name, value) => {
+              if (name === '') {
+                return domToObj(value, whitelist)
+              }
+              if (Array.isArray(this)) {
+                if (typeof value === 'object') {
+                  return domToObj(value, whitelist)
+                }
+                return value
+              }
+              if (whitelist.some(x => x === name)) {
+                return value
+              }
+            },
+            2
+          )
+        )
+      }
+
+      mutationInfo.value = info.join('\n')
+    }
+
+    function addRow() {
+      listItems.value.push(`List item #${listItems.value.length + 1}`)
+    }
+
+    function removeRow() {
+      listItems.value.pop()
+    }
+
     return {
       listItems,
       mutationInfo,
 
-      handler(mutationRecords) {
-        const info = []
-
-        for (const index in mutationRecords) {
-          const record = mutationRecords[index]
-
-          info.push(
-            JSON.stringify(
-              record,
-              (name, value) => {
-                if (name === '') {
-                  return domToObj(value, whitelist)
-                }
-                if (Array.isArray(this)) {
-                  if (typeof value === 'object') {
-                    return domToObj(value, whitelist)
-                  }
-                  return value
-                }
-                if (whitelist.some(x => x === name)) {
-                  return value
-                }
-              },
-              2
-            )
-          )
-        }
-
-        mutationInfo.value = info.join('\n')
-      },
-
-      addRow() {
-        listItems.value.push(`List item #${listItems.value.length + 1}`)
-      },
-
-      removeRow() {
-        listItems.value.pop()
-      }
+      handler,
+      addRow,
+      removeRow
     }
   }
 }

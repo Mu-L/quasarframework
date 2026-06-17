@@ -13,12 +13,11 @@ import { ref } from 'vue'
 
 export default {
   setup() {
-    return {
-      snap: ref({
-        min: 2,
-        max: 12
-      })
-    }
+    const snap = ref({
+      min: 2,
+      max: 12
+    })
+    return { snap }
   }
 }
 </script>

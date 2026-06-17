@@ -45,19 +45,20 @@ export default {
     const visible = ref(false)
     const showSimulatedReturnData = ref(false)
 
+    function showTextLoading() {
+      visible.value = true
+      showSimulatedReturnData.value = false
+
+      setTimeout(() => {
+        visible.value = false
+        showSimulatedReturnData.value = true
+      }, 3000)
+    }
+
     return {
       visible,
       showSimulatedReturnData,
-
-      showTextLoading() {
-        visible.value = true
-        showSimulatedReturnData.value = false
-
-        setTimeout(() => {
-          visible.value = false
-          showSimulatedReturnData.value = true
-        }, 3000)
-      }
+      showTextLoading
     }
   }
 }

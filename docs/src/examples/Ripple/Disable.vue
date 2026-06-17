@@ -18,9 +18,8 @@ import { ref } from 'vue'
 
 export default {
   setup() {
-    return {
-      state: ref(true)
-    }
+    const state = ref(true)
+    return { state }
   }
 }
 </script>

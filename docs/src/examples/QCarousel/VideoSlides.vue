@@ -42,9 +42,8 @@ import { ref } from 'vue'
 
 export default {
   setup() {
-    return {
-      slide: ref('Rihanna')
-    }
+    const slide = ref('Rihanna')
+    return { slide }
   }
 }
 </script>

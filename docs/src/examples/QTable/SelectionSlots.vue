@@ -170,8 +170,9 @@ const rows = [
 
 export default {
   setup() {
+    const selected = ref([])
     return {
-      selected: ref([]),
+      selected,
       columns,
       rows
     }

@@ -22,9 +22,8 @@ import { ref } from 'vue'
 
 export default {
   setup() {
-    return {
-      shape: ref(['line'])
-    }
+    const shape = ref(['line'])
+    return { shape }
   }
 }
 </script>

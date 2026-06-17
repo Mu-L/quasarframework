@@ -19,9 +19,8 @@ import { ref } from 'vue'
 
 export default {
   setup() {
-    return {
-      hex: ref('#FF00FF')
-    }
+    const hex = ref('#FF00FF')
+    return { hex }
   }
 }
 </script>

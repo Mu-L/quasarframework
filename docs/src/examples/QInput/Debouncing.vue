@@ -37,9 +37,8 @@ import { ref } from 'vue'
 
 export default {
   setup() {
-    return {
-      search: ref('')
-    }
+    const search = ref('')
+    return { search }
   }
 }
 </script>

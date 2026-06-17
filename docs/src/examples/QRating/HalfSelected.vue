@@ -50,16 +50,17 @@ export default {
     const model2 = ref(2.3)
     const model3 = ref(4.5)
 
+    function resetModels() {
+      model1.value = 3.5
+      model2.value = 2.3
+      model3.value = 4.5
+    }
+
     return {
       model1,
       model2,
       model3,
-
-      resetModels() {
-        model1.value = 3.5
-        model2.value = 2.3
-        model3.value = 4.5
-      }
+      resetModels
     }
   }
 }

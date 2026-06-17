@@ -28,9 +28,8 @@ import { ref } from 'vue'
 
 export default {
   setup() {
-    return {
-      seamless: ref(false)
-    }
+    const seamless = ref(false)
+    return { seamless }
   }
 }
 </script>

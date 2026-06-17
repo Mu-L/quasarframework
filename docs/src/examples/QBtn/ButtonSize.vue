@@ -68,16 +68,16 @@
 <script>
 export default {
   setup() {
-    return {
-      sizes: ['xs', 'sm', 'md', 'lg', 'xl'],
-      icons: [
-        'navigation',
-        'add_a_photo',
-        'camera',
-        'camera_front',
-        'my_location'
-      ]
-    }
+    const sizes = ['xs', 'sm', 'md', 'lg', 'xl']
+    const icons = [
+      'navigation',
+      'add_a_photo',
+      'camera',
+      'camera_front',
+      'my_location'
+    ]
+
+    return { sizes, icons }
   }
 }
 </script>

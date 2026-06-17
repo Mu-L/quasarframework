@@ -43,10 +43,9 @@ import { ref } from 'vue'
 
 export default {
   setup() {
-    return {
-      color: ref('#FF00FF'),
-      secondColor: ref('#027be3')
-    }
+    const color = ref('#FF00FF')
+    const secondColor = ref('#027be3')
+    return { color, secondColor }
   }
 }
 </script>

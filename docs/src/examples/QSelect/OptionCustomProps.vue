@@ -43,35 +43,34 @@ import { ref } from 'vue'
 
 export default {
   setup() {
-    return {
-      model: ref(null),
+    const model = ref(null)
+    const options = [
+      {
+        id: 'goog',
+        desc: 'Google'
+      },
+      // #region
+      {
+        id: 'fb',
+        desc: 'Facebook'
+      },
+      {
+        id: 'twt',
+        desc: 'Twitter'
+      },
+      {
+        id: 'app',
+        desc: 'Apple'
+      },
+      // #endregion
+      {
+        id: 'ora',
+        desc: 'Oracle',
+        inactive: true
+      }
+    ]
 
-      options: [
-        {
-          id: 'goog',
-          desc: 'Google'
-        },
-        // #region
-        {
-          id: 'fb',
-          desc: 'Facebook'
-        },
-        {
-          id: 'twt',
-          desc: 'Twitter'
-        },
-        {
-          id: 'app',
-          desc: 'Apple'
-        },
-        // #endregion
-        {
-          id: 'ora',
-          desc: 'Oracle',
-          inactive: true
-        }
-      ]
-    }
+    return { model, options }
   }
 }
 </script>

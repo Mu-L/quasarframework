@@ -6,8 +6,8 @@
 
 <script>
 export default {
-  methods: {
-    factoryFn(files) {
+  setup() {
+    function factoryFn(files) {
       // returning a Promise
 
       return new Promise(resolve => {
@@ -19,6 +19,7 @@ export default {
         }, 2000)
       })
     }
+    return { factoryFn }
   }
 }
 </script>

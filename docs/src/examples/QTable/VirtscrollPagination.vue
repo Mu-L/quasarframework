@@ -178,13 +178,14 @@ rows.forEach((row, index) => {
 
 export default {
   setup() {
+    const pagination = ref({
+      rowsPerPage: 1000
+    })
+
     return {
       columns,
       rows,
-
-      pagination: ref({
-        rowsPerPage: 1000
-      })
+      pagination
     }
   }
 }

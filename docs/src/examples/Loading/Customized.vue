@@ -20,24 +20,24 @@ export default {
       }
     })
 
-    return {
-      showLoading() {
-        $q.loading.show({
-          spinner: QSpinnerFacebook,
-          spinnerColor: 'yellow',
-          spinnerSize: 140,
-          backgroundColor: 'purple',
-          message: 'Some important process is in progress. Hang on...',
-          messageColor: 'black'
-        })
+    function showLoading() {
+      $q.loading.show({
+        spinner: QSpinnerFacebook,
+        spinnerColor: 'yellow',
+        spinnerSize: 140,
+        backgroundColor: 'purple',
+        message: 'Some important process is in progress. Hang on...',
+        messageColor: 'black'
+      })
 
-        // hiding in 3s
-        timer = setTimeout(() => {
-          $q.loading.hide()
-          timer = void 0
-        }, 3000)
-      }
+      // hiding in 3s
+      timer = setTimeout(() => {
+        $q.loading.hide()
+        timer = void 0
+      }, 3000)
     }
+
+    return { showLoading }
   }
 }
 </script>

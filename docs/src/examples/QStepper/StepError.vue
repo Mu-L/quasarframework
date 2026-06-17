@@ -65,9 +65,8 @@ import { ref } from 'vue'
 
 export default {
   setup() {
-    return {
-      step: ref(2)
-    }
+    const step = ref(2)
+    return { step }
   }
 }
 </script>

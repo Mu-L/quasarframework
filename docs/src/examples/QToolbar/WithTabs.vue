@@ -22,9 +22,8 @@ import { ref } from 'vue'
 
 export default {
   setup() {
-    return {
-      tab: ref('')
-    }
+    const tab = ref('')
+    return { tab }
   }
 }
 </script>

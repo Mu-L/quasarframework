@@ -80,10 +80,13 @@ import { ref } from 'vue'
 
 export default {
   setup() {
+    const splitterModel = ref(50)
+    const date = ref('2019/02/01')
+    const events = ['2019/02/01', '2019/02/05', '2019/02/06']
     return {
-      splitterModel: ref(50),
-      date: ref('2019/02/01'),
-      events: ['2019/02/01', '2019/02/05', '2019/02/06']
+      splitterModel,
+      date,
+      events
     }
   }
 }

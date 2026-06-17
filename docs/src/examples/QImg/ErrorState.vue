@@ -30,12 +30,14 @@ export default {
   setup() {
     const url = ref('https://cdn.quasar.dev/img/no-image-src.png')
 
+    function refresh() {
+      url.value =
+        'https://cdn.quasar.dev/img/no-image-src.png?t=' + Math.random()
+    }
+
     return {
       url,
-      refresh() {
-        url.value =
-          'https://cdn.quasar.dev/img/no-image-src.png?t=' + Math.random()
-      }
+      refresh
     }
   }
 }

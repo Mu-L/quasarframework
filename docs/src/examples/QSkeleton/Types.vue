@@ -25,24 +25,23 @@
 <script>
 export default {
   setup() {
-    return {
-      skeletonTypes: [
-        'text',
-        'rect',
-        'circle',
-        'QBtn',
-        'QBadge',
-        'QChip',
-        'QToolbar',
-        'QCheckbox',
-        'QRadio',
-        'QToggle',
-        'QSlider',
-        'QRange',
-        'QInput',
-        'QAvatar'
-      ]
-    }
+    const skeletonTypes = [
+      'text',
+      'rect',
+      'circle',
+      'QBtn',
+      'QBadge',
+      'QChip',
+      'QToolbar',
+      'QCheckbox',
+      'QRadio',
+      'QToggle',
+      'QSlider',
+      'QRange',
+      'QInput',
+      'QAvatar'
+    ]
+    return { skeletonTypes }
   }
 }
 </script>

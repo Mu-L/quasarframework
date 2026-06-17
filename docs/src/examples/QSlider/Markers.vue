@@ -33,11 +33,10 @@ import { ref } from 'vue'
 
 export default {
   setup() {
-    return {
-      basicModel: ref(2),
-      greenModel: ref(0),
-      orangeModel: ref(6)
-    }
+    const basicModel = ref(2)
+    const greenModel = ref(0)
+    const orangeModel = ref(6)
+    return { basicModel, greenModel, orangeModel }
   }
 }
 </script>

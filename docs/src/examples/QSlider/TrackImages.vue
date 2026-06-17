@@ -55,10 +55,8 @@ const img =
 
 export default {
   setup() {
-    return {
-      model: ref(6),
-      img
-    }
+    const model = ref(6)
+    return { model, img }
   }
 }
 </script>

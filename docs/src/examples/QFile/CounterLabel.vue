@@ -24,12 +24,13 @@ import { ref } from 'vue'
 
 export default {
   setup() {
-    return {
-      files: ref(null),
-      counterLabelFn({ totalSize, filesNumber, maxFiles }) {
-        return `${filesNumber} files of ${maxFiles} | ${totalSize}`
-      }
+    const files = ref(null)
+
+    function counterLabelFn({ totalSize, filesNumber, maxFiles }) {
+      return `${filesNumber} files of ${maxFiles} | ${totalSize}`
     }
+
+    return { files, counterLabelFn }
   }
 }
 </script>

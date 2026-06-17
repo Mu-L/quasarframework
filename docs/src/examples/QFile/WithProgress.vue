@@ -61,6 +61,9 @@ export default {
     const uploadProgress = ref([])
     const uploading = ref(null)
 
+    const isUploading = computed(() => uploading.value !== null)
+    const canUpload = computed(() => files.value !== null)
+
     function cleanUp() {
       clearTimeout(uploading.value)
     }
@@ -94,55 +97,59 @@ export default {
 
     onBeforeUnmount(cleanUp)
 
+    function cancelFile(index) {
+      uploadProgress.value[index] = {
+        ...uploadProgress.value[index],
+        error: true,
+        color: 'orange-2'
+      }
+    }
+
+    function updateFiles(newFiles) {
+      files.value = newFiles
+      uploadProgress.value = (newFiles || []).map(file => ({
+        error: false,
+        color: 'green-2',
+        percent: 0,
+        icon:
+          file.type.indexOf('video/') === 0
+            ? 'movie'
+            : file.type.indexOf('image/') === 0
+              ? 'photo'
+              : file.type.indexOf('audio/') === 0
+                ? 'audiotrack'
+                : 'insert_drive_file'
+      }))
+    }
+
+    function upload() {
+      cleanUp()
+
+      const allDone = uploadProgress.value.every(
+        progress => progress.percent === 1
+      )
+
+      uploadProgress.value = uploadProgress.value.map(progress => ({
+        ...progress,
+        error: false,
+        color: 'green-2',
+        percent: allDone ? 0 : progress.percent
+      }))
+
+      updateUploadProgress()
+    }
+
     return {
       files,
       uploadProgress,
       uploading,
 
-      isUploading: computed(() => uploading.value !== null),
-      canUpload: computed(() => files.value !== null),
+      isUploading,
+      canUpload,
 
-      cancelFile(index) {
-        this.uploadProgress[index] = {
-          ...this.uploadProgress[index],
-          error: true,
-          color: 'orange-2'
-        }
-      },
-
-      updateFiles(newFiles) {
-        files.value = newFiles
-        uploadProgress.value = (newFiles || []).map(file => ({
-          error: false,
-          color: 'green-2',
-          percent: 0,
-          icon:
-            file.type.indexOf('video/') === 0
-              ? 'movie'
-              : file.type.indexOf('image/') === 0
-                ? 'photo'
-                : file.type.indexOf('audio/') === 0
-                  ? 'audiotrack'
-                  : 'insert_drive_file'
-        }))
-      },
-
-      upload() {
-        cleanUp()
-
-        const allDone = uploadProgress.value.every(
-          progress => progress.percent === 1
-        )
-
-        uploadProgress.value = uploadProgress.value.map(progress => ({
-          ...progress,
-          error: false,
-          color: 'green-2',
-          percent: allDone ? 0 : progress.percent
-        }))
-
-        updateUploadProgress()
-      }
+      cancelFile,
+      updateFiles,
+      upload
     }
   }
 }

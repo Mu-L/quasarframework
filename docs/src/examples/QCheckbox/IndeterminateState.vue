@@ -42,14 +42,15 @@ export default {
     const theModel = ref(null)
     const theModel2 = ref('maybe')
 
+    function onResetClick() {
+      theModel.value = null
+      theModel2.value = 'maybe'
+    }
+
     return {
       theModel,
       theModel2,
-
-      onResetClick() {
-        theModel.value = null
-        theModel2.value = 'maybe'
-      }
+      onResetClick
     }
   }
 }

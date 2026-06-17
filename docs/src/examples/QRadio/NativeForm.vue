@@ -40,25 +40,27 @@ import { ref } from 'vue'
 
 export default {
   setup() {
+    const shape = ref('line')
     const submitResult = ref([])
 
-    return {
-      shape: ref('line'),
-      submitResult,
+    function onSubmit(evt) {
+      const formData = new FormData(evt.target)
+      const data = []
 
-      onSubmit(evt) {
-        const formData = new FormData(evt.target)
-        const data = []
-
-        for (const [name, value] of formData.entries()) {
-          data.push({
-            name,
-            value
-          })
-        }
-
-        submitResult.value = data
+      for (const [name, value] of formData.entries()) {
+        data.push({
+          name,
+          value
+        })
       }
+
+      submitResult.value = data
+    }
+
+    return {
+      shape,
+      submitResult,
+      onSubmit
     }
   }
 }

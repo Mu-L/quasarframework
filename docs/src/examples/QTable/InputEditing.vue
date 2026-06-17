@@ -48,7 +48,7 @@ const columns = [
   // #endregion
 ]
 
-const rows = [
+const rowsData = [
   // #region
   {
     id: 1,
@@ -87,10 +87,8 @@ const rows = [
 
 export default {
   setup() {
-    return {
-      columns,
-      rows: ref(rows)
-    }
+    const rows = ref(rowsData)
+    return { rows, columns }
   }
 }
 </script>

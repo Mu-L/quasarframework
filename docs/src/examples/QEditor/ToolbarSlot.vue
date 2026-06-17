@@ -58,21 +58,20 @@ export default {
   setup() {
     const editorRef = useTemplateRef('editorRef')
     const tokenRef = useTemplateRef('tokenRef')
+    const editor = ref('Customize it.')
 
-    return {
-      editor: ref('Customize it.'),
-
-      add(name) {
-        const edit = editorRef.value
-        tokenRef.value.hide()
-        edit.caret.restore()
-        edit.runCmd(
-          'insertHTML',
-          `&nbsp;<div class="editor_token row inline items-center" contenteditable="false">&nbsp;<span>${name}</span>&nbsp;<i class="q-icon material-icons cursor-pointer" onclick="this.parentNode.parentNode.removeChild(this.parentNode)">close</i></div>&nbsp;`
-        )
-        edit.focus()
-      }
+    function add(name) {
+      const edit = editorRef.value
+      tokenRef.value.hide()
+      edit.caret.restore()
+      edit.runCmd(
+        'insertHTML',
+        `&nbsp;<div class="editor_token row inline items-center" contenteditable="false">&nbsp;<span>${name}</span>&nbsp;<i class="q-icon material-icons cursor-pointer" onclick="this.parentNode.parentNode.removeChild(this.parentNode)">close</i></div>&nbsp;`
+      )
+      edit.focus()
     }
+
+    return { editor, add }
   }
 }
 </script>

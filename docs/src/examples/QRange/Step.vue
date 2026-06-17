@@ -20,12 +20,11 @@ import { ref } from 'vue'
 
 export default {
   setup() {
-    return {
-      step: ref({
-        min: 10,
-        max: 20
-      })
-    }
+    const step = ref({
+      min: 10,
+      max: 20
+    })
+    return { step }
   }
 }
 </script>

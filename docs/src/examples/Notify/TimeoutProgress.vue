@@ -16,14 +16,40 @@ export default {
   setup() {
     const $q = useQuasar()
 
-    return {
-      showNotifs() {
+    function showNotifs() {
+      $q.notify({
+        progress: true,
+        message:
+          'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Hic quisquam non ad sit assumenda consequuntur esse inventore officia. Corrupti reiciendis impedit vel, fugit odit quisquam quae porro exercitationem eveniet quasi.',
+        color: 'primary',
+        multiLine: true,
+        avatar: 'https://cdn.quasar.dev/img/boy-avatar.png',
+        actions: [
+          {
+            label: 'Reply',
+            color: 'yellow',
+            handler: () => {
+              /* ... */
+            }
+          }
+        ]
+      })
+
+      setTimeout(() => {
         $q.notify({
           progress: true,
-          message:
-            'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Hic quisquam non ad sit assumenda consequuntur esse inventore officia. Corrupti reiciendis impedit vel, fugit odit quisquam quae porro exercitationem eveniet quasi.',
-          color: 'primary',
-          multiLine: true,
+          message: 'Jim emailed you.',
+          icon: 'mail',
+          color: 'white',
+          textColor: 'primary'
+        })
+      }, 2000)
+
+      setTimeout(() => {
+        $q.notify({
+          progress: true,
+          message: 'Jim pinged you.',
+          color: 'purple',
           avatar: 'https://cdn.quasar.dev/img/boy-avatar.png',
           actions: [
             {
@@ -35,36 +61,10 @@ export default {
             }
           ]
         })
-
-        setTimeout(() => {
-          $q.notify({
-            progress: true,
-            message: 'Jim emailed you.',
-            icon: 'mail',
-            color: 'white',
-            textColor: 'primary'
-          })
-        }, 2000)
-
-        setTimeout(() => {
-          $q.notify({
-            progress: true,
-            message: 'Jim pinged you.',
-            color: 'purple',
-            avatar: 'https://cdn.quasar.dev/img/boy-avatar.png',
-            actions: [
-              {
-                label: 'Reply',
-                color: 'yellow',
-                handler: () => {
-                  /* ... */
-                }
-              }
-            ]
-          })
-        }, 3200)
-      }
+      }, 3200)
     }
+
+    return { showNotifs }
   }
 }
 </script>

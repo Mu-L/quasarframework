@@ -21,14 +21,16 @@ export default {
   setup() {
     const url = ref(null)
 
+    function toggle() {
+      url.value =
+        url.value === null
+          ? 'https://picsum.photos/500/300?t=' + Math.random()
+          : null
+    }
+
     return {
       url,
-      toggle() {
-        url.value =
-          url.value === null
-            ? 'https://picsum.photos/500/300?t=' + Math.random()
-            : null
-      }
+      toggle
     }
   }
 }

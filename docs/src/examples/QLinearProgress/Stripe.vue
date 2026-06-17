@@ -16,9 +16,11 @@
 <script>
 export default {
   setup() {
+    const progress1 = 0.4
+    const progress2 = 0.725
     return {
-      progress1: 0.4,
-      progress2: 0.725
+      progress1,
+      progress2
     }
   }
 }

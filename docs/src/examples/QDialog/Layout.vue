@@ -58,17 +58,22 @@ import { computed, ref } from 'vue'
 export default {
   setup() {
     const moreContent = ref(true)
+    const layout = ref(false)
+    const contentSize = computed(() => (moreContent.value ? 150 : 5))
+    const drawer = ref(false)
+    const drawerR = ref(false)
+    const lorem =
+      'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Natus, ratione eum minus fuga, quasi dicta facilis corporis magnam, suscipit at quo nostrum!'
 
     return {
-      layout: ref(false),
+      layout,
 
       moreContent,
-      contentSize: computed(() => (moreContent.value ? 150 : 5)),
-      drawer: ref(false),
-      drawerR: ref(false),
+      contentSize,
+      drawer,
+      drawerR,
 
-      lorem:
-        'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Natus, ratione eum minus fuga, quasi dicta facilis corporis magnam, suscipit at quo nostrum!'
+      lorem
     }
   }
 }

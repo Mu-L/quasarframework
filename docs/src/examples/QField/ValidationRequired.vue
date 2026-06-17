@@ -39,16 +39,18 @@ export default {
     const date = ref('')
     const fieldRef = useTemplateRef('fieldRef')
 
+    function resetValidation() {
+      fieldRef.value.resetValidation()
+    }
+
+    function resetDate() {
+      date.value = ''
+    }
+
     return {
       date,
-
-      resetValidation() {
-        fieldRef.value.resetValidation()
-      },
-
-      resetDate() {
-        date.value = ''
-      }
+      resetValidation,
+      resetDate
     }
   }
 }

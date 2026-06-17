@@ -11,25 +11,25 @@ export default {
   setup() {
     const $q = useQuasar()
 
-    return {
-      showDialog() {
-        $q.dialog({
-          title: 'Alert<em>!</em>',
-          message:
-            '<em>I can</em> <span class="text-red">use</span> <strong>HTML</strong>',
-          html: true
+    function showDialog() {
+      $q.dialog({
+        title: 'Alert<em>!</em>',
+        message:
+          '<em>I can</em> <span class="text-red">use</span> <strong>HTML</strong>',
+        html: true
+      })
+        .onOk(() => {
+          // console.log('OK')
         })
-          .onOk(() => {
-            // console.log('OK')
-          })
-          .onCancel(() => {
-            // console.log('Cancel')
-          })
-          .onDismiss(() => {
-            // console.log('I am triggered on both OK and Cancel')
-          })
-      }
+        .onCancel(() => {
+          // console.log('Cancel')
+        })
+        .onDismiss(() => {
+          // console.log('I am triggered on both OK and Cancel')
+        })
     }
+
+    return { showDialog }
   }
 }
 </script>

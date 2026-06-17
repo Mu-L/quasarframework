@@ -10,10 +10,9 @@ import { ref } from 'vue'
 
 export default {
   setup() {
-    return {
-      basicModel: ref(20),
-      greenModel: ref(30)
-    }
+    const basicModel = ref(20)
+    const greenModel = ref(30)
+    return { basicModel, greenModel }
   }
 }
 </script>

@@ -36,10 +36,13 @@ import { ref } from 'vue'
 
 export default {
   setup() {
+    const id = ref(null)
+    const phone = ref(null)
+    const card = ref(null)
     return {
-      id: ref(null),
-      phone: ref(null),
-      card: ref(null)
+      id,
+      phone,
+      card
     }
   }
 }

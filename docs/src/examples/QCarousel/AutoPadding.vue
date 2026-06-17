@@ -77,23 +77,30 @@ export default {
       navPos.value = val ? 'right' : 'bottom'
     })
 
+    const padding = ref(true)
+    const arrows = ref(true)
+    const navigation = ref(true)
+
+    const navigationPositions = [
+      { value: 'top', label: 'top' },
+      { value: 'right', label: 'right' },
+      { value: 'bottom', label: 'bottom (default)' },
+      { value: 'left', label: 'left' }
+    ]
+
+    const slide = ref('style')
+    const lorem =
+      'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Itaque voluptatem totam, architecto cupiditate officia rerum, error dignissimos praesentium libero ab nemo.'
+
     return {
-      padding: ref(true),
-      vertical,
-      arrows: ref(true),
-      navigation: ref(true),
-
       navPos,
-      navigationPositions: [
-        { value: 'top', label: 'top' },
-        { value: 'right', label: 'right' },
-        { value: 'bottom', label: 'bottom (default)' },
-        { value: 'left', label: 'left' }
-      ],
-
-      slide: ref('style'),
-      lorem:
-        'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Itaque voluptatem totam, architecto cupiditate officia rerum, error dignissimos praesentium libero ab nemo.'
+      vertical,
+      padding,
+      arrows,
+      navigation,
+      navigationPositions,
+      slide,
+      lorem
     }
   }
 }

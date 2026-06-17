@@ -54,14 +54,16 @@ export default {
     const dialog = ref(false)
     const position = ref('top')
 
+    function open(pos) {
+      position.value = pos
+      dialog.value = true
+    }
+
     return {
       dialog,
       position,
 
-      open(pos) {
-        position.value = pos
-        dialog.value = true
-      }
+      open
     }
   }
 }

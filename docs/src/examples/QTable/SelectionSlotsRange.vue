@@ -188,53 +188,54 @@ export default {
     const selected = ref([])
     let storedSelectedRow
 
+    function handleSelection({ rows: rowsList, added, evt }) {
+      // ignore selection change from header of not from a direct click event
+      if (rowsList.length !== 1 || evt === void 0) return
+
+      const oldSelectedRow = storedSelectedRow
+      const [newSelectedRow] = rowsList
+      const { ctrlKey, shiftKey, metaKey } = evt
+
+      if (!shiftKey) {
+        storedSelectedRow = newSelectedRow
+      }
+
+      // wait for the default selection to be performed
+      nextTick(() => {
+        if (shiftKey) {
+          const tableRows = tableRef.value.filteredSortedRows
+          let firstIndex = tableRows.indexOf(oldSelectedRow)
+          let lastIndex = tableRows.indexOf(newSelectedRow)
+
+          if (firstIndex < 0) {
+            firstIndex = 0
+          }
+
+          if (firstIndex > lastIndex) {
+            ;[firstIndex, lastIndex] = [lastIndex, firstIndex]
+          }
+
+          const rangeRows = tableRows.slice(firstIndex, lastIndex + 1)
+          // we need the original row object so we can match them against the rows in range
+          const selectedRows = selected.value.map(toRaw)
+
+          selected.value = added
+            ? [
+                ...selectedRows,
+                ...rangeRows.filter(row => !selectedRows.includes(row))
+              ]
+            : selectedRows.filter(row => !rangeRows.includes(row))
+        } else if (!(ctrlKey || metaKey) && added) {
+          selected.value = [newSelectedRow]
+        }
+      })
+    }
+
     return {
       selected,
       columns,
       rows,
-
-      handleSelection({ rows: rowsList, added, evt }) {
-        // ignore selection change from header of not from a direct click event
-        if (rowsList.length !== 1 || evt === void 0) return
-
-        const oldSelectedRow = storedSelectedRow
-        const [newSelectedRow] = rowsList
-        const { ctrlKey, shiftKey, metaKey } = evt
-
-        if (!shiftKey) {
-          storedSelectedRow = newSelectedRow
-        }
-
-        // wait for the default selection to be performed
-        nextTick(() => {
-          if (shiftKey) {
-            const tableRows = tableRef.value.filteredSortedRows
-            let firstIndex = tableRows.indexOf(oldSelectedRow)
-            let lastIndex = tableRows.indexOf(newSelectedRow)
-
-            if (firstIndex < 0) {
-              firstIndex = 0
-            }
-
-            if (firstIndex > lastIndex) {
-              ;[firstIndex, lastIndex] = [lastIndex, firstIndex]
-            }
-
-            const rangeRows = tableRows.slice(firstIndex, lastIndex + 1)
-            // we need the original row object so we can match them against the rows in range
-            const selectedRows = selected.value.map(toRaw)
-
-            selected.value = added
-              ? [
-                  ...selectedRows,
-                  ...rangeRows.filter(row => !selectedRows.includes(row))
-                ]
-              : selectedRows.filter(row => !rangeRows.includes(row))
-          } else if (!(ctrlKey || metaKey) && added) {
-            selected.value = [newSelectedRow]
-          }
-        })
-      }
+      handleSelection
     }
   }
 }

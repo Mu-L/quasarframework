@@ -63,48 +63,54 @@ import { ref } from 'vue'
 
 export default {
   setup() {
+    const preferred = ref('rock')
+    const accepted = ref([])
+    const options = [
+      {
+        label: 'Rock',
+        value: 'rock'
+      },
+      {
+        label: 'Funk',
+        value: 'funk'
+      },
+      {
+        label: 'Pop',
+        value: 'pop'
+      }
+    ]
+
     const submitted = ref(false)
     const submitEmpty = ref(false)
     const submitResult = ref([])
 
-    return {
-      preferred: ref('rock'),
-      accepted: ref([]),
+    function onSubmit(evt) {
+      const formData = new FormData(evt.target)
+      const data = []
 
-      options: [
-        {
-          label: 'Rock',
-          value: 'rock'
-        },
-        {
-          label: 'Funk',
-          value: 'funk'
-        },
-        {
-          label: 'Pop',
-          value: 'pop'
-        }
-      ],
+      for (const [name, value] of formData.entries()) {
+        data.push({
+          name,
+          value
+        })
+      }
+
+      submitted.value = true
+      submitResult.value = data
+      submitEmpty.value = data.length === 0
+    }
+
+    return {
+      preferred,
+      accepted,
+
+      options,
 
       submitted,
       submitEmpty,
       submitResult,
 
-      onSubmit(evt) {
-        const formData = new FormData(evt.target)
-        const data = []
-
-        for (const [name, value] of formData.entries()) {
-          data.push({
-            name,
-            value
-          })
-        }
-
-        submitted.value = true
-        submitResult.value = data
-        submitEmpty.value = data.length === 0
-      }
+      onSubmit
     }
   }
 }

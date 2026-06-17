@@ -41,25 +41,27 @@ import { ref } from 'vue'
 
 export default {
   setup() {
+    const color = ref('#f66363')
     const submitResult = ref([])
 
-    return {
-      color: ref('#f66363'),
-      submitResult,
+    function onSubmit(evt) {
+      const formData = new FormData(evt.target)
+      const data = []
 
-      onSubmit(evt) {
-        const formData = new FormData(evt.target)
-        const data = []
-
-        for (const [name, value] of formData.entries()) {
-          data.push({
-            name,
-            value
-          })
-        }
-
-        submitResult.value = data
+      for (const [name, value] of formData.entries()) {
+        data.push({
+          name,
+          value
+        })
       }
+
+      submitResult.value = data
+    }
+
+    return {
+      color,
+      submitResult,
+      onSubmit
     }
   }
 }

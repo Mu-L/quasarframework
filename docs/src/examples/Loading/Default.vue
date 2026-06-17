@@ -20,17 +20,17 @@ export default {
       }
     })
 
-    return {
-      showLoading() {
-        $q.loading.show()
+    function showLoading() {
+      $q.loading.show()
 
-        // hiding in 2s
-        timer = setTimeout(() => {
-          $q.loading.hide()
-          timer = void 0
-        }, 2000)
-      }
+      // hiding in 2s
+      timer = setTimeout(() => {
+        $q.loading.hide()
+        timer = void 0
+      }, 2000)
     }
+
+    return { showLoading }
   }
 }
 </script>

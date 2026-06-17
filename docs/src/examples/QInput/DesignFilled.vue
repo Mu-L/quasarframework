@@ -171,10 +171,13 @@ import { ref } from 'vue'
 
 export default {
   setup() {
+    const text = ref('')
+    const ph = ref('')
+    const dense = ref(false)
     return {
-      text: ref(''),
-      ph: ref(''),
-      dense: ref(false)
+      text,
+      ph,
+      dense
     }
   }
 }

@@ -39,17 +39,17 @@ export default {
       clearTimeout(timer)
     })
 
-    return {
-      onTop({ reset }) {
-        $q.notify('Top action triggered. Resetting in 1 second.')
-        finalize(reset)
-      },
-
-      onBottom({ reset }) {
-        $q.notify('Bottom action triggered. Resetting in 1 second.')
-        finalize(reset)
-      }
+    function onTop({ reset }) {
+      $q.notify('Top action triggered. Resetting in 1 second.')
+      finalize(reset)
     }
+
+    function onBottom({ reset }) {
+      $q.notify('Bottom action triggered. Resetting in 1 second.')
+      finalize(reset)
+    }
+
+    return { onTop, onBottom }
   }
 }
 </script>

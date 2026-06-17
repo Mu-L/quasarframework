@@ -28,31 +28,40 @@ import { ref } from 'vue'
 
 export default {
   setup() {
+    const modelOne = ref('op1')
+    const modelTwo = ref('op1')
+
+    const options = [
+      {
+        title: 'Option 1',
+        key: 'op1',
+        inactive: false
+      },
+      {
+        title: 'Option 2 (disabled)',
+        key: 'op2',
+        inactive: true
+      },
+      {
+        title: 'Option 3',
+        key: 'op3',
+        inactive: false
+      }
+    ]
+
+    const optValueFn = item => item.key
+    const optLabelFn = item => item.title
+    const optDisableFn = item => item.inactive
+
     return {
-      modelOne: ref('op1'),
-      modelTwo: ref('op1'),
+      modelOne,
+      modelTwo,
 
-      options: [
-        {
-          title: 'Option 1',
-          key: 'op1',
-          inactive: false
-        },
-        {
-          title: 'Option 2 (disabled)',
-          key: 'op2',
-          inactive: true
-        },
-        {
-          title: 'Option 3',
-          key: 'op3',
-          inactive: false
-        }
-      ],
+      options,
 
-      optValueFn: item => item.key,
-      optLabelFn: item => item.title,
-      optDisableFn: item => item.inactive
+      optValueFn,
+      optLabelFn,
+      optDisableFn
     }
   }
 }

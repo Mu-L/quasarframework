@@ -29,20 +29,23 @@ export default {
   setup() {
     const visible = ref(false)
 
+    const visibleClass = computed(
+      () => `bg-${visible.value ? 'positive' : 'negative'}`
+    )
+
+    const message = computed(() =>
+      visible.value ? "Visible. We're done." : 'Hidden'
+    )
+
+    function onIntersection(entry) {
+      visible.value = entry.isIntersecting
+    }
+
     return {
       visible,
-
-      visibleClass: computed(
-        () => `bg-${visible.value ? 'positive' : 'negative'}`
-      ),
-
-      message: computed(() =>
-        visible.value ? "Visible. We're done." : 'Hidden'
-      ),
-
-      onIntersection(entry) {
-        visible.value = entry.isIntersecting
-      }
+      visibleClass,
+      message,
+      onIntersection
     }
   }
 }

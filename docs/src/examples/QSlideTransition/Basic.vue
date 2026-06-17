@@ -15,9 +15,8 @@ import { ref } from 'vue'
 
 export default {
   setup() {
-    return {
-      visible: ref(true)
-    }
+    const visible = ref(true)
+    return { visible }
   }
 }
 </script>

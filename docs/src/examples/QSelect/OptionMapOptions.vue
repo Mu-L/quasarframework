@@ -20,35 +20,34 @@ import { ref } from 'vue'
 
 export default {
   setup() {
-    return {
-      model: ref(null),
+    const model = ref(null)
+    const options = [
+      {
+        label: 'Google',
+        value: 'goog'
+      },
+      // #region
+      {
+        label: 'Facebook',
+        value: 'fb'
+      },
+      {
+        label: 'Twitter',
+        value: 'twt'
+      },
+      {
+        label: 'Apple',
+        value: 'app'
+      },
+      // #endregion
+      {
+        label: 'Oracle',
+        value: 'ora',
+        disable: true
+      }
+    ]
 
-      options: [
-        {
-          label: 'Google',
-          value: 'goog'
-        },
-        // #region
-        {
-          label: 'Facebook',
-          value: 'fb'
-        },
-        {
-          label: 'Twitter',
-          value: 'twt'
-        },
-        {
-          label: 'Apple',
-          value: 'app'
-        },
-        // #endregion
-        {
-          label: 'Oracle',
-          value: 'ora',
-          disable: true
-        }
-      ]
-    }
+    return { model, options }
   }
 }
 </script>

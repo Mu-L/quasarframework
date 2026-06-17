@@ -25,15 +25,14 @@ export default {
   setup() {
     const info = ref(null)
 
-    return {
-      info,
-      handleSwipe({ evt, ...newInfo }) {
-        info.value = newInfo
+    function handleSwipe({ evt, ...newInfo }) {
+      info.value = newInfo
 
-        // native Javascript event
-        // console.log(evt)
-      }
+      // native Javascript event
+      // console.log(evt)
     }
+
+    return { info, handleSwipe }
   }
 }
 </script>

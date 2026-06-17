@@ -53,9 +53,12 @@ import { ref } from 'vue'
 
 export default {
   setup() {
+    const inception = ref(false)
+    const secondDialog = ref(false)
+
     return {
-      inception: ref(false),
-      secondDialog: ref(false)
+      inception,
+      secondDialog
     }
   }
 }

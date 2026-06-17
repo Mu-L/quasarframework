@@ -38,28 +38,30 @@ const stringOptions = ['Google', 'Facebook', 'Twitter', 'Apple', 'Oracle']
 
 export default {
   setup() {
+    const model = ref(null)
     const options = ref(stringOptions)
 
+    function filterFn(val, update) {
+      if (val === '') {
+        update(() => {
+          options.value = stringOptions
+        })
+        return
+      }
+
+      update(() => {
+        const needle = val.toLowerCase()
+        options.value = stringOptions.filter(v =>
+          v.toLowerCase().includes(needle)
+        )
+      })
+    }
+
     return {
-      model: ref(null),
+      model,
       stringOptions,
       options,
-
-      filterFn(val, update) {
-        if (val === '') {
-          update(() => {
-            options.value = stringOptions
-          })
-          return
-        }
-
-        update(() => {
-          const needle = val.toLowerCase()
-          options.value = stringOptions.filter(v =>
-            v.toLowerCase().includes(needle)
-          )
-        })
-      }
+      filterFn
     }
   }
 }

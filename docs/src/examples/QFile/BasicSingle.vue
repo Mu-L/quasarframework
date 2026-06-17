@@ -14,9 +14,8 @@ import { ref } from 'vue'
 
 export default {
   setup() {
-    return {
-      file: ref(null)
-    }
+    const file = ref(null)
+    return { file }
   }
 }
 </script>

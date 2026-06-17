@@ -29,9 +29,8 @@ import { ref } from 'vue'
 
 export default {
   setup() {
-    return {
-      value: ref(61)
-    }
+    const value = ref(61)
+    return { value }
   }
 }
 </script>

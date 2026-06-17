@@ -20,21 +20,21 @@ export default {
       }
     })
 
-    return {
-      showLoading() {
-        $q.loading.show({
-          message:
-            'Some important <b>process</b> is in progress.<br><span class="text-amber text-italic">Please wait...</span>',
-          html: true
-        })
+    function showLoading() {
+      $q.loading.show({
+        message:
+          'Some important <b>process</b> is in progress.<br><span class="text-amber text-italic">Please wait...</span>',
+        html: true
+      })
 
-        // hiding in 3s
-        timer = setTimeout(() => {
-          $q.loading.hide()
-          timer = void 0
-        }, 3000)
-      }
+      // hiding in 3s
+      timer = setTimeout(() => {
+        $q.loading.hide()
+        timer = void 0
+      }, 3000)
     }
+
+    return { showLoading }
   }
 }
 </script>

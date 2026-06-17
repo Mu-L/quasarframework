@@ -16,15 +16,15 @@ export default {
   setup() {
     const $q = useQuasar()
 
-    return {
-      showNotif() {
-        $q.notify({
-          message:
-            '<em>I can</em> <span style="color: red">use</span> <strong>HTML</strong>',
-          html: true
-        })
-      }
+    function showNotif() {
+      $q.notify({
+        message:
+          '<em>I can</em> <span style="color: red">use</span> <strong>HTML</strong>',
+        html: true
+      })
     }
+
+    return { showNotif }
   }
 }
 </script>

@@ -26,11 +26,13 @@ import { ref } from 'vue'
 
 export default {
   setup() {
+    const single = ref(null)
+    const multiple = ref(null)
+    const options = ['Google', 'Facebook', 'Twitter', 'Apple', 'Oracle']
     return {
-      single: ref(null),
-      multiple: ref(null),
-
-      options: ['Google', 'Facebook', 'Twitter', 'Apple', 'Oracle']
+      single,
+      multiple,
+      options
     }
   }
 }

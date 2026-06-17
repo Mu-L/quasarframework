@@ -92,9 +92,8 @@ import { ref } from 'vue'
 
 export default {
   setup() {
-    return {
-      drawer: ref(false)
-    }
+    const drawer = ref(false)
+    return { drawer }
   }
 }
 </script>

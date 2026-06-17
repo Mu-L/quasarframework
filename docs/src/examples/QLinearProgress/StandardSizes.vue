@@ -18,11 +18,13 @@ export default {
   setup() {
     const progress = ref(0.65)
 
+    function randomize() {
+      progress.value = Math.random()
+    }
+
     return {
       progress,
-      randomize() {
-        progress.value = Math.random()
-      }
+      randomize
     }
   }
 }

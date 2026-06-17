@@ -14,12 +14,11 @@ import { ref } from 'vue'
 
 export default {
   setup() {
-    return {
-      standard: ref({
-        min: 5,
-        max: 15
-      })
-    }
+    const standard = ref({
+      min: 5,
+      max: 15
+    })
+    return { standard }
   }
 }
 </script>

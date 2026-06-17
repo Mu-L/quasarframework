@@ -125,11 +125,11 @@ const seed = [
 ]
 
 // we generate lots of rows here
-const rows = []
+const rowsData = []
 for (let i = 0; i < 100; i++) {
-  rows.push(...seed.map(r => ({ ...r })))
+  rowsData.push(...seed.map(r => ({ ...r })))
 }
-rows.forEach((row, index) => {
+rowsData.forEach((row, index) => {
   row.index = index
 })
 
@@ -179,14 +179,11 @@ const columns = [
 
 export default {
   setup() {
-    return {
-      rows,
-      columns,
-
-      pagination: ref({
-        rowsPerPage: 0
-      })
-    }
+    const rows = ref(rowsData)
+    const pagination = ref({
+      rowsPerPage: 0
+    })
+    return { rows, columns, pagination }
   }
 }
 </script>

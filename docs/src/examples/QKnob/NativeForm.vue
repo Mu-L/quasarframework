@@ -49,25 +49,27 @@ import { ref } from 'vue'
 
 export default {
   setup() {
+    const volume = ref(60)
     const submitResult = ref([])
 
-    return {
-      volume: ref(60),
-      submitResult,
+    function onSubmit(evt) {
+      const formData = new FormData(evt.target)
+      const data = []
 
-      onSubmit(evt) {
-        const formData = new FormData(evt.target)
-        const data = []
-
-        for (const [name, value] of formData.entries()) {
-          data.push({
-            name,
-            value
-          })
-        }
-
-        submitResult.value = data
+      for (const [name, value] of formData.entries()) {
+        data.push({
+          name,
+          value
+        })
       }
+
+      submitResult.value = data
+    }
+
+    return {
+      volume,
+      submitResult,
+      onSubmit
     }
   }
 }

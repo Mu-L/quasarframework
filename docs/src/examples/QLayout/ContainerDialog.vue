@@ -109,10 +109,13 @@ import { ref } from 'vue'
 
 export default {
   setup() {
+    const dialog = ref(false)
+    const drawerLeft = ref(false)
+    const drawerRight = ref(true)
     return {
-      dialog: ref(false),
-      drawerLeft: ref(false),
-      drawerRight: ref(true)
+      dialog,
+      drawerLeft,
+      drawerRight
     }
   }
 }

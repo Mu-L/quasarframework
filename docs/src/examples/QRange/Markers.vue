@@ -46,16 +46,17 @@ import { ref } from 'vue'
 
 export default {
   setup() {
+    const marker = ref({
+      min: 6,
+      max: 8
+    })
+    const orangeModel = ref({
+      min: 6,
+      max: 10
+    })
     return {
-      marker: ref({
-        min: 6,
-        max: 8
-      }),
-
-      orangeModel: ref({
-        min: 6,
-        max: 10
-      })
+      marker,
+      orangeModel
     }
   }
 }

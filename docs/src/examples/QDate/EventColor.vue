@@ -21,29 +21,31 @@ import { ref } from 'vue'
 
 export default {
   setup() {
+    const date = ref('2019/02/01')
+    const events = [
+      // #region
+      '2019/02/01',
+      '2019/02/05',
+      '2019/02/06',
+      '2019/02/09',
+      '2019/02/23'
+      // #endregion
+    ]
+
+    function eventsFn(d) {
+      return (
+        d === '2019/02/01' ||
+        d === '2019/02/05' ||
+        d === '2019/02/06' ||
+        d === '2019/02/09' ||
+        d === '2019/02/23'
+      )
+    }
+
     return {
-      date: ref('2019/02/01'),
-      events: [
-        // #region
-        '2019/02/01',
-        '2019/02/05',
-        '2019/02/06',
-        '2019/02/09',
-        '2019/02/23'
-        // #endregion
-      ],
-      eventsFn(date) {
-        if (
-          date === '2019/02/01' ||
-          date === '2019/02/05' ||
-          date === '2019/02/06' ||
-          date === '2019/02/09' ||
-          date === '2019/02/23'
-        ) {
-          return true
-        }
-        return false
-      }
+      date,
+      events,
+      eventsFn
     }
   }
 }

@@ -42,18 +42,20 @@ export default {
     const red = ref(true)
     const cyan = ref(false)
 
+    function resetModels() {
+      teal.value = null
+      orange.value = null
+      red.value = true
+      cyan.value = false
+    }
+
     return {
       teal,
       orange,
       red,
       cyan,
 
-      resetModels() {
-        teal.value = null
-        orange.value = null
-        red.value = true
-        cyan.value = false
-      }
+      resetModels
     }
   }
 }

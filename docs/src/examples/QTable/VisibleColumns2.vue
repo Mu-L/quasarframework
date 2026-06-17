@@ -185,17 +185,19 @@ const rows = [
 
 export default {
   setup() {
+    const visibleColumns = ref([
+      'calories',
+      'desc',
+      'fat',
+      'carbs',
+      'protein',
+      'sodium',
+      'calcium',
+      'iron'
+    ])
+
     return {
-      visibleColumns: ref([
-        'calories',
-        'desc',
-        'fat',
-        'carbs',
-        'protein',
-        'sodium',
-        'calcium',
-        'iron'
-      ]),
+      visibleColumns,
       columns,
       rows
     }

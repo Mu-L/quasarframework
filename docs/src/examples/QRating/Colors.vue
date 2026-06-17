@@ -16,16 +16,15 @@ import { ref } from 'vue'
 
 export default {
   setup() {
-    return {
-      ratingModel: ref(4),
-      ratingColors: [
-        'light-green-3',
-        'light-green-6',
-        'green',
-        'green-9',
-        'green-10'
-      ]
-    }
+    const ratingModel = ref(4)
+    const ratingColors = [
+      'light-green-3',
+      'light-green-6',
+      'green',
+      'green-9',
+      'green-10'
+    ]
+    return { ratingModel, ratingColors }
   }
 }
 </script>

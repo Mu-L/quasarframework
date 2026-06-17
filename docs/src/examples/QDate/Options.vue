@@ -15,27 +15,32 @@ import { ref } from 'vue'
 
 export default {
   setup() {
+    const date = ref('2019/02/01')
+
+    const options = [
+      // #region
+      '2019/02/01',
+      '2019/02/05',
+      '2019/02/06',
+      '2019/02/09',
+      '2019/02/23'
+      // #endregion
+    ]
+
+    function optionsFn(d) {
+      return d >= '2019/02/03' && d <= '2019/02/15'
+    }
+
+    function optionsFn2(d) {
+      const parts = d.split('/')
+      return parts[2] % 2 === 0
+    }
+
     return {
-      date: ref('2019/02/01'),
-
-      options: [
-        // #region
-        '2019/02/01',
-        '2019/02/05',
-        '2019/02/06',
-        '2019/02/09',
-        '2019/02/23'
-        // #endregion
-      ],
-
-      optionsFn(date) {
-        return date >= '2019/02/03' && date <= '2019/02/15'
-      },
-
-      optionsFn2(date) {
-        const parts = date.split('/')
-        return parts[2] % 2 === 0
-      }
+      date,
+      options,
+      optionsFn,
+      optionsFn2
     }
   }
 }

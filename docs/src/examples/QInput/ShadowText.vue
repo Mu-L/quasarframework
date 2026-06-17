@@ -94,59 +94,63 @@ export default {
         .split('\n')[0]
     })
 
+    function processInputFill(e) {
+      if (e === void 0) return
+
+      if (e.keyCode === 27) {
+        if (inputFillCancelled.value !== true) {
+          inputFillCancelled.value = true
+        }
+      } else if (e.keyCode === 9) {
+        if (
+          inputFillCancelled.value !== true &&
+          inputShadowText.value.length !== 0
+        ) {
+          stopAndPrevent(e)
+          inputModel.value =
+            (typeof inputModel.value === 'string' ? inputModel.value : '') +
+            inputShadowText.value
+        }
+      } else if (inputFillCancelled.value) {
+        inputFillCancelled.value = false
+      }
+    }
+
+    function processTextareaFill(e) {
+      if (e === void 0) return
+
+      if (e.keyCode === 27) {
+        if (!textareaFillCancelled.value) {
+          textareaFillCancelled.value = true
+        }
+      } else if (e.keyCode === 9) {
+        if (
+          !textareaFillCancelled.value &&
+          textareaShadowText.value.length !== 0
+        ) {
+          stopAndPrevent(e)
+          textareaModel.value =
+            (typeof textareaModel.value === 'string'
+              ? textareaModel.value
+              : '') + textareaShadowText.value
+        }
+      } else if (textareaFillCancelled.value) {
+        textareaFillCancelled.value = false
+      }
+    }
+
     return {
       inputModel,
       inputFillCancelled,
       inputShadowText,
 
-      processInputFill(e) {
-        if (e === void 0) return
-
-        if (e.keyCode === 27) {
-          if (inputFillCancelled.value !== true) {
-            inputFillCancelled.value = true
-          }
-        } else if (e.keyCode === 9) {
-          if (
-            inputFillCancelled.value !== true &&
-            inputShadowText.value.length !== 0
-          ) {
-            stopAndPrevent(e)
-            inputModel.value =
-              (typeof inputModel.value === 'string' ? inputModel.value : '') +
-              inputShadowText.value
-          }
-        } else if (inputFillCancelled.value) {
-          inputFillCancelled.value = false
-        }
-      },
+      processInputFill,
 
       textareaModel,
       textareaFillCancelled,
       textareaShadowText,
 
-      processTextareaFill(e) {
-        if (e === void 0) return
-
-        if (e.keyCode === 27) {
-          if (!textareaFillCancelled.value) {
-            textareaFillCancelled.value = true
-          }
-        } else if (e.keyCode === 9) {
-          if (
-            !textareaFillCancelled.value &&
-            textareaShadowText.value.length !== 0
-          ) {
-            stopAndPrevent(e)
-            textareaModel.value =
-              (typeof textareaModel.value === 'string'
-                ? textareaModel.value
-                : '') + textareaShadowText.value
-          }
-        } else if (textareaFillCancelled.value) {
-          textareaFillCancelled.value = false
-        }
-      }
+      processTextareaFill
     }
   }
 }

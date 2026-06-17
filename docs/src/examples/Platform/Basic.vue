@@ -41,10 +41,11 @@ import { computed } from 'vue'
 export default {
   setup() {
     const $q = useQuasar()
+    const touch = computed(() =>
+      $q.platform.has.touch ? 'has' : 'does not have'
+    )
 
-    return {
-      touch: computed(() => ($q.platform.has.touch ? 'has' : 'does not have'))
-    }
+    return { touch }
   }
 }
 </script>

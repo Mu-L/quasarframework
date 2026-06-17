@@ -20,9 +20,8 @@ import { ref } from 'vue'
 
 export default {
   setup() {
-    return {
-      price: ref(null)
-    }
+    const price = ref(null)
+    return { price }
   }
 }
 </script>

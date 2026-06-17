@@ -42,16 +42,24 @@ import { ref } from 'vue'
 
 export default {
   setup() {
+    const password = ref('')
+    const isPwd = ref(true)
+    const email = ref('')
+    const search = ref('')
+    const tel = ref('')
+    const url = ref('')
+    const time = ref('')
+    const date = ref('')
     return {
-      password: ref(''),
-      isPwd: ref(true),
+      password,
+      isPwd,
 
-      email: ref(''),
-      search: ref(''),
-      tel: ref(''),
-      url: ref(''),
-      time: ref(''),
-      date: ref('')
+      email,
+      search,
+      tel,
+      url,
+      time,
+      date
     }
   }
 }

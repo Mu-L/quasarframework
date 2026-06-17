@@ -194,12 +194,13 @@ const rows = [
 
 export default {
   setup() {
-    return {
-      expanded: ref([
-        // Array of row keys
-        'Ice cream sandwich'
-      ]),
+    const expanded = ref([
+      // Array of row keys
+      'Ice cream sandwich'
+    ])
 
+    return {
+      expanded,
       columns,
       rows
     }

@@ -43,25 +43,28 @@ export default {
       classes: 'glossy'
     })
 
-    return {
-      triggerCustomRegisteredType1() {
-        $q.notify({
-          type: 'my-notif',
-          message: 'This notification is using a custom type.'
-        })
-      },
+    function triggerCustomRegisteredType1() {
+      $q.notify({
+        type: 'my-notif',
+        message: 'This notification is using a custom type.'
+      })
+    }
 
-      triggerCustomRegisteredType2() {
-        // this one overrides some of the original
-        // options of the "my-notif" registered type
-        $q.notify({
-          type: 'my-notif',
-          icon: 'contactless',
-          message: 'This notification is using a custom type.',
-          caption: "It overrides the type's default icon and color.",
-          color: 'primary'
-        })
-      }
+    function triggerCustomRegisteredType2() {
+      // this one overrides some of the original
+      // options of the "my-notif" registered type
+      $q.notify({
+        type: 'my-notif',
+        icon: 'contactless',
+        message: 'This notification is using a custom type.',
+        caption: "It overrides the type's default icon and color.",
+        color: 'primary'
+      })
+    }
+
+    return {
+      triggerCustomRegisteredType1,
+      triggerCustomRegisteredType2
     }
   }
 }

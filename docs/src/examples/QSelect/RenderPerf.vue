@@ -16,10 +16,8 @@ for (let i = 0; i <= 100_000; i++) {
 
 export default {
   setup() {
-    return {
-      model: ref(null),
-      options
-    }
+    const model = ref(null)
+    return { model, options }
   }
 }
 </script>

@@ -52,32 +52,35 @@ const stringOptions = ['Google', 'Facebook', 'Twitter', 'Apple', 'Oracle']
 
 export default {
   setup() {
+    const model = ref(null)
     const options = ref(stringOptions)
 
+    function filterFn(val, update, abort) {
+      // call abort() at any time if you can't retrieve data somehow
+
+      setTimeout(() => {
+        update(() => {
+          if (val === '') {
+            options.value = stringOptions
+          } else {
+            const needle = val.toLowerCase()
+            options.value = stringOptions.filter(v =>
+              v.toLowerCase().includes(needle)
+            )
+          }
+        })
+      }, 1500)
+    }
+
+    function abortFilterFn() {
+      // console.log('delayed filter aborted')
+    }
+
     return {
-      model: ref(null),
+      model,
       options,
-
-      filterFn(val, update, abort) {
-        // call abort() at any time if you can't retrieve data somehow
-
-        setTimeout(() => {
-          update(() => {
-            if (val === '') {
-              options.value = stringOptions
-            } else {
-              const needle = val.toLowerCase()
-              options.value = stringOptions.filter(v =>
-                v.toLowerCase().includes(needle)
-              )
-            }
-          })
-        }, 1500)
-      },
-
-      abortFilterFn() {
-        // console.log('delayed filter aborted')
-      }
+      filterFn,
+      abortFilterFn
     }
   }
 }

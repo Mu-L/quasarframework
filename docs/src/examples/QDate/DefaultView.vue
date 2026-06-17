@@ -9,9 +9,8 @@ import { ref } from 'vue'
 
 export default {
   setup() {
-    return {
-      date: ref(null)
-    }
+    const date = ref(null)
+    return { date }
   }
 }
 </script>

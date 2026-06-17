@@ -71,17 +71,17 @@ export default {
       clearTimeout(timer)
     })
 
-    return {
-      onLeft({ reset }) {
-        $q.notify('Left action triggered. Resetting in 1 second.')
-        finalize(reset)
-      },
-
-      onRight({ reset }) {
-        $q.notify('Right action triggered. Resetting in 1 second.')
-        finalize(reset)
-      }
+    function onLeft({ reset }) {
+      $q.notify('Left action triggered. Resetting in 1 second.')
+      finalize(reset)
     }
+
+    function onRight({ reset }) {
+      $q.notify('Right action triggered. Resetting in 1 second.')
+      finalize(reset)
+    }
+
+    return { onLeft, onRight }
   }
 }
 </script>

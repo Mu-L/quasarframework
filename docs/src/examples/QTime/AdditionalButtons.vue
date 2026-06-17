@@ -36,17 +36,20 @@ export default {
     const time = ref('10:56')
     const proxyTime = ref('10:56')
 
+    function updateProxy() {
+      proxyTime.value = time.value
+    }
+
+    function save() {
+      time.value = proxyTime.value
+    }
+
     return {
       time,
       proxyTime,
 
-      updateProxy() {
-        proxyTime.value = time.value
-      },
-
-      save() {
-        time.value = proxyTime.value
-      }
+      updateProxy,
+      save
     }
   }
 }

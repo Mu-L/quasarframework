@@ -55,10 +55,9 @@ import { ref } from 'vue'
 
 export default {
   setup() {
-    return {
-      label: ref('Click me'),
-      label2: ref('Also click me')
-    }
+    const label = ref('Click me')
+    const label2 = ref('Also click me')
+    return { label, label2 }
   }
 }
 </script>

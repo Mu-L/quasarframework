@@ -213,6 +213,7 @@ for (let i = 0; i < 1000; i++) {
 export default {
   setup() {
     const tableRef = useTemplateRef('tableRef')
+    const pagination = { rowsPerPage: 0 }
 
     onMounted(() => {
       tableRef.value.scrollTo(5000)
@@ -221,10 +222,7 @@ export default {
     return {
       columns,
       rows,
-
-      pagination: {
-        rowsPerPage: 0
-      }
+      pagination
     }
   }
 }

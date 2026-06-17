@@ -57,9 +57,8 @@ import { ref } from 'vue'
 
 export default {
   setup() {
-    return {
-      targetEl: ref('#target-img-1')
-    }
+    const targetEl = ref('#target-img-1')
+    return { targetEl }
   }
 }
 </script>

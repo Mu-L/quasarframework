@@ -62,31 +62,36 @@ export default {
     const submitEmpty = ref(false)
     const submitResult = ref([])
 
+    const file = ref(null)
+    const files = ref(null)
+
+    function onSubmit(evt) {
+      const formData = new FormData(evt.target)
+      const data = []
+
+      for (const [name, value] of formData.entries()) {
+        if (value.name.length !== 0) {
+          data.push({
+            name,
+            value: value.name
+          })
+        }
+      }
+
+      submitted.value = true
+      submitResult.value = data
+      submitEmpty.value = data.length === 0
+    }
+
     return {
-      file: ref(null),
-      files: ref(null),
+      file,
+      files,
 
       submitted,
       submitEmpty,
       submitResult,
 
-      onSubmit(evt) {
-        const formData = new FormData(evt.target)
-        const data = []
-
-        for (const [name, value] of formData.entries()) {
-          if (value.name.length !== 0) {
-            data.push({
-              name,
-              value: value.name
-            })
-          }
-        }
-
-        submitted.value = true
-        submitResult.value = data
-        submitEmpty.value = data.length === 0
-      }
+      onSubmit
     }
   }
 }

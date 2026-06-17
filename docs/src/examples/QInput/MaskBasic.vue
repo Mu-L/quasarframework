@@ -33,10 +33,13 @@ import { ref } from 'vue'
 
 export default {
   setup() {
+    const id = ref(null)
+    const phone = ref(null)
+    const serialNumber = ref(null)
     return {
-      id: ref(null),
-      phone: ref(null),
-      serialNumber: ref(null)
+      id,
+      phone,
+      serialNumber
     }
   }
 }

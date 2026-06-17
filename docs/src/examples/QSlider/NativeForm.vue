@@ -46,25 +46,27 @@ import { ref } from 'vue'
 
 export default {
   setup() {
+    const speed = ref(40)
     const submitResult = ref([])
 
-    return {
-      speed: ref(40),
-      submitResult,
+    function onSubmit(evt) {
+      const formData = new FormData(evt.target)
+      const data = []
 
-      onSubmit(evt) {
-        const formData = new FormData(evt.target)
-        const data = []
-
-        for (const [name, value] of formData.entries()) {
-          data.push({
-            name,
-            value
-          })
-        }
-
-        submitResult.value = data
+      for (const [name, value] of formData.entries()) {
+        data.push({
+          name,
+          value
+        })
       }
+
+      submitResult.value = data
+    }
+
+    return {
+      speed,
+      submitResult,
+      onSubmit
     }
   }
 }

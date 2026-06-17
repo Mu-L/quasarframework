@@ -13,9 +13,8 @@ import { ref } from 'vue'
 
 export default {
   setup() {
-    return {
-      date: ref('2020/07/04')
-    }
+    const date = ref('2020/07/04')
+    return { date }
   }
 }
 </script>

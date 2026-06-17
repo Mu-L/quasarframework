@@ -25,17 +25,16 @@
 <script>
 export default {
   setup() {
-    return {
-      skeletonAnimations: [
-        'wave',
-        'pulse',
-        'pulse-x',
-        'pulse-y',
-        'fade',
-        'blink',
-        'none'
-      ]
-    }
+    const skeletonAnimations = [
+      'wave',
+      'pulse',
+      'pulse-x',
+      'pulse-y',
+      'fade',
+      'blink',
+      'none'
+    ]
+    return { skeletonAnimations }
   }
 }
 </script>

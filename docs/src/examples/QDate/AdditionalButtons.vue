@@ -36,17 +36,19 @@ export default {
     const date = ref('2019/03/01')
     const proxyDate = ref('2019/03/01')
 
+    function updateProxy() {
+      proxyDate.value = date.value
+    }
+
+    function save() {
+      date.value = proxyDate.value
+    }
+
     return {
       date,
       proxyDate,
-
-      updateProxy() {
-        proxyDate.value = date.value
-      },
-
-      save() {
-        date.value = proxyDate.value
-      }
+      updateProxy,
+      save
     }
   }
 }

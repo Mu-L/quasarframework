@@ -159,13 +159,15 @@ import { ref } from 'vue'
 
 export default {
   setup() {
+    const model = ref(null)
+    const options = ['Google', 'Facebook', 'Twitter', 'Apple', 'Oracle']
+    const dense = ref(false)
+    const denseOpts = ref(false)
     return {
-      model: ref(null),
-
-      options: ['Google', 'Facebook', 'Twitter', 'Apple', 'Oracle'],
-
-      dense: ref(false),
-      denseOpts: ref(false)
+      model,
+      options,
+      dense,
+      denseOpts
     }
   }
 }

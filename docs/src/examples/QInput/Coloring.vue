@@ -72,9 +72,8 @@ import { ref } from 'vue'
 
 export default {
   setup() {
-    return {
-      text: ref('')
-    }
+    const text = ref('')
+    return { text }
   }
 }
 </script>

@@ -9,9 +9,8 @@ import { ref } from 'vue'
 
 export default {
   setup() {
-    return {
-      val: ref(true)
-    }
+    const val = ref(true)
+    return { val }
   }
 }
 </script>

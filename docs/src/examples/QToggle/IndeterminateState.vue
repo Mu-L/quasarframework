@@ -37,14 +37,15 @@ export default {
     const theModel = ref(null)
     const theModel2 = ref('maybe')
 
+    function reset() {
+      theModel.value = null
+      theModel2.value = 'maybe'
+    }
+
     return {
       theModel,
       theModel2,
-
-      reset() {
-        theModel.value = null
-        theModel2.value = 'maybe'
-      }
+      reset
     }
   }
 }

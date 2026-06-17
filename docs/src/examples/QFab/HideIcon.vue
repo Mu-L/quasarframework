@@ -24,12 +24,12 @@ import { ref } from 'vue'
 
 export default {
   setup() {
-    return {
-      fab: ref(true),
-      onClick() {
-        // console.log('Clicked on a fab action')
-      }
+    const fab = ref(true)
+    function onClick() {
+      // console.log('Clicked on a fab action')
     }
+
+    return { fab, onClick }
   }
 }
 </script>

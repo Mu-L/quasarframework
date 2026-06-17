@@ -47,16 +47,18 @@ export default {
   setup() {
     const number = ref(110)
 
+    function increment() {
+      number.value++
+    }
+
+    function decrement() {
+      number.value--
+    }
+
     return {
       number,
-
-      increment() {
-        number.value++
-      },
-
-      decrement() {
-        number.value--
-      }
+      increment,
+      decrement
     }
   }
 }

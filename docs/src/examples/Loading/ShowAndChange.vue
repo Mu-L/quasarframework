@@ -20,28 +20,28 @@ export default {
       }
     })
 
-    return {
-      showLoading() {
+    function showLoading() {
+      $q.loading.show({
+        message: 'First message. Gonna change it in 3 seconds...'
+      })
+
+      timer = setTimeout(() => {
         $q.loading.show({
-          message: 'First message. Gonna change it in 3 seconds...'
+          spinner: QSpinnerGears,
+          spinnerColor: 'red',
+          messageColor: 'black',
+          backgroundColor: 'yellow',
+          message: 'Updated message'
         })
 
         timer = setTimeout(() => {
-          $q.loading.show({
-            spinner: QSpinnerGears,
-            spinnerColor: 'red',
-            messageColor: 'black',
-            backgroundColor: 'yellow',
-            message: 'Updated message'
-          })
-
-          timer = setTimeout(() => {
-            $q.loading.hide()
-            timer = void 0
-          }, 2000)
+          $q.loading.hide()
+          timer = void 0
         }, 2000)
-      }
+      }, 2000)
     }
+
+    return { showLoading }
   }
 }
 </script>

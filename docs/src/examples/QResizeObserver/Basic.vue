@@ -31,24 +31,26 @@ export default {
     const style = ref({ width: '200px', height: '200px' })
     const report = ref(null)
 
+    function onResize(size) {
+      report.value = size
+      // {
+      //   width: 20 // width of container (in px)
+      //   height: 50 // height of container (in px)
+      // }
+    }
+
+    function setRandomSize() {
+      style.value = {
+        width: Math.floor(100 + Math.random() * 200) + 'px',
+        height: Math.floor(100 + Math.random() * 200) + 'px'
+      }
+    }
+
     return {
       style,
       report,
-
-      onResize(size) {
-        report.value = size
-        // {
-        //   width: 20 // width of container (in px)
-        //   height: 50 // height of container (in px)
-        // }
-      },
-
-      setRandomSize() {
-        style.value = {
-          width: Math.floor(100 + Math.random() * 200) + 'px',
-          height: Math.floor(100 + Math.random() * 200) + 'px'
-        }
-      }
+      onResize,
+      setRandomSize
     }
   }
 }

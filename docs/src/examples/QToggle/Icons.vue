@@ -33,11 +33,15 @@ import { ref } from 'vue'
 
 export default {
   setup() {
+    const first = ref(true)
+    const second = ref(true)
+    const third = ref(false)
+    const fourth = ref(true)
     return {
-      first: ref(true),
-      second: ref(true),
-      third: ref(false),
-      fourth: ref(true)
+      first,
+      second,
+      third,
+      fourth
     }
   }
 }

@@ -223,20 +223,19 @@ const initialExpanded = rows.filter((r, i) => i % 3 === 0).map(r => r.index)
 
 export default {
   setup() {
+    const expanded = ref(initialExpanded)
     const tableRef = useTemplateRef('tableRef')
+    const pagination = { rowsPerPage: 0 }
 
     onMounted(() => {
       tableRef.value.scrollTo(5000)
     })
 
     return {
-      expanded: ref(initialExpanded),
+      expanded,
+      pagination,
       columns,
-      rows,
-
-      pagination: {
-        rowsPerPage: 0
-      }
+      rows
     }
   }
 }

@@ -209,9 +209,11 @@ const rows = [
 
 export default {
   setup() {
+    const filter = ref('')
+    const selected = ref([])
     return {
-      filter: ref(''),
-      selected: ref([]),
+      filter,
+      selected,
       columns,
       rows
     }

@@ -14,11 +14,10 @@ import { ref } from 'vue'
 
 export default {
   setup() {
-    return {
-      editor: ref(
-        'Here we are overriding the <b>bold</b> command to include a label instead of an icon and also changing its tooltip.'
-      )
-    }
+    const editor = ref(
+      'Here we are overriding the <b>bold</b> command to include a label instead of an icon and also changing its tooltip.'
+    )
+    return { editor }
   }
 }
 </script>

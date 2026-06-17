@@ -65,17 +65,19 @@ export default {
       virtualListRef.value.scrollTo(virtualListIndex.value)
     })
 
+    function onVirtualScroll({ index }) {
+      virtualListIndex.value = index
+    }
+
+    function executeScroll() {
+      virtualListRef.value.scrollTo(virtualListIndex.value, 'start-force')
+    }
+
     return {
       heavyList,
       virtualListIndex,
-
-      onVirtualScroll({ index }) {
-        virtualListIndex.value = index
-      },
-
-      executeScroll() {
-        virtualListRef.value.scrollTo(virtualListIndex.value, 'start-force')
-      }
+      onVirtualScroll,
+      executeScroll
     }
   }
 }

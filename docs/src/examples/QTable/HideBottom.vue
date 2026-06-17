@@ -120,19 +120,23 @@ const rows = [
 export default {
   setup() {
     const hasData = ref(true)
+    const hideBottom = ref(false)
+    const hideSelectedBanner = ref(false)
+    const hideNoData = ref(false)
+    const hidePagination = ref(false)
+    const selected = ref([rows[1]])
+    const records = computed(() => (hasData.value ? rows : []))
 
     return {
       hasData,
-      hideBottom: ref(false),
-      hideSelectedBanner: ref(false),
-      hideNoData: ref(false),
-      hidePagination: ref(false),
+      hideBottom,
+      hideSelectedBanner,
+      hideNoData,
+      hidePagination,
 
-      selected: ref([rows[1]]),
-
+      selected,
       columns,
-
-      records: computed(() => (hasData.value ? rows : []))
+      records
     }
   }
 }

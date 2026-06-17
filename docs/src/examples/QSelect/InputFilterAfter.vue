@@ -66,76 +66,80 @@ const stringOptions = [
 
 export default {
   setup() {
+    const model = ref(null)
     const options = ref(stringOptions)
 
+    function filterFn(val, update, abort) {
+      // call abort() at any time if you can't retrieve data somehow
+
+      setTimeout(() => {
+        update(
+          () => {
+            if (val === '') {
+              options.value = stringOptions
+            } else {
+              const needle = val.toLowerCase()
+              options.value = stringOptions.filter(v =>
+                v.toLowerCase().includes(needle)
+              )
+            }
+          },
+
+          // "compRef" is the Vue reference to the QSelect
+          compRef => {
+            if (val !== '' && compRef.options.length !== 0) {
+              compRef.setOptionIndex(-1) // reset optionIndex in case there is something selected
+              compRef.moveOptionSelection(1, true) // focus the first selectable option and do not update the input-value
+            }
+          }
+        )
+      }, 300)
+    }
+
+    function filterFnAutoselect(val, update, abort) {
+      // call abort() at any time if you can't retrieve data somehow
+
+      setTimeout(() => {
+        update(
+          () => {
+            if (val === '') {
+              options.value = stringOptions
+            } else {
+              const needle = val.toLowerCase()
+              options.value = stringOptions.filter(v =>
+                v.toLowerCase().includes(needle)
+              )
+            }
+          },
+
+          // "compRef" is the Vue reference to the QSelect
+          compRef => {
+            if (
+              val !== '' &&
+              compRef.options.length !== 0 &&
+              compRef.getOptionIndex() === -1
+            ) {
+              compRef.moveOptionSelection(1, true) // focus the first selectable option and do not update the input-value
+              compRef.toggleOption(
+                compRef.options[compRef.getOptionIndex()],
+                true
+              ) // toggle the focused option
+            }
+          }
+        )
+      }, 300)
+    }
+
+    function abortFilterFn() {
+      // console.log('delayed filter aborted')
+    }
+
     return {
-      model: ref(null),
+      model,
       options,
-
-      filterFn(val, update, abort) {
-        // call abort() at any time if you can't retrieve data somehow
-
-        setTimeout(() => {
-          update(
-            () => {
-              if (val === '') {
-                options.value = stringOptions
-              } else {
-                const needle = val.toLowerCase()
-                options.value = stringOptions.filter(v =>
-                  v.toLowerCase().includes(needle)
-                )
-              }
-            },
-
-            // "compRef" is the Vue reference to the QSelect
-            compRef => {
-              if (val !== '' && compRef.options.length !== 0) {
-                compRef.setOptionIndex(-1) // reset optionIndex in case there is something selected
-                compRef.moveOptionSelection(1, true) // focus the first selectable option and do not update the input-value
-              }
-            }
-          )
-        }, 300)
-      },
-
-      filterFnAutoselect(val, update, abort) {
-        // call abort() at any time if you can't retrieve data somehow
-
-        setTimeout(() => {
-          update(
-            () => {
-              if (val === '') {
-                options.value = stringOptions
-              } else {
-                const needle = val.toLowerCase()
-                options.value = stringOptions.filter(v =>
-                  v.toLowerCase().includes(needle)
-                )
-              }
-            },
-
-            // "compRef" is the Vue reference to the QSelect
-            compRef => {
-              if (
-                val !== '' &&
-                compRef.options.length !== 0 &&
-                compRef.getOptionIndex() === -1
-              ) {
-                compRef.moveOptionSelection(1, true) // focus the first selectable option and do not update the input-value
-                compRef.toggleOption(
-                  compRef.options[compRef.getOptionIndex()],
-                  true
-                ) // toggle the focused option
-              }
-            }
-          )
-        }, 300)
-      },
-
-      abortFilterFn() {
-        // console.log('delayed filter aborted')
-      }
+      filterFn,
+      filterFnAutoselect,
+      abortFilterFn
     }
   }
 }

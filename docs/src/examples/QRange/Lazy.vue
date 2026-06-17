@@ -23,12 +23,11 @@ import { ref } from 'vue'
 
 export default {
   setup() {
-    return {
-      lazy: ref({
-        min: 10,
-        max: 35
-      })
-    }
+    const lazy = ref({
+      min: 10,
+      max: 35
+    })
+    return { lazy }
   }
 }
 </script>

@@ -60,56 +60,60 @@ export default {
       }
     }
 
+    function undo() {
+      // shift the stack
+      const data = undoStack.value.shift()
+      if (data !== void 0) {
+        // block undo from receiving its own data
+        undoBlocked.value = true
+        editorRef.value.textContent = data
+      }
+    }
+
+    function redo() {
+      // shift the stack
+      const data = redoStack.value.shift()
+      if (data !== void 0) {
+        // unblock undo from receiving redo data
+        undoBlocked.value = false
+        editorRef.value.textContent = data
+      }
+    }
+
+    function handler(mutationRecords) {
+      mutationRecords.forEach(record => {
+        if (record.type === 'characterData') {
+          undoStack.value.unshift(record.oldValue)
+          checkStack(undoStack.value)
+          clearStack(redoStack.value)
+        } else if (record.type === 'childList') {
+          record.removedNodes.forEach(node => {
+            if (!undoBlocked.value) {
+              // comes from redo
+              undoStack.value.unshift(node.textContent)
+            } else {
+              // comes from undo
+              redoStack.value.unshift(node.textContent)
+            }
+          })
+
+          // check stacks
+          checkStack(undoStack.value)
+          checkStack(redoStack.value)
+          undoBlocked.value = false
+        }
+      })
+    }
+
     return {
       maxStack,
       undoStack,
       redoStack,
       undoBlocked,
 
-      undo() {
-        // shift the stack
-        const data = undoStack.value.shift()
-        if (data !== void 0) {
-          // block undo from receiving its own data
-          undoBlocked.value = true
-          editorRef.value.textContent = data
-        }
-      },
-
-      redo() {
-        // shift the stack
-        const data = redoStack.value.shift()
-        if (data !== void 0) {
-          // unblock undo from receiving redo data
-          undoBlocked.value = false
-          editorRef.value.textContent = data
-        }
-      },
-
-      handler(mutationRecords) {
-        mutationRecords.forEach(record => {
-          if (record.type === 'characterData') {
-            undoStack.value.unshift(record.oldValue)
-            checkStack(undoStack.value)
-            clearStack(redoStack.value)
-          } else if (record.type === 'childList') {
-            record.removedNodes.forEach(node => {
-              if (!undoBlocked.value) {
-                // comes from redo
-                undoStack.value.unshift(node.textContent)
-              } else {
-                // comes from undo
-                redoStack.value.unshift(node.textContent)
-              }
-            })
-
-            // check stacks
-            checkStack(undoStack.value)
-            checkStack(redoStack.value)
-            undoBlocked.value = false
-          }
-        })
-      }
+      undo,
+      redo,
+      handler
     }
   }
 }

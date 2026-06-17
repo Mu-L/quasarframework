@@ -93,10 +93,10 @@ export default {
   setup() {
     const $q = useQuasar()
 
-    return {
-      drawerLeft: ref($q.screen.width > 700),
-      drawerRight: ref($q.screen.width > 500)
-    }
+    const drawerLeft = ref($q.screen.width > 700)
+    const drawerRight = ref($q.screen.width > 500)
+
+    return { drawerLeft, drawerRight }
   }
 }
 </script>

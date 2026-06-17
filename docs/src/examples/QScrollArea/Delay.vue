@@ -21,18 +21,20 @@ export default {
   setup() {
     const number = ref(4)
 
+    function less() {
+      if (number.value > 1) {
+        number.value--
+      }
+    }
+
+    function more() {
+      number.value++
+    }
+
     return {
       number,
-
-      less() {
-        if (number.value > 1) {
-          number.value--
-        }
-      },
-
-      more() {
-        number.value++
-      }
+      less,
+      more
     }
   }
 }

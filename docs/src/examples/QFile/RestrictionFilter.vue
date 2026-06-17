@@ -33,26 +33,33 @@ export default {
   setup() {
     const $q = useQuasar()
 
+    const filesMaxSize = ref(null)
+    const filesPng = ref(null)
+
+    function checkFileSize(files) {
+      return files.filter(file => file.size < 2048)
+    }
+
+    function checkFileType(files) {
+      return files.filter(file => file.type === 'image/png')
+    }
+
+    function onRejected(rejectedEntries) {
+      // Notify plugin needs to be installed
+      // https://v2.quasar.dev/quasar-plugins/notify#Installation
+      $q.notify({
+        type: 'negative',
+        message: `${rejectedEntries.length} file(s) did not pass validation constraints`
+      })
+    }
+
     return {
-      filesMaxSize: ref(null),
-      filesPng: ref(null),
+      filesMaxSize,
+      filesPng,
 
-      checkFileSize(files) {
-        return files.filter(file => file.size < 2048)
-      },
-
-      checkFileType(files) {
-        return files.filter(file => file.type === 'image/png')
-      },
-
-      onRejected(rejectedEntries) {
-        // Notify plugin needs to be installed
-        // https://v2.quasar.dev/quasar-plugins/notify#Installation
-        $q.notify({
-          type: 'negative',
-          message: `${rejectedEntries.length} file(s) did not pass validation constraints`
-        })
-      }
+      checkFileSize,
+      checkFileType,
+      onRejected
     }
   }
 }

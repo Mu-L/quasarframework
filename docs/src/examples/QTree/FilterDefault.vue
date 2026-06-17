@@ -28,44 +28,46 @@ export default {
     const filter = ref('')
     const filterRef = useTemplateRef('filterRef')
 
+    const simple = [
+      {
+        label: 'Satisfied customers',
+        children: [
+          {
+            label: 'Good food',
+            children: [
+              { label: 'Quality ingredients' },
+              { label: 'Good recipe' }
+            ]
+          },
+          {
+            label: 'Good service (disabled node)',
+            disabled: true,
+            children: [
+              { label: 'Prompt attention' },
+              { label: 'Professional waiter' }
+            ]
+          },
+          {
+            label: 'Pleasant surroundings',
+            children: [
+              { label: 'Happy atmosphere' },
+              { label: 'Good table presentation' },
+              { label: 'Pleasing decor' }
+            ]
+          }
+        ]
+      }
+    ]
+
+    function resetFilter() {
+      filter.value = ''
+      filterRef.value.focus()
+    }
+
     return {
       filter,
-
-      simple: [
-        {
-          label: 'Satisfied customers',
-          children: [
-            {
-              label: 'Good food',
-              children: [
-                { label: 'Quality ingredients' },
-                { label: 'Good recipe' }
-              ]
-            },
-            {
-              label: 'Good service (disabled node)',
-              disabled: true,
-              children: [
-                { label: 'Prompt attention' },
-                { label: 'Professional waiter' }
-              ]
-            },
-            {
-              label: 'Pleasant surroundings',
-              children: [
-                { label: 'Happy atmosphere' },
-                { label: 'Good table presentation' },
-                { label: 'Pleasing decor' }
-              ]
-            }
-          ]
-        }
-      ],
-
-      resetFilter() {
-        filter.value = ''
-        filterRef.value.focus()
-      }
+      simple,
+      resetFilter
     }
   }
 }

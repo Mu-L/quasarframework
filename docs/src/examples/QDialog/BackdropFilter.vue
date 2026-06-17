@@ -51,16 +51,18 @@ export default {
     const dialog = ref(false)
     const backdropFilter = ref(null)
 
+    const backdropFilterList = list.map(filter => ({
+      label: filter,
+      onClick: () => {
+        backdropFilter.value = filter
+        dialog.value = true
+      }
+    }))
+
     return {
       dialog,
       backdropFilter,
-      backdropFilterList: list.map(filter => ({
-        label: filter,
-        onClick: () => {
-          backdropFilter.value = filter
-          dialog.value = true
-        }
-      }))
+      backdropFilterList
     }
   }
 }

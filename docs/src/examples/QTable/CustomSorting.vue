@@ -160,32 +160,33 @@ const rows = [
 
 export default {
   setup() {
+    function customSort(rowsList, sortBy, descending) {
+      const data = [...rowsList]
+
+      if (sortBy) {
+        data.sort((a, b) => {
+          const x = descending ? b : a
+          const y = descending ? a : b
+
+          return sortBy === 'name'
+            ? // string sort
+              x[sortBy] > y[sortBy]
+              ? 1
+              : x[sortBy] < y[sortBy]
+                ? -1
+                : 0
+            : // numeric sort
+              Number.parseFloat(x[sortBy]) - Number.parseFloat(y[sortBy])
+        })
+      }
+
+      return data
+    }
+
     return {
       columns,
       rows,
-
-      customSort(rowsList, sortBy, descending) {
-        const data = [...rowsList]
-
-        if (sortBy) {
-          data.sort((a, b) => {
-            const x = descending ? b : a
-            const y = descending ? a : b
-
-            return sortBy === 'name'
-              ? // string sort
-                x[sortBy] > y[sortBy]
-                ? 1
-                : x[sortBy] < y[sortBy]
-                  ? -1
-                  : 0
-              : // numeric sort
-                Number.parseFloat(x[sortBy]) - Number.parseFloat(y[sortBy])
-          })
-        }
-
-        return data
-      }
+      customSort
     }
   }
 }

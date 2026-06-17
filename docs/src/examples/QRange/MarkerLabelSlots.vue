@@ -132,19 +132,22 @@ import { ref } from 'vue'
 
 export default {
   setup() {
+    const firstModel = ref({
+      min: 2,
+      max: 4
+    })
+    const secondModel = ref({
+      min: 2,
+      max: 4
+    })
+    const thirdModel = ref({
+      min: 2.5,
+      max: 4.5
+    })
     return {
-      firstModel: ref({
-        min: 2,
-        max: 4
-      }),
-      secondModel: ref({
-        min: 2,
-        max: 4
-      }),
-      thirdModel: ref({
-        min: 2.5,
-        max: 4.5
-      })
+      firstModel,
+      secondModel,
+      thirdModel
     }
   }
 }

@@ -55,10 +55,12 @@
 
 <script>
 export default {
-  methods: {
-    onClick() {
+  setup() {
+    function onClick() {
       // console.log('Clicked on a fab action')
     }
+
+    return { onClick }
   }
 }
 </script>

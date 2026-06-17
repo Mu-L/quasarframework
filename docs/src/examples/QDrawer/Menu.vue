@@ -101,10 +101,8 @@ const menuList = [
 
 export default {
   setup() {
-    return {
-      drawer: ref(false),
-      menuList
-    }
+    const drawer = ref(false)
+    return { drawer, menuList }
   }
 }
 </script>

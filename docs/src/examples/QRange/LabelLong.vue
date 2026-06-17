@@ -19,12 +19,11 @@ import { ref } from 'vue'
 
 export default {
   setup() {
-    return {
-      model: ref({
-        min: -16,
-        max: 16
-      })
-    }
+    const model = ref({
+      min: -16,
+      max: 16
+    })
+    return { model }
   }
 }
 </script>

@@ -55,20 +55,27 @@ export default {
       max: 6
     })
 
+    const fnMarkerLabel = val => `${10 * val}%`
+    const objMarkerLabel = { 0: '0°C', 3: { label: '3°C' }, 5: '5°C', 6: '6°C' }
+
+    const minPriceLabel = computed(() => `$ ${priceModel.value.min}`)
+    const maxPriceLabel = computed(() => `$ ${priceModel.value.max}`)
+    const arrayMarkerLabel = [
+      { value: 3, label: '$3' },
+      { value: 4, label: '$4' },
+      { value: 5, label: '$5' },
+      { value: 6, label: '$6' }
+    ]
+
     return {
       model,
-      fnMarkerLabel: val => `${10 * val}%`,
-      objMarkerLabel: { 0: '0°C', 3: { label: '3°C' }, 5: '5°C', 6: '6°C' },
+      fnMarkerLabel,
+      objMarkerLabel,
 
       priceModel,
-      minPriceLabel: computed(() => `$ ${priceModel.value.min}`),
-      maxPriceLabel: computed(() => `$ ${priceModel.value.max}`),
-      arrayMarkerLabel: [
-        { value: 3, label: '$3' },
-        { value: 4, label: '$4' },
-        { value: 5, label: '$5' },
-        { value: 6, label: '$6' }
-      ]
+      minPriceLabel,
+      maxPriceLabel,
+      arrayMarkerLabel
     }
   }
 }

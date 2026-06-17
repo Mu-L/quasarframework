@@ -9,14 +9,14 @@ import { ref } from 'vue'
 
 export default {
   setup() {
-    return {
-      group: ref([]),
-      options: [
-        { label: 'Battery too low', value: 'bat' },
-        { label: 'Friend request', value: 'friend', color: 'green' },
-        { label: 'Picture uploaded', value: 'upload', color: 'red' }
-      ]
-    }
+    const group = ref([])
+    const options = [
+      { label: 'Battery too low', value: 'bat' },
+      { label: 'Friend request', value: 'friend', color: 'green' },
+      { label: 'Picture uploaded', value: 'upload', color: 'red' }
+    ]
+
+    return { group, options }
   }
 }
 </script>

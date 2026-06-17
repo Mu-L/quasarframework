@@ -11,9 +11,8 @@ import { ref } from 'vue'
 
 export default {
   setup() {
-    return {
-      days: ref(['2019/02/01', '2019/02/10'])
-    }
+    const days = ref(['2019/02/01', '2019/02/10'])
+    return { days }
   }
 }
 </script>

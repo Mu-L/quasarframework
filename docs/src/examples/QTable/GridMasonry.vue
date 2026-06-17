@@ -109,26 +109,30 @@ export default {
       }
     )
 
+    const columns = [
+      { name: 'name', label: 'Name', field: 'name' },
+      { name: 'calories', label: 'Calories (g)', field: 'calories' }
+    ]
+
+    const cardContainerClass = computed(() =>
+      $q.screen.gt.xs
+        ? 'grid-masonry grid-masonry--' + ($q.screen.gt.sm ? '3' : '2')
+        : null
+    )
+
+    const rowsPerPageOptions = computed(() =>
+      $q.screen.gt.xs ? ($q.screen.gt.sm ? [3, 6, 9] : [3, 6]) : [3]
+    )
+
     return {
       rows,
 
       filter,
       pagination,
 
-      columns: [
-        { name: 'name', label: 'Name', field: 'name' },
-        { name: 'calories', label: 'Calories (g)', field: 'calories' }
-      ],
-
-      cardContainerClass: computed(() =>
-        $q.screen.gt.xs
-          ? 'grid-masonry grid-masonry--' + ($q.screen.gt.sm ? '3' : '2')
-          : null
-      ),
-
-      rowsPerPageOptions: computed(() =>
-        $q.screen.gt.xs ? ($q.screen.gt.sm ? [3, 6, 9] : [3, 6]) : [3]
-      )
+      columns,
+      cardContainerClass,
+      rowsPerPageOptions
     }
   }
 }

@@ -167,8 +167,9 @@ const rows = [
 
 export default {
   setup() {
+    const loading = ref(false)
     return {
-      loading: ref(false),
+      loading,
       columns,
       rows
     }

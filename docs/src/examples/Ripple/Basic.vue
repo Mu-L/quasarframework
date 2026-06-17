@@ -31,6 +31,7 @@ const colors = [
 export default {
   setup() {
     const color = ref(colors[0])
+    const classes = computed(() => `bg-${color.value}`)
     const index = ref(0)
 
     let timer
@@ -49,7 +50,7 @@ export default {
     return {
       color,
       index,
-      classes: computed(() => `bg-${color.value}`)
+      classes
     }
   }
 }

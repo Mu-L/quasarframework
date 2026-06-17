@@ -47,22 +47,24 @@ export default {
     const model = ref(null)
     const options = ref(stringOptions)
 
+    function filterFn(val, update, abort) {
+      update(() => {
+        const needle = val.toLocaleLowerCase()
+        options.value = stringOptions.filter(v =>
+          v.toLocaleLowerCase().includes(needle)
+        )
+      })
+    }
+
+    function setModel(val) {
+      model.value = val
+    }
+
     return {
       model,
       options,
-
-      filterFn(val, update, abort) {
-        update(() => {
-          const needle = val.toLocaleLowerCase()
-          options.value = stringOptions.filter(v =>
-            v.toLocaleLowerCase().includes(needle)
-          )
-        })
-      },
-
-      setModel(val) {
-        model.value = val
-      }
+      filterFn,
+      setModel
     }
   }
 }

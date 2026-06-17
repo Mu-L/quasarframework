@@ -38,10 +38,9 @@ import { ref } from 'vue'
 
 export default {
   setup() {
-    return {
-      file: ref(null),
-      files: ref(null)
-    }
+    const file = ref(null)
+    const files = ref(null)
+    return { file, files }
   }
 }
 </script>

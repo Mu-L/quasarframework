@@ -21,9 +21,8 @@ import { ref } from 'vue'
 
 export default {
   setup() {
-    return {
-      customModel: ref('no')
-    }
+    const customModel = ref('no')
+    return { customModel }
   }
 }
 </script>

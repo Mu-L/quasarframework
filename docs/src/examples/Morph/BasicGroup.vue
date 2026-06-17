@@ -54,19 +54,21 @@ export default {
   setup() {
     const morphGroupModel = ref('topleft')
 
+    function nextMorph() {
+      let value = morphGroupModel.value
+
+      // pick random box, other than current one
+      while (value === morphGroupModel.value) {
+        const i = Math.floor(Math.random() * boxValues.length)
+        value = boxValues[i]
+      }
+
+      morphGroupModel.value = value
+    }
+
     return {
       morphGroupModel,
-      nextMorph() {
-        let value = morphGroupModel.value
-
-        // pick random box, other than current one
-        while (value === morphGroupModel.value) {
-          const i = Math.floor(Math.random() * boxValues.length)
-          value = boxValues[i]
-        }
-
-        morphGroupModel.value = value
-      }
+      nextMorph
     }
   }
 }

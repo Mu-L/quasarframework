@@ -29,15 +29,18 @@ export default {
   setup() {
     const visible = ref(false)
 
+    const visibleClass = computed(
+      () => `bg-${visible.value ? 'positive' : 'negative'}`
+    )
+
+    function onIntersection(entry) {
+      visible.value = entry.isIntersecting
+    }
+
     return {
       visible,
-      visibleClass: computed(
-        () => `bg-${visible.value ? 'positive' : 'negative'}`
-      ),
-
-      onIntersection(entry) {
-        visible.value = entry.isIntersecting
-      }
+      visibleClass,
+      onIntersection
     }
   }
 }

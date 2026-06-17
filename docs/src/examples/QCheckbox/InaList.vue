@@ -58,9 +58,8 @@ import { ref } from 'vue'
 
 export default {
   setup() {
-    return {
-      color: ref(['cyan'])
-    }
+    const color = ref(['cyan'])
+    return { color }
   }
 }
 </script>
