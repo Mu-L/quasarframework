@@ -102,6 +102,8 @@
     "prefer-named-capture-group": "off",
     "vue/require-prop-types": "off",
     "vue/next-tick-style": ["error", "callback"],
+    "unicorn/max-nested-calls": "off",
+    "vue/require-default-prop": "off",
 
     /** Performance rule overrides */
     "no-await-in-loop": "off",
@@ -173,6 +175,7 @@
     "unicorn/prefer-query-selector": "off",
     "require-unicode-regexp": "off",
     "unicorn/no-negated-condition": "off",
+    "unicorn/prefer-number-coercion": "off",
 
     /** Nursery rule overrides */
     "no-undef": "error"
@@ -196,7 +199,8 @@
       "rules": {
         "import/first": "off",
         "node/no-process-env": "off",
-        "node/callback-return": "off"
+        "node/callback-return": "off",
+        "node/no-sync": "off"
       }
     },
 
