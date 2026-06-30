@@ -112,7 +112,7 @@ if (argv.path) {
   })
 }
 
-import util from 'node:util'
+import { inspect } from 'node:util'
 
 cfgEntries.forEach(cfgEntry => {
   const tool = cfgEntry.object.configFile !== void 0 ? 'Vite' : 'Rolldown'
@@ -121,7 +121,7 @@ cfgEntries.forEach(cfgEntry => {
   log(`Showing "${cfgEntry.name}" config (for ${tool}) with depth of ${depth}`)
   console.log()
   console.log(
-    util.inspect(cfgEntry.object, {
+    inspect(cfgEntry.object, {
       showHidden: true,
       depth,
       colors: true,
